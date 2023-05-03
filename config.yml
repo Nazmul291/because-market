@@ -1,0 +1,6 @@
+shop:
+  password: ${SHOPIFY_THEME_CLI_PASS}
+  theme_id: ${SHOPIFY_THEME_ID}
+  store: ${STORE_DOMAIN}
+  ignores:
+    - .shopifyignore

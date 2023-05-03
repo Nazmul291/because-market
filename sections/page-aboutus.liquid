@@ -1,0 +1,396 @@
+<!-- /sections/page.aboutus.liquid-->
+
+{%- assign page_nav = linklists[section.settings.page_nav] -%}
+
+{%- assign page_nav_enable = false -%}
+{%- if page_nav.links.size > 0 -%}
+  {%- assign page_nav_enable = true -%}
+{%- endif -%}
+
+{%- assign page_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+{%- assign title_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+
+{%- if page_nav_enable %}
+  {%- assign page_grid = 'medium-up--three-quarters' -%}
+  {%- assign title_grid = 'one-whole' -%}
+{%- endif -%}
+
+<div class="wrapper page-margin">
+
+  <div class="grid">
+    {% comment %}
+      <div class="grid__item {{ title_grid }}">
+        {%- if section.settings.show_title -%}
+          {% include 'dots', direction: 'down' %}
+          <div class="title-decoration"></div>
+          <h1 class="title--decorated">{{ page.title | escape }}</h1>
+        {%- endif -%}
+      </div>
+    {% endcomment %}
+    {%- if page_nav_enable -%}
+
+      <div class="grid__item medium-up--hide">
+        <ul class="inline-nav">
+          {% for link in page_nav.links %}
+            <li {% if link.active %} class="inline-nav--active" {% endif %}>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="grid__item medium-up--one-quarter">
+        <ul class="vertical-nav small--hide">
+          {% for link in page_nav.links %}
+            <li {% if link.active %} class="vertical-nav--active" {% endif %}>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    {% endif %}
+
+    {% comment %}
+      <div class="grid__item {{ page_grid }}">
+        <div class="rte page__team__content">
+          {{ page.content }}
+        </div>
+      </div>
+    {% endcomment %}
+
+    <div id="our-story-page-wrapper">
+      <div class="container">
+        <section class="story-main-section">
+          <div class="row text-section-1 page-padding">
+            <div class="col-12">
+              <p>BECAUSE IT'S ABOUT TIME</p>
+              <h1>We started Because with a simple idea - we wanted a better way to serve and support our families.
+              </h1>
+            </div>
+          </div>
+
+          <div class="row text-section-2 page-padding">
+            <div class="col-lg-4">
+              <hr class="">
+            </div>
+            <div class="col-lg-8">
+              <p>We are the sons and daughters, the devoted caretakers, the people who would drive to six different stores trying to find the supplies for our parents and grandparents (we tried - and after six different stores we still came up short.) From hand creams to protective underwear, from Ibuprofen to Omega 3 we would canvass supermarkets and pharmacies.</p>
+            </div>
+          </div>
+
+          <div class="row text-section-3 page-padding">
+            <div class="col-lg-4">
+              <p>The start</p>
+            </div>
+            <div class="col-lg-8">
+              <p>Incontinence affects 25 million people in the US, and half of women over 50. You know someone who deals with it- someone who can’t always make it to the bathroom in time or get through the day without a leak.</p>
+              <p>But chances are they’ve never talked about it with you or anyone, which usually means nobody is helping. That needs to change.</p>
+            </div>
+          </div>
+
+          <div class="row text-section-4">
+            <div class="col-lg-7">
+              <img src="{{ 'story_img1.png' | file_url }}" class="img-responsive" alt="">
+            </div>
+            <div class="col-lg-5">
+              <!-- <p>“</p> -->
+              <h4>“When you need it, better protective underwear can be life changing. So we started Because to create a better way to help you and people you love live full lives.”</h4>
+              <p>Alexi & Luca, Co-Founders Because</p>
+            </div>
+          </div>
+
+          <div class="row text-section-5">
+            <div class="col-lg-4">
+              <img src="{{ 'story_img2.png' | file_url}}" alt="">
+            </div>
+            <div class="col-lg-8">
+              <img src="{{ 'story_img3.png' | file_url }}" class="img-responsive" alt="">
+            </div>
+          </div>
+
+          <div class="row text-section-6 page-padding">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-8">
+              <h4>Community is the family you choose.</h4>
+              <div>
+                <p>We began this mission to improve the way our own families receive the things they needed most. After dozens and dozens of trips to the supermarket and drugstores on behalf of our loved ones, we knew there was room to improve the way people found and bought their personal care items.</p>
+                <p>It started with family- honest conversations, open minds, and a desire to make things better not just for ourselves, but for everyone we knew who had the same issues. As we spoke to more people, it became crystal clear that the impact we could have in giving people the confidence to leave their home was bigger than we ever imagined.</p>
+                <p>Every day we are humbled by the openness our members show us to turn subtle changes into lasting impact. From video reviews to sample testing, from website tweaks to product suggestions, our members have made it possible for us to serve hundreds of thousands of people. And every day we are devoted to doing more and doing better.</p>
+                <p>Whether it’s Nana, Nonna, or Nani, we thank you, we love you, and we can’t wait to serve you. Because our members are our family.</p>
+              </div>
+
+              <p class="sincerely-text">
+                Sincerely,
+                <br>
+                <span>Your Because Family</span>
+              </p>
+
+            </div>
+          </div>
+        </section>
+      </div>
+      <section class="partner-main-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 partner-text">
+              <div>
+                <h4>Say hello to our partners</h4>
+                <hr>
+                <p>Because is proud to partner with community organizations and initiatives across the US. Together we can create lasting impact and improve the lives and lifestyles of millions of people.</p>
+              </div>
+            </div>
+            <div class="col-lg-8 partner-logo-container">
+              <div class="hide-small">
+                <div class="partner-logo">
+                  <img src="{{ 'logo_logo-salvation-army.png' | file_url }}" alt="">
+                </div>
+                <div class="partner-logo">
+                  <img src="{{ 'logo_nafc-logo.png' | file_url }}" alt="">
+                </div>
+                <div class="partner-logo">
+                  <img src="{{ 'logo_logo-sequoia-urology-center.png' | file_url }}" alt="">
+                </div>
+                <div class="partner-logo">
+                  <img src="{{ 'logo_logo-st-francis-center.png' | file_url }}" alt="">
+                </div>
+                <div class="partner-logo">
+                  <img src="{{ 'logo_logo-life-moves.png' | file_url }}" alt="">
+                </div>
+              </div>
+              <div class="show-small">
+                <div class="carousel slide carousel-fade" data-interval="5000" data-ride="carousel" id="partner-logo-carousel">
+                  <ol class="carousel-indicators">
+                    <li class="slider-circle active" data-slide-to="0" data-target="#partner-logo-carousel"></li>
+                    <li class="slider-circle" data-slide-to="1" data-target="#partner-logo-carousel"></li>
+                    <li class="slider-circle" data-slide-to="2" data-target="#partner-logo-carousel"></li>
+                    <li class="slider-circle" data-slide-to="3" data-target="#partner-logo-carousel"></li>
+                    <li class="slider-circle" data-slide-to="4" data-target="#partner-logo-carousel"></li>
+                  </ol>
+                  <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                      <img src="{{ 'logo_logo-salvation-army.png' | file_url }}" alt="">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{{ 'logo_nafc-logo.png' | file_url }}" alt="">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{{ 'logo_logo-sequoia-urology-center.png' | file_url }}" alt="">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{{ 'logo_logo-st-francis-center.png' | file_url }}" alt="">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{{ 'logo_logo-life-moves.png' | file_url }}" alt="">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="in-news-main-section container">
+        <h4 class="in-news-heading">In the news</h4>
+        <div class="headlines-container row">
+          <div class="col-lg-4 headline">
+            <div class="news-company">
+              <img src="{{ 'story_medium_18abb37c-9e0a-4e03-a32e-588648b1561f.png' | file_url }}" alt="">
+            </div>
+            <img src="{{ 'story_post1.png'| file_url }}" class="img-responsive" alt="">
+            <h6>
+              <a href="https://medium.com/@alexi/because-its-about-time-a7ee48d92900" rel="noopener noreferrer" target="_blank">It’s time to re-imagine how we make, buy and talk about protective underwear and pads.</a>
+            </h6>
+            <hr>
+          </div>
+
+          <div class="col-lg-4 headline">
+            <div class="news-company">
+              <img src="{{ 'story_forbes.png' | file_url }}" alt="">
+            </div>
+            <img src="{{ 'story_ceo.png' | file_url }}" class="img-responsive" alt="">
+            <h6>
+              <a href="https://www.forbes.com/sites/micahsolomon/2019/02/18/how-two-former-uber-and-wework-honchos-sold-50m-adult-diapers-and-raised-30m-in-capital/#652040b826de" rel="noopener noreferrer" target="_blank">How Two Uber/eBay Alums Sold 50 Million Adult Diapers And Raised $30M From Eric Schmidt, Et Al.</a>
+            </h6>
+            <hr>
+          </div>
+
+          <div class="col-lg-4 headline">
+            <div class="news-company">
+              <img src="{{ 'story_nonwovens.png' | file_url }}" alt="">
+            </div>
+            <img src="{{ 'story_products.png' | file_url }}" class="img-responsive" alt="">
+            <h6>
+              <a href="https://www.nonwovens-industry.com/contents/view_online-exclusives/2019-04-10/because-puts-new-spin-on-adult-inco-products-725887/" rel="noopener noreferrer" target="_blank">Because Puts New Spin On Adult Inco Products</a>
+            </h6>
+            <hr>
+          </div>
+        </div>
+        <div class="articles-btn">
+          <a class="btn" href="/pages/in-news">More articles</a>
+        </div>
+      </section>
+
+      <section class="get-in-touch-section">
+        <div id = "getintouch">
+          <h4>Get in touch</h4>
+
+          <div class="container get-in-touch-container">
+            <div class="row">
+              <div class="col-lg-3 get-in-touch-text">
+                <div>
+                  <p>Customer Support:</p>
+                  <p>
+                    <a href="mailto:help@becausemarket.com">help@becausemarket.com</a>
+                  </p>
+                </div>
+
+                <!-- <div>
+                  <p>Become a partner:</p>
+                  <p>
+                    <a href="mailto:partner@becausemarket.com">partner@becausemarket.com</a>
+                  </p>
+                </div> -->
+              </div>
+              <div class="col-lg-3 get-in-touch-text">
+                <div>
+                  <p>Jobs:</p>
+                  <p>
+                    <a href="mailto:jobs@becausemarket.com">jobs@becausemarket.com</a>
+                  </p>
+                  <p id="linkedin-paragraph-1">Check us out on
+                    <a href="https://www.linkedin.com/company/becausemarket/" rel="noopener noreferrer" target="_blank">Linkedin</a>.
+                  </p>
+                </div>
+                <!-- <div>
+                  <p>Press:</p>
+                  <p>
+                    <a href="mailto:press@becausemarket.com">press@becausemarket.com</a>
+                  </p>
+                </div> -->
+              </div>
+              <div class="col-lg-3 get-in-touch-text">
+                <div>
+                  <p>All Other Inquiries:</p>
+                  <p>
+                    <a href="mailto:sales@becausemarket.com">sales@becausemarket.com</a>
+                  </p>
+                </div>
+                <!-- <div>
+                  <p>Jobs:</p>
+                  <p>
+                    <a href="mailto:jobs@becausemarket.com">jobs@becausemarket.com</a>
+                  </p>
+
+                  <p style="margin-top: 2rem;">Or check out our
+                    <a href="https://www.linkedin.com/company/becausemarket/" rel="noopener noreferrer" target="_blank">Linkedin page</a>
+                  </p>
+                </div> -->
+              </div>
+              <div class="col-lg-3 get-in-touch-text">
+                <div>
+                  <p>Phone Number:</p>
+                  <p>
+                    Give us a call at <a href="tel:8553185318">855-318-5318</a>
+                  </p>
+                  <p id="linkedin-paragraph-2">Check us out on
+                    <a href="https://www.linkedin.com/company/becausemarket/" rel="noopener noreferrer" target="_blank">Linkedin</a>.
+                  </p>
+                  <p>Or find us on
+                    <a href="https://www.facebook.com/becausemarket/" rel="noopener noreferrer" target="_blank">Facebook</a>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!--end getintouch div-->
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Theme Javascript ============================================================== -->
+{{ 'bootstrap.js' | asset_url | script_tag }}
+
+{% schema %}
+
+  {
+  "name": "Page",
+  "settings": [
+  {
+  "type": "link_list",
+  "id": "page_nav",
+  "label": "Secondary page navigation",
+  "info": "This menu won't show dropdown items"
+  }, {
+  "type": "checkbox",
+  "id": "show_title",
+  "label": "Show page title",
+  "default": true
+  }, {
+  "label": "Story Image1",
+  "type": "image_picker",
+  "id": "story_image1",
+  "info": "400 x 200px .png"
+  }, {
+  "label": "Story Image2",
+  "type": "image_picker",
+  "id": "story_image2",
+  "info": "400 x 200px .png"
+  }, {
+  "label": "Story Image3",
+  "type": "image_picker",
+  "id": "story_image3",
+  "info": "400 x 200px .png"
+  }, {
+  "label": "Logo Salvation Army",
+  "type": "image_picker",
+  "id": "logo_salvation_army",
+  "info": "400 x 200px .png"
+  }, {
+  "label": "Logo Nafc Logo",
+  "type": "image_picker",
+  "id": "nafc_logo",
+  "info": "400 x 200px .png"
+  }, {
+  "label": "Logo Logo Sequoia Urology Center",
+  "type": "image_picker",
+  "id": "logo_sequoia_urology_center",
+  "info": "400 x 200px .png"
+  }, {
+  "label": "Logo Logo St Francis Center",
+  "type": "image_picker",
+  "id": "logo_st_francis_center",
+  "info": "400 x 200px .png"
+  }, {
+  "label": "Story Medium Logo",
+  "type": "image_picker",
+  "id": "story_medium",
+  "info": "400 x 200px .png"
+  }, {
+  "label": "Story Forbes Logo",
+  "type": "image_picker",
+  "id": "story_forbes",
+  "info": "400 x 200px .png"
+  }, {
+  "label": "Story CEO Logo",
+  "type": "image_picker",
+  "id": "story_ceo",
+  "info": "400 x 200px .png"
+  }, {
+  "label": "Story Nonwovens Logo",
+  "type": "image_picker",
+  "id": "story_nonwovens",
+  "info": "400 x 200px .png"
+  }, {
+  "label": "Story Products Logo",
+  "type": "image_picker",
+  "id": "story_products",
+  "info": "400 x 200px .png"
+  }
+  ]
+  }
+
+{% endschema %}

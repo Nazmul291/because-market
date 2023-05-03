@@ -1,0 +1,166 @@
+#gladlyChat_container {
+  max-height: 95%!important
+}
+
+.gladlyHC {
+  h3.gladlyHC-faqSection-header {
+    color: #566582;
+    font-family: "Graphik Medium", serif;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 42px;
+    position: relative;
+    padding: 0 0 10px 0;
+  }
+
+  .gladlyHC-answerDetail-name {
+    color: #566582;
+    font-family: "Graphik Medium", serif;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 42px;
+    position: relative;
+    padding: 0 0 10px 0;
+  }
+
+  a.gladlyHC-answerDetail-backLink {
+    background-color: #566583;
+    color: #fff!important;
+    box-shadow: 0 0 4px #333;
+    display: inline-block;
+    border-radius: 1.4em;
+    border: 1px solid #566583;
+    cursor: pointer;
+    max-width: 200px;
+    text-align: center;
+    min-width: 2.4rem;
+    transition: .5s ease;
+    -moz-transition: .5s ease;
+    -webkit-transition: .5s ease;
+    font-weight: 400!important;
+    font-size: 14px;
+    padding: 6px 20px;
+    margin: 20px 0;
+  }
+  a.gladlyHC-answerDetail-backLink:hover {
+    background-color: #3b475e;
+    color: #fff!important;
+    box-shadow: none;
+    text-decoration: none;
+  }
+
+  .gladlyHC-answerDetail-backLink {
+    font-size: 24px;
+    color: #3b475e;
+    text-decoration: none;
+  }
+
+  .gladlyHC-answerDetail-backLink:before {
+    content: "< ";
+  }
+
+  .gladlyHC-answerDetail-backLink:hover {
+    color: #333;
+    text-decoration: none;
+  }
+
+  ul.gladlyHC-answersIndex-list, ul.gladlyHC-faqSection-list {
+    li {
+      a {
+        color: #9699a3;
+        font-family: Helvetica, sans-serif;
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 28px;
+      }
+
+      a:hover {
+        color: #566582;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .gladlyHC-faq {
+    .gladlyHC-faqHeading {
+      display: none;
+    }
+
+    .gladlyHC-searchContainer {
+      .gladlyHC-searchInput {
+        margin: 20px 0 10px 0;
+        padding: 20px;
+        border: 1px solid #dadbdc;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        border-radius: 7px;
+        background-color: #f5f7f9;
+        color: #333;
+      }
+
+      .gladlyHC-searchInput::placeholder {
+        color: #999;
+      }
+
+      .gladlyHC-searchMenuContainer {
+        z-index: 100;
+
+        .gladlyHC-searchMenu {
+          background: rgba(255,255,255,0.95);
+          padding: 20px;
+
+          a {
+            color: #566582;
+            text-decoration: none;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    .gladlyHC-faqSection {
+      ul.gladlyHC-faqSection-list {
+        li.gladlyHC-faqSection-listItem {
+          a {
+            color: #9699a3;
+            font-family: Helvetica, sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 28px;
+          }
+
+          a:hover {
+            color: #566582;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .gladlyHC-answersIndex-link {
+      a {
+        background-color: #566583;
+        color: #fff!important;
+        box-shadow: 0 0 4px #333;
+        display: inline-block;
+        margin: .5em 1em .5em 0;
+        border-radius: 1.4em;
+        border: 1px solid #566583;
+        cursor: pointer;
+        min-width: 2.4rem;
+        transition: .5s ease;
+        -moz-transition: .5s ease;
+        -webkit-transition: .5s ease;
+        font-weight: 400!important;
+        font-size: 14px;
+        padding: 6px 20px;
+      }
+      a:hover {
+        background-color: #3b475e;
+        color: #fff!important;
+        box-shadow: none;
+        text-decoration: none;
+      }
+    }
+  }
+}

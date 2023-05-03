@@ -1,0 +1,231 @@
+<!-- /sections/collection-bottom-offer.liquid-->
+{% if section.settings.tracking_event != blank %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.querySelector('.js-track-action-click--{{ section.id }}')
+
+            if (!button) {
+                console.error('collection-bottom-offer section: Action button not found! Tracking aborted!')
+            } else {
+                button.addEventListener('click', (e) => mixpanel.track('{{ section.settings.tracking_event }}'))
+            }
+        })
+    </script>
+{% endif %}
+
+{% if section.blocks.size > 0 %}
+    <div data-section-id="{{ section.id }}" data-section-type="collectionBottomOffer">
+        {% for offer in section.blocks %}
+            {% if offer.settings.collection.id != collection.id %}
+                {% continue %}
+            {% endif %}
+
+            <div class="collection-bottom-offer">
+                <div class="collection-bottom-offer__image-wrapper">
+                    {% if offer.settings.image %}
+                        <img class="collection-bottom-offer__image" src="{{ offer.settings.image | img_url: '720x', format: 'pjpg', scale: '2' }}" alt="{{ offer.settings.title }}"/>
+                    {% endif %}
+                </div>
+                <div class="collection-bottom-offer__details">
+                    {% if offer.settings.title != blank %}
+                        <h2 class="collection-bottom-offer__title">{{ offer.settings.title }}</h2>
+                    {% endif %}
+                    {% if offer.settings.description != blank %}
+                        <p class="collection-bottom-offer__description">{{ offer.settings.description }}</p>
+                    {% endif %}
+                    <p class="collection-bottom-offer__note">{{ offer.settings.note }}</p>
+                    {% if offer.settings.action_text != blank %}
+                        {% if offer.settings.action_url != blank %}
+                            <a class="collection-bottom-offer__action {{ offer.settings.action_class }} js-track-action-click--{{ section.id }}" href="{{ offer.settings.action_url }}">{{ offer.settings.action_text }}</a>
+                        {% else %}
+                            <button class="collection-bottom-offer__action {{ offer.settings.action_class }} js-track-action-click--{{ section.id }}">{{ offer.settings.action_text }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {%endfor%}
+    </div>
+{% endif %}
+
+{% stylesheet %}
+    .collection-bottom-offer {
+        display: flex;
+        flex-direction: row;
+        align-content: stretch;
+        padding: 0 72px 90px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .collection-bottom-offer--reversed {
+        flex-direction: row-reverse;
+    }
+
+    .collection-bottom-offer__image-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .collection-bottom-offer__image {
+        max-width: 426px;
+        height: auto;
+        border: 0;
+        outline: 0;
+    }
+
+    .collection-bottom-offer__details {
+        display: flex;
+        flex-direction: column;
+        padding: 24px 72px;
+        box-sizing: border-box;
+        color: #333333;
+    }
+
+    .collection-bottom-offer__title {
+        max-width: 450px;
+        font-family: "Cooper Lt BT W05 Regular";
+        font-size: 24px;
+        font-weight: 300;
+        line-height: 35px;
+
+        margin: 0 0 20px;
+        padding: 0;
+    }
+
+    .collection-bottom-offer__description {
+        font-family: "Cooper Md BT W05 Regular";
+        font-weight: 500;
+        font-size: 36px;
+        line-height: 45px;
+    }
+
+    .collection-bottom-offer__note {
+        font-family: "Graphik Regular";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 35px;
+        letter-spacing: 0px;
+        flex: 1;
+    }
+
+    .collection-bottom-offer__action {
+        display: block;
+        width: auto;
+        margin-right: auto;
+        padding: 17px 36px;
+        border-radius: 30px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background-color: #fff;
+        color: #333333;
+        text-decoration: none;
+        font-family: "Coppet Md BT W05 Regular";
+        font-size: 18px;
+        line-height: 25px;
+        background-color: #0AE5DA;
+    }
+
+    .collection-bottom-offer__action:hover,
+    .collection-bottom-offer__action:visited,
+    .collection-bottom-offer__action:active {
+        color: #333333;
+        text-decoration: none;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) {
+        .collection-bottom-offer,
+        .collection-bottom-offer--reversed {
+            flex-direction: column;
+        }
+
+        .collection-bottom-offer {
+            padding: 0 0 60px;
+        }
+
+        .collection-bottom-offer__image-wrapper,
+        .collection-bottom-offer__details {
+            width: 100%;
+        }
+
+        .collection-bottom-offer__image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .collection-bottom-offer__details {
+            min-height: 100%;
+            padding: 36px 24px;
+        }
+
+        .collection-bottom-offer__title {
+            width: 100%;
+            font-size: 36px;
+            line-height: 50px;
+        }
+
+        .collection-bottom-offer__description {
+            font-size: 24px;
+            line-height: 35px;
+            margin-bottom: 50px;
+        }
+    }
+{% endstylesheet %}
+
+{% schema %}
+    {
+        "name": "Collection bottom offer",
+        "tag": "section",
+        "blocks": [
+            {
+                "name": "Offers per collection",
+                "type": "collection",
+                "settings": [
+                    {
+                        "type": "collection",
+                        "id": "collection",
+                        "label": "Collection where to show"
+                    }, {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    }, {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title"
+                    }, {
+                        "type": "text",
+                        "id": "description",
+                        "label": "Description"
+                    }, {
+                        "type": "text",
+                        "id": "note",
+                        "label": "Note"
+                    }, {
+                        "type": "text",
+                        "id": "action_text",
+                        "label": "Action button text"
+                    }, {
+                        "type": "text",
+                        "id": "action_url",
+                        "label": "Action button URL"
+                    }, {
+                        "type": "text",
+                        "id": "action_class",
+                        "label": "Action button class name"
+                    }, {
+                        "type": "text",
+                        "id": "tracking_event",
+                        "label": "Mixpanel tracking event text"
+                    }
+                ]
+            }
+        ],
+        "presets": [{
+            "name": "Action banner",
+            "category": "Custom Sections"
+        }]
+    }
+{% endschema %}

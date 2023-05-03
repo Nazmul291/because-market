@@ -1,0 +1,467 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Story",
+    "theme_version": "1.2.1",
+    "theme_author": "Groupthought",
+    "theme_documentation_url": "https://story.groupthought.com/",
+    "theme_support_url": "https://story.groupthought.com/contact"
+  },
+  {
+    "name": "Gladly settings",
+    "settings": [
+      {
+        "type": "select",
+        "id": "gladly_env",
+        "label": "Gladly environment",
+        "options": [
+          {
+            "value": "STAGING",
+            "label": "Staging"
+          },
+          {
+            "value": "PROD",
+            "label": "Production"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Cart redirect",
+    "settings": [
+      {
+        "type": "select",
+        "id": "checkout_cart_redirect",
+        "label": "Redirect to",
+        "options": [
+          {
+            "value": "https://qa1-try.becausemarket.com",
+            "label": "QA1"
+          },
+          {
+            "value": "https://qa2-try.becausemarket.com",
+            "label": "QA2"
+          },
+          {
+            "value": "https://qa3-try.becausemarket.com",
+            "label": "QA3"
+          },
+          {
+            "value": "https://stage-try.becausemarket.com",
+            "label": "Stage"
+          },
+          {
+            "value": "https://try.becausemarket.com",
+            "label": "Prod"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "label": "Heading font",
+        "default": "itc_caslon_no_224_n9"
+      },
+      {
+        "type": "range",
+        "id": "type_heading_size",
+        "min": 75,
+        "max": 125,
+        "step": 5,
+        "unit": "%",
+        "label": "Font size",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "Body text"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_base_font",
+        "label": "Font",
+        "default": "harmonia_sans_n4"
+      },
+      {
+        "type": "range",
+        "id": "type_body_size",
+        "min": 75,
+        "max": 125,
+        "step": 5,
+        "unit": "%",
+        "label": "Font size",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "Numbers"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_number_font",
+        "label": "Font",
+        "default": "din_next_slab_n4"
+      },
+      {
+        "type": "range",
+        "id": "type_number_size",
+        "min": 75,
+        "max": 125,
+        "step": 5,
+        "unit": "%",
+        "label": "Font size",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "General colors"
+      },
+      {
+        "type": "color",
+        "id": "announcement_bg",
+        "label": "Announcement background",
+        "default": "#0AE5DA",
+        "info": "Color used for background of announcement on the top of the page"
+      },
+      {
+        "type": "color",
+        "id": "announcement_text",
+        "label": "Announcement Text",
+        "default": "#333333",
+        "info": "Color used for text of announcement on the top of the page"
+      },
+      {
+        "type": "color",
+        "id": "color_body_text",
+        "label": "Body Text",
+        "default": "#586272",
+        "info": "Color used for content and paragraph text"
+      },
+      {
+        "type": "color",
+        "id": "accent_warm",
+        "label": "Primary accents",
+        "default": "#FF8277",
+        "info": "Used to highlight the purchase path"
+      },
+      {
+        "type": "color",
+        "id": "accent_cool",
+        "label": "Secondary accents",
+        "default": "#267DA1",
+        "info": "Used for text links, and secondary buttons"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Borders and lines",
+        "default": "#DFE1E3"
+      },
+      {
+        "type": "color",
+        "id": "color_body_light",
+        "label": "Secondary background",
+        "default": "#F7F9FA",
+        "info": "Used for light background accents on the home page"
+      },
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "color",
+        "id": "color_nav_bg",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_nav_text",
+        "label": "Text",
+        "default": "#586272"
+      },
+      {
+        "type": "color",
+        "id": "color_nav_border",
+        "label": "Border",
+        "default": "rgba(0,0,0,0)"
+      },
+      {
+        "type": "header",
+        "content": "Footer"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_bg",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_footer_text",
+        "label": "Text",
+        "default": "#586272"
+      },
+      {
+        "type": "header",
+        "content": "Product grid"
+      },
+      {
+        "type": "color",
+        "id": "color_product_grid",
+        "label": "Background",
+        "default": "#fcfcfc"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "layout_container_enable",
+        "label": "Enable container",
+        "default": true,
+        "info": "Restrict the width of your site to control proportions"
+      },
+      {
+        "type": "select",
+        "id": "decoration_style",
+        "label": "Title decoration",
+        "options": [
+          {
+            "value": "decoration-modern",
+            "label": "Modern"
+          },
+          {
+            "value": "decoration-none",
+            "label": "None"
+          }
+        ],
+        "default": "decoration-modern"
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social sharing options"
+      },
+      {
+        "type": "checkbox",
+        "id": "share_facebook",
+        "label": "Share on Facebook",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_twitter",
+        "label": "Tweet on Twitter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "share_pinterest",
+        "label": "Pin on Pinterest",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Social links"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter link"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook link"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest link"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram link"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": "Snapchat link"
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": "Tumblr link"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "Youtube link"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": "Vimeo link"
+      },
+      {
+        "type": "header",
+        "content": "Share Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "social_home_image",
+        "label": "Homepage share image"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Show cart notes",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_additional_buttons",
+        "label": "Show additional checkout options",
+        "info": "Apple Pay, PayPal express, etc",
+        "default": false
+      },
+      {
+        "type": "url",
+        "id": "cart_continue_browsing",
+        "label": "Empty cart link",
+        "default": "/collections/all",
+        "info": "Continue browsing link for the empty cart"
+      }
+    ]
+  },
+  {
+    "name": "Product grid",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Product layout"
+      },
+      {
+        "type": "paragraph",
+        "content": "Control how products look when displayed side-by-side in collections and groups of related products."
+      },
+      {
+        "type": "select",
+        "id": "collection_text_alignment",
+        "label": "Text alignment",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Center"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ],
+        "default": "text-left"
+      },
+      {
+        "type": "select",
+        "id": "show_vendow",
+        "label": "Vendor",
+        "options": [
+          {
+            "value": "hide-vendor",
+            "label": "Hide vendor"
+          },
+          {
+            "value": "show-vendor-link",
+            "label": "Show vendor with link"
+          },
+          {
+            "value": "show-vendor",
+            "label": "Show vendor without link"
+          }
+        ],
+        "default": "hide-vendor"
+      },
+      {
+        "type": "checkbox",
+        "label": "Show second image on hover",
+        "id": "image_hover_enable",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Product tags"
+      },
+      {
+        "type": "checkbox",
+        "label": "Show sold out tags",
+        "id": "tag_sellout",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "label": "Show sale tags",
+        "id": "tag_sale",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "label": "Show new product tags",
+        "id": "tag_new",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "tag_new_limit",
+        "min": 0,
+        "max": 90,
+        "step": 2,
+        "label": "Products show new tag for",
+        "default": 14,
+        "info": "Days"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  }
+]

@@ -1,0 +1,303 @@
+<!-- /sections/page.skincare.liquid-->
+
+
+{%- assign page_nav = linklists[section.settings.page_nav] -%}
+
+{%- assign page_nav_enable = false -%}
+{%- if page_nav.links.size > 0 -%}
+{%- assign page_nav_enable = true -%}
+{%- endif -%}
+
+<div class="wrapper page-margin">
+  <div class="grid">
+    <div class="skincare-wrapper">
+      <div class="container-fluid two-columns">
+        <div class="row skincare-title-row">
+          <div class="col-12 col-md-6 offset-md-1 my-auto title-col">
+            <h1 class="two-column-header">Nourish your face, hands, and body</h1>
+            <div class="two-column-subheader">Skin care crafted for your needs.</div>
+            <div class="button funnel-link"><span>Get Started</span></div>
+          </div>
+          <div class="col-12 col-md-5 p-0">
+            <img class="two-column-right-image w-100" src="{{ 'skincare-skincare-title-image.png' | file_url }}" />
+          </div>
+        </div>
+        <div class="row categories-row">
+          <div class="col-12 col-md-3 text-center">
+            <img src="{{ 'skincare-face.png' | file_url }}" />
+            <h3 class="face">Take great care<br class="d-block d-md-none" /> of your face.</h3>
+            <a href="#collapseFaceDetails" data-toggle="collapse" role="button" aria-expanded="false"
+              aria-controls="collapseFaceDetails" class="hide-me">
+              <img src="{{ 'icon-more-icon.png' | file_url }}" />&nbsp;
+              <span class="learn-more">Learn More</span>
+            </a>
+            <div class="collapse details-section" id="collapseFaceDetails">
+              <p>
+                As we age, our skin naturally gets more wrinkly and less elastic
+                when we lose elastin and collagen. Sun, weather, and free radicals
+                break down these important tissues - but proper skincare with
+                antioxidants can prevent this from harming our skin.
+              </p>
+              <hr>
+              <p>
+                Because creams are loaded with age-defying antioxidants
+                and our breakthrough formulations are made for the needs
+                of people over 50.
+              </p>
+              <a href="#collapseFaceDetails" data-toggle="collapse" role="button" aria-expanded="true"
+                aria-controls="collapseFaceDetails">
+                <img src="{{ 'icon-x.png' | file_url }}" />&nbsp;
+                <span class="learn-more">Close</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-12 col-md-3 text-center">
+            <img src="{{ 'skincare-hands.png' | file_url }}" />
+            <h3>Hard-working hands deserve extra care.</h3>
+            <a href="#collapseHandsDetails" data-toggle="collapse" role="button" aria-expanded="false"
+              aria-controls="collapseHandsDetails" class="hide-me">
+              <img src="{{ 'icon-more-icon.png' | file_url }}" />&nbsp;
+              <span class="learn-more">Learn More</span>
+            </a>
+            <div class="collapse details-section" id="collapseHandsDetails">
+              <p>
+                As we age, our skin naturally gets more wrinkly and less elastic
+                when we lose elastin and collagen. Sun, weather, and free radicals
+                break down these important tissues - but proper skincare with
+                antioxidants can prevent this from harming our skin.
+              </p>
+              <hr>
+              <p>
+                Because creams are loaded with age-defying antioxidants
+                and our breakthrough formulations are made for the needs
+                of people over 50.
+              </p>
+              <a href="#collapseHandsDetails" data-toggle="collapse" role="button" aria-expanded="false"
+                aria-controls="collapseHandsDetails">
+                <img src="{{ 'icon-x.png' | file_url }}" />&nbsp;
+                <span class="learn-more">Close</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-12 col-md-3 text-center">
+            <img src="{{ 'skincare-bodycare.png' | file_url }}" />
+            <h3>Care for your body and your mind will thank you.</h3>
+            <a href="#collapseBodyDetails" data-toggle="collapse" role="button" aria-expanded="false"
+              aria-controls="collapseBodyDetails" class="hide-me">
+              <img src="{{ 'icon-more-icon.png' | file_url }}" />&nbsp;
+              <span class="learn-more">Learn More</span>
+            </a>
+            <div class="collapse details-section" id="collapseBodyDetails">
+              <p>
+                As we age, our skin naturally gets more wrinkly and less elastic
+                when we lose elastin and collagen. Sun, weather, and free radicals
+                break down these important tissues - but proper skincare with
+                antioxidants can prevent this from harming our skin.
+              </p>
+              <hr>
+              <p>
+                Because creams are loaded with age-defying antioxidants
+                and our breakthrough formulations are made for the needs
+                of people over 50.
+              </p>
+              <a href="#collapseBodyDetails" data-toggle="collapse" role="button" aria-expanded="false"
+                aria-controls="collapseBodyDetails">
+                <img src="{{ 'icon-x.png' | file_url }}" />&nbsp;
+                <span class="learn-more">Close</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="row products-title-row">
+          <div class="col-12">
+            <h2 class="section-header">
+              Because Skin Care
+            </h2>
+            <hr>
+            <h4 class="section-subheader d-none d-md-block">
+              Thoughtfully developed for you
+            </h4>
+          </div>
+        </div>
+        <div class="filter-row row align-items-center">
+          <!--<div class="col-12 col-md-5">
+                  <div class="filter-items">
+                      <span class="filter-by">filter by:</span>
+                      &nbsp;
+                      <a class="filter-item active" href="javascript:void(0)" id="usage">Usage</a>
+                      <span class="sep">/</span>
+                      <a class="filter-item" href="javascript:void(0)" id="benefit">Benefit</a>
+                  </div>
+              </div>
+              <div class="col-12 col-md-6 text-right">-->
+          <div class="col-md-5"></div>
+          <div class="col-12 col-md-5 pull-right subfilter">
+            <div class="filter-items subfilter-items pull-right">
+              <a class="subfilter-item active" href="javascript:void(0)" id="all">All</a>
+              <span class="sep">/</span>
+              <a class="subfilter-item" href="javascript:void(0)" id="hands">Hands</a>
+              <span class="sep">/</span>
+              <a class="subfilter-item" href="javascript:void(0)" id="body">Body</a>
+            </div>
+          </div>
+        </div>
+        <div class="row product-row">
+          <div class="col-12 col-md-3 text-center bodycare">
+            <div class="product">
+              <div class="product-image">
+                <div class="product-hover-info my-auto mx-auto">
+                  <div class="member-only">Only available for members</div>
+                  <div class="button button-blue funnel-link"><span>Get Started</span></div>
+                </div>
+                <img class="" src="{{ 'bladder-cream-2.png' | file_url }}" />
+              </div>
+              <div class="product-name">
+                Protective Skin Cream
+              </div>
+              <div class="product-desc">
+                4oz for $9.99
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3 text-center hands">
+            <div class="product">
+              <div class="product-image">
+                <div class="product-hover-info my-auto mx-auto">
+                  <div class="member-only">Only available for members</div>
+                  <div class="button button-blue funnel-link"><span>Get Started</span></div>
+                </div>
+                <img src="{{ 'skincare-No-Rinse_Cleansing_Spray.png' | file_url }}" />
+              </div>
+
+              <div class="product-name">
+                No-Rinse Cleansing Spray 6oz
+              </div>
+              <div class="product-desc">
+                4oz for $9.99
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3 text-center bodycare">
+            <div class="product">
+              <div class="product-image">
+                <div class="product-hover-info my-auto mx-auto">
+                  <div class="member-only">Only available for members</div>
+                  <div class="button button-blue funnel-link"><span>Get Started</span></div>
+                </div>
+                <img src="{{ 'skincare-spray6-wipes50.png' | file_url }}" />
+              </div>
+              <div class="product-name">
+                Cleansing Kit
+              </div>
+              <div class="product-desc">
+                Full sizes for $7.99
+              </div>
+            </div>
+          </div>
+          <div class="col-md-1 d-none d-md-block no-filter"></div>
+          <div class="col-12 col-md-3 text-center hands">
+            <div class="product">
+              <div class="product-image">
+                <div class="product-hover-info my-auto mx-auto">
+                  <div class="member-only">Only available for members</div>
+                  <div class="button button-blue funnel-link"><span>Get Started</span></div>
+                </div>
+                <img src="{{ 'skincare-Freshndry.png' | file_url }}" />
+              </div>
+              <div class="product-name">
+                Cleansing and Protection Package
+              </div>
+              <div class="product-desc">
+                $17.59
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3 text-center bodycare">
+            <div class="product">
+              <div class="product-image">
+                <div class="product-hover-info my-auto mx-auto">
+                  <div class="member-only">Only available for members</div>
+                  <div class="button button-blue funnel-link"><span>Get Started</span></div>
+                </div>
+                <img src="{{ 'skincare-Skin-Care-Package-2.png' | file_url }}" />
+              </div>
+              <div class="product-name">
+                Complete Skin Care
+              </div>
+              <div class="product-desc">
+                $17.99
+              </div>
+            </div>
+          </div>
+          <div class="d-none d-md-block bodycare-pad"></div>
+          <div class="col-12 col-md-3 text-center bodycare">
+            <div class="product">
+              <div class="product-image">
+                <div class="product-hover-info my-auto mx-auto">
+                  <div class="member-only">Only available for members</div>
+                  <div class="button button-blue funnel-link"><span>Get Started</span></div>
+                </div>
+                <img src="{{ 'bladder-wipes-50.png' | file_url }}" />
+              </div>
+              <div class="product-name">
+                Because Flushable Wipes
+              </div>
+              <div class="product-desc">
+                50 wipes for $3.49
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'why-because-section' %}
+<div class="container-fluid">
+  <div class="wrapper">
+    {% include 'featured-products-slider' %}
+  </div>
+</div>
+{% include 'home-help-section' %}
+
+<!-- Theme Javascript ============================================================== -->
+{{ 'bootstrap.js' | asset_url | script_tag }}
+<script>
+
+  jQuery(function () {
+    const handleFilterClick = (selector, e) => {
+      if (jQuery(e.currentTarget).hasClass('active')) {
+        return true;
+      }
+      jQuery(selector).removeClass('active')
+      jQuery(e.currentTarget).addClass('active')
+
+      if (e.currentTarget.innerText === 'Hands') {
+        jQuery('.bodycare').hide()
+        jQuery('.hands').show()
+        jQuery('.no-filter').removeClass('col-md-1')
+        jQuery('.bodycare-pad').removeClass('col-md-1')
+
+      }
+
+      if (e.currentTarget.innerText === 'Body') {
+        jQuery('.hands').hide()
+        jQuery('.bodycare').show()
+        jQuery('.no-filter').hide()
+        jQuery('.no-filter').removeClass('col-md-1')
+        jQuery('.bodycare-pad').addClass('col-md-1')
+      }
+
+      if (e.currentTarget.innerText === 'All') {
+        jQuery('.hands').show()
+        jQuery('.bodycare').show()
+        jQuery('.no-filter').addClass('col-md-1')
+        jQuery('.bodycare-pad').removeClass('col-md-1')
+      }
+    }
+
+    jQuery(".filter-item").click(handleFilterClick.bind(this, '.filter-item'))
+    jQuery(".subfilter-item").click(handleFilterClick.bind(this, '.subfilter-item'))
+  })
+</script>

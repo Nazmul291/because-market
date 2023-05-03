@@ -1,0 +1,86 @@
+#import "./fragments/ProductMetafieldFragment.graphql"
+
+query GetProductsFromCollection($handle: String, $limit: Int = 100) {
+  collection(handle: $handle) {
+    id
+    title
+    handle
+    products(first: $limit) {
+      edges {
+        node {
+          id
+          title
+          handle
+          onlineStoreUrl
+          description
+          descriptionHtml
+          tags
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+            maxVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+          images(first: 1) {
+            edges {
+              node {
+                src
+                width
+              }
+            }
+          }
+          variants(first: 100) {
+            edges {
+              node {
+                price {
+                  currencyCode
+                  amount
+                }
+                selectedOptions {
+                  name
+                  value
+                }
+              }
+            }
+          }
+          options(first: 999) {
+            id
+            name
+            values
+          }
+          metafields(
+            identifiers: [
+              { namespace: "weekly_offer", key: "start_date" }
+              { namespace: "weekly_offer", key: "description" }
+              { namespace: "weekly_offer", key: "discount" }
+              { namespace: "weekly_offer", key: "expiry_date" }
+              { namespace: "custom", key: "happy_customers" }
+              { namespace: "custom", key: "variant_description" }
+              { namespace: "custom", key: "video_funnel" }
+              { namespace: "custom", key: "details_funnel" }
+              { namespace: "custom", key: "tagicons" }
+              { namespace: "custom", key: "customerfeedback" }
+              { namespace: "custom", key: "faq_funnel" }
+              { namespace: "custom", key: "funnel_stories" }
+              { namespace: "subscription", key: "monthly" }
+              { namespace: "subscription", key: "weekly" }
+              { namespace: "subscription", key: "daily" }
+              { namespace: "cross_sell_success", key: "products" }
+              { namespace: "cross_sell", key: "products" }
+              { namespace: "yotpo", key: "hide" }
+              { namespace: "yotpo", key: "product_id" }
+              { namespace: "fee", key: "handling" }
+              { namespace: "trial", key: "product" }
+            ]
+          ) {
+            ...ProductMetafieldFragment
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+#import "./fragments/ProductMetafieldFragment.graphql"
+
+query getProductMetafields($id: ID!) {
+  product(id: $id) {
+    metafields(
+      identifiers: [
+        { namespace: "weekly_offer", key: "start_date" }
+        { namespace: "weekly_offer", key: "description" }
+        { namespace: "weekly_offer", key: "discount" }
+        { namespace: "weekly_offer", key: "expiry_date" }
+        { namespace: "custom", key: "happy_customers" }
+        { namespace: "custom", key: "variant_description" }
+        { namespace: "custom", key: "video_funnel" }
+        { namespace: "custom", key: "details_funnel" }
+        { namespace: "custom", key: "tagicons" }
+        { namespace: "custom", key: "customerfeedback" }
+        { namespace: "custom", key: "faq_funnel" }
+        { namespace: "custom", key: "funnel_stories" }
+        { namespace: "custom", key: "benefits_underwear" }
+        { namespace: "custom", key: "benefits_pads" }
+        { namespace: "subscription", key: "2month" }
+        { namespace: "subscription", key: "monthly" }
+        { namespace: "subscription", key: "weekly" }
+        { namespace: "subscription", key: "daily" }
+        { namespace: "cross_sell_success", key: "products" }
+        { namespace: "cross_sell", key: "products" }
+        { namespace: "yotpo", key: "hide" }
+        { namespace: "yotpo", key: "product_id" }
+        { namespace: "fee", key: "handling" }
+        { namespace: "trial", key: "product" }
+        { namespace: "global", key: "brand" }
+      ]
+    ) {
+      ...ProductMetafieldFragment
+    }
+  }
+}

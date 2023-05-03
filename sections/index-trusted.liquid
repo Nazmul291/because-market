@@ -1,0 +1,171 @@
+<!-- /sections/index-trusted.liquid-->
+
+<div class="trusted" data-section-id="{{ section.id }}" data-section-type="trusted">
+    <div class="trusted-wrapper">
+        <img class="trusted__image" alt="5 stars" src="{{ '5stars.png' | asset_url }}" />
+        <div class="trusted__text">Trusted by Over 200,000<br />Happy Customers</div>
+        <div class="trusted__reasons">
+            {% for collection in section.blocks %}
+                <div class="trust-reason">
+                    {% if collection.settings.icon != blank %}
+                        <div class="trust-reason__icon">
+                        {% if collection.settings.icon == 'shield' %}
+                            {% include 'icon-shield' %}
+                        {% endif %}
+                        {% if collection.settings.icon == 'box' %}
+                            {% include 'icon-box' %}
+                        {% endif %}
+                        {% if collection.settings.icon == 'coin' %}
+                            {% include 'icon-coin' %}
+                        {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if collection.settings.title %}
+                        <div class="trust-reason__title">{{ collection.settings.title }}</div>
+                    {% endif %}
+                    {% if collection.settings.description %}
+                        <div class="trust-reason__description">{{ collection.settings.description }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% stylesheet %}
+    .trusted {
+        margin-bottom: 90px;
+    }
+
+    .trusted-wrapper {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 38px 72px;
+        color: #333333
+    }
+
+    .trusted__image {
+        display: block;
+        max-width: 310px;
+        margin: 0 auto;
+    }
+
+    .trusted__text {
+        margin-bottom: 58px;
+        font-family: "Cooper Md BT W05 Regular";
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 58px;
+        letter-spacing: 0px;
+        text-align: center;
+    }
+
+    .trusted__reasons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr;
+        grid-column-gap: 36px;
+    }
+
+    .trust-reason {
+        text-align: center;
+    }
+
+    .trust-reason__icon svg {
+        max-width: 30px;
+        max-height: 30px;
+        margin: 0 auto 10px;
+    }
+
+    .trust-reason__title {
+        padding: 16px 0;
+        font-family: "Cooper Md BT W05 Regular";
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 35px;
+        letter-spacing: 0px;
+        text-align: center;
+    }
+
+    .trust-reason__description {
+        font-family: "Graphik Regular";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 30px;
+        letter-spacing: 0px;
+        text-align: center;
+
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) {
+        .trusted {
+            margin-bottom: 60px;
+        }
+
+        .trusted-wrapper {
+            padding: 0 24px;
+        }
+
+        .trusted__text {
+            font-size: 36px;
+        }
+
+        .trusted__reasons {
+            display: block;
+        }
+
+        .trust-reason {
+            margin-bottom: 20px;
+        }
+    }
+
+{% endstylesheet %}
+
+{% schema %}
+    {
+        "name": "Trusted",
+        "max_blocks": 3,
+        "blocks": [
+            {
+                "name": "Item",
+                "type": "collection",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "icon",
+                        "label": "Icon (shield/coin/box)"
+                    }, {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title"
+                    }, {
+                        "type": "text",
+                        "id": "description",
+                        "label": "Description"
+                    }
+                ]
+            }
+        ],
+        "settings": [
+            {
+                "type": "text",
+                "id": "highlighted_text",
+                "label": "Highlighted text",
+                "default": "Because."
+            }, {
+                "type": "text",
+                "id": "regular_text",
+                "label": "Regular text",
+                "default": "Convenient and discreet essentials for you."
+            }
+        ],
+        "presets": [{
+            "name": "Trusted",
+            "category": "Custom Sections"
+        }]
+    }
+{% endschema %}

@@ -1,0 +1,17 @@
+<!-- /templates/collection.liquid -->
+
+{% section 'collection' %}
+{% section 'collections-bottom-addition' %}
+{% section 'index-action-banner' %}
+{% section 'collection-bottom-offer' %}
+{% section 'collections-blurb' %}
+
+<script>
+  window.theme = window.theme || {};
+  theme.collectionStrings = {
+    sortBy: '{{ collection.sort_by | default: collection.default_sort_by }}'
+  }
+  trackEvent(`BM {{ collection.title }} Collection - visited`, { collection: {{ collection | json}} })
+  trackLinksRegisterLinkText('a.product-grid-item--link', "BM {{ collection.title }} Collection - Product Click")
+  addMouseFlow()
+</script>

@@ -1,0 +1,168 @@
+<!-- /sections/index-row-slides-large.liquid-->
+
+{% if section.blocks.size > 0 %}
+    <div class="row-slides-large" data-section-id="{{ section.id }}" data-section-type="rowSlidesLarge">
+        <div class="row-slides-large-content">
+            {% for collection in section.blocks %}
+                {% if collection.settings.url != "" %}
+                    <a href="{{ collection.settings.url }}">
+                {% endif %}
+                <span class="row-slides-large-item">
+                    <span class="row-slides-large-item__image" {% if collection.settings.image %}style="background-image:url('{{ collection.settings.image | img_url: '720x', format: 'pjpg', scale: '2' }}');"{% endif %}>
+                        {% if collection.settings.label_text != "" %}
+                            <span class="row-slides-large-item__label">{{ collection.settings.label_text }}</span>
+                        {% endif %}
+                    </span>
+                    {% if collection.settings.title %}
+                        <span class="row-slides-large-item__title">{{ collection.settings.title }}</span>
+                    {% endif %}
+                    {% if collection.settings.description %}
+                        <span class="row-slides-large-item__description">{{ collection.settings.description }}</span>
+                    {% endif %}
+                </span>
+                {% if collection.settings.url != "" %}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+{% stylesheet %}
+    .row-slides-large {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 72px;
+        margin-bottom: 90px;
+    }
+
+    .row-slides-large-content {
+        display: grid;
+        grid-column-gap: 24px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 1fr;
+        width: 100%;
+        height: auto;
+        color: #333333;
+    }
+
+    .row-slides-large-content a {
+        color: #333333;
+    }
+
+    .row-slides-large-item {
+        display: block;
+    }
+
+    .row-slides-large-item__image {
+        position: relative;
+        display: block;
+        min-width: 154px;
+        padding-top: 66.6%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+
+    .row-slides-large-item__label {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 12px;
+        max-width: calc(100% - 24px);
+        background-color: #fff;
+        color: #333333;
+        padding: 7px 17px;
+        border-radius: 0 18px;
+        font-family: "Graphik Medium"
+        font-size: 14px;
+    }
+
+    .row-slides-large-item__title {
+        display: block;
+        font-family: "Cooper Md BT W05 Regular";
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 35px;
+        padding: 16px 0;
+    }
+
+    .row-slides-large-item__description {
+        display: block;
+        font-family: "Graphik Regular";
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 30px;
+        text-align: left;
+        padding: 0 0 18px;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) {
+        .row-slides-large {
+            padding: 0 24px 60px;
+            margin-bottom: 0px;
+        }
+
+        .row-slides-large-content {
+            display: block;
+        }
+
+        .row-slides-large-item {
+            margin-bottom: 24px;
+        }
+
+        .row-slides-large-item__title {
+            font-size: 24px;
+            line-height: 35px;
+            padding: 16px 0 8px;
+        }
+
+        .row-slides-large-item__description {
+            font-size: 18px;
+            line-height: 30px;
+            padding: 0 0 8px;
+        }
+    }
+{% endstylesheet %}
+
+{% schema %}
+    {
+        "name": "Row Slides Large",
+        "tag": "section",
+        "max_blocks": 2,
+        "blocks": [
+            {
+                "name": "Item",
+                "type": "collection",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    }, {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title"
+                    }, {
+                        "type": "text",
+                        "id": "description",
+                        "label": "Description"
+                    }, {
+                        "type": "text",
+                        "id": "url",
+                        "label": "URL"
+                    }, {
+                        "type": "text",
+                        "id": "label_text",
+                        "label": "Label text"
+                    }
+                ]
+            }
+        ],
+        "presets": [{
+            "name": "Row Slides Large",
+            "category": "Custom Sections"
+        }]
+    }
+{% endschema %}

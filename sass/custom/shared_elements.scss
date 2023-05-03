@@ -1,0 +1,224 @@
+// @import 'fonts.scss';
+@import '../theme/_theme_variables.scss';
+@import '../../src/sass/bootstrap4/mixins/_breakpoints.scss';
+
+body {
+  color: $secondary;
+}
+
+#chatra {
+  #chatra__iframe {
+    border-radius: 10px;
+  }
+  // @include media-breakpoint-down(xs) {
+  //   display: none !important;
+  // }
+
+}
+
+.button {
+  padding: 0.844rem 0.2rem;
+  border-radius: 8px;
+  background-color: #a1feda;
+  text-align: center;
+  width: 8.607vw;
+  &:hover {
+    background-color: #84f1c7;
+  }
+  &.get-started-today {
+    background-color: #a1feda;
+    &:hover {
+      background-color: #84f1c7;
+    }
+  }
+  &.button-find {
+    width: 11vw;
+    background-color: #a1feda;
+
+    &:hover {
+      background-color: #84f1c7;
+    }
+    @include media-breakpoint-down(sm) {
+      width: 47.59vw;
+    }
+  }
+  @include media-breakpoint-down(sm) {
+    width: 42.67vw;
+    padding: 0.657rem 0.2rem;
+  }
+
+  &.button-blue {
+    border: 1px solid transparent;
+    background-color: #566582;
+    span {
+      color: #fff;
+    }
+    &:hover {
+      background-color: #fff;
+      border: 1px solid #566582;
+      span {
+        color: #566582
+      }
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+  span {
+    font-family: $mainFontSemibold;
+    font-size: $fontsize-16px-semibold-button-desktop;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.5;
+    letter-spacing: -0.32px;
+    text-align: center;
+    color: #566582;
+    @include media-breakpoint-down(sm) {
+      font-size: $fontsize-16px-semibold-button-mobile;
+    }
+  }
+}
+
+a.funnel-link {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .no-h-padding-mobile {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+
+h2 {
+  font-size: 2vw;
+}
+
+p {
+  &.cooper {
+    font-family: $secondaryFont;
+  }
+
+  &.graphik-regular {
+    font-family: $mainFont;
+  }
+
+  &.graphic-meduim {
+    font-family:  $mainFontMedium;
+  }
+
+  &.cooper-italics {
+    font-family: $secondaryFontItalic;
+  }
+  font-size: 1.1vw;
+  @include media-breakpoint-down(sm) {
+    font-size: 4.5vw;
+  }
+}
+
+.section-header {
+  text-align: center;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: -1.44px;
+  font-family: $mainFontMedium;
+  color: $mainColor;
+  font-size: $section-header-size-desktop;
+  margin-bottom: $section-header-padding-bottom;
+  @include media-breakpoint-down(sm) {
+    margin-bottom: 4vh;
+    font-size: $section-header-size-mobile;
+  }
+}
+
+.section-text {
+  line-height: 1.27;
+  letter-spacing: -0.44px;
+  font-size: $text-font-size-desktop;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  color: $mainColor;
+  margin-bottom: 3rem;
+  @include media-breakpoint-down(sm) {
+    font-size: $text-font-size-mobile;
+    margin-bottom: 2rem;
+  }
+}
+
+.dark-blue-section {
+  padding-top: 6vh;
+  padding-bottom: 6vh;
+  background-color: $mainColor;
+  text-align: center;
+  color: $white;
+}
+
+
+.full-page-header {
+  margin-bottom: 1rem;
+  font-size: 4vw;
+  letter-spacing: -0.16rem;
+  font-family: $mainFontMedium;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.15;
+  @include media-breakpoint-down(sm) {
+    font-size: 16vw;
+  }
+}
+
+.full-page-subheader {
+  margin-bottom: 3rem;
+  font-family: $secondaryFontItalic;
+  height: 1.25rem;
+  font-size: 1.3vw;
+  font-weight: 300;
+  font-stretch: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  text-align: left;
+  @include media-breakpoint-down(sm) {
+    font-size: 5vw;
+    line-height: 1;
+  }
+}
+
+
+
+.footnote {
+  font-size: 0.9vw;
+  @include media-breakpoint-down(sm) {
+    font-size: 3.5vw;
+  }
+}
+
+/* ===== Alignment ===== */
+.all-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ===== Alignment ===== */
+
+
+/* ===== Images ===== */
+img {
+  &.full-width {
+    width: 100vw;
+  }
+  &.main-section-image {
+    max-height: 275px;
+  }
+}
+
+/* ===== Images ===== */
+

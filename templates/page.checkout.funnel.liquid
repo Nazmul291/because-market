@@ -1,0 +1,10 @@
+<!-- /templates/page.checkout.liquid -->
+{% layout 'theme.funnel' %}
+
+<div class="page-checkout">
+  <div class="rte">
+    {% section 'page-checkout' %}
+  </div>
+</div>
+
+{{ 'page.checkout.scss.css' | asset_url | stylesheet_tag }}

@@ -1,0 +1,176 @@
+<!-- /sections/index-reviews.liquid -->
+{%- assign slide_style = '3' -%}
+{% case section.blocks.size %}
+  {% when 1 %}
+    {%- assign slide_style = '1' -%}
+  {% when 2 %}
+    {%- assign slide_style = '2' -%}
+{% endcase %}
+
+
+<div class="index-reviews"
+     data-section-id="{{ section.id }}"
+     data-section-type="reviews"
+     data-slide-style="{{ slide_style }}"
+     data-slide-count="{{ section.blocks.size }}"
+>
+  <div class="wrapper">
+    {% if section.settings.title != blank %}
+      {% include 'dots', direction: 'down' %}
+      <div class="title-decoration"></div>
+      <h1 class="title--decorated dark">
+        Over 10,000+ <ul class="review__stars unstyled">{% for i in (1..5) %}<li>{% include 'icon-star' %}</li>{% endfor %}</ul> Reviews
+      </h1>
+    {% endif %}
+    {% if section.settings.description != blank %}
+      <div class="rte--index rte text-center">
+        {{ section.settings.description }}
+      </div>
+    {% endif %}
+    <div class="reviews reviews--{{ section.blocks.size }} bottom-line">
+      <div class="review__dots medium-up--hide">
+        {% include 'dots', direction: 'right' %}
+      </div>
+      <div class="grid {% unless section.blocks.size == 5 %}grid--uniform{% endunless %}" data-reviews-slideshow>
+        {% for block in section.blocks %}
+          {% if block.settings.image != blank %}
+            {% assign img_object = block.settings.image %}
+          {% else %}
+            {%- assign img_object = 'blank.svg' | asset_url -%}
+          {% endif %}
+          <div class="grid__item review__item slide--{{ block.id }} slide--left" {{ block.shopify_attributes }}>
+            <div class="review__card home">
+              <div class="review__image__align">
+                <div class="review__image__wrapper">
+                  <div class="background-size-cover lazyload" data-bgset="{% include 'bgset', image: img_object %}"></div>
+                  <noscript>
+                    <img src="{{ block.settings.image | img_url: '540x540', crop: 'center' }}" alt="{{ block.settings.image.alt | default: block.settings.title }}"/>
+                  </noscript>
+                </div>
+              </div>
+              <div class="review__card__text">
+                <div class="review__card__text__contents">
+                  {% if block.settings.title != blank %}
+                    <h2 class="review__name h3">{{ block.settings.title | escape }}</h2>
+                  {% endif %}
+
+                  {% if block.settings.job != blank %}
+                    <p class="review__title rte--index">{{ block.settings.job | escape }}</p>
+                  {% endif %}
+
+                  {%- if block.settings.stars > 0 -%}
+                    <ul class="review__stars unstyled">
+                      {% for i in (1..block.settings.stars) %}
+                        <li>{% include 'icon-star' %}</li>
+                      {% endfor %}
+                    </ul>
+                  {%- endif -%}
+
+                  {% if block.settings.text != blank %}
+                    <div class="review__content rte">{{ block.settings.text }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% if section.blocks.size == 0 %}
+      {% include 'no-blocks' %}
+    {% endif %}
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Testimonials"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Use this area to describe your testimonials."
+    },
+    {
+      "type": "select",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "index--gray",
+      "options": [
+        { "value": "index--white", "label": "White"},
+        { "value": "index--gray", "label": "Secondary"}
+      ]
+    }
+    ],
+    "blocks": [
+      {
+        "type": "review",
+        "name": "Testimonial",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Name",
+            "default": "Testimonial name"
+          },
+          {
+            "type": "text",
+            "id": "job",
+            "label": "Context",
+            "default": "Founder, Company"
+          },
+          {
+            "type":    "range",
+            "id":      "stars",
+            "min":     0,
+            "max":     5,
+            "step":    1,
+            "label":   "Stars",
+            "info":    "Set to zero to disable",
+            "default":  5
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Testimonial",
+            "default": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Testimonials",
+        "category": "Text",
+        "blocks": [
+          {
+            "type": "review"
+          },
+          {
+            "type": "review"
+          },
+          {
+            "type": "review"
+          },
+          {
+            "type": "review"
+          }
+        ]
+      }
+    ]
+  }
+
+{% endschema %}

@@ -1,0 +1,268 @@
+{% liquid
+  assign disabled = false
+  assign buttonText = "Add To Cart"
+  assign dropShip = false
+  assign nonSubscriptionItem = false
+
+  for tag in product.tags
+    if tag == "ComingSoon" or tag == "SoldOut"
+      assign disabled = true
+      if tag == "ComingSoon"
+        assign buttonText = "Coming Soon"
+      else
+        assign buttonText = "Sold Out"
+      endif
+    endif
+    if tag == "NonSubscriptionItem"
+      assign nonSubscriptionItem = true
+    endif
+  endfor
+%}
+
+<script>
+  $(() => {
+
+// Ensure styling corresponds to whether radio input is checked or not
+    $("input[type='radio'].onetime_subscribe_radio").change(function() {
+      $("input[type='radio'].onetime_subscribe_radio:not(:checked)").parent().parent().removeClass("radio-checked");
+      $("input[type='radio'].onetime_subscribe_radio:checked").parent().parent().addClass("radio-checked");
+    });
+
+// Let click in div containing radio act as click on radio itself
+    $('.radio-option-outer[data-toggle="collapse"]').on('click', function(e) {
+      if (e.target === e.currentTarget) {
+        $(e.target).find(".radio-option-inner").click()
+      }
+      if ($(this).parents('.accordion').find('.collapse.show')) {
+        const idx = $(this).index('.radio-option-outer[data-toggle="collapse"]');
+        if (idx == $('.collapse.show').index('.collapse')) {
+          e.stopPropagation();
+        }
+      }
+    })
+
+    let urlParams = new URLSearchParams(window.location.search);
+    $("input[name='return_to']").val(`/cart?${
+      urlParams.toString()
+    }`)
+  })
+
+
+  function waitForFlagr() {
+
+// Make sure that external script https://s3-us-west-2.amazonaws.com/static.becausemarket.com/jsExperiments/jsExperimentBundle-1.1.10.js loads before attempting A/B test
+    if (!window.Flagr) {
+      return setTimeout(waitForFlagr, 100)
+    }
+
+// Get variant randomly (flag key is passed to evaluateFlag)
+    window.Flagr.evaluateFlag('cta_accordion_default_subscribe', (error, result) => {
+      if (error) {
+        console.log(error)
+        trackEvent("BW AB - PDP Accordion Choice", {
+          "section": ":input.onetime_subscribe_radio",
+          "defaultToSubscribe": false,
+          "error": error
+        })
+        $(document).ready(() => {
+          $("#default-onetime-accordion").show();
+          $("#default-subscribe-accordion").remove();
+        })
+        return
+      }
+
+// Wait 5 attempts for the relevant input to load
+      const clickOrDont = (selector, defaultToSubscribe, retry = 0) => {
+        if (retry === 5) {
+          console.error(`failed to find ${selector} for 5 time, enable default`)
+          trackEvent("BW AB - PDP Accordion Choice", {
+            "section": selector,
+            "defaultToSubscribe": false,
+            "error": "section not found in 5 attempts"
+          })
+          $(document).ready(() => {
+            $("#default-onetime-accordion").show();
+            $("#default-subscribe-accordion").remove();
+          })
+          return
+        }
+
+// Wait till input selector loads
+        if ($(selector).length === 0) {
+          return setTimeout(() => clickOrDont(selector, defaultToSubscribe, retry ++), 100)
+        }
+
+// For mixpanel; see whether funnel beginning with shouldClick=true leads to to more subscriptions
+        trackEvent("BW AB - PDP Accordion Choice", {
+          "section": selector,
+          "defaultToSubscribe": defaultToSubscribe
+        })
+
+        if (defaultToSubscribe) {
+          $(document).ready(() => {
+            $("#default-subscribe-accordion").show();
+            $("#default-onetime-accordion").remove();
+          })
+        } else {
+          $(document).ready(() => {
+            $("#default-onetime-accordion").show();
+            $("#default-subscribe-accordion").remove();
+          })
+        }
+      }
+
+// See schema for variantAttachment object at https://stage-flagr.becausemarket.com/#/flags/17
+// ctaSectionSelector is always ":input.onetime_subscribe_radio"
+// and defaultSubscribe is distributed between true or false
+      clickOrDont(result.variantAttachment.ctaSectionSelector, result.variantAttachment.defaultToSubscribe)
+    })
+  }
+
+  $('.radio-option-outer[data-toggle="collapse"]').on('click', function(e) {
+    if ($(this).parents('.accordion').find('.collapse.show')) {
+      var idx = $(this).index('.radio-option-outer[data-toggle="collapse"]');
+      if (idx == $('.collapse.show').index('.collapse')) {
+        e.stopPropagation();
+      }
+    }
+  })
+
+  waitForFlagr(){% if disabled == true %}$(() => {
+      $('.onetime_or_subscribe').click(false)
+      $(".onetime_or_subscribe input").off('click submit')
+    }){% endif %}
+</script>
+
+{% liquid
+  assign min = 10000
+  assign max = 999999
+  assign diff = max | minus: min
+  assign randomNumber = "now" | date: "%N" | modulo: diff | plus: min
+  assign diffRandomNumber = randomNumber | minus: 1
+%}
+
+<!-- Version below starts with one-time open -->
+<div
+  style="display:none"
+  class="onetime_or_subscribe onetime_or_subscribe-accordion"
+  id="default-onetime-accordion">
+  <div class="radio-option-outer {% if disabled != true %}radio-checked{% endif%} onetime-outer"data-toggle="collapse"data-target=".onetime-body"role="button"aria-expanded="true"aria-controls="onetime-body"data-parent=".onetime_or_subscribe-accordion">
+    <label class="radio-option-inner">
+      <input
+        class="onetime onetime_subscribe_radio"
+        type="radio"
+        checked
+        name="group-{{randomNumber}}-accordion"
+        value="onetime" />
+      <span class="radio-option-caption">Buy Once</span>
+      <span class="price-text one-time-price"></span>
+    </label>
+  </div>
+  <div class="onetime-body onetime-subscribe-section collapse show" data-parent=".onetime_or_subscribe-accordion">
+    <ul class="benefits">
+      <li>Free, Discreet Delivery</li>
+    </ul>
+    {% render 'one-time-subscribe-buttons', buttonText: buttonText, disabled: disabled %}
+  </div>
+  {% if nonSubscriptionItem == false %}
+    <div
+      class="radio-option-outer subscribe-outer"
+      data-toggle="collapse"
+      data-target=".subscribe-body"
+      role="button"
+      aria-expanded="false"
+      aria-controls="subscribe-body">
+      <label class="radio-option-inner">
+        <input
+          class="subscribe onetime_subscribe_radio"
+          type="radio"
+          name="group-{{randomNumber}}-accordion"
+          value="subscription" />
+        <span class="radio-option-caption">Subscribe & Save</span>
+        <span class="price-text subscribe-price"></span>
+      </label>
+    </div>
+
+    <div class="subscribe-body onetime-subscribe-section collapse" data-parent=".onetime_or_subscribe-accordion">
+      <ul class="benefits">
+        <li>We notify you before each shipment</li>
+        <li>Cancel anytime</li>
+        <li>Monthly shipments</li>
+      </ul>
+      {% render 'one-time-subscribe-buttons', buttonText: buttonText, disabled: disabled %}
+    </div>
+  {% endif %}
+</div>
+
+<!-- Version below starts with subscribe open -->
+<div
+  style="display:none"
+  class="onetime_or_subscribe onetime_or_subscribe-accordion"
+  id="default-subscribe-accordion">
+  {% if nonSubscriptionItem %}
+    <div class="radio-option-outer {% if disabled != true %}radio-checked{% endif%} onetime-outer"data-toggle="collapse"data-target=".onetime-body"role="button"aria-expanded="true"aria-controls="onetime-body"data-parent=".onetime_or_subscribe-accordion">
+      <label class="radio-option-inner">
+        <input
+          class="onetime onetime_subscribe_radio"
+          type="radio"
+          checked
+          name="group-{{randomNumber}}-accordion"
+          value="onetime" />
+        <span class="radio-option-caption">Buy Once</span>
+        <span class="price-text one-time-price"></span>
+      </label>
+    </div>
+    <div class="onetime-body onetime-subscribe-section collapse show" data-parent=".onetime_or_subscribe-accordion">
+      <ul class="benefits">
+        <li>Free, Discreet Delivery</li>
+      </ul>
+      {% render 'one-time-subscribe-buttons', buttonText: buttonText, disabled: disabled %}
+    </div>
+  {% else %}
+    <div
+      class="radio-option-outer  onetime-outer"
+      data-toggle="collapse"
+      data-target="#default-subscribe-accordion .onetime-body"
+      role="button"
+      aria-expanded="false"
+      aria-controls="onetime-body"
+      data-parent=".onetime_or_subscribe-accordion">
+      <label class="radio-option-inner">
+        <input
+          class="onetime onetime_subscribe_radio"
+          type="radio"
+          name="group-{{diffRandomNumber}}-accordion"
+          value="onetime" />
+        <span class="radio-option-caption">Buy Once</span>
+        <span class="price-text one-time-price"></span>
+      </label>
+    </div>
+    <div class="onetime-body onetime-subscribe-section collapse" data-parent=".onetime_or_subscribe-accordion">
+      <ul class="benefits">
+        <li>Free, Discreet Delivery</li>
+      </ul>
+      {% render 'one-time-subscribe-buttons', buttonText: buttonText, disabled: disabled %}
+    </div>
+    <div class="radio-option-outer {% if disabled != true %}radio-checked{% endif%} subscribe-outer"data-toggle="collapse"data-target="#default-subscribe-accordion .subscribe-body"role="button"aria-expanded="true"aria-controls="subscribe-body">
+      <label class="radio-option-inner">
+        <input
+          class="subscribe onetime_subscribe_radio"
+          type="radio"
+          checked
+          name="group-{{diffRandomNumber}}-accordion"
+          value="subscription" />
+        <span class="radio-option-caption">Subscribe & Save</span>
+        <span class="price-text subscribe-price"></span>
+      </label>
+    </div>
+
+    <div class="subscribe-body onetime-subscribe-section collapse show" data-parent=".onetime_or_subscribe-accordion">
+      <ul class="benefits">
+        <li>We notify you before each shipment</li>
+        <li>Cancel anytime</li>
+        <li>Monthly shipments</li>
+      </ul>
+      {% render 'one-time-subscribe-buttons', buttonText: buttonText, disabled: disabled %}
+    </div>
+  {% endif %}
+</div>

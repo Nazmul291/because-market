@@ -1,0 +1,13 @@
+<!-- snippets/yotpo-product-review.liquid -->
+{% if currentProduct.metafields.yotpo.hide != true %}
+  {% if currentProduct.metafields.yotpo.product_id %}
+    {% assign yotpoProductId = currentProduct.metafields.yotpo.product_id %}
+  {% else %}
+    {% assign yotpoProductId = currentProduct.id %}
+  {% endif %}
+
+  <div class="yotpo yotpo-main-widget" data-product-id="{{ yotpoProductId }}" data-name="{{ currentProduct.title }}"
+    data-mode="reviews" data-yotpo-element-id="1">
+  </div>
+{% endif %}
+<!--/ snippets/yotpo-product-review.liquid -->

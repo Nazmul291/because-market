@@ -1,0 +1,208 @@
+<!-- /sections/product.liquid-->
+
+<div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" data-image-zoom-enable="{{ section.settings.zoom_enable }}">
+  {% include 'product' %}
+  {% include 'yotpo-reviews-rich-snippet', product: product %}
+</div>
+{% stylesheet %}
+  .products-bottom-addition_section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-direction: row;
+    align-content: stretch;
+    padding: 0 0 72px 0;
+    width: 100%;
+    box-sizing: border-box;
+    color: #000;
+  }
+  .products-bottom-addition_section_img{
+    background-color: #08C5BC;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+  }
+  .products-bottom-addition_section_img img{
+    margin: auto;
+    display: block;
+  }
+  .products-bottom-addition_container {
+    background-color: #CCF1EF;
+    padding: 15%;
+  }
+  .products-bottom-addition_title {
+    font-family: 'Cooper Md BT';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 43px;
+    display: flex;
+    align-items: center;
+
+    /* Dark */
+    color: #333333;
+    margin-bottom: 24px;
+  }
+  .products-bottom-addition_description,
+  .products-bottom-addition_description p {
+    font-family: 'Graphik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+  }
+{% endstylesheet %}
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "product_show_vendor",
+        "label": "Show vendor",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_payment_button",
+        "label": "Show dynamic checkout button",
+        "info": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Media",
+        "info": "Learn more about [media types](https://help.shopify.com/manual/products/product-media)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_video_looping",
+        "label": "Enable video looping",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "zoom_enable",
+        "label": "Enable image zoom",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Product tabs"
+      },
+      {
+        "type": "select",
+        "id": "tabs_position",
+        "options": [
+          { "value": "sidebar", "label": "Tabs beside image"},
+          { "value": "below", "label": "Tabs below"}
+        ],
+        "label": "Tabs position",
+        "default": "below",
+        "info": "Add tab content to enable tabs"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "tab_description",
+        "name": "Description H6",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Heading 6 titles will be converted to tab headings, tab content will be everything between the Heading 6 titles. [Product Tabs Documentation](https://story.groupthought.com/article/926-story-theme-using-tabs)."
+          }
+        ]
+      },
+      {
+        "type": "tab_richtext",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Text tab",
+            "info": "Example: Warranty policy"
+          },
+          {
+            "type": "richtext",
+            "id": "raw_content",
+            "label": "Tab content",
+            "default": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>"
+          }
+        ]
+      },
+      {
+        "type": "tab_html",
+        "name": "HTML",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "HTML tab",
+            "info": "Example: Sizing video"
+          },
+          {
+            "type": "html",
+            "id": "raw_content",
+            "label": "Tab content",
+            "default": "<p>This tab content type will accept HTML code for advanced styling. Use this to add video embeds, or other advanced HTML content.</p>"
+          }
+        ]
+      },
+      {
+        "type": "tab_page",
+        "name": "Page",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Page tab",
+            "info": "Example: Size chart"
+          },
+          {
+            "type": "page",
+            "id": "raw_content",
+            "label": "Tab content"
+          }
+        ]
+      },
+      {
+        "name": "Products Botton Addition",
+        "type": "product",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Products where to show"
+          },
+          {
+            "type": "image_picker",
+            "id": "product_bottom_img",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Because Flushable Cleansing Wipes"
+          },
+          {
+            "id": "description",
+            "type": "richtext",
+            "label": "Text",
+            "default": "<p>Stay fresh with these large, parabens and fragrance-free cleansing wet wipes. They give a gentle and effective cleansing to keep your skin looking smooth and feeling healthy, whether you are at home or on the go. Our soft and gentle pH-balanced wipes are moist and infused with aloe vera and vitamin e to soothe and moisturize your most sensitive, intimate areas. The level of these pH-balanced wipes helps maintain the natural balance of the skin. Subscribe & save now!<\/p>"
+          }
+        ]
+      }
+    ]
+  }
+  {% endschema %}

@@ -1,0 +1,18 @@
+<!-- snippets/urinary-review-card.liquid -->
+
+
+
+
+<div class="review-card">
+    <h6>{{reviewerName}} <i class="fa fa-check-circle"></i></h6>
+    <h6>{{reviewDate}}, {{reviewerLocation}}</h6>
+    <h6><strong>{{ itemName }}</strong></h6>
+    <span class="review-stars">
+        {% if rating==5 %}
+        {{ 'urinary-5stars.png' | file_img_url: "x24px" | img_tag: '5 stars', 'star-rating' }}        
+        {% else %}
+        {{ 'urinary-lt5stars.png' | file_img_url: "x24px" | img_tag: '4.5stars', 'star-rating' }}        
+        {% endif %}
+    </span>
+    <p>{{reviewText}}</p>
+</div>

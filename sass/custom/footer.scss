@@ -1,0 +1,113 @@
+#wrapper-footer {
+    background-color: #f9f9fd;
+    .footer-logo-image {
+        height: 75px;
+    }
+    .footer-content-container {
+        .footer-content-header {
+            font-family: $mainFontSemibold;
+            font-size: 18px;
+            font-weight: 600;
+            font-style: normal;
+            font-stretch: normal;
+            // line-height: 2.56;
+            letter-spacing: -0.72px;
+            text-align: left;
+            color: #566583;
+            padding-top: 25px;
+        }
+        hr {
+            width: 15%;
+            margin: 0.5rem 0;
+        }
+        .footer-content-child {
+            font-family: $mainFontMedium;
+            font-size: 16px;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 2.25;
+            letter-spacing: -0.32px;
+            text-align: left;
+            color: #566583;
+
+            ul {
+                padding-left: 0;
+                li {
+                    list-style-type: none;
+                    a {
+                        color: $mainColor;
+                    }
+                }
+            }
+
+            &.hidden-social-links {
+                display: flex;
+                align-items: center;
+                div {
+                    margin-right: 20px;
+                    a {
+                        display: flex;
+                        align-items: center;
+                        color: $mainColor;
+                        .fa {
+                            font-size: 1.8rem
+                        }
+                    }
+                }
+            }
+            &.hidden-privacy {
+                margin-top: 1rem;
+                font-size: inherit;
+                display: flex;
+                justify-content: center;
+                p {
+                    font-size: inherit;
+                    a {
+                        color: $mainColor;
+                    }
+                }
+            }
+        }
+    }
+    .extra-footer {
+        margin-top: 3rem;
+        .footer-privacy {
+            .footer-child {
+                p {
+                    margin-bottom: 0;
+                    a {
+                        font-size: 1rem;
+                        color: $mainColor;
+                        font-family: $mainFontMedium;
+                    }
+                }
+            }
+        }
+        .footer-social-links {
+            display: flex;
+            align-items: center;
+            div {
+                margin-right: 20px;
+                a {
+                    color: $mainColor;
+                    .fa {
+                        font-size: 1.8rem;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+    @media (max-width: 376px) {
+        .footer-logo-image {
+            height: 60px;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+<!-- /templates/page.clearcart.liquid -->
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">  // MIXPANEL CUSTOMIZATION 18 APR 2017.</script>
+<script>
+  $( document ).ready(function() {
+    $.ajax({
+      url: '/cart/clear.js',
+      type: 'post',
+      contentType: 'application/json',
+      dataType: 'json',
+      success: (data) =>  {
+        $(".clear-result").text("ok")
+      },
+      error: (error) => {
+        $(".clear-result").text(error)
+      }
+    })
+
+  });
+</script>
+
+
+<div class="clear-result"></div>
+
+
+

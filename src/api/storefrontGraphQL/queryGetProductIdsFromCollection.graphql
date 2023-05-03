@@ -1,0 +1,11 @@
+query GetProductIdsFromCollection($handle: String, $limit: Int = 100) {
+  collection(handle: $handle) {
+    products(first: $limit) {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+}

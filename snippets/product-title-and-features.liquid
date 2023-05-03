@@ -1,0 +1,15 @@
+<!-- snippets/product-title-and-features.liquid -->
+<div class="product__title__wrapper product-page">
+    <h3 class = "brand_name">{{ product.metafields.global.brand.value }}</h3>
+    <h1 class="product__title">{{ product.title }}</h1>
+    {% include 'yotpo-product-review-raiting', currentProduct: product %}
+</div>
+
+{% if section.settings.product_show_vendor and product.vendor %}
+    <p><a href="{ product.vendor | url_for_vendor }}" class="border-bottom-link">{{ product.vendor }}</a></p>
+{%- endif -%}
+
+<div class="product-features">
+    <ul class="product-features-list">
+    </ul>
+</div>

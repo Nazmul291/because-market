@@ -1,0 +1,95 @@
+<style>
+    .error-message {
+        color:red;
+        justify-content: center;
+        display: flex;
+        visibility: hidden;
+    }
+    .loading {
+        justify-content: center;
+        display: flex;
+    }
+    .wrapper {
+        margin-top: 10em;
+        max-width: 1100px;
+        margin:auto;
+    }
+</style>
+<script>
+function addItemToCart(variant, qty=1, is_one_time=false) {
+    trackEvent('Direct to Cart (No PDP)', {
+        variant: variant,
+        isOneTime: is_one_time,
+        quantity: qty
+    })
+    jQuery.post('/cart/add.js', {
+      items: [{
+        quantity: qty,
+        id: variant,
+        properties: {
+            purchase_type: (is_one_time === 'true') ? 'onetime' : 'subscribe'
+        }
+      }]
+    })
+    .done(() => {
+        trackEvent('Direct to Cart (No PDP) - Successful (added to Cart), redirect to cart now', {
+            variant: variant,
+            isOneTime: is_one_time,
+            quantity: qty
+        })
+        document.location.replace('/cart')
+    })
+    .fail((jqXHR, textStatus, error) => {
+      const response = JSON.parse(jqXHR.responseText)
+      if (response.description.indexOf('in your cart') !== -1 && jqXHR.status === 422) {
+        document.location.replace('/cart')
+        return
+      }
+      setError(`failed to add to cart <br />- variant: ${variant}<br />- quantity: ${qty}<br />- is one time: ${is_one_time}<br />- error: ${jqXHR.responseText}`)
+    })
+}
+
+let has_error = false
+function setError(message) {
+  jQuery(".loading").css({'visibility': 'hidden'})
+  jQuery(".error-message").html(message)
+  jQuery(".error-message").css({'visibility': 'visible'})
+  has_error = true
+}
+jQuery(() => {
+  has_error = false
+  const variant = getUrlParameter('variant')
+  if (!variant) {
+    setError('missing variant, cannot add to cart empty variant, url must contain ?variant=`shopify variant`')
+  }
+  const quantity = getUrlParameter('quantity')
+  if (quantity && Number.isNaN(quantity) && Number(quantity) > 0) {
+    setError('quantity is not a number, url param ?quantity=`number`, number must be a valid positive number')
+  }
+  const onetime = getUrlParameter('onetime')
+  if (has_error) {
+    return
+  }
+
+  jQuery.ajax({
+    url: '/cart/clear.js',
+    type: 'post',
+    contentType: 'application/json',
+    dataType: 'json',
+    success: (data) =>  {
+      addItemToCart(variant, quantity, onetime)
+    },
+    error: (jsXHR, textStatus, error) => {
+      const response = JSON.parse(jqXHR.responseText)
+      setError(`failed to clear cart<br />- error: ${jqXHR.responseText}`)
+    }
+  })
+})
+
+</script>
+
+<div class="wrapper">
+    <h3 class="loading">Loading Please Wait...</h3>
+    <div class="error-message alert alert-danger">
+</div>
+</div>

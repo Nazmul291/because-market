@@ -1,0 +1,129 @@
+<!-- /sections/index-value-prop.liquid -->
+{% if section.blocks.size > 0 %}
+<div class="featured-in" data-section-id="{{ section.id }}" data-section-type="featuredIn">
+    <div class="featured-in__container">
+        {% if section.settings.title %}
+            <h2 class="featured-in__title">{{ section.settings.title }}</h2>
+        {% endif %}
+        <ul class="featured-in__list">
+            {% for company in section.blocks %}
+                {% if company.settings.logo != nil %}
+                    <li class="featured-in__item">
+                        <img class="featured-in__image" src="{{ company.settings.logo | img_url: 'master' }}" alt="{{ company.settings.title }}">
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "Featured in",
+    "max_blocks": 8,
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "company",
+            "name": "Company",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "logo",
+                    "label": "Logo"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                },
+                {
+                    "type": "text",
+                    "id": "height",
+                    "label": "Logo height"
+                }
+            ]
+        }
+    ],
+    "presets": [{
+        "name": "Featured in",
+        "category": "Custom Sections",
+        "settings": {
+            "title": "Featured in"
+        }
+    }]
+}
+{% endschema %}
+{% stylesheet %}
+    .featured-in {
+        padding: 38px 72px 90px;
+    }
+
+    .featuredIn__container {
+        max-width: 1140px;
+        margin: 0 auto;
+    }
+
+    .featured-in__title {
+        margin-bottom: 24px;
+        font-family: "Cooper Md BT W05 Regular";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 35px;
+        text-align: center;
+        color: #333333;
+    }
+
+    .featured-in__list {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .featured-in__item {
+        margin: 0 36px;
+        text-align: center;
+    }
+    .featured-in__image {
+        max-width: 120px;
+        max-height: 80px;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) {
+        .featured-in {
+            padding: 0 27px 60px;
+        }
+
+        .featured-in__list {
+            margin-left: -18px;
+            margin-right: -18px;
+        }
+
+        .featured-in__item {
+            margin: 0 18px;
+            text-align: center;
+        }
+
+        .featured-in__item:first-of-type,
+        .featured-in__item:last-of-type {
+            display: none;
+        }
+
+        .featured-in__image {
+            max-width: 96px;
+            max-height: 64px;
+        }
+    }
+{% endstylesheet %}

@@ -1,0 +1,74 @@
+<div class="left_right">
+  <div class="lr_container">
+    
+    <div class="lr_main">
+      <div class="left_block">
+        <div class="block_content">
+          <h3>{{ section.settings.ltitle }}</h3>
+           {{ section.settings.lcont }}
+        </div>
+      </div>
+      <div class="right_block">
+        <div class="img_block">
+          <img src="{{ section.settings.rimg | img_url :'master' }}">
+        </div>
+      </div>
+    </div>
+    
+    <div class="lr_main reverse_flex">
+      <div class="left_block">
+        <div class="block_content">
+          <h3>{{ section.settings.rtitle }}</h3>
+          {{ section.settings.rcont }}
+        </div>
+      </div>
+      <div class="right_block">
+        <div class="img_block">
+          <img src="{{ section.settings.limg | img_url :'master' }}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Image With Text",
+    "settings": [
+     {
+      "type": "text",
+      "id": "ltitle",
+      "label": "Left Title"
+     },
+     {
+      "type": "html",
+      "id": "lcont",
+      "label": "Left Content"
+     },
+     {
+      "type": "image_picker",
+      "id": "rimg",
+      "label": "Right Image"
+     },
+     {
+      "type": "text",
+      "id": "rtitle",
+      "label": "Right Title"
+     },
+     {
+      "type": "html",
+      "id": "rcont",
+      "label": "Right Content"
+     },
+     {
+      "type": "image_picker",
+      "id": "limg",
+      "label": "Left Image"
+     }
+    ],
+    "presets": [
+      {
+        "name": "Image With Text"
+      }
+    ]
+  }
+{% endschema %}

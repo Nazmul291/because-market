@@ -1,0 +1,555 @@
+#contact-us-page-wrapper {
+  .page-padding {
+    padding: 2.5rem;
+  }
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #chatra-wrapper {
+    // margin: 0 auto 3rem;
+    position: fixed;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 600px;
+    height: 400px;
+    border: 1px solid #f4f4f4;
+    border-radius: 7px;
+    box-shadow: 0px 1px 20px 0 rgba(163, 171, 187, 0.49);
+    display: none;
+    z-index: 999;
+
+    &.show {
+      display: block;
+    }
+  }
+
+  .main-section {
+    background-color: #fcf8f5;
+    
+    .container {
+      img.main-section-image {
+        align-self: flex-start;
+      }
+    }
+    .main-section-heading {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      h2 {
+        font-family: $mainFontSemibold;
+        font-size: 4.75rem;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1;
+        letter-spacing: -3.04px;
+        text-align: left;
+        color: $mainColor;
+        span {
+          font-family: $secondaryFontSemibold;
+        }
+      }
+      p {
+        padding-top: 24px;
+        font-family: $secondaryFont;
+        font-size: 1.25rem;
+        font-weight: 300;
+        font-stretch: normal;
+        line-height: 2;
+        letter-spacing: normal;
+        text-align: left;
+        color: $mainColor;
+      }
+      hr {
+        width: 10%;
+        border-top: 3px solid #566583;
+        margin-left: 0;
+      }
+    }
+      
+    .contact-background {
+      display: flex;
+      justify-content: center;
+      // background-image: url('../images/contact/contact.png');
+      img {
+        max-height: 325px;
+      }
+    }
+  }
+  .get-in-touch-section {
+    background-color: #f9f9fd;
+    color: $mainColor;
+    padding: 3.5rem 0;
+    text-align: center;
+
+    h4 {
+      font-family: $mainFont;
+      font-size: 2.2rem;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.28;
+      letter-spacing: -1.44px;
+      text-align: center;
+    }
+
+    .get-in-touch-container {
+      margin: 0 auto;
+
+      .get-in-touch-text {
+        div {
+          padding: 1rem 0;
+          font-family: $mainFont;
+          font-size: 1.2rem;
+          p {
+            margin-bottom: 0;
+            font-weight: 600;
+            font-size: inherit;
+            &:first-child {
+              font-family: $mainFontSemibold;
+            }
+            a {
+              font-weight: 300;
+              color: $mainColor;
+              font-family: $secondaryFont;
+              text-decoration: underline;
+              font-size: 1.1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .section-contact-form {
+    padding: 3.5rem 0;
+
+    p.contact-heading {
+      padding-top: 0;
+      padding-bottom: 1rem;
+      font-family: $secondaryFont;
+      font-size: 1.25rem;
+      font-weight: 300;
+      font-stretch: normal;
+      line-height: 2;
+      letter-spacing: normal;
+      text-align: center;
+      margin:0 auto;
+      color: $mainColor;
+
+      a {
+        font-weight: 300;
+        color: $mainColor;
+        font-family: $secondaryFont;
+        text-decoration: underline;
+        font-size: 1.25rem;
+        cursor: pointer;
+      }
+    }
+
+    div.contact-info-text {
+      padding: 1rem 0;
+      font-family: $mainFont;
+      font-size: 1.2rem;
+      p {
+        margin-bottom: 0;
+        font-weight: 600;
+        font-size: inherit;
+        color: $mainColor;
+        &:first-child {
+          font-family: $mainFontSemibold;
+        }
+        span {
+          font-weight: 300;
+          color: $mainColor;
+          font-family: $secondaryFont;
+          font-size: 1.1rem;
+        }
+        a {
+          font-weight: 300;
+          color: $mainColor;
+          font-family: $secondaryFont;
+          text-decoration: underline;
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    .note {
+      display: flex;
+      align-items: center;
+      // height: 100%;
+      max-width: 300px;
+      position: relative;
+      padding: 2.5rem 2rem;
+      padding-bottom: calc(2.5rem + 35px); //height of folded corner
+      color: #fff;
+      background: $mainColor;
+      overflow: hidden;
+      &:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-width: 0 35px 35px 0;
+        border-style: solid;
+        border-color: $secondaryColor $secondaryColor #fff #fff ;
+        background: #658E15;
+        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+        -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+        box-shadow: 0 1px 1px rgba(0,0,0,0.3), -1px 1px 1px rgba(0,0,0,0.2);
+        /* Firefox 3.0 damage limitation */
+        display: block; width: 0;
+      }
+      &.rounded {
+        -moz-border-radius: 5px 0 5px 5px;
+        border-radius: 5px 0 5px 5px;
+        &:before {
+          -moz-border-radius: 0 0 0 5px;
+          border-radius: 0 0 0 5px;
+        }
+      }
+
+      .contact-detail-text {
+        font-family: $secondaryFont;
+        font-size: 1.3rem;
+        font-weight: 600;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.58;
+        letter-spacing: -0.38px;
+        text-align: left;
+        color: #ffffff;
+        margin: 1rem auto;
+        p {
+          margin: 0;
+          font-size: 1rem;
+          &:not(:first-child) {
+            font-weight: 300;
+          }
+          &:first-child {
+            font-family: $mainFontSemibold;
+          }
+
+          a {
+            color: #9effd9;
+            text-decoration: underline;
+            font-weight: 300;
+          }
+        }
+        
+      }
+      hr {
+        border-top: 2px solid #fff;
+        margin-left: 0;
+        width: 15%;
+      }
+    }
+    .contact-form {
+      font-family: $mainFont;
+      font-size: 1.2rem;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      // line-height: 3.47;
+      letter-spacing: -0.76px;
+      text-align: left;
+      color: #667799;
+      max-width: 350px;
+      margin-left: 1rem;
+
+      .form-group {
+        margin-bottom: 1.2rem;
+
+        &.message {
+          margin-top: 3rem;
+        }
+        input, textarea {
+          &.input-error {
+            border-color: #F79E9E;
+          }
+        }
+  
+        .error-message {
+          font-size: .8rem;
+          color: #F79E9E;
+          letter-spacing: .02rem;
+        }
+      }
+
+      
+      .contact-form-heading {
+        font-family: $mainFont;
+        font-size: 2.2rem;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.83;
+        letter-spacing: -1.44px;
+        text-align: left;
+        color: #667799;
+      }
+
+      .contact-reason-container {
+        position: relative;
+
+        /* The container must be positioned relative: */
+        &.contact-custom-select {
+          position: relative;
+          font-family: Arial;
+          width: 100%;
+          outline: none;
+          border: none;
+          // border-bottom: 1px solid #667799;
+          border-radius: 0;
+          color: #667799;
+          background-color: #fff;
+          #contact-reason {
+            display: none; /*hide original SELECT element: */
+          }
+  
+          .select-selected {
+            background-color: #fff;
+            color: #667799;
+            font-family: $mainFont;
+            font-size: 1rem;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            cursor: pointer;
+            &.input-error {
+              border-color: #F79E9E;
+            }
+          }
+  
+          /* Style the arrow inside the select element: */
+          .select-selected:after {
+            position: absolute;
+            content: "";
+            top: 14px;
+            right: 10px;
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            border-color: #fff transparent transparent transparent;
+          }
+  
+          /* Point the arrow upwards when the select box is open (active): */
+          .select-selected.select-arrow-active:after {
+            border-color: transparent transparent #fff transparent;
+            top: 7px;
+          }
+  
+          /* style the items (options), including the selected item: */
+          .select-items div {
+            color: #667799;
+            padding: 0.375rem 0.75rem;
+            // padding-left: 0;
+            border: 2px solid transparent;
+            border-color: #679 #667799 #667799 #667799;
+            border-bottom: none;
+            cursor: pointer;
+            background-color: #fff;
+            color: #667799;
+            font-family: $mainFont;
+            font-size: 1rem;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+
+            &:first-child {
+              border-top: none;
+              border-bottom: none;
+            }
+            &:last-child {
+              border-bottom: 2px solid #679;
+            }
+          }
+          .select-selected {
+            padding: 0.375rem 0.75rem;
+            padding-left: 0;
+            border-bottom: 1px solid #667799;
+
+          }
+  
+          /* Style items (options): */
+          .select-items {
+            position: absolute;
+            background-color: #fff;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 99;
+          }
+  
+          /* Hide the items when the select box is closed: */
+          .select-hide {
+            display: none;
+          }
+  
+          .select-items div:hover, .same-as-selected {
+            background-color: rgba(0, 0, 0, 0.1);
+          }
+        }
+
+        i.fa {
+          position: absolute;
+          font-size: 12px;
+          top: 20px;
+          right: 10%;
+          transform: translateY(-50%);
+        }
+      }
+      label {
+        // padding: 0 .75rem;
+      }
+      input{
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #667799;
+        border-radius: 0;
+        color: #667799;
+        margin-top: 1rem;
+        padding-left: 0;
+        &::placeholder {
+          color: #667799;
+          font-weight: 500;
+          padding-left: 0;
+        }
+      }
+      textarea {
+        border-radius: 0;
+        border-color: rgba( 102, 119, 151, 0.8);
+        // border-top-color: #ced4da;
+        // border-bottom-color: #667799;
+        // border-right-color: #667799;
+        &:focus {
+          border-color: rgba( 102, 119, 151, 0.8) !important;
+          color: #667799;
+        }
+
+      }
+      .form-control:focus {
+        border-color: inherit;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .btn.primary-color {
+        width: 100px;
+        padding: .75rem 0;
+        background-color: $mainColor;
+        color: #fff;
+        font-family: $mainFont;
+        font-weight: 600;
+        font-size: 1rem;
+      }
+    }
+    .successful-message-container {
+      width: 100%;
+      padding: 3rem 0;
+      display: none;
+      .successful-message {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          h3 {
+              margin: 2.5rem 0 .7rem 0;
+          }
+          h3,
+          h6 {
+              color: #679;
+              font-family: 'Graphik Regular';
+          }
+      }
+      
+  }
+
+  }
+
+  @media (max-width: 992px) {
+
+
+  }
+
+  @media (max-width: 767px) {
+    .section-contact-form {
+      padding: 2rem 0;
+      .note {
+        margin: auto;
+        margin-bottom: 1rem;
+      }
+      .contact-form {
+        margin: 0 auto;
+      }
+    }
+    .get-in-touch-section {
+      padding: 2rem 0;
+      .get-in-touch-container {
+        .get-in-touch-text {
+          div {
+            p {
+              font-size: inherit;
+            }
+          }
+        }
+      }
+    }
+    
+
+  }
+
+  @media (max-width: 576px) {
+   
+    .page-padding {
+      padding: 0;
+    }
+
+    .main-section {
+      padding: 1rem 0;
+      .main-section-heading {
+        h2 {
+          font-size: 3.7rem;
+        }
+        p {
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    .get-in-touch-section {
+      padding: 2rem 0;
+      .get-in-touch-container {
+        margin: 1rem auto;
+      }
+    }
+
+    .in-news-main-section {
+      .in-news-heading {
+        font-size: 2rem;
+      }
+      .headlines-container {
+        > .headline h6 {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 376px) {
+    .in-news-main-section {
+      .in-news-heading {
+        font-size: 1.8rem;
+      }
+      .headlines-container {
+        > .headline h6 {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}

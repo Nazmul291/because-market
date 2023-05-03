@@ -1,0 +1,42 @@
+@import "theme";
+@import "custom/reset";
+// @import "custom/fonts";
+@import "custom/header";
+@import "custom/call-center";
+@import "custom/click-faq";
+@import "custom/footer";
+@import "custom/collection-navbar";
+
+@import "pages/home";
+@import "pages/story";
+@import "pages/how-it-works";
+@import "pages/faq";
+@import "pages/news";
+@import "pages/cdb_page.scss";
+@import "pages/products_incontinence.scss";
+@import "pages/product-supplements.scss";
+@import "pages/account";
+@import "pages/account-link";
+
+@import "pages/story";
+@import "pages/contact-us";
+@import "pages/reviews";
+@import "pages/skincare.scss";
+@import "pages/404.scss";
+
+@import "custom/redesign.scss";
+
+@import "custom/gladly.scss";
+
+/*Style By RC 1/6/2021*/
+@import "pages/blog.scss";
+
+body {
+    #page {
+        @media(max-width: 992px) {
+            padding-top: 65px; // fixed nav on mobile
+        }
+    }
+}
+
+

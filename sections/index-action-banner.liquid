@@ -1,0 +1,217 @@
+<!-- /sections/index-action-banner.liquid-->
+{% if section.settings.tracking_event != blank %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const button = document.querySelector('.js-track-action-click--{{ section.id }}')
+
+            if (!button) {
+                console.error('index-action-banner section: Action button not found! Tracking aborted!')
+            } else {
+                button.addEventListener('click', (e) => mixpanel.track('{{ section.settings.tracking_event }}'))
+            }
+        })
+    </script>
+{% endif %}
+
+<div class="action-banner {% if section.settings.image_on_the_right %}action-banner--reversed{% endif %}" data-section-id="{{ section.id }}" data-section-type="actionBanner">
+    <div class="action-banner__image-wrapper">
+        <div class="action-banner__image" {% if section.settings.image %}style="background-image:url('{{ section.settings.image | img_url: '720x', format: 'pjpg', scale: '2' }}');"{% endif %}></div>
+    </div>
+    <div class="action-banner__details" {% if section.settings.background_color %}style="background-color: {{ section.settings.background_color }};"{% endif %}>
+        {% if section.settings.title != blank %}
+            <h2 class="action-banner__title">{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+            <p class="action-banner__description">{{ section.settings.description }}</p>
+        {% endif %}
+        <p class="action-banner__note">{{ section.settings.note }}</p>
+        {% if section.settings.action_text != blank %}
+            {% if section.settings.action_url != blank %}
+                <a class="action-banner__action {{ section.settings.action_class }} js-track-action-click--{{ section.id }}" href="{{ section.settings.action_url }}">{{ section.settings.action_text }}</a>
+            {% else %}
+                <button class="action-banner__action {{ section.settings.action_class }} js-track-action-click--{{ section.id }}">{{ section.settings.action_text }}</a>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+{% stylesheet %}
+    .action-banner {
+        display: flex;
+        flex-direction: row;
+        align-content: stretch;
+        padding: 0 72px 90px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .action-banner--reversed {
+        flex-direction: row-reverse;
+    }
+
+    .action-banner__image-wrapper {
+        position: relative;
+        width: 50%;
+    }
+
+    .action-banner__image {
+        min-height: 100%;
+        padding-top: 75%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+
+    .action-banner__details {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        padding: 90px;
+        box-sizing: border-box;
+        color: #333333;
+    }
+
+    .action-banner__title {
+        max-width: 450px;
+        font-family: "Cooper Md BT W05 Regular";
+        font-size: 36px;
+        font-weight: 500;
+        line-height: 45px;
+        margin: 0 0 20px;
+        padding: 0;
+    }
+
+    .action-banner__description {
+        max-width: 450px;
+        font-family: "Cooper Lt BT W05 Regular";
+        font-size: 24px;
+        line-height: 35px;
+    }
+
+    .action-banner__note {
+        font-family: "Graphik Regular";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 35px;
+        letter-spacing: 0px;
+        flex: 1;
+    }
+
+    .action-banner__action {
+        display: block;
+        width: auto;
+        margin-right: auto;
+        padding: 17px 36px;
+        border-radius: 30px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background-color: #fff;
+        color: #333333;
+        text-decoration: none;
+        font-family: "Coppet Md BT W05 Regular";
+        font-size: 18px;
+        line-height: 25px;
+    }
+
+    .action-banner__action:hover,
+    .action-banner__action:visited,
+    .action-banner__action:active {
+        color: #333333;
+        text-decoration: none;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) {
+        .action-banner,
+        .action-banner--reversed {
+            flex-direction: column;
+        }
+
+        .action-banner {
+            padding: 0 0 60px;
+        }
+
+        .action-banner__image-wrapper,
+        .action-banner__details {
+            width: 100%;
+        }
+
+        .action-banner__image {
+            min-height: 0;
+        }
+
+        .action-banner__details {
+            min-height: 100%;
+            padding: 36px 24px;
+        }
+
+        .action-banner__title {
+            width: 100%;
+            font-size: 36px;
+            line-height: 50px;
+        }
+
+        .action-banner__description {
+            font-size: 24px;
+            line-height: 35px;
+            margin-bottom: 50px;
+        }
+    }
+{% endstylesheet %}
+
+{% schema %}
+    {
+        "name": "Action banner",
+        "tag": "section",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+            }, {
+                "type": "text",
+                "id": "title",
+                "label": "Title"
+            }, {
+                "type": "checkbox",
+                "id": "image_on_the_right",
+                "label": "Image on the right side",
+                "default": false
+            }, {
+                "type": "text",
+                "id": "description",
+                "label": "Description"
+            }, {
+                "type": "text",
+                "id": "note",
+                "label": "Note"
+            }, {
+                "type": "color",
+                "id": "background_color",
+                "label": "Background color",
+                "default": "#667796"
+            }, {
+                "type": "text",
+                "id": "action_text",
+                "label": "Action button text"
+            }, {
+                "type": "text",
+                "id": "action_url",
+                "label": "Action button URL"
+            }, {
+                "type": "text",
+                "id": "action_class",
+                "label": "Action button class name"
+            }, {
+                "type": "text",
+                "id": "tracking_event",
+                "label": "Mixpanel tracking event text"
+            }
+        ],
+        "presets": [{
+            "name": "Action banner",
+            "category": "Custom Sections"
+        }]
+    }
+{% endschema %}

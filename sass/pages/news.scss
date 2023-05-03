@@ -1,0 +1,180 @@
+$bg-color: $white;
+$fold-color: $secondaryColor;
+#news.wrapper {
+    padding: 0 !important;
+    background-color: #fcf7f4;
+    section.row {
+        // flex-direction: column !important;
+        align-items: center;
+        margin: 0;
+        min-width: 100%;
+
+        p.small-title {
+            font-family: $secondaryFont !important;
+            font-size: 0.875rem !important;
+            font-weight: 500 !important;
+            line-height: 1.71 !important;
+            letter-spacing: 3.5px !important;
+            text-align: center !important;
+            text-transform: uppercase !important;
+            color: $white;
+            margin-bottom: 0;
+        }
+
+        .slider-circle {
+            width: 10px;
+            height: 10px;
+            background-color: #667799;
+            border-radius: 100%;
+            opacity: 0.2;
+            &.active {
+                opacity: 1;
+            }
+        }
+    }
+
+    section#hero {
+        // height: 459px;
+        display: flex;
+        justify-content: center;
+        background-color: #fcf7f4;
+        // padding-top: 39px;
+
+        @include media-breakpoint-down(sm) {
+            height: 599px;
+        }
+
+        h2.title {
+            font-family: $secondaryFontSemibold;
+            font-size: 4.75rem;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1;
+            letter-spacing: -3.04px;
+            text-align: left;
+            color: $mainColor;
+            // padding-top: 69px;
+            span {
+                font-family: $mainFontMedium;
+            }
+        }
+
+        p {
+            padding-top: 33px;
+            font-family: $secondaryFont;
+            font-size: 1.25rem;
+            font-weight: 300;
+            font-stretch: normal;
+            letter-spacing: normal;
+            text-align: left;
+            margin-bottom: 48px;
+            color: $mainColor;
+        }
+
+        button.start {
+            background-color: #9effd9;
+            font-family: $mainFontSemibold;
+            font-size: 1rem;
+            font-weight: 600;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 2.5;
+            letter-spacing: -0.32px;
+            text-align: center;
+            color: $mainColor;
+            width: 166px;
+            height: 64px;
+            border-radius: 8px;
+            margin-top: 23px;
+        }
+
+        .underline {
+            width: 44px;
+            height: 3px;
+            background-color: #667799;
+        }
+
+        @include media-breakpoint-down(sm) {
+            h2.title {
+                font-size: 3.75rem;
+                padding-top: 0;
+            }
+        }
+    }
+
+    section#features {
+        display: flex;
+        justify-content: center;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 40px;
+        background: $white;
+        min-width: auto;
+
+        @include media-breakpoint-down(sm) {
+            margin: 0;
+        }
+
+        #articles {
+            background-color: $white;
+            padding-top: 80px;
+            padding-bottom: 80px;
+            flex-wrap: wrap;
+
+            .article {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-bottom: 50px;
+                img.logo {
+                    text-align: center;
+                    height: 30px;
+                    width: auto;
+                    margin-bottom: 29px;
+                }
+
+                a.link {
+                    text-decoration: none;
+                    font-family: $mainFontMedium;
+                    font-size: 22px;
+                    font-weight: 500;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: -0.88px;
+                    text-align: center;
+                    color: $mainColor;
+                    width: 100%;
+                    padding-top: 27px;
+                }
+
+                .underline {
+                    margin-top: 41px;
+                    height: 1px;
+                    width: 44px;
+                    background-color: $secondaryColor;
+                    &:hover {
+                        background-color: $mainColor;
+                    }
+                }
+            }
+
+            @include media-breakpoint-down(sm) {
+                .article {
+                    padding-left: 0 !important;
+                    padding-right: 0 !important;
+
+                    img.thumbnail {
+                        width: 100%;
+                    }
+
+                    a.link {
+                        max-width: 100%;
+                        padding: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

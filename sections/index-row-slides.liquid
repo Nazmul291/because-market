@@ -1,0 +1,190 @@
+<!-- /sections/index-row-slides.liquid-->
+
+{% if section.blocks.size > 0 %}
+    <div class="row-slides" data-section-id="{{ section.id }}" data-section-type="rowSlides">
+        <div class="row-slides-content">
+            {% for collection in section.blocks %}
+                {% if collection.settings.url != "" %}
+                    <a href="{{ collection.settings.url }}">
+                {% endif %}
+                <span class="row-slides-item">
+                    <span
+                        class="row-slides-item__image lazyload"
+                        {% if collection.settings.image %}
+                            style="background-image:url('{{ collection.settings.image | img_url: '720x', format: 'pjpg', scale: '2' }}');"
+                        {% endif %}
+                    >
+                        {% if collection.settings.label_text != "" %}
+                            <span class="row-slides-item__label">{{ collection.settings.label_text }}</span>
+                        {% endif %}
+                    </span>
+                    {% if collection.settings.title %}
+                        <span class="row-slides-item__title">{{ collection.settings.title }}</span>
+                    {% endif %}
+                    {% if collection.settings.button_text and collection.settings.button_text != "" %}
+                        <span class="row-slides-item__button">{{ collection.settings.button_text }}</span>
+                    {% endif %}
+                </span>
+                {% if collection.settings.url != "" %}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+{% stylesheet %}
+    .row-slides {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 72px;
+    }
+
+    .row-slides-content {
+        display: grid;
+        grid-column-gap: 24px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: 1fr;
+        width: 100%;
+        height: auto;
+        overflow-x: auto;
+
+    }
+
+    .row-slides-content a {
+        color: #333333;
+        display: flex;
+    }
+
+    .row-slides-item {
+        display: flex;
+        width: 100%;
+        color: #333333;
+        flex-direction: column;
+    }
+
+    .row-slides-item__image {
+        position: relative;
+        display: block;
+        min-width: 154px;
+        padding-top: 66.6%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+
+    .row-slides-item__label {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 12px;
+        max-width: calc(100% - 24px);
+        background-color: #fff;
+        color: #333333;
+        padding: 7px 17px;
+        border-radius: 0 18px;
+        font-family: "Graphik Medium"
+        font-size: 14px;
+    }
+
+    .row-slides-item__title {
+        display: block;
+        font-family: "Cooper Md BT W05 Regular";
+        font-size: 18px;
+        line-height: 25px;
+        padding: 18px 0;
+    }
+
+    .row-slides-item__button {
+        width: 100%;
+        margin: auto 0 64px;
+        padding: 8px;
+        font-family: Cooper Md BT W05 Regular;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        text-decoration: none;
+        text-align: center;
+        background: #0AE5DA;
+        color: #333;
+        border-radius: 30px;
+        white-space: nowrap;
+    }
+
+	.row-slides-content a:hover {
+      text-decoration: none;
+    }
+
+    .row-slides-content a:hover span span:not(.row-slides-item__button) {
+      text-decoration: underline;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) {
+        .row-slides {
+            padding: 0 24px 60px;
+        }
+
+        .row-slides-content {
+            grid-column-gap: 12px;
+        }
+
+        .row-slides-item__title {
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .row-slides-item__button {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+    }
+{% endstylesheet %}
+
+{% schema %}
+    {
+        "name": "Row Slides",
+        "tag": "section",
+        "max_blocks": 4,
+        "blocks": [
+            {
+                "name": "Item",
+                "type": "collection",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    }, {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title"
+                    }, {
+                        "type": "text",
+                        "id": "url",
+                        "label": "URL"
+                    }, {
+                        "type": "text",
+                        "id": "label_text",
+                        "label": "Label text"
+                    }, {
+                        "type": "text",
+                        "id": "button_text",
+                        "label": "Button text"
+                    }
+                ]
+            }
+        ],
+        "presets": [{
+            "name": "Row Slides",
+            "category": "Custom Sections"
+        }]
+    }
+{% endschema %}
+{% javascript %}
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.row-slides-item__button').forEach((bundleLink) => {
+        bundleLink.addEventListener('click', () => mixpanel.track('Home Page titles CTA button clicked'))
+    })
+  })
+{% endjavascript %}

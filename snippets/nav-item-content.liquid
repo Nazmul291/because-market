@@ -1,0 +1,50 @@
+{% if hasImage == "true" %}
+  {% render 'shop-menu-collection-image', collectionName: link.title %}
+{% endif %}
+
+{% unless menu_item_names_hide contains link.title %}
+  {{ link.title | escape }}{% endunless %}
+{% if link.title == 'Overnight' %}
+  {% render 'image-teardrop-header', imageNumber: 3 %}
+{% elsif link.title == 'Maximum' %}
+  {% render 'image-teardrop-header', imageNumber: 2 %}
+{% elsif link.title == 'Moderate' %}
+  {% render 'image-teardrop-header', imageNumber: 1 %}
+{% endif %}
+{% if grandparent %}
+  <span class="nav-carat-small">
+    {% render 'icon-arrow-down-small' %}
+  </span>
+{% endif %}
+{% if link.title == "Fit Finder" or link.title == "UTI Supplements" %}
+  <div class="navbar-featured">
+    {% if link.title == 'Fit Finder' %}
+      <div class="img-container" style="background-image:url('{{ 'group-22.png' | asset_url }}');"></div>
+    {% elsif link.title == 'UTI Supplements' %}
+      <div class="img-container" style="background-image:url('{{ 'pad-bundle.png' | asset_url }}');"></div>
+    {% endif %}
+
+    <div class="text-container">
+      <h2>
+        {% if link.title == 'Fit Finder' %}
+          Bladder Protection Fit Finder
+        {% elsif link.title == 'UTI Supplements' %}
+          Shop Bundles
+          <br/>
+        {% endif %}
+      </h2>
+
+      <h6>
+        {% if link.title == 'Fit Finder' %}
+          Take the quiz. Try for free.
+        {% elsif link.title == 'UTI Supplements' %}
+          Explore our Favorite Pads Bundle
+        {% endif %}
+      </h6>
+    </div>
+  </div>
+{% endif %}
+
+{% if social_menu_items contains link.title %}
+  <img src="{{ link.title | append: '.svg' | downcase | asset_url }}" alt="{{ link.title | downcase }} icon">
+{% endif %}

@@ -1,0 +1,56 @@
+@import '../theme/theme_variables';
+@import '../../src/sass/bootstrap4/mixins/_breakpoints.scss';
+
+.here-to-help-section {
+  text-align: left!important;
+  padding: 5rem 24vw!important;
+
+  @include media-breakpoint-down(sm) {
+    padding: 5rem 10vw!important;
+  }
+  .pre-header {
+    margin-bottom: 3rem;
+    font-weight: 300;
+    font-stretch: normal;
+    line-height: 2.11;
+    letter-spacing: normal;
+    text-align: left;
+    font-family: $secondaryFontItalic;
+    height: 1.25rem;
+    font-size: 1.023vw;
+    font-style: normal;
+  }
+
+  .content {
+    font-size: 3.015vw;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.18;
+    letter-spacing: -2.24px;
+    text-align: center;
+    font-family: $secondaryFont;
+    @include media-breakpoint-down(sm) {
+      font-size: 8vw;
+      letter-spacing: normal;
+      .first-line {
+        display: block;
+        margin-bottom: 2rem;
+
+      }
+    }
+    .underline {
+      display: inline-block;
+      border-bottom: 2px solid $cyan-link;
+    }
+    a {
+      color: $cyan-link;
+
+      &:visited,
+      &:active,
+      &:hover {
+        color: $cyan-link;
+        text-decoration: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+<!-- /templates/search.liquid -->
+
+{% paginate search.results by 10 %}
+
+  <div class="wrapper page-margin">
+    <h2 class="h2--body">
+      {% if search.performed %}
+        {% if search.results_count == 0 %}
+          {{ 'general.search.no_results_html' | t: terms: search.terms }}
+        {% else %}
+          {{ 'general.search.results_for_html' | t: terms: search.terms }}
+        {% endif %}
+      {% else %}
+        {{ 'general.search.title' | t }}
+      {% endif %}
+    </h2>
+
+    <form action="/search" method="get" role="search" class="form--search">
+      <label for="Search" class="label-hidden">
+        {{ 'general.search.placeholder' | t }}
+      </label>
+      <div class="input-group">
+        <input type="search"
+               class="input-group-field"
+               name="q"
+               id="Search"
+               value="{{ search.terms | escape }}"
+               placeholder="{{ 'general.search.placeholder' | t }}">
+        <span class="input-group-btn">
+          <button type="submit" class="btn">
+            {% include 'icon-search' %}
+            <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+          </button>
+        </span>
+      </div>
+    </form>
+
+    {% if search.performed %}
+      <div class="page-margin">
+        {% for item in search.results %}
+          <div class="grid">
+            {% if item.image or item.featured_media.preview_image %}
+              {% if item.featured_media.preview_image %}
+                {% assign featured_image = item.featured_media.preview_image %}
+              {% else %}
+                {% assign featured_image = item.image %}
+              {% endif %}
+              {%- assign featured_image_api = featured_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+              <div class="grid__item one-sixth">
+                <div {% if featured_image.aspect_ratio < 1 %}style="width:{{ featured_image.aspect_ratio | times: 100 }}%; margin: 0 auto;"{% endif %}>
+                  <a href="{{ item.url }}" title="{{ item.title | escape }}" class="lazy-image" style="padding-top:{{ 1 | divided_by: featured_image.aspect_ratio | times: 100}}%; background-image:  url('{{ featured_image | img_url: '1x1' }}');">
+                    <img class="lazyload fade-in"
+                      alt="{{ featured_image.alt | default: item.title  }}"
+                      data-src="{{ featured_image_api }}"
+                      data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2450, 2700, 3000, 3350, 3750, 4100]"
+                      data-aspectratio="{{ featured_image.aspect_ratio }}"
+                      data-sizes="auto"/>
+                  </a>
+                  <noscript>
+                    <img src="{{ featured_image | img_url: '360x' }}" alt="{{ product.featured_media.preview_image.alt | default: product.title  }}">
+                  </noscript>
+                </div>
+              </div>
+              <div class="grid__item five-sixths">
+            {% else %}
+              <div class="grid__item five-sixths medium-up--push-one-sixth">
+            {% endif %}
+
+              <p class="h3--body">{{ item.title | link_to: item.url }}</p>
+              {% if item.object_type == 'product' %}
+                <h4 class="h4--accent">
+                  {% if item.compare_at_price > item.price %}
+                    <span class="on-sale money">
+                      {{ item.price | money }}
+                    </span>
+                    <s>
+                      {{ item.compare_at_price_max | money }}
+                    </s>
+                  {% else %}
+                    <span>
+                      {{ item.price | money }}
+                    </span>
+                  {% endif %}
+                </h4>
+              {% endif %}
+
+              <p>{{ item.content | strip_html | truncatewords: 50 | replace: '<p>[split]</p>', '[split]' | replace: '[split]', '' }}</p>
+
+            </div>
+          </div>
+
+        {% unless forloop.last %}<hr>{% endunless %}
+
+        {% endfor %}
+
+      </div>
+
+    {% if paginate.pages > 1 %}
+      <div class="page-margin">{% include 'pagination' %}</div>
+    {% endif %}
+  {% endif %}
+
+{% endpaginate %}

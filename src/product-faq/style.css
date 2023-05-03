@@ -1,0 +1,79 @@
+.product-faq {
+  display: flex;
+  width: 100%;
+}
+
+.qa.collapsed .fa-minus {
+  display: none;
+}
+
+.qa.collapsed .fa-plus {
+  display: block;
+}
+
+.qa.collapsed .qa_answer {
+  display: none;
+}
+
+.qa .fa-plus {
+  display: none;
+}
+
+.here,
+.faq {
+  width: 50%;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.here h2 {
+  font-size: 36px;
+  line-height: 50px;
+  font-family: "Cooper MD BT W05 Regular";
+}
+.here p {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 0%;
+  font-family: "Cooper Lt BT W05 Regular";
+}
+
+.qa_question {
+  font-size: 24px;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: "Cooper MD BT W05 Regular";
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+hr.question_break {
+  border-top: solid 1px #ffffff;
+}
+
+i.fa.fa-plus,
+i.fa.fa-minus {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .here {
+    margin-bottom: 50px;
+    width: 100%;
+  }
+
+  .faq {
+    width: 100%;
+  }
+
+  .product-faq {
+    margin-bottom: 0;
+    display: block;
+  }
+
+  .qa_question {
+    font-size: 20px;
+  }
+}

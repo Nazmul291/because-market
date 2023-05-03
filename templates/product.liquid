@@ -1,0 +1,12 @@
+{% render 'shogun-products', content: product %}
+<!-- /templates/product.liquid -->
+
+{% section 'product' %}
+{% section 'products-bottom-addition' %}
+{% section 'products-blurb' %}
+<script>
+    trackEvent(`BM Product - visited`, { product: {{ product | json }} })
+    addMouseFlow()
+</script>
+
+{% include 'product-yotpo-reviews', product: product %}

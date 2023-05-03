@@ -1,0 +1,1 @@
+export { WeeklyOffers } from "./WeeklyOffers"

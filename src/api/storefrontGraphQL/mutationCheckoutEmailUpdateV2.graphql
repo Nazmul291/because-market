@@ -1,0 +1,23 @@
+mutation checkoutEmailUpdateV2($checkoutId: ID!, $email: String!) {
+  checkoutEmailUpdateV2(checkoutId: $checkoutId, email: $email) {
+    checkout {
+      id
+      availableShippingRates {
+        ready
+        shippingRates {
+          handle
+          title
+          priceV2 {
+            amount
+            currencyCode
+          }
+        }
+      }
+    }
+    checkoutUserErrors {
+      code
+      field
+      message
+    }
+  }
+}

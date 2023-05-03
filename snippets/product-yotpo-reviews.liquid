@@ -1,0 +1,111 @@
+<!-- /snippets/product-yotpo-reviews.liquid -->
+{% liquid
+  assign subDiscount = 0
+
+  if product.metafields.subscription != empty
+    for subscription in product.metafields.subscription
+      if subscription[1] > subDiscount
+        assign subDiscount = subscription[1]
+      endif
+    endfor
+
+    assign subDiscount = subDiscount | divided_by: 100.0
+    assign subDiscount = 1.0 | minus: subDiscount
+  endif
+
+  if product.metafields.yotpo.product_id
+    assign yotpoProductId = product.metafields.yotpo.product_id
+  else
+    assign yotpoProductId = product.id
+  endif
+%}
+
+<script>
+(function () {
+  const yotpoHide = Boolean({{ product.metafields.yotpo.hide }})
+
+  const productId = {{ yotpoProductId }}
+  const appKey = "qtDmssHwWOnmJ4Rkr1A3kwYhVWX7Xw6dKZQ7J5n4"
+  const URL = `https://api.yotpo.com/products/${appKey}/${productId}/bottomline`
+
+  function insertScript(bottomline) {
+    const script = document.createElement("script")
+    script.type = "application/ld+json"
+    script.text = `{
+      "@context": "http://schema.org/",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "url": {{ shop.url | append: product.url | json }},
+      {%- if product.featured_media.preview_image -%}
+        {%- assign image_size = product.featured_media.preview_image.width | append: 'x' -%}
+        "image": [
+          {{ product.featured_media.preview_image.src | img_url: image_size | prepend: "https:" | json }}
+        ],
+      {%- endif -%}
+      "description": {{ product.description | strip_html | json }},`
+    if (!yotpoHide && bottomline) {
+      script.text += `
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": ${bottomline.average_score},
+        "ratingCount": ${bottomline.total_reviews},
+        "itemRevieved": {
+          "@type": "Thing",
+          "name": {{ product.title | json }}
+        }
+      },`
+    }
+    script.text += `
+      {%- if product.selected_or_first_available_variant.sku != blank -%}
+        "sku": {{ product.selected_or_first_available_variant.sku | json }},
+      {%- endif -%} \
+      "brand": {
+        "@type": "Thing",
+        "name": {{ product.vendor | json }}
+      },
+      "offers": [
+        {%- for variant in product.variants -%}
+          {
+            "@type" : "Offer",
+            {%- if variant.sku != blank -%}
+              "sku": {{ variant.sku | json }},
+            {%- endif -%}
+            "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+            "price" : {{ variant.price | times: subDiscount | divided_by: 100.00 | json }},
+            "priceCurrency" : {{ cart.currency.iso_code | json }},
+            "url" : {{ shop.url | append: variant.url | json }}
+          }{% unless forloop.last %},{% endunless %}
+        {%- endfor -%}
+      ]
+    }`
+    document.body.appendChild(script)
+  }
+
+  async function fetchBottomLine() {
+    const resp = await fetch(URL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "application/json"
+      }
+    })
+
+    if (!resp.ok) {
+      const message = `ERROR while fetching bottomline: ${resp.status}`
+      throw new Error(message)
+    }
+
+    const response = await resp.json()
+    return response
+  }
+
+  fetchBottomLine()
+    .then((resp) => {
+      const bl = resp.response.bottomline
+      insertScript({ average_score: bl.average_score, total_reviews: bl.total_reviews })
+    }).catch((error) => {
+      // console.error(error.message)
+      insertScript(null)
+    })
+})()
+</script>

@@ -1,0 +1,22 @@
+<!-- /snippets/incontinence-review-grid-item.liquid -->
+<div class="grid__item review__item slide--{{ block.id }} slide--left" {{ block.shopify_attributes }}>
+  <div class="review__card {% if template != 'index' %}dark{% endif %} ">
+    <div class="review__card__text">
+      <div class="review__card__text__contents">
+        <ul class="review__stars unstyled">
+          {% for i in (1..5) %}
+            <li>{% include 'icon-star' %}</li>
+          {% endfor %}
+        </ul>
+
+        {% if review.author_date != blank %}
+          <div class="review__content rte">{{ review.author_date | escape }}</div>
+        {% endif %}
+        <br/>
+        {% if review.comment != blank %}
+          <p class="review__title rte--index">{{ review.comment }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

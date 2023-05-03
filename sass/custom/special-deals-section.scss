@@ -1,0 +1,135 @@
+section#special-deals {
+    background-color: $white;
+    height: 807px;
+    padding-top: 85px;
+    .top-content {
+        padding-top: 30px;
+        width: 100%;
+    }
+    h2.title {
+        font-family: $mainFontMedium;
+        font-size: 2.875rem;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.22;
+        letter-spacing: -1.84px;
+        text-align: center;
+        color: $mainColor;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .nav-vertical-center {
+        padding: 0 100px !important;
+
+        @include media-breakpoint-down(sm) {
+            padding: 0 50px !important;
+        }
+    }
+    .slick-arrow {
+        border: 1px solid rgba(102, 119, 153, 0.2) !important;
+        border-radius: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        top: calc(50% - 70px) !important;
+        width: 40px !important;
+        height: 40px !important;
+        i {
+            font-size: 1rem !important;
+            line-height: 1 !important;
+            margin-top: 4px !important;
+        }
+    }
+
+    div.product {
+        padding-bottom: 80px;
+        text-align: center;
+        margin: 0 auto;
+        width: 100%;
+        .product-info {
+            background-color: #fcfcfc;
+            height: 332px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            .offer {
+                height: 39px;
+                max-width: 120px;
+                margin: 0 auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 2px;
+                background-color: #a1feda;
+                font-family: $secondaryFont;
+                font-size: 0.75rem;
+                font-weight: 500;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 2;
+                letter-spacing: 1.8px;
+                text-transform: uppercase;
+                color: $mainColor;
+                padding: 15px 17px 14px 16px;
+            }
+
+            .product-image {
+                flex: 1;
+                padding-top: 37px;
+                width: 100%;
+                max-height: calc(100% - 45px);
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                img {
+                    flex: 1;
+                    margin: 0 auto;
+                    max-width: 100%;
+                    box-shadow: none;
+                    max-height: calc(100% - 37px);
+                    min-height: calc(100% - 37px);
+                    width: auto;
+                    object-fit: contain;
+                }
+            }
+        }
+
+        h4.title {
+            font-family: $mainFontSemibold;
+            font-size: 1.25rem;
+            font-weight: 600;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 2;
+            letter-spacing: -0.4px;
+            text-align: center;
+            color: $mainColor;
+            margin-top: 20px;
+        }
+
+        span.price {
+            font-family: $secondaryFont;
+            font-size: 1.125rem;
+            font-weight: 300;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.22;
+            letter-spacing: -0.72px;
+            text-align: center;
+            color: $mainColor;
+            margin-top: 16px;
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        h2.title {
+            font-size: 2.25rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+}

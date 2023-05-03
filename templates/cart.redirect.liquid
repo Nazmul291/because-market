@@ -1,0 +1,83 @@
+<h2>One moment... Redirecting you... </h2>
+
+<script>
+
+  const MIXPANEL_MAX_ATTEMPTS = 8
+  const SLEEP_TIMEOUT = 250
+  const CHECKOUT_BASE_URL = "{{ settings.checkout_cart_redirect }}/checkout/purchase?site=because"
+  const CHECKOUT_COOKIE_PARAMS = [
+    'cart',
+    'product_id',
+    'variant_id',
+    'quantity',
+    'purchase_type',
+    'utm_medium',
+    'utm_source',
+    'utm_term',
+    'utm_content',
+    'utm_campaign',
+    'did',
+    'discount',
+    'coupon_code',
+  ]
+
+  const getCheckoutURL = () => CHECKOUT_COOKIE_PARAMS.reduce(
+    (prev, curKey) => prev += `&${curKey}=${getCookie(curKey)}`,
+    CHECKOUT_BASE_URL
+  )
+
+
+  function doRedirect() {
+    debug('Attempting redirect...');
+    let url = null;
+
+    try {
+      url = getCheckoutURL();
+      debug(url)
+    } catch (err) {
+      console.log(`get url error: ${err}`)
+    }
+
+    if (url == null) {
+      debug('Failed to get checkout url.');
+      setTimeout(doRedirect, 500);
+      return;
+    }
+
+    try {
+      mixpanel.track(
+        "Cart Loaded",
+        {"name": "{{product.title}}",
+          "price": "{{ product.price | money_without_currency }}",
+          "brand": "{{product.vendor}}",
+          "category": "{{ collection.title }}",
+          "variant": "{% for variant in product.variants %}{{ variant.sku }}{% endfor %}"
+        });
+    } catch (err) {
+      debug('Failed to track cart loaded event.');
+    }
+
+    try {
+      document.location.href = url;
+    } catch(err) {
+
+    }
+  }
+
+  let mixpanelAttempts = 0;
+  const waitForMixpanel = () => {
+    mixpanelAttempts++
+    if (mixpanel.get_distinct_id === undefined) {
+      debug('Mixpanel not ready, retrying...');
+      if(mixpanelAttempts < MIXPANEL_MAX_ATTEMPTS) {
+        setTimeout(waitForMixpanel, SLEEP_TIMEOUT);
+      } else {
+        doRedirect();
+      }
+    } else {
+      doRedirect();
+    }
+  }
+
+  waitForMixpanel();
+</script>

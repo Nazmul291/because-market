@@ -1,0 +1,319 @@
+<!-- /sections/page.howitworks.liquid-->
+
+{%- assign page_nav = linklists[section.settings.page_nav] -%}
+
+{%- assign page_nav_enable = false -%}
+{%- if page_nav.links.size > 0 -%}
+  {%- assign page_nav_enable = true -%}
+{%- endif -%}
+
+{%- assign page_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+{%- assign title_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+
+{%- if page_nav_enable %}
+  {%- assign page_grid = 'medium-up--three-quarters' -%}
+  {%- assign title_grid = 'one-whole' -%}
+{%- endif -%}
+
+<div class="wrapper page-margin">
+  <div class="grid">
+    <div class="wrapper" id="how-it-works">
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body short-video">
+
+                  </div>
+
+              </div>
+          </div>
+      </div>
+      <section class="row" id="intro">
+          <div class="col col-12 col-md-8 col-lg-8 col-sm-12">
+              <h2 class="title">The Because Way</h2>
+              <p>Together we find the right products for you. Simple.</p>
+              <div class="row justify-content-center">
+                  <button class="primary start account-link">Get Started</button>
+              </div>
+          </div>
+      </section><!-- intro.row -->
+
+      <section id="slider" class="normal">
+          <div id="steps-border" class="fixed-step-border">
+              <div class="circle empty"></div>
+              <div class="circle empty"></div>
+              <div class="circle empty"></div>
+              <div class="left-border"></div>
+              <div class="left-border"></div>
+              <div class="left-border overlay"></div>
+              <div class="left-border overlay"></div>
+          </div>
+          <section class="row steps-trial" id="steps-first">
+              <img class="arrow" src="{{ 'icon-how-it-works-arrow-down.png' | file_url }}" />
+              <div class="col-12 col-lg-5 col-md-5 col-sm-12 col-xs-12 left offset-md-1">
+                  <div class="circle"></div>
+                  <div class="circle empty"></div>
+                  <div class="circle empty"></div>
+                  <img class="illustration mx-auto d-block" id="illustration1"
+                      src="{{ 'how-it-works-trial_illu.png' | file_url }}" />
+                  <h3 class="title">Get your starter pack</h3>
+
+                  <p>The Because fit quiz was developed and honed by helping tens of thousands of members find the
+                      products that work for them. <br /><br />
+                      The options in your starter pack are precision-selected based on the specifics of your
+                      needs.<br /><br />
+                      The starter pack is free - we just ask that you cover a small shipping fee. (Any future orders will always
+                      have free shipping.)
+                  </p>
+                  <button class="primary start account-link">Get Started</button>
+              </div>
+              <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12 illustration">
+                  <img class="illustration mx-auto d-block"
+                      src="{{ 'how-it-works-trial_illu.png' | file_url }}" />
+              </div>
+          </section><!-- steps-trial.first.row -->
+
+          <section class="row steps-trial" id="steps-second">
+              <div class="col-12 col-lg-5 col-md-5 col-sm-12 col-xs-12 left offset-md-1">
+                  <div class="circle"></div>
+                  <div class="circle"></div>
+                  <div class="circle empty"></div>
+                  <div class="left-border"></div>
+                  <div class="left-border"></div>
+                  <img class="illustration mx-auto d-block" id="illustration2"
+                      src="{{ 'how-it-works-illu-3.png' | file_url }}" />
+                  <h3 class="title">Decide
+                      what works</h3>
+                  <p>
+                      Once your samples arrive, try them out in the comfort of your home. There were a few options in your
+                      trial kit - which ones did you like? Consult our trained product specialists and we’ll make sure you
+                      get set up.
+                  </p>
+                  <button class="primary start account-link">Get Started</button>
+              </div>
+              <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12 illustration">
+                  <img class="illustration mx-auto d-block"
+                      src="{{ 'how-it-works-illu-3.png' | file_url }}" />
+              </div>
+          </section><!-- steps-trial.second.row -->
+
+          <section class="row steps-trial" id="steps-third">
+              <div class="col-12 col-lg-5 col-md-5 col-sm-12 col-xs-12 left offset-md-1">
+                  <div class="circle"></div>
+                  <div class="circle"></div>
+                  <div class="circle"></div>
+                  <img class="illustration mx-auto d-block" id="illustration3"
+                      src="{{ 'how-it-works-illu-2.png' | file_url }}" />
+                  <h3 class="title">Customize
+                      your membership</h3>
+                  <p>
+                      Because is always flexible, customizable, and convenient.<br /><br />
+                      Once you find that perfect item, full orders will begin with free shipping!<br /><br />
+                      You’re in control of the schedule. We make sure you get exactly what you need, when you need it —
+                      with free shipping every time.
+                  </p>
+                  <button class="primary start account-link">Get Started</button>
+              </div>
+              <div class="col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12 illustration">
+                  <img class="illustration mx-auto d-block"
+                      src="{{ 'how-it-works-illu-2.png' | file_url }}" />
+              </div>
+          </section><!-- steps-trial.third.row -->
+      </section>
+      <section class="row" id="features">
+          <img class="arrow" src="{{ 'icon-how-it-works-arrow-down.png' | file_url }}" />
+          <section class="row" id="difference">
+              <div class="row flex-row justify-content-center">
+                  <div class="col col-lg-4 col-md-4  col-sm-4 col-12 group">
+                      <img class="d-block mx-auto"
+                          src="{{ 'icon-how-it-works-Price_Icon_6a4cce19-2250-4c8f-9416-aeb5bb2fad58.png' | file_url }}" />
+                      <h3 class="title">Great quality and price</h3>
+                      <p>Products crafted with quality materials, manufactured with feedback from tens of thousands of
+                          older adults.</p>
+                      <span class="line" />
+                  </div>
+                  <div class="col col-lg-4 col-md-4  col-sm-4 col-12 group">
+                      <img class="d-block mx-auto"
+                          src="{{ 'icon-how-it-works-Box.png' | file_url }}" />
+                      <h3 class="title">Make your life easier</h3>
+                      <p>Our discreetly packaged products are delivered straight to your doorstep. Tailored to your needs.
+                      </p>
+                      <span class="line" />
+                  </div>
+                  <div class="col col-lg-4 col-md-4  col-sm-4 col-12 group">
+                      <img class="d-block mx-auto"
+                          src="{{ 'icon-how-it-works-Steps.png' | file_url }}" />
+                      <h3 class="title">Here to help</h3>
+                      <p>Our trained product specialists are here to help you find the best products for the weeks,
+                          months, and years ahead.</p>
+                      <span class="line" />
+                  </div>
+              </div>
+              <div class="row justify-content-center flex-row w-100">
+                  <p class="more">Want to learn more? Watch our <a class="link show-video">short video</a></p>
+              </div>
+          </section><!-- difference.row -->
+      </section>
+
+      <section class="row d-flex justify-content-center" id="testimonial">
+          <div class="col col-lg-12 col-xs-12 col-sm-12 col-12">
+              <p class="small-title">find what you need</p>
+              <h2 class="title">Developed for you.</h2>
+              <p class="text">75% of the health & wellness products do not work well for older adults.</p>
+              <button class="primary action account-link">Find your match</button>
+          </div>
+
+      </section><!-- testimonial.row -->
+    </div><!-- #page-wrapper -->
+  </div>
+</div>
+
+{% include 'home-help-section' %}
+<!-- Theme Javascript ============================================================== -->
+{{ 'bootstrap.js' | asset_url | script_tag }}
+
+<script>
+  var $ = jQuery;
+  var videoModal = $('.short-video');
+  $('.show-video').on('click', function(e) {
+      videoModal.append(`
+        <iframe width="100%" height="405" src="https://www.youtube.com/embed/-JORupK-XDo?controls=1&autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      `)
+      $('#exampleModal').modal('show');
+  });
+
+  $('#exampleModal').on('hidden.bs.modal', function(e) {
+      videoModal.empty();
+  });
+
+  $(document).ready(function() {
+      var offsetYSlide1 = $('#steps-first').offset().top;
+      var sliderContainer = $('#slider');
+      var sectionHeight = window.innerHeight;
+      var sliderHeight = 980;
+      $(window).scroll(function(e) {
+        //   parallaxScroll();
+      });
+
+      function resetElements() {
+          sliderContainer.removeClass('fixed-slider-container').addClass('normal');
+          $('#steps-first').css({
+              position: 'relative',
+              top: 0,
+              'z-index': 0
+          }).show();
+          $('#steps-second').css({
+              position: 'relative',
+              top: 0,
+              'z-index': 0
+          }).show();
+          $('#steps-third').css({
+              position: 'relative',
+              top: 0,
+              'z-index': 0
+          }).show();
+          $('#features').css('margin-top', 0);
+      }
+
+      function positionBorder() {
+          var content = $('#steps-first .left')[0];
+          $("#steps-border").css({
+              top: content.offsetTop,
+              left: content.offsetLeft
+          });
+      }
+
+      function moveSteps(scrollOffset) {
+          if (scrollOffset > 0) {
+              if (scrollOffset < sectionHeight) {
+                  $("#steps-border .left-border.overlay").eq(0).hide();
+                  $("#steps-border .left-border.overlay").eq(1).hide();
+
+                  $("#steps-border .circle").eq(0).removeClass("empty");
+                  $("#steps-border .circle").eq(1).addClass("empty");
+                  $("#steps-border .circle").eq(2).addClass("empty");
+              } else if (scroll <= 2 * sectionHeight) {
+                  $("#steps-border .left-border.overlay").eq(0).show();
+                  $("#steps-border .left-border.overlay").eq(1).hide();
+
+                  $("#steps-border .circle").eq(0).removeClass("empty");
+                  $("#steps-border .circle").eq(1).removeClass("empty");
+                  $("#steps-border .circle").eq(2).addClass("empty");
+              } else {
+                  $("#steps-border .left-border.overlay").eq(0).show();
+                  $("#steps-border .left-border.overlay").eq(1).show();
+
+                  $("#steps-border .circle").eq(0).removeClass("empty");
+                  $("#steps-border .circle").eq(1).removeClass("empty");
+                  $("#steps-border .circle").eq(2).removeClass("empty");
+              }
+          } else {
+              $("#steps-border .circle").eq(0).addClass("empty");
+              $("#steps-border .circle").eq(1).addClass("empty");
+              $("#steps-border .circle").eq(2).addClass("empty");
+          }
+      }
+
+      function parallaxScroll() {
+          var scrolled = $(window).scrollTop();
+          var scrollOffset = scrolled - offsetYSlide1;
+          var ratioY = sliderHeight / window.innerHeight;
+          // console.log(scrollOffset);
+          const animated = sliderContainer.hasClass('fixed-slider-container');
+
+          if (!animated && scrollOffset > 0 && scrollOffset <= 2 * sectionHeight) {
+              sliderContainer.addClass('fixed-slider-container').removeClass('normal');
+              return;
+          }
+
+          if (animated) {
+              if (scrollOffset > 0) {
+                  if (scrollOffset < sectionHeight) {
+                      $('#features').css('margin-top', (scrolled - offsetYSlide1 + sectionHeight) + 'px')
+                      $('#steps-first').css('position', 'absolute').css('top', 0).css('z-index',
+                          100);
+
+                      $('#steps-second').css('position', 'absolute').css('top', (sectionHeight - (
+                          scrollOffset *
+                          ratioY)) + 'px').css('z-index', 101);
+
+                      $('#steps-third').hide();
+
+                      positionBorder();
+                  } else if (scrollOffset <= 2 * sectionHeight) {
+                      $('#steps-first').css('position', 'absolute').css('top', 0).css('z-index',
+                          100);
+                      $('#steps-second').css('position', 'absolute').css('top', 0).css('z-index',
+                          100);
+
+                      $('#steps-third').css({
+                          'position': 'absolute',
+                          'top': (2 * sectionHeight - scrollOffset * ratioY) + 'px',
+                          'z-index': 102
+                      }).show();
+                  } else {
+                      if (animated) {
+                          resetElements();
+                          $('html, body').animate({
+                              scrollTop: $('#features').offset().top - 200
+                          }, 1000);
+                      }
+
+                  }
+
+                  moveSteps(scrollOffset);
+              } else {
+                  // debugger
+                  resetElements();
+              }
+          }
+
+      }
+  });
+  </script>

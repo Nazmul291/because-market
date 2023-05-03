@@ -1,0 +1,1182 @@
+@import '../custom/shared_elements';
+@import '../theme/theme_variables';
+@import '../custom/why-because-section';
+@import '../custom/special-deals-section';
+
+.bladder-products-wrapper {
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: #fff;
+  }
+  .button {
+    &.button-find {
+      width: 11vw;
+      @include media-breakpoint-down(sm) {
+        width: 47.59vw;
+      }
+    }
+
+    &.button-trial {
+      width: 9.522vw;
+      @include media-breakpoint-down(sm) {
+        width :42vw;
+      }
+    }
+  }
+
+  .incontinence-because {
+    @include media-breakpoint-down(sm) {
+      .col-12 {
+        padding: 0;
+      }
+      .button {
+        width: 48vw!important;
+      }
+    }
+  }
+
+
+  .size-modal {
+    width: 44.13vw;
+    max-width: 44.13vw;
+    @include media-breakpoint-down(sm) {
+      max-width: 96vw;
+      width: 96vw;
+    }
+    .modal-content {
+      background: $cream-background;
+      .modal-close {
+        text-decoration: underline;
+      }
+
+      table, th, td {
+        border: solid 1px $mainColor;
+      }
+
+      table {
+        table-layout: fixed ;
+        width: 30.12vw;
+        border-collapse: collapse;
+        margin-top: 3rem;
+        @include media-breakpoint-down(sm) {
+          width: 86.666vw;
+          margin-top: 5rem;
+        }
+
+        th, td {
+          text-align: left;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.58;
+          font-size: $fontsize-19px-cooper-light-desktop;
+          letter-spacing: normal;
+          font-family: $secondaryFont;
+          font-weight: 300;
+          @include media-breakpoint-down(sm) {
+            font-size: $fontsize-19px-cooper-light-mobile;
+          }
+        }
+
+        th {
+          width: 25%;
+          @include media-breakpoint-down(sm) {
+            text-align: center;
+            width: 20%;
+            &:nth-child(4) {
+              width: 40%;
+            }
+          }
+          padding: 0.49rem;
+          background-color: $mainColor;
+          color: $white;
+        }
+
+
+        td {
+          padding-top: 0.49rem;
+          padding-bottom :0.49rem;
+          text-align: center;
+          color: $mainColor;
+        }
+      }
+
+      .how-to-measure {
+        padding-left: 6vw;
+        padding-right: 0;
+        .title {
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+          font-weight: 500;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.36;
+          font-family: $mainFontMedium;
+          letter-spacing: -0.44px;
+          font-size: $footnote-20px-font-size-desktop;
+          color: $mainColor;
+          @include media-breakpoint-down(sm) {
+            font-size: $footnote-20px-font-size-mobile;
+          }
+        }
+        .footnote {
+          font-weight: 300;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.58;
+          letter-spacing: normal;
+          color: $mainColor;
+          font-size: $fontsize-19px-cooper-light-desktop;
+          font-family: $secondaryFont;
+          margin-top: 2rem;
+          margin-bottom: 5rem;
+          @include media-breakpoint-down(sm) {
+            font-size: $fontsize-19px-cooper-light-mobile;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.bladder-title-row {
+  padding-top: 0.5rem;
+  padding-bottom: 2rem;
+  .title-header {
+    font-family: $mainFontSemibold;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: -3.04px;
+    text-align: center;
+    font-size: 3.549vw;
+    color: $mainColor;
+    padding-top: 3rem;
+
+    @include media-breakpoint-down(md) {
+      font-size: 7vw;
+      margin-right: 10vw;
+      margin-left: 10vw;
+    }
+
+    @include media-breakpoint-down(sm) {
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1;
+      letter-spacing: -2.4px;
+      font-size: 17vw;
+      margin-right: 3vw;
+      margin-left: 3vw;
+
+    }
+  }
+
+  .subtitle-header {
+    font-size: $subtitle-header-size-desktop;
+    font-weight: 300;
+    font-stretch: normal;
+    letter-spacing: normal;
+    line-height: 2;
+    text-align: center;
+    color: $mainColor;
+    font-family: $secondaryFontItalic;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+
+    @include media-breakpoint-down(md) {
+      font-size: 3vw;
+    }
+
+    @include media-breakpoint-down(sm) {
+      font-size: 5vw;
+      line-height: normal;
+      padding-left: 10vw;
+      padding-right: 10vw;
+    }
+
+  }
+}
+
+
+
+.products-title-row {
+  border-top: solid 1px rgba(72, 101, 183, .2);
+  padding-top : 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  font-family: $mainFontSemibold;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.5;
+  letter-spacing: normal;
+  color: $mainColor;
+
+  a,
+  a:visited,
+  a:hover {
+    font-family: $mainFontSemibold;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.5;
+    letter-spacing: normal;
+    color: $mainColor;
+  }
+
+
+  @include media-breakpoint-down(sm) {
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.5;
+    letter-spacing: normal;
+    text-align: center;
+    font-weight: 600;
+    font-family: $mainFontSemibold;
+  }
+}
+
+
+
+.core-row {
+  background: $gray;
+
+  .absorb-image {
+    height: 100%;
+    background : no-repeat right -10vw bottom/cover url('/wp-content/themes/understrap/images/products-bladder/absorb-mobile.png') ;
+  }
+
+  @include media-breakpoint-down(sm) {
+    background: $gray;
+    margin-right: -15px;
+    margin-left: -15px;
+    padding-bottom: 3vh;
+  }
+  .core-text {
+    padding-left: 0;
+    padding-right: 0;
+
+    .section-header {
+      text-align: left;
+      color: $light-purple;
+      @include media-breakpoint-down(sm) {
+        padding-bottom: 0;
+        padding-top: 4rem;
+      }
+    }
+
+    p.cooper {
+      margin-bottom: 2vh;
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 4vh;
+      }
+    }
+
+    p.footnote {
+      padding-top: 3rem;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      font-weight: 300;
+      font-size: 0.9vw;
+      color: $mainColor;
+      @include media-breakpoint-down(sm) {
+        font-size: 4.5vw;
+        padding-bottom: 4rem;
+      }
+    }
+  }
+}
+
+.product-number-row {
+  .row {
+    max-width: 100vw;
+  }
+
+  &.men {
+    .core-text {
+      padding-right: 2rem;
+    }
+  }
+  .core-text {
+    padding-left: 4vw;
+    @include media-breakpoint-down(sm) {
+      padding-left: 4vw;
+      padding-right: 4vw;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-bottom: 3vh;
+
+  }
+
+  @include media-breakpoint-down(sm) {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-bottom: 3vh;
+  }
+
+  .section-header {
+    padding-right: 0;
+    padding-left: 0;
+    text-align: left;
+    color: $mainColor;
+    @include media-breakpoint-down(sm) {
+      padding-right: 2vw;
+      padding-left: 0vw;
+    }
+  }
+  p {
+    &.info {
+      padding-right: 0;
+      padding-left: 0vw;
+    }
+  }
+
+  .button {
+    margin-left: 0vw;
+  }
+
+
+  .product-number {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 5vw;
+
+
+    .spaced-header {
+      letter-spacing: 0.5rem;
+      font-size: 0.754vw;
+      font-weight: 500;
+      padding-top: 2vh;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.71;
+      padding-right: 0;
+      color: $mainColor;
+      @include media-breakpoint-down(sm) {
+        font-size: 3.5vw;
+        padding-right: 0;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      padding-top: 0vh;
+      padding-bottom: 0vh;
+    }
+    @include media-breakpoint-down(sm) {
+      padding-bottom: 3rem;
+      margin-top: 3rem;
+      margin-left: 10vw;
+      max-width: 85vw;
+    }
+  }
+}
+
+
+.perfect-fit-row {
+  .row {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  &.men {
+    background: $sky-blue;
+
+    .section-header {
+      padding-right: 0;
+      @include media-breakpoint-down(sm) {
+        margin-top: 4vh;
+        padding-right: 2vw;
+      }
+    }
+    p.info {
+      padding-right: 0;
+    }
+  }
+
+  &.women {
+    background: $light-pink2;
+  }
+
+  @include media-breakpoint-down(sm) {
+    margin-left: -15px;
+    margin-right:  -15px;
+    padding-bottom: 3vh;
+    .section-header {
+      margin-top: 5vh;
+    }
+    p.info {
+      padding-right: 0;
+    }
+    .button + img {
+      margin-left: 0;
+    }
+    .spacer {
+      margin-bottom: 10vh;
+    }
+  }
+
+  a:link,
+  a:hover,
+  a:visited,
+  a:active {
+    color: $secondary;
+    font-size: 0.8vw;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 3.33;
+    letter-spacing: 0.6px;
+    text-decoration: underline;
+    @include media-breakpoint-down(sm) {
+      font-size: 3.2vw;
+    }
+  }
+
+  .section-text {
+    margin-bottom: 2rem;
+  }
+}
+
+
+
+.reverse-title-row {
+
+  @include media-breakpoint-down(sm) {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+
+  .core-text {
+    @include media-breakpoint-down(sm) {
+      padding-left: 11vw;
+    }
+    .section-header {
+      color: $mainColor;
+      text-align: left;
+      padding-right: 0;
+      @include media-breakpoint-down(sm) {
+        padding-right: 8vw;
+      }
+    }
+
+    p {
+      padding-right: 0;
+      @include media-breakpoint-down(sm) {
+        padding-right: 8vw;
+      }
+
+      &.footnote {
+        font-weight: 300;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        font-size: $footnote-20px-font-size-desktop;
+        color: $mainColor;
+        margin-bottom: 2.5rem;
+        @include media-breakpoint-down(sm) {
+          font-size: $footnote-20px-font-size-mobile;
+        }
+
+        .bold {
+          font-family: $secondaryFontItalic;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+.testimonials-container {
+  color: $mainColor;
+  @include media-breakpoint-up(md) {
+    position: relative;
+    left: 0;
+    top: 2vh;
+  }
+  @include media-breakpoint-down(sm) {
+    letter-spacing: -0.48px;
+    padding-left: 3vw;
+    padding-right: 3vw;
+
+  }
+
+  .testimonials-text {
+    font-size: $testimonial-font-size-desktop;
+    letter-spacing: -0.52px;
+    font-stretch: normal;
+    font-weight: 300;
+    font-style:normal;
+    line-height: normal;
+    padding-right: 0;
+    @include media-breakpoint-down(sm) {
+      font-size: 6vw;
+    }
+
+
+  }
+  .testimonials {
+    margin-bottom: 5vh;
+    padding-left: 1vw;
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 10vh;
+    }
+    span {
+      padding-left: 0.5vw;
+    }
+
+    img.avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 52px;
+      object-fit: cover;
+    }
+  }
+}
+
+.testimonials-row {
+
+  @include media-breakpoint-down(sm) {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+
+  .core-text {
+    padding-left: 1vw;
+    padding-right: 2vw;
+  }
+
+  .hr {
+    border-top: 1px solid $mainColor;
+    width: 2rem;
+  }
+
+  .section-header {
+    text-align: left;
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 4vh;
+    }
+  }
+
+
+  hr {
+    background-color: $secondary;
+    width: 2rem;
+    margin-left: -2vw;
+  }
+
+  span {
+    font-family: $mainFontMedium;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.88;
+    letter-spacing: -0.64px;
+    text-align: left;
+    font-size: 0.8vw;
+    @include media-breakpoint-down(sm) {
+      font-size: 4.267vw;
+    }
+  }
+}
+
+.no-bulking {
+  &.men {
+    background: $purple;
+
+    &.testimonials-row {
+      .core-text {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+  }
+  &.women {
+    background: $pink;
+  }
+}
+
+
+
+
+.dry-clean-row {
+  &.men {
+    background: $sky-blue;
+  }
+  &.women {
+    background: $light-pink2;
+  }
+  @include media-breakpoint-down(sm) {
+    .section-header {
+      margin-top: 5vh;
+    }
+    p {
+      &.footnote {
+        margin-bottom: 10vh;
+      }
+    }
+  }
+}
+
+.build-row {
+  @include media-breakpoint-down(sm) {
+    .section-header {
+      margin-top: 5vh;
+    }
+  }
+  p.info {
+    padding-right: 0;
+  }
+  @include media-breakpoint-down(sm) {
+  .core-text {
+    padding-right: 0;
+    .testimonials-container {
+      padding-right: 0;
+    }
+  }
+  }
+  &.women {
+    background: $peach-color;
+    .testimonials-container {
+      @include media-breakpoint-up(md) {
+        position: initial;
+        left: 0;
+        top: 0;
+      }
+      padding-left: 0;
+      padding-top: 7rem;
+      @include media-breakpoint-down(sm) {
+        padding-top: 3rem;
+      }
+    }
+    @include media-breakpoint-down(sm) {
+      padding-right: 0;
+      padding-top: 0;
+    }
+  }
+
+  &.men {
+    background: $light-blue;
+    @include media-breakpoint-down(sm) {
+    }
+    .testimonials-container {
+      display: none;
+    }
+  }
+
+
+}
+
+.incontinence-because {
+  // @include media-breakpoint-down(sm) {
+  //   margin-left: -30px;
+  //   margin-right: -30px;
+
+  // }
+
+  .row {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .col-12 {
+    padding: 0;
+  }
+}
+
+.incontinence {
+  hr {
+    background-color: $secondary;
+    width: 2rem;
+    margin-left: 0;
+    margin-top: 1rem;
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.women-invisible-only {
+
+  &.women {
+    background: $dark-pink;
+    @include media-breakpoint-down(sm) {
+      .core-text {
+        padding-bottom: 10vh;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .section-header {
+      padding-top :5vh;
+    }
+    .section-text {
+      padding-right: 14vw;
+    }
+  }
+
+  &.men {
+    display: none!important;
+  }
+}
+
+.discreetly-row {
+  &.women {
+    background: $peach-color;
+  }
+
+  &.men {
+    background: $light-blue;
+  }
+
+  .section-header {
+    @include media-breakpoint-down(sm) {
+      padding-top: 5vh;
+    }
+  }
+}
+.why-love-because-row {
+  padding: 3rem 0;
+  position: relative;
+  .section-header  {
+    padding: 3rem 8vw;
+    text-align: center;
+    @include media-breakpoint-down(sm) {
+      padding-left: 0;
+      padding-right: 0;
+      margin-bottom: 0;
+    }
+  }
+  #carouselWhyPeopleLove {
+    height: 450px;
+
+    .carousel-indicators li {
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background-color: #ccc;
+    }
+  }
+  .carousel-item {
+    padding-left: 3.92vw;
+    padding-right: 3.92vw;
+    @include media-breakpoint-down(sm) {
+      padding-left: 2.4vw;
+      padding-right: 2.4vw;
+    }
+  }
+
+  .nav-vertical-center {
+    padding: 0 40px!important;
+  }
+
+  .slick-arrow {
+    border: 1px solid $mainColor !important;
+    border-radius: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    i {
+      font-size: 1rem !important;
+      line-height: 1 !important;
+      margin-top: 4px !important;
+    }
+
+    &.slick-next {
+      margin-left: 2px !important;
+    }
+  }
+
+
+  .wpcp-single-item {
+    background-color: #f9f9fd!important;
+    position: relative;
+    .why-people-love-testimonial {
+      height: 18rem;
+    }
+    img {
+      display: inline;
+    }
+
+    @include media-breakpoint-down(sm) {
+      height: 22.63rem;
+    }
+
+    .stars {
+      padding: 1rem 1.5vw;
+
+      @media (max-width: 425px) {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+    }
+    .fold {
+      left: 0;
+      bottom: 0;
+      position: absolute;
+      border-style: solid;
+      border-width: 0 48px 48px 0;
+      border-color: #fff #cbcbcb #fff #fff;
+
+      @include media-breakpoint-down(sm) {
+        border-width: 0 24px 24px 0;
+      }
+      @media (max-width: 992px) {
+        border-width: 0 30px 30px 0;
+      }
+    }
+
+    p {
+      padding-left: 1.5vw;
+      padding-right: 1.5vw;
+      padding-top: 1rem;
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.41;
+      letter-spacing: -0.44px;
+      color: $mainColor;
+      &.name {
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.63;
+        letter-spacing: -0.64px;
+        padding-right: 0;
+        padding-top:0;
+        position: absolute;
+        bottom: 2rem;
+        right: 1.5vw;
+        font-family: $mainFontMedium;
+        @include media-breakpoint-down(sm) {
+          padding-left: 0vw;
+          bottom: 3rem;
+        }
+
+      }
+      @media(max-width: 1200px) {
+        font-size: .9rem;
+      }
+      @include media-breakpoint-down(sm) {
+        font-size: .85rem;
+      }
+      @media (max-width: 576px) {
+        font-size: .7rem;
+      }
+      @media (max-width: 476px) {
+        font-size: 1rem;
+      }
+      @media (max-width: 425px) {
+        font-size: .9rem;
+        padding-left: 15px;
+        padding-right: 15px;
+
+        &.name {
+          right: 15px;
+        }
+      }
+      @media (max-width: 375px) {
+        font-size: .8rem;
+        &.name {
+          bottom: 1.8rem;
+        }
+      }
+
+    }
+
+  }
+}
+
+
+.leak-info-row {
+  color: $mainColor;
+  background-color: $secondaryColor;
+  @include media-breakpoint-down(sm) {
+    margin-left: -15px;
+    margin-right:-15px;
+  }
+  .leak-info-container {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    .spaced-header {
+      padding-top: 2vh;
+      @include media-breakpoint-down(sm) {
+        padding-top: 1rem;
+      }
+    }
+    .leak-info {
+      font-size: $title-header-size-desktop;
+      line-height: 1;
+      font-family: $secondaryFont;
+      @include media-breakpoint-down(sm) {
+        font-size: 11.17vw;
+        padding-left: 8vw;
+        padding-right: 8vw;
+        line-height: 1.3;
+
+      }
+      padding: 1rem;
+    }
+  }
+}
+
+.compare-table-row {
+
+  .logo-white {
+    width: 65%;
+  }
+  text-align: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background: $light-blue-background;
+  @include media-breakpoint-down(sm) {
+    padding-top: 0;
+    .section-header {
+      width: 100%;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 2.15;
+      letter-spacing: -1.04px;
+      font-size: 6.311vw;
+      text-align: center;
+    }
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  table {
+    width: 50%;
+    table-layout: fixed;
+    border: 1px solid $white;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+    }
+    thead {
+      border: 1px solid $white;
+      th {
+        border-top: none;
+        border-bottom: none;
+        vertical-align: middle;
+        width: 25%;
+        height: 6vh;
+        @include media-breakpoint-down(sm) {
+          width: 50%;
+          padding-top: 2vh;
+          padding-bottom: 2vh;
+          height: 10vh;
+        }
+        color: $mainColor;
+      }
+
+      th:first-child {
+        width: 50%;
+        text-align: left;
+        display: table-cell;
+        padding-left: 2vw;
+        font-size: 1.2vw;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        @include media-breakpoint-down(sm) {
+          display: none;
+        }
+      }
+
+      th:nth-child(2) {
+        background-color: $mainColor;
+        color: $white;
+      }
+
+      th:nth-child(3) {
+        background-color: $white;
+        border-color: $light-blue-background;
+        letter-spacing: 0.2rem;
+        font-size: 0.8vw;
+        font-weight: 500;
+        @include media-breakpoint-down(sm) {
+          font-size: 3vw;
+        }
+      }
+    }
+    tr {
+      td {
+        border-top: 1px solid $white;
+        border-bottom: 1px solid $white;
+        width: 25%;
+        color: $mainColor;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        @include media-breakpoint-down(sm) {
+          width: 50%;
+          padding-top: 3rem;
+          padding-bottom: 3rem;
+          height: 10vh;
+
+        }
+      }
+      td:first-child {
+        text-align: left;
+        display: table-cell;
+        padding-left: 2vw;
+        width: 50%;
+        @include media-breakpoint-down(sm) {
+          display: none;
+        }
+      }
+      td:nth-child(2) {
+        background-color: $mainColor;
+        color: $white;
+      }
+      td:nth-child(3) {
+        background-color: $white;
+        border-color: $light-blue-background;
+      }
+    }
+  }
+}
+
+.smarter-way-row {
+  background: $light-gray;
+  @include media-breakpoint-down(sm) {
+    padding-top: 0;
+    padding-bottom: 3rem;
+  }
+  .section-header {
+    padding-right: 2vw;
+    padding-left: 0;
+    text-align: left;
+    @include media-breakpoint-down(sm) {
+      padding-top: 5vh;
+      padding-right: 15vw;
+    }
+  }
+  p {
+    padding-left: 0;
+    padding-right: 0;
+    @include media-breakpoint-down(sm) {
+      padding-right: 3vw;
+    }
+  }
+  .button {
+    margin-left: 0;
+    margin-bottom: 3rem;
+  }
+}
+
+.complete-bladder-products {
+  padding-top: 3rem;
+  padding-right: 2vw;
+  padding-left: 2vw;
+
+  @include media-breakpoint-down(sm) {
+    padding-right: 2vw;
+    padding-left: 2vw;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    @include media-breakpoint-down(sm) {
+      visibility: hidden;
+    }
+  }
+
+  h2.section-header {
+    font-family: $secondaryFont;
+  }
+  #completeBladderCarousel {
+    height: 400px;
+    cursor: pointer;
+
+    .carousel-item {
+      img {
+        height: 100%;
+        max-height: 100%;
+      }
+    }
+   @media (max-width: 476px){
+      height: 350px;
+    }
+    @media (max-width: 426px){
+      height: 325px;
+    }
+    // @include media-breakpoint-down(576px) {
+    //   height: 400px;
+    // }
+
+    .carousel-indicators li {
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background-color: #ccc;
+    }
+  }
+
+  .image-bg {
+    background-color: #bedadb;
+    margin-right: 1vw;
+    margin-left: 1vw;
+    // padding-top: 3rem;
+    // padding-bottom: 3rem;
+    padding: 2.5rem 1rem;
+  }
+
+  .top-content {
+    padding-bottom: 3rem;
+
+    @media (max-width: 576px){
+      padding-bottom: 1.5rem;
+    }
+  }
+
+
+  img {
+    @include media-breakpoint-down(sm) {
+      width: 50%;
+      max-height: 100%;
+
+    }
+  }
+  .col-3 {
+    text-align: center;
+    .product-title {
+      font-family: $mainFontSemibold;
+      padding-top: 0.5rem;
+      color: $mainColor;
+      font-size: $fontsize-19px-cooper-light-desktop;
+    }
+    .product-price {
+      font-family: $secondaryFont;
+      color: $mainColor;
+      padding-bottom: 3rem;
+      font-size: $fontsize-19px-cooper-light-desktop;
+    }
+  }
+  img {
+    width: 100%;
+    @include media-breakpoint-down(sm) {
+      width: 50%;
+    }
+  }
+  .title, .price {
+    text-align: center;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}

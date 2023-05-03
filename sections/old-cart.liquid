@@ -1,0 +1,748 @@
+{% schema %}
+{
+  "name": "Old cart",
+  "presets": [
+    {
+      "name": "Old cart",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}
+
+<!-- /templates/cart.liquid -->
+<!-- {% assign checkout_url = "http://localhost:8000/checkout/purchase?site=because" %} -->
+{% comment %}
+
+  This is your /cart template. If you are using the Ajaxify Cart plugin,
+  your form (with action="/cart") layout will be used in the drawer/modal.
+
+  For info on test orders:
+    - General http://docs.shopify.com/manual/your-store/orders/test-orders
+    - Shopify Payments - http://docs.shopify.com/manual/more/shopify-payments/testing-shopify-payments
+
+{% endcomment %}
+{% if cart.item_count > 0 %}
+  {% assign cart_total = 0 %}
+  {% assign HEMPS_SKU = 'US-CDOT0-AS-001;US-HRTM0-AX-001;US-HRIO0-AX-001;US-HVFM0-AY-001;UV-HNCE0-AQ-001;UV-HNCE0-AW-001;UV-HTTM0-AQ-001;UV-HTFM0-AQ-001;UV-HTOT0-AQ-001;UV-HGTX0-AZ-005;UV-HGTX0-AZ-010;UV-HGTX0-AZ-030;UV-CUTX0-AZ-010;UV-CUTG0-AZ-030;UV-CUBA0-AZ-005;US-CRIO0-AX-001;US-CVFM0-AY-001' %}
+  <style>
+    thead {
+      background-color: #f8f8f8;
+    }
+    tr {
+      border: 1px solid #f1f1f1;
+    }
+    p {
+      font-size: 1rem;
+    }
+
+    .subscribe-with-separator {
+      margin-top: 0.5em;
+    }
+
+  </style>
+  <script>
+    const selectors = {
+      CHECKOUT_BUTTON : "input[name='checkout']",
+      BECAUSE_CHECKOUT_FORM: "#checkoutForm",
+      CART_INFO_BECAUSE_CHECKOUT: "input[name='cartInfo']",
+      SHOPIFY_CART_ROW: ".cart__row[data-id]",
+      SHOPIFY_ITEM_PRICE: ".item__price--final",
+      SHOPIFY_PRICE_ATTRIBUTE: 'data-line-price',
+      SUBSCRIBE_PURCHASE_TYPE_RADIO_OPTION: "input[name='subscribe']",
+      SHOPIFY_ITEM_QUANTITY: "input.quantity__input",
+      SHOPIFY_CART_TOTAL: ".cart__subtotal",
+      SHOPIFY_ITEM_TOTAL: ".cart-item-total .money",
+      SHOPIFY_CBD_DISCOUNT_TOTAL: ".cart-cbd-discount-row .cart-items__total .cbd_discount",
+      SUBSCRIBE_PURCHASE_TYPE_SECTION: ".cart__subscribe-save",
+      PURCHASE_TYPE: ".purchase-type",
+      CONFIRM_MODAL: "#confirmRemove",
+      CONFIRM_REMOVE_BUTTON: "button.btn-confirm-remove",
+      CART_PAGE_WRAPPER: ".cart-page",
+      EMPTY_CART_PAGE_WRAPPER: ".cart__empty",
+      QUANTITY_SELECTORS: "input.js-qty__num.quantity__input",
+      DISCLAIMER: ".disclaimer"
+    }
+
+    let discountInCookie = ''
+    let CUSTOM_DISCOUNT_VALUE = 0
+    let isHempDiscount = false;
+    let isMalikDiscount = false;
+
+    const generateToken = (s) => 'ST-' + s.split('-').join('').slice(0, 28)
+    function regenerateToken() {
+    // BAD HACK - seems cart token are sometimes shown as purchased when they are not
+    // I would suppose this has to do with the cart token lifecycle managed part on shopify, part on our system.
+    // Regenerate new one each time, this is bad, we should not do this..
+      const newToken = generateToken(createUuid())
+      const $cartInfo = $(selectors.CART_INFO_BECAUSE_CHECKOUT)
+      const cartInfo = JSON.parse($cartInfo.val())
+      cartInfo.token = newToken
+      $cartInfo.val(JSON.stringify(cartInfo))
+    }
+
+    const MAX_ATTEMPTS_MIXPANEL = 10
+    function buildCheckoutQuery(readyCB, attempt=0) {
+      let mixpanel_id = ''
+      try {
+        mixpanel_id = mixpanel.get_distinct_id()
+      }
+      catch (err) {
+      }
+      if (!mixpanel_id || mixpanel_id === '') {
+        if (attempt < MAX_ATTEMPTS_MIXPANEL) {
+          return setTimeout(() => buildCheckoutQuery(readyCB, attempt+1), 200)
+        }
+        console.error('max attempts reached and mixpanel id is still unavailable!')
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      PERSIST_PARAMS.forEach(persistParam => {
+        const persistCookieValue = getCookie(persistParam)
+        if (persistCookieValue && persistCookieValue !== 'undefined' &&
+                (!urlParams.has(persistParam) || urlParams.get(persistParam) !== persistCookieValue)) {
+          urlParams.set(persistParam, persistCookieValue)
+        }
+      })
+      urlParams.set('did', mixpanel_id)
+      readyCB(`${urlParams.toString()}&site=because`)
+    }
+
+    let queryUpdated = false
+    $(() => {
+      regenerateToken()
+      buildCheckoutQuery((queryString) => {
+        $("input[name='return_to']").val(`/cart?${queryString}`)
+        const checkoutForm = $("#checkoutForm")
+        checkoutForm.attr('action', `${checkoutForm.attr('action')}?${queryString}`)
+        queryUpdated = true
+      })
+
+      $(selectors.CHECKOUT_BUTTON).on('click', (e) => {
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+        const submitWhenQueryReady = (attempt=0) => {
+          if (!queryUpdated && attempt < MAX_ATTEMPTS_MIXPANEL) {
+            return setTimeout(() => submitWhenQueryReady(attempt + 1), 220)
+          }
+          $(selectors.BECAUSE_CHECKOUT_FORM).submit()
+        }
+        submitWhenQueryReady()
+        return false
+      })
+
+      bindQuantitySelectors()
+    })
+
+    function updateCart(lineUpdate, callback, failCallback) {
+      $.ajax('/cart/change.js', {
+        type: "POST",
+        dataType: 'json',
+        data: lineUpdate
+      })
+      .done(callback)
+      .fail(( jqXHR, textStatus, errorThrown ) => {
+        console.error(jqXHR.responseText)
+        console.error(textStatus)
+        if (failCallback) {
+          failCallback()
+        }
+      })
+    }
+
+    function getCartRowInfo(index) {
+      const $itemRow = $($(selectors.SHOPIFY_CART_ROW)[index])
+      return {
+        $itemRow,
+        $itemPrice: $($itemRow.find(selectors.SHOPIFY_ITEM_PRICE)),
+        quantity: Number($itemRow.find(selectors.SHOPIFY_ITEM_QUANTITY).val()),
+        $cartItemTotal: $($(selectors.SHOPIFY_ITEM_TOTAL)[index]),
+      }
+    }
+
+    function bindQuantitySelectors() {
+      $(selectors.QUANTITY_SELECTORS).each((idx, quantitySelector ) => {
+        const itemKey = $(quantitySelector).parent().parent().parent().data('key')
+        $(quantitySelector).off('change').on('change', debounce((e) =>
+                updateQuantity.call(quantitySelector, `${itemKey}`,e), 250))
+      })
+    }
+
+    function getCartElementsHandles(index)  {
+      const $itemRow = $($(selectors.SHOPIFY_CART_ROW)[index])
+      const $cartInfo = $(selectors.CART_INFO_BECAUSE_CHECKOUT)
+      const cartInfo = JSON.parse($cartInfo.val())
+
+      return {
+        $itemRow,
+        $itemPrice: $($itemRow.find(selectors.SHOPIFY_ITEM_PRICE)),
+        $cartInfo: $cartInfo,
+        $cartSubtotal: $(selectors.SHOPIFY_CART_TOTAL),
+        $cartItemTotal: $($(selectors.SHOPIFY_ITEM_TOTAL)[index]),
+        $discountCBDTotal: $(selectors.SHOPIFY_CBD_DISCOUNT_TOTAL),
+        quantity: Number($itemRow.find(selectors.SHOPIFY_ITEM_QUANTITY).val()),
+        cartJSON: cartInfo
+      }
+    }
+
+    function findIdxForItemKey(itemKey) {
+      const $cartRows = $(selectors.SHOPIFY_CART_ROW)
+      for (let rowIdx in $cartRows) {
+        if ($($cartRows[rowIdx]).data('key') === (itemKey)) {
+          return Number(rowIdx)
+        }
+      }
+      throw new Error('could not find index for id ' + id)
+    }
+
+    function showConfirmRemove(itemKey) {
+      jQuery.noConflict()
+      $(selectors.CONFIRM_REMOVE_BUTTON).off('click').on('click', () => {
+        $(selectors.CONFIRM_MODAL).modal('hide')
+        removeItem(itemKey)
+      })
+      $(selectors.CONFIRM_MODAL).modal('show')
+    }
+
+    function showHideDisclaimer(newCartInfo) {
+      const $disclaimer = $(selectors.DISCLAIMER)
+      const hasSubscription = newCartInfo.items.some(curItem => !curItem.properties ||
+              !curItem.properties.purchase_type || curItem.properties.purchase_type === "subscribe")
+      if (hasSubscription) {
+        $disclaimer.removeClass("d-none")
+      } else {
+        $disclaimer.addClass("d-none")
+      }
+    }
+
+    function printPrice(priceAsInt) {
+      return `$${(priceAsInt / 100).toFixed(2)}`
+    }
+
+    function parseCartSubtotal($cartSubtotal) {
+      return Number($cartSubtotal.text().replace(/[^0-9]+/g, "")) || 0
+    }
+
+    const HEMP_SKUS = '{{ HEMPS_SKU }}'
+
+    const canApplyDiscount = ({sku, properties = {}}) => {
+      if (isHempDiscount) {
+        return (typeof sku === 'string') && HEMP_SKUS.indexOf(sku.toUpperCase()) > -1
+      }
+      if (isMalikDiscount) {
+        const { purchase_type } = properties
+        // return purchase_type === "subscription" || purchase_type === "subscribe"
+        return true
+      }
+      return false
+    }
+
+    function renderDiscount(value) {
+      const valueContainer = $(selectors.SHOPIFY_CBD_DISCOUNT_TOTAL)
+      const parentRow = valueContainer.closest('tr')
+      if (!value || value < 1) {
+        parentRow.css('display', 'none')
+      } else if (parentRow.css('display') === 'none') {
+        const titleContainer = parentRow.find('.cart__item__cbd__discount')
+        titleContainer.text(`Coupon Code: ${discountInCookie}`)
+        parentRow.removeAttr('style')
+      }
+      valueContainer.text("-" + printPrice(value))
+    }
+
+    function initialRender() {
+      let totalDiscount = 0
+      let cartSubtotal = 0
+      discountInCookie = getCookie('discount') || ''
+      const hempRegex = /^hemp\d{2}$/gmi
+      const malikRegex = /^drmalik\d{2}$/gmi
+      const regexToReplace = /^(hemp|drmalik)/gmi
+      const isUsed = getCookie('isDrmalikUsed') === 'true';
+      isHempDiscount = hempRegex.test(discountInCookie)
+      isMalikDiscount = !isUsed && malikRegex.test(discountInCookie)
+      const validDiscount = isHempDiscount || isMalikDiscount;
+      CUSTOM_DISCOUNT_VALUE = validDiscount ? parseInt(discountInCookie.replace(regexToReplace, '')) || 0 : 0
+      if (CUSTOM_DISCOUNT_VALUE && !(CUSTOM_DISCOUNT_VALUE >= 0 && CUSTOM_DISCOUNT_VALUE <= 50)) {
+        CUSTOM_DISCOUNT_VALUE = 0
+        eraseCookie('discount')
+      }
+      if (CUSTOM_DISCOUNT_VALUE) {
+        let discountInItems = false
+        $(selectors.SHOPIFY_CART_ROW).each(function (index) {
+          const { cartJSON, $itemPrice, $cartItemTotal } = getCartElementsHandles(index)
+          const hasDiscount  = canApplyDiscount(cartJSON.items[index])
+          const itemPrice = Math.round($itemPrice.attr(selectors.SHOPIFY_PRICE_ATTRIBUTE))
+          const quantity = cartJSON.items[index].quantity
+          const itemTotal = itemPrice * quantity
+          cartSubtotal += itemTotal
+          if (hasDiscount) {
+            const discountValue = Math.round(itemTotal * (CUSTOM_DISCOUNT_VALUE / 100))
+            totalDiscount += discountValue
+            cartSubtotal -= discountValue
+            if (isMalikDiscount) {
+              discountInItems = true
+            }
+          }
+          $cartItemTotal.text(printPrice(itemTotal))
+        })
+        if (discountInItems) {
+          trackEvent("DRMALIK: User loads cart with discount")
+        }
+        $(selectors.SHOPIFY_CART_TOTAL).text(printPrice(cartSubtotal))
+        renderDiscount(totalDiscount)
+      }
+    }
+
+    let updateQuantityChangeRunning = false;
+    function updateQuantity(key, changeEvent) {
+      const index = findIdxForItemKey(key)
+      if (updateQuantityChangeRunning) {
+        setTimeout(() => updateQuantity(index, changeEvent), 100)
+      }
+      updateQuantityChangeRunning = true
+      updateCart({ line: index+1,quantity:  changeEvent.target.value}, (newCartInfo) => {
+
+        const { $itemPrice, $cartInfo, $cartSubtotal, $cartItemTotal, $discountCBDTotal, cartJSON } = getCartElementsHandles(index)
+        const quantity = newCartInfo.items[index].quantity
+        const oldQuantity = cartJSON.items[index].quantity
+        const itemPrice = Math.round($itemPrice.attr(selectors.SHOPIFY_PRICE_ATTRIBUTE))
+        const hasDiscount  = canApplyDiscount(cartJSON.items[index])
+        const newItemTotal = (itemPrice * quantity / 100).toFixed(2) * 100
+        const oldItemTotal = (itemPrice * oldQuantity / 100).toFixed(2) * 100
+        const cartOldSubtotal = parseCartSubtotal($cartSubtotal)
+        let cartNewSubtotal = cartOldSubtotal - oldItemTotal + newItemTotal
+        if (CUSTOM_DISCOUNT_VALUE && hasDiscount) {
+          const oldDiscountValue = Math.round(oldItemTotal * (CUSTOM_DISCOUNT_VALUE / 100))
+          const newDiscountValue = Math.round(newItemTotal * (CUSTOM_DISCOUNT_VALUE / 100))
+          cartNewSubtotal = cartNewSubtotal + oldDiscountValue - newDiscountValue
+          const updatedDiscount = parseCartSubtotal($discountCBDTotal) - oldDiscountValue + newDiscountValue
+          renderDiscount(updatedDiscount)
+        }
+        $cartItemTotal.text(printPrice(newItemTotal))
+        $cartSubtotal.text(printPrice(cartNewSubtotal))
+        newCartInfo.items_subtotal_price = cartNewSubtotal
+        $cartInfo.val(JSON.stringify(newCartInfo))
+        updateQuantityChangeRunning = false
+      })
+    }
+
+    function removeItem(key) {
+      const index = findIdxForItemKey(key)
+      updateCart({ line: index+1,quantity:  0}, (newCartInfo) => {
+        const { $itemRow, $itemPrice, $cartInfo, $cartSubtotal, $discountCBDTotal, quantity, cartJSON} = getCartElementsHandles(index)
+        if (newCartInfo.items.length === 0) {
+          $(selectors.CART_PAGE_WRAPPER).hide()
+          $(selectors.EMPTY_CART_PAGE_WRAPPER).show()
+        } else {
+          const itemPrice = $itemPrice.attr(selectors.SHOPIFY_PRICE_ATTRIBUTE)
+          const hasDiscount  = canApplyDiscount(cartJSON.items[index])
+          const oldQuantity = cartJSON.items[index].quantity
+          const cartOldSubtotal = parseCartSubtotal($cartSubtotal)
+          const oldItemTotal = (itemPrice * oldQuantity / 100).toFixed(2) * 100
+          let newCartSubtotal = cartOldSubtotal - oldItemTotal
+          if (CUSTOM_DISCOUNT_VALUE && hasDiscount) {
+            const oldDiscountValue = Math.round(oldItemTotal * (CUSTOM_DISCOUNT_VALUE / 100))
+            newCartSubtotal = newCartSubtotal + oldDiscountValue
+            const updatedDiscount = (parseCartSubtotal($discountCBDTotal) || 0) - oldDiscountValue
+            renderDiscount(updatedDiscount)
+          }
+          $cartSubtotal.text(printPrice(newCartSubtotal))
+          $cartInfo.val(JSON.stringify(newCartInfo))
+
+          $itemRow.remove()
+          showHideDisclaimer(newCartInfo)
+          bindQuantitySelectors()
+        }
+      })
+    }
+
+    let runningChanges = new Set()
+    function changeSubscribe(key, isOneTime) {
+      if (runningChanges.has(key)) {
+        return
+      }
+      runningChanges.add(key)
+      const $cartInfo = $(selectors.CART_INFO_BECAUSE_CHECKOUT)
+      const cartInfo = JSON.parse($cartInfo.val())
+      const index = findIdxForItemKey(key)
+
+      updateCart({
+        line: index + 1,
+        quantity: cartInfo.items[index].quantity,
+        properties: {
+          purchase_type: ((isOneTime) ? 'subscribe' : 'onetime')
+        }
+      }, (newCartInfo) => {
+        const { $itemRow, $itemPrice, $cartInfo, $cartSubtotal, $cartItemTotal, $discountCBDTotal, quantity, cartJSON } =
+                getCartElementsHandles(index)
+
+        let oldPrice = $itemPrice.attr(selectors.SHOPIFY_PRICE_ATTRIBUTE)
+        const hasDiscount  = canApplyDiscount(newCartInfo.items[index])
+        const hadDiscount  = canApplyDiscount(cartJSON.items[index])
+        let newPrice = oldPrice
+        if (isOneTime) {
+          newPrice = newPrice / 118 * 100
+        } else {
+          newPrice = newPrice / 100 * 118
+        }
+
+        $itemPrice.attr(selectors.SHOPIFY_PRICE_ATTRIBUTE, newPrice)
+        $itemPrice.text(printPrice(newPrice))
+
+        const newItemTotal = (newPrice * quantity / 100).toFixed(2) * 100
+        const oldItemTotal = (oldPrice * quantity / 100).toFixed(2) * 100
+        const cartOldSubtotal = parseCartSubtotal($cartSubtotal)
+        let cartNewSubtotal = cartOldSubtotal - oldItemTotal + newItemTotal
+
+        if (CUSTOM_DISCOUNT_VALUE && hasDiscount) {
+          const oldDiscountValue = hadDiscount ? Math.round(oldItemTotal * (CUSTOM_DISCOUNT_VALUE / 100)) : 0
+          const newDiscountValue = Math.round(newItemTotal * (CUSTOM_DISCOUNT_VALUE / 100))
+          cartNewSubtotal = cartNewSubtotal + oldDiscountValue - newDiscountValue
+          const updatedDiscount = parseCartSubtotal($discountCBDTotal) - oldDiscountValue + newDiscountValue
+          renderDiscount(updatedDiscount)
+        }
+
+        newCartInfo.items_subtotal_price = cartNewSubtotal
+        $cartInfo.val(JSON.stringify(newCartInfo))
+        $cartSubtotal.text(printPrice(cartNewSubtotal))
+        $cartItemTotal.text(printPrice(newItemTotal))
+        $itemRow.find(selectors.PURCHASE_TYPE).text("Monthly Subscription")
+        const $cartSave = $itemRow.find(selectors.SUBSCRIBE_PURCHASE_TYPE_SECTION)
+        $($cartSave[0].parentElement).hide()
+        showHideDisclaimer(newCartInfo)
+        runningChanges.delete(key)
+      }, () => {
+        runningChanges.delete(key)
+      })
+    }
+
+    if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD) {
+      document.location.reload()
+    }
+
+   // trackEvent("BM Cart viewed", { cartInfo : {{ cart | json }} })
+   // trackLinks(selectors.CHECKOUT_BUTTON, "BM Checkout started", { cartInfo : {{ cart | json }} })
+  </script>
+
+  {% assign has_subscription = false %}
+  <div class="wrapper page-margin cart-page">
+    <form action="/cart" method="post" novalidate class="cart cartForm">
+      <h2 class="cart__title hidden-small">{{ 'cart.general.title' | t }}</h2>
+      <table class="stack cart-items">
+        <thead>
+          <th class="info">
+            <a class="cart__exit" href="/collections/for-women">
+              <span class="icon-left">{% include 'icon-arrow-down' %}</span>
+              <span class="exit-text">{{ 'cart.general.continue_browsing_html' | t }}</span>
+            </a>
+          </th>
+          <th>{{ 'cart.label.price' | t }}</th>
+          <th>{{ 'cart.label.quantity' | t }}</th>
+          <th class="text-right">{{ 'cart.label.total' | t }}</th>
+        </thead>
+        <tbody>
+        {% comment %}
+          Loop through products in the cart
+        {% endcomment %}
+        {% for item in cart.items %}
+
+          {%- assign discounted = false -%}
+          {%- if item.original_price > item.final_price -%}
+            {%- assign discounted = true -%}
+          {%- endif -%}
+          {%- assign sale = false -%}
+          {%- if item.variant.compare_at_price > item.price -%}
+            {%- assign sale = true -%}
+          {%- endif -%}
+
+          {% assign is_one_time = false %}
+          {% assign property_size = item.properties | size %}
+          {% if property_size > 0 %}
+            {% for p in item.properties %}
+              {% if p.first == "purchase_type" and p.last == "onetime" %}
+                {% assign is_one_time = true %}
+              {% else %}
+                {% assign has_subscription = true  %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+          <tr class="cart__row{% if discounted %} line--discounted{% endif %}{% if sale %} line--sale{% endif %}" data-id="{{ item.id }}" data-key="{{ item.key }}">
+            <td class="cart_row_item_data_td_mobile">
+              <div class="grid--full d-flex">
+                    <div class="grid__item one-third cart__image">
+                      <a href="{{ item.url | within: collections.all }}" class="">
+                        <img src="{{ item | img_url: '300x300' }}" alt="{{ item.title | escape }}">
+                      </a>
+                    </div>
+                    <div class="grid__item two-thirds cart__description">
+                      <a href="{{ item.url }}">
+                        <div class="h4--body cart__item__title">{{ item.product.title }}</div>
+                      </a>
+                      <div>
+                      <ul class="cart__item-features">
+                        {% unless item.product.has_only_default_variant %}
+                        <!-- see https://shopify.dev/docs/themes/liquid/reference/objects/variant#variant-title -->
+                        {% assign features = item.variant.title | split: " / "%}
+                        {% for feature in features %}
+                          <li>{{ feature | strip }}</li>
+                        {% endfor %}
+                        {% endunless %}
+                        <li>
+                          <span class="purchase-type">
+                            {% if is_one_time == true %}
+                              One-Time Purchase
+                            {% else %}
+                              Monthly Subscription{% endif %}
+                          </span>
+                        </li>
+                      </ul>
+                      </div>
+                      {% if settings.cart_vendor_enable %}
+                        {{ item.vendor }}
+                      {% endif %}
+
+                      {% if property_size > 0 %}
+                        {% for p in item.properties %}
+                          {% unless p.last == blank or p.first == "purchase_type" %}
+                            {{ p.first }}:
+                            {% comment %}
+                              Check if there was an uploaded file associated
+                            {% endcomment %}
+                            {% if p.last contains '/uploads/' %}
+                              <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                            {% else %}
+                              {{ p.last }}
+                            {% endif %}
+                            <br>
+                          {% endunless %}
+                        {% endfor %}
+                      {% endif %}
+                      {% if is_one_time == true %}
+                        {% unless item.product.tags contains "NonSubscriptionItem"%}
+                          <span class="subscribe-with-separator">
+                            <a class="cart__subscribe-save"
+                               href="javascript:changeSubscribe('{{ item.key }}', {{ is_one_time }})">
+                              Click Here to Subscribe and Save
+                            </a>
+                           <span class="d-none d-md-inline-block subscribe-save-separator">|</span>
+                          </span>
+              {% endunless %}
+                      {% endif %}
+                      <!--<label class="cart__subscribe-save" style="display:{% if is_one_time %}none{% else %}block{% endif %}" >
+                        You're subscribed and saving {{ item.final_price | times: 1.18 | minus: item.final_price | times: item.quantity | money }}
+                      </label> -->
+                      {% if discounted and item.quantity > 1 %}
+                        {%- for discount in item.line_level_discount_allocations -%}
+                          <div>
+                            <span class="item__total__savings">
+                              <span class="cart__icon--tags">
+                                {% include 'icon-tags' %}
+                              </span>
+                              {{ 'cart.general.savings' | t }}
+                              {{ discount.amount | money_without_trailing_zeros }}
+                              {{ 'cart.general.with' | t }}
+                              {{ discount.discount_application.title }}
+                            </span>
+                          </div>
+                        {%- endfor -%}
+                      {% endif %}
+                      <a href="javascript:showConfirmRemove('{{ item.key }}')"
+                         class="cart__remove" data-id="{{ item.key }}">
+                        <small>{{ 'cart.general.remove' | t }}</small>
+                      </a>
+                    </div>
+                  </div>
+            <td class="item__price cart-items__price" data-label="{{ 'cart.label.price' | t }}">
+              {% assign final_price = item.final_price %}
+              {% if is_one_time %}
+                {% unless item.product.tags contains 'NonSubscriptionItem'%}
+                    {%  assign final_price = final_price | times: 1.18 %}
+                  {% endunless %}
+              {% endif %}
+              <p data-line-price="{{ final_price }}" class="item__price--final">{{ final_price | money }}</p>
+            </td>
+            <td class="qunantity-selector-row">
+              {% assign className='' %}
+              {% if item.product.type == "Underwear" or item.product.type == "Pads" or item.product.type == "Guards" or item.product.type == "Liners" %}
+                {% assign className='cart__hide-quantity' %}
+              {% endif %}
+              <div class="js-qty quantity-selector {{ className }}">
+                <label for="updates_{{ item.key }}" class="label-hidden">{{ 'products.product.quantity' | t }}</label>
+                <span class="js-qty__adjust js-qty__adjust--minus quantity__minus">{% include "icon-minus" %}</span>
+                <input
+                  class="js-qty__num quantity__input"
+                  data-line-quantity
+                  type="text"
+                  value="{{ item.quantity }}"
+                  min="0"
+                  aria-label="quantity"
+                  pattern="[0-9]*"
+                  name="updates[]"
+                  id="updates_{{ item.key }}"
+                  aria-label="{{ 'cart.general.item_quantity' | t }}">
+                <span class="js-qty__adjust js-qty__adjust--plus quantity__plus">{% include "icon-plus" %}</span>
+              </div>
+            </td>
+            {% assign item_total = final_price | times: item.quantity %}
+            {% assign cart_total = cart_total | plus: item_total %}
+            <td class="cart-items__total" data-label="{{ 'cart.label.total' | t }}">
+              {% if item.original_line_price != item.line_price %}
+                <p><span class="cart-item-original-price"><s><span class="money">{{ item.original_line_price | money }}</span></s></span></p>
+              {% endif %}
+              <span class="cart-item-total">
+                <p>
+                  <span class="text-left inline-block-mobile">Total:&nbsp;&nbsp;&nbsp;</span>
+                  <span class="money">{{ item_total | money }}</span>
+                </p>
+              </span>
+              {% for discount in item.discounts %}
+                {%- if discount.title != "HEMP30" -%}
+                  <p><span class="cart-item-discount">{{ discount.title }}</span></p>
+                {%- endif -%}
+              {% endfor %}
+            </td>
+        </tr>
+      {% endfor %}
+        <tr class="cart-cbd-discount-row" style="display: none">
+          <td class="cart-cbd-items-discount">
+            <p><span class="h4--body cart__item__cbd__discount"></span></p>
+          </td>
+          <td colspan="3" class="cart-items__total">
+            <span class="cbd_discount"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+      <div class="cart__row cart__footer">
+        <div class="grid">
+          {% if settings.cart_notes_enable %}
+            <div class="grid__item medium-up--one-half cart__instructions">
+              <div class="form__field">
+                <label class="cart__instructions__label" for="CartSpecialInstructions">{{ 'cart.general.note' | t }}</label>
+                <textarea name="note" class="input-full" id="CartSpecialInstructions" placeholder="{{ 'cart.general.note' | t }}">{{ cart.note }}</textarea>
+              </div>
+            </div>
+          {% endif %}
+          <div class="grid__item text-right {% if settings.cart_notes_enable %} medium-up--one-half{% endif %}">
+            {%- if cart.cart_level_discount_applications.size > 0 -%}
+
+              <p class="cart__footer__text cart__discounts">
+                <span class="cart__discounts__title">{{ 'layout.cart.items_count.other' | t | capitalize }}</span>
+                <span class="h3--body cart__discounts__amount money">{{ cart.items_subtotal_price | money }}</span>
+              </p>
+
+              {%- for discount in cart.cart_level_discount_applications -%}
+                <p class="cart__footer__text cart__discounts">
+                  <span class="cart__discounts__title">
+                    {% include 'icon-tags' %}
+                    {{ discount.title }}
+                  </span>
+                  <span class="h3--body cart__discounts__amount money">-{{ discount.total_allocated_amount | money }}</span>
+                </p>
+              {%- endfor -%}
+            {%- endif -%}
+            <p class="cart__footer__text">
+              <span class="cart__subtotal__title ">{{ 'cart.general.subtotal' | t }}</span>
+              <span class="h3--body cart__subtotal money" data-cart-total>{{ cart_total | money }}</span>
+            </p>
+            <p class="cart__footer__text"><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
+            <div class="cart__buttons-and-disclaimer">
+                <span class="cart__buttons_container">
+                  <span class="cart__update">
+                    <input type="button" name="update" class="cart__update_button"
+                           value="{{ 'cart.general.continue_browsing_html' | t }}"
+                           onclick="document.location.href = '/collections/for-women'">
+                  </span>
+                  <input type="button" name="checkout" class="primary start btn  btn--large checkout__button" value="{{ 'cart.general.checkout' | t }}" />
+                </span>
+                <span class="disclaimer {% unless has_subscription %}d-none{% endunless %}">
+                  <p>By placing your order, you agree to Because's <a target="_blank" href="/pages/privacy">privacy notice</a> and <a target="_blank" href="/pages/terms-and-conditions">terms and conditions.</a></p>
+                  <p>You also agree to the subscription and authorize us to charge your default payment method or another payment method on file. Your subscription continues until canceled. You can cancel at any time via the Member Portal under your account.</p>
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% if additional_checkout_buttons and settings.cart_show_additional_buttons %}
+        <div class="additional-checkout-buttons">
+          {{ content_for_additional_checkout_buttons }}
+        </div>
+      {% endif %}
+    </form>
+
+    <form id="checkoutForm" action="{{ checkout_url }}" method="post">
+      <input type="hidden" name="return_to" value="/cart" />
+     <input name="cartInfo" value="{{ cart | json | escape}} " type="hidden"/>
+    </form>
+
+    <div class="modal fade" id="confirmRemove" tabindex="-1" role="dialog"
+         aria-labelledby="removeModalLabel" aria-hidden="true" data-backdrop="static"
+         data-keyboard="false"
+         style="z-index: 5000">
+      <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="removeModalLabel">Confirm Remove</h5>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to remove this item from the cart?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary btn-confirm-remove">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cart__empty wrapper page-margin text-center" style="display: none">
+    <div class="supports-cookies">
+      <h2 class="h2 cart__title">{{ 'cart.general.title' | t }}</h2>
+      <p>{{ 'cart.general.empty' | t }}</p>
+      <a href="/collections/for-women" class="btn btn--large">{{ 'cart.general.continue_browsing_html' | t }}</a>
+    </div>
+    {% comment %}
+      Cart no cookies state
+      ---------------------
+      Browser cookies are required to use the cart. If cookies aren't enabled in the
+      browser a message is displayed prompting the user to enable them.
+    {% endcomment %}
+    <div class="supports-no-cookies">
+      <p>{{ 'cart.general.cookies_required' | t }}</p>
+    </div>
+  </div>
+
+  {% else %}
+    {% comment %}
+      The cart is empty
+    {% endcomment %}
+    <div class="cart__empty wrapper page-margin text-center">
+
+      <div class="supports-cookies">
+        <h2 class="h2 cart__title">{{ 'cart.general.title' | t }}</h2>
+        <p>{{ 'cart.general.empty' | t }}</p>
+        <a href="/collections/for-women" class="btn btn--large">{{ 'cart.general.continue_browsing_html' | t }}</a>
+      </div>
+
+      {% comment %}
+      Cart no cookies state
+      ---------------------
+      Browser cookies are required to use the cart. If cookies aren't enabled in the
+      browser a message is displayed prompting the user to enable them.
+      {% endcomment %}
+      <div class="supports-no-cookies">
+        <p>{{ 'cart.general.cookies_required' | t }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">  // MIXPANEL CUSTOMIZATION 18 APR 2017.</script>
+  <script>
+    $( document ).ready(function() {
+      //$(".checkout").click(function(){
+      //});
+      setTimeout(initialRender)
+    });
+  </script>
+
+  <!-- <script>$(window).ready(function() {$('[name="checkout"]').click();});</script><br> -->

@@ -1,0 +1,86 @@
+<!-- /sections/index-quiz-cta.liquid -->
+
+{% if section.settings.link_text and section.settings.link_href  %}
+	<div class="quizCta" data-section-id="{{ section.id }}" data-section-type="quizCta">
+		{% if section.settings.top_text %}
+			<div class="quizCta_topText font-desktop-subtitle">{{ section.settings.top_text }}</div>
+		{% endif %}
+		{% if section.settings.title %}
+			<h2 class="quizCta_title">{{ section.settings.title }}</h2>
+		{% endif %}
+		<a onclick="trackEvent('BM Quizbutton Clicked')" class="redesign_btn" href="{{ section.settings.link_href }}">{{ section.settings.link_text }}</a>
+	</div>
+{% endif %}
+
+{% schema %}
+{
+	"name": "Quiz CTA",
+	"settings": [
+		{
+			"type": "text",
+            "id": "top_text",
+            "label": "Top text"
+		}, {
+			"type": "text",
+            "id": "title",
+            "label": "Title"
+		}, {
+			"type": "text",
+            "id": "link_href",
+            "label": "URL"
+		}, {
+			"type": "text",
+            "id": "link_text",
+            "label": "Link text"
+		}
+	],
+	"presets": [
+		{
+			"name": "Quiz CTA",
+       		"category": "Custom Sections",
+       		"settings": {
+       			"top_text": "Not sure what products are right for you?",
+       			"title": "Click below to start our fit quiz and get your FREE starter pack.",
+       			"link_href": "https://try.becausemarket.com/start/startwelcome",
+       			"link_text": "Start"
+       		}
+		}
+	]
+}
+{% endschema %}
+
+{% stylesheet %}
+	.quizCta {
+		padding: 40px 24px 44px;
+		text-align: center;
+		max-width: 860px;
+		margin: 0 auto;
+	}
+	.quizCta_topText {
+		margin-bottom: 8px;
+	}
+	.quizCta_title {
+		font-family: "Cooper Md BT W05 Regular";
+        font-size: 24px;
+        line-height: 26px;
+        letter-spacing: 0.03em;
+        margin-bottom: 24px;
+        color: #000000;
+	}
+	@media only screen and (min-width: 768px) {
+		.quizCta {
+			padding-top: 120px;
+			padding-bottom: 120px;
+		}
+		.quizCta_topText {
+			letter-spacing: 0.05em;
+			line-height: 140%;
+			margin-bottom: 16px;
+		}
+		.quizCta_title {
+			font-size: 48px;
+			line-height: 52px;
+			margin-bottom: 32px;
+		}
+	}
+{% endstylesheet %}

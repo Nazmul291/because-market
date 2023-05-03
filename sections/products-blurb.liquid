@@ -1,0 +1,139 @@
+<!-- /sections/products-blurb.liquid -->
+
+{% if section.blocks.size > 0 %}
+    <div data-section-id="{{ section.id }}" >
+    {% for blurb in section.blocks %}
+      {% if blurb.settings.product != product.handle %}
+        {% continue %}
+      {% endif %}
+
+      <section id="{{ blurb.id }}" class="products-blurb_section">
+        <div class="products-blurb_container">
+         <div class="products-blurb_header">
+            <div class="products-blurb_title">
+              {{ blurb.settings.title }}
+            </div>
+            <div class="products-blurb_expander" onclick="showDescriptionForSection('{{blurb.id}}', this)" >
+              +
+            </div>
+          </div>
+          <div class="products-blurb_description">
+              {{ blurb.settings.description }}
+          </div>
+        </div>
+      </section>
+      {%endfor%}
+    </div>
+  {%endif%}
+
+<!-- Theme Javascript -->
+<script>
+    function showDescriptionForSection(sectionID, btn) {
+      const selectedSection = document.getElementById(sectionID);
+      const selectedDescription = selectedSection.querySelector('.products-blurb_description');
+      const wasShown = selectedDescription.classList.contains("products-blurb_description--shown");
+      if(!wasShown) {
+        selectedDescription.classList.add("products-blurb_description--shown");
+      } else {
+        selectedDescription.classList.remove("products-blurb_description--shown");
+      }
+      btn.innerHTML = !wasShown ? "&ndash;" : "+";
+ }
+ </script>
+
+{% stylesheet %}
+.products-blurb_section {
+  display: flex;
+  flex-direction: row;
+  align-content: stretch;
+  padding: 36px 72px 36px 90px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #000;
+}
+.products-blurb_container {
+  width: 52%!important;
+  display: block;
+  position: inherit;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .products-blurb_section {
+    padding: 0 2px 60px;
+  }
+  .products-blurb_container {
+    width: 100%!important;
+    display: block;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    padding: 0 30px;
+  }
+}
+.products-blurb_header {
+  display: inline-flex;
+  width: 100%;
+  padding: 5px 0 15px 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  color: #333333;
+  font-family: 'Cooper Md BT';
+  font-style: normal;
+  font-weight: 500;
+  line-height: 35px;
+  letter-spacing: 0px;
+}
+.products-blurb_title {
+  width: 99%;
+}
+.products-blurb_expander {
+  cursor:pointer;
+}
+.products-blurb_description {
+  display: none;
+  font-family: 'Graphik';
+  font-style: normal;
+  font-size: 18px;
+  color: #333333;
+}
+.products-blurb_description--shown {
+  display: block;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Products Blurb",
+  "tag": "section",
+  "blocks": [
+    {
+      "name": "Products Blurb",
+      "type": "product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Products where to show"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Because Flushable Cleansing Wipes"
+        },
+        {
+          "id": "description",
+          "type": "richtext",
+          "label": "Text",
+          "default": "<p>Stay fresh with these large, parabens and fragrance-free cleansing wet wipes. They give a gentle and effective cleansing to keep your skin looking smooth and feeling healthy, whether you are at home or on the go. Our soft and gentle pH-balanced wipes are moist and infused with aloe vera and vitamin e to soothe and moisturize your most sensitive, intimate areas. The level of these pH-balanced wipes helps maintain the natural balance of the skin. Subscribe & save now!<\/p>"
+        }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Products Blurb",
+    "category": "Text"
+  }]
+}
+{% endschema %}

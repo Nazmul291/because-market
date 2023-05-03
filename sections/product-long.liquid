@@ -1,0 +1,198 @@
+<!-- /sections/product-long.liquid-->
+
+<div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" data-image-zoom-enable="{{ section.settings.zoom_enable }}">
+  <div class="wrapper page-margin--product product--long">
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+    {%- assign featured_image = current_variant.featured_media.preview_image | default: product.featured_media.preview_image -%}
+
+    <div class="grid">
+      <div class="grid__item medium-up--one-half">
+        {%- include 'product-slideshow' -%}
+      </div>
+
+      {%- assign product_description_content = product.description | replace: '<p>[split]</p>', '[split]' | replace: '[split]', '' | replace: '<h1></h1>', '' -%}
+      {%- assign product_description_split = product_description_content | replace: '<h1>', '[!ヽ(´ー｀)/!]' |  replace: '</h1>', '[!ヽ(´ー｀)/!]' | split: '[!ヽ(´ー｀)/!]' -%}
+      {%- for item in product_description_split -%}
+        {% comment %}
+          The zero item is the product description, after that tab headings are odd and contents are even.
+        {% endcomment %}
+        {%- assign odd_mod = forloop.index0 | modulo:2 -%}
+        {%- if odd_mod == 0 -%}
+          {%- unless forloop.index0 == 0 -%}
+            {%- assign block_contents = block_contents | append: item | append: '[!ヽ(´ー｀)/!]' -%}
+          {%- endunless -%}
+        {%- endif -%}
+        {%- if odd_mod == 1 -%}
+          {%- assign block_headings = block_headings | append: item | append: '[!ヽ(´ー｀)/!]' -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign block_headings = block_headings | split: '[!ヽ(´ー｀)/!]' -%}
+      {%- assign block_contents = block_contents | split: '[!ヽ(´ー｀)/!]' -%}
+
+      <div class="grid__item medium-up--one-half product__form__wrapper">
+        {%- include 'product-form' -%}
+        <div class="block_contents rte">
+          {{ product_description_split | first }}
+        </div>
+
+        {%- if section.blocks.size > 0 and section.settings.tabs_position == 'sidebar'-%}
+          <div class="tabs-wrapper productTabsWrapper">
+            {% include 'product-tabs' %}
+          </div>
+        {%- endif -%}
+
+        {% if section.settings.show_share_buttons %}
+          {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+        {% endif %}
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 0 and section.settings.tabs_position == 'below' -%}
+      <div class="tabs-wrapper productTabsWrapper">
+        {% include 'product-tabs' %}
+      </div>
+    {%- endif -%}
+
+    {%- for heading in block_headings -%}
+      {% assign text = block_contents[forloop.index0] %}
+      {% assign image = product.images[forloop.index] %}
+      {% assign position = 'left' %}
+      {%- assign odd_mod = forloop.index0 | modulo:2 -%}
+      {%- if odd_mod == 0 -%}{% assign position = 'right' %}{%- endif -%}
+      {%- include 'product-overlap' -%}
+    {%- endfor -%}
+
+  </div>
+  
+  <style>
+    model-viewer {
+      --progress-bar-color: {{ settings.color_body_text }};
+    }
+  </style>
+  {% unless product == empty %}
+    <script type="application/json" data-product-json>
+      {{ product | json }}
+    </script>
+    <script type="application/json" id="ModelJson-{{ section.id }}">
+      {{ product.media | where: 'media_type', 'model' | json }}
+    </script>
+  {% endunless %}
+  {% include 'yotpo-reviews-rich-snippet', product: product %}
+</div>
+
+{% schema %}
+  {
+    "name": "Product story",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "product_show_vendor",
+        "label": "Show vendor",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_payment_button",
+        "label": "Show dynamic checkout button",
+        "info": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Media",
+        "info": "Learn more about [media types](https://help.shopify.com/manual/products/product-media)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_video_looping",
+        "label": "Enable video looping",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "zoom_enable",
+        "label": "Enable image zoom",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Product tabs"
+      },
+      {
+        "type": "select",
+        "id": "tabs_position",
+        "options": [
+          { "value": "sidebar", "label": "Tabs beside image"},
+          { "value": "below", "label": "Tabs below"}
+        ],
+        "label": "Tabs position",
+        "default": "below",
+        "info": "Add tab content to enable tabs"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "tab_richtext",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Text tab",
+            "info": "Example: Warranty policy"
+          },
+          {
+            "type": "richtext",
+            "id": "raw_content",
+            "label": "Tab content",
+            "default": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>"
+          }
+        ]
+      },
+      {
+        "type": "tab_html",
+        "name": "HTML",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "HTML tab",
+            "info": "Example: Sizing video"
+          },
+          {
+            "type": "html",
+            "id": "raw_content",
+            "label": "Tab content",
+            "default": "<p>This tab content type will accept HTML code for advanced styling. Use this to add video embeds, or other advanced HTML content.</p>"
+          }
+        ]
+      },
+      {
+        "type": "tab_page",
+        "name": "Page",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Page tab",
+            "info": "Example: Size chart"
+          },
+          {
+            "type": "page",
+            "id": "raw_content",
+            "label": "Tab content"
+          }
+        ]
+      }
+    ]
+  }
+  {% endschema %}

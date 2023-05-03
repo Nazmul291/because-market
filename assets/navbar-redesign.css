@@ -1,0 +1,211 @@
+.header--desktop {
+  position: relative;
+}
+
+.header--desktop .nav.nav-new {
+  position: static;
+}
+
+.header--desktop .main-menu>li {
+  position: static;
+}
+.header--desktop .main-menu>li:hover:after {
+  content: none;
+}
+.header--desktop .main-menu>li {
+  padding-bottom: 8px;
+  border-bottom: 8px solid transparent;
+}
+.header--desktop .main-menu>li:hover {
+  border-bottom: 8px solid #679;
+}
+.header--desktop .grandparent .parent .child a {
+  color: #333333;
+  ;
+}
+.header--desktop .grandparent .parent .child a:hover, 
+.header--desktop .grandparent .parent .child.main-menu--active a {
+  color: #679;
+}
+.header--desktop .main-menu-dropdown a.nav-link {
+  font-family: "Cooper Md BT W05 Regular";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 25px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #333333;
+}
+
+.header--desktop .grandparent:hover>.main-menu-dropdown.full-width-dropdown {
+  position: absolute;
+  padding: 45px 72px;
+  width: 100vw;
+}
+
+.header--desktop .grandparent:hover>.main-menu-dropdown.full-width-dropdown ul {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+}
+
+.header--desktop .grandparent:hover>.main-menu-dropdown.full-width-dropdown ul .noClick {
+  font-family: "Graphik Medium", serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 2px;
+  text-align: left;
+
+}
+
+.header--desktop .grandparent:hover>.main-menu-dropdown.full-width-dropdown ul.last-child {
+  flex-direction: column;
+}
+.header--desktop .grandparent:hover>.main-menu-dropdown.full-width-dropdown ul.last-child li {
+  margin: 8px 0;
+}
+.header--desktop .grandparent:hover>.main-menu-dropdown.full-width-dropdown ul.last-child.Featured {
+  display: flex;
+  flex-direction: row;
+}
+
+.navbar-featured .img-container {
+  width: 200px;
+  height: 150px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.navbar-featured .text-container h2{
+  font-family: "Cooper Md BT W05 Regular";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 25px;
+  letter-spacing: 0px;
+  margin-top: 8px;
+  text-align: left;
+  color: #333333;
+}
+
+.navbar-featured .text-container h6 {
+  font-family: Graphik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 25px;
+  color: #333333;
+}
+
+
+@media(max-width: 1200px) {
+  .header--desktop .grandparent:hover>.main-menu-dropdown.full-width-dropdown ul.last-child.Featured {
+    flex-direction: column;
+  }
+  .navbar-featured .img-container {
+    width: 175px;
+    height: 125px;
+    background-position: center;
+  }
+}
+
+.touch__nav.mobile {
+  max-height: calc(100vh - 20vh);
+  overflow-y: auto;
+}
+.touch__nav__links.mobile {
+  height: 100%;
+}
+.touch__nav__links > li .nav-link {
+  font-family: "Cooper Md BT W05 Regular";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  /* identical to box height */
+
+
+  color: #333333;
+}
+.touch__nav__links > li:last-child a {
+    padding: 16px 24px;
+    color: #000;
+    font-family: "Cooper Md BT W05 Regular";
+    font-size: 16px;
+    letter-spacing: .02em;
+    text-transform: none;
+    font-weight: 400;
+ 
+}
+.touch__nav__links > li:last-child a:hover, .touch__nav__links > li:last-child a:active, .touch__nav__links > li:last-child a:visited, .touch__nav__links > li:last-child a:focus {
+  text-decoration: none;
+  color: #000;
+}
+.touch__nav__links > li:last-child a:hover {
+  background-color: #000;
+}
+.touch__nav__links>li.extra-info {
+  margin-top: 15px;
+}
+.touch__nav__links>li.extra-info .main-menu-dropdown .nav-link {
+  font-family: "Cooper Md BT W05 Regular";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  color: #333333;
+  padding-left: 0;
+}
+.touch__nav__links >li.extra-info .main-menu-dropdown {
+  margin-left: 24px;
+}
+.touch__nav__links >li.extra-info:last-child .main-menu-dropdown ul {
+  display: flex;
+  flex-direction: row;
+}
+.touch__nav__links>li.extra-info .nav-link.noClick {
+  font-family: "Graphik Medium";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  /* identical to box height, or 167% */
+
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: #333333;
+}
+
+.touch__nav__links.mobile .bladder-protection.active .main-menu-dropdown.full-width-dropdown {
+  display: block;
+}
+.touch__nav__links.mobile .bladder-protection.active .main-menu-dropdown .nav-link {
+  font-size: 16px;
+}
+
+.touch__nav__links.mobile .bladder-protection .nav-link .nav-carat-small {
+  display: inline;
+  -moz-transition: all 2s linear;
+  -webkit-transition: all 2s linear;
+  transition: all 2s linear;
+}
+.touch__nav__links.mobile .bladder-protection .nav-link .nav-carat-small .icon{
+  height: 12px;
+}
+.touch__nav__links.mobile .bladder-protection.active .nav-link .nav-carat-small .icon{
+  transform: rotateZ(180deg);
+  transition: transform 0.15s ease-out;
+}
+
+@media(max-width: 335px) {
+  .touch__nav__links.mobile .bladder-protection.active .nav-link .nav-carat-small {
+    display: none;
+  }
+}
+.touch__nav__links.mobile .bladder-protection.active .nav-link .nav-carat-small .icon {
+  height: 12px;
+}

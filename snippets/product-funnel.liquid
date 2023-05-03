@@ -1,0 +1,93 @@
+<!-- /snippets/product-funnel.liquid-->
+{{ 'product-funnel.scss' | asset_url | stylesheet_tag }}
+
+{% assign description_position = '' %}
+{%- assign product_description_content = product.description -%}
+{%- assign has_tabs = false -%}
+{%- for block in section.blocks -%}
+  {%- if block.type == "tab_description" -%}
+    {%- assign has_tabs = true -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if has_tabs -%}
+  {%- assign product_description_content = product_description_content | split: '<h6>' | first -%}
+{%- endif -%}
+
+{% for tag in product.tags %}
+  {% assign yotpoParts = tag | split: 'yotpoProductID=' %}
+  {% if yotpoParts.size == 2 %}
+    {% assign yotpoProductID = yotpoParts[1] %}
+  {% endif %}
+  {% if tag contains 'sustainable-product-icons' %}
+     {% assign sustainableImages = true %}
+  {% endif %}
+{% endfor %}
+
+<script>
+  const currentProduct = {{ product | json }}
+  currentProduct.metafields = {
+    {% if product.metafields.custom.tagicons.value %}
+    tagIcons: [
+      {% for image in product.metafields.custom.tagicons.value %}
+      {
+        "src": {{ image | json }},
+        "alt": {{ image.alt | json }},
+      },
+      {% endfor %}
+    ],
+    {% endif %}
+    {% if product.metafields.custom.details_funnel %}
+    detailsFunnel: {{ product.metafields.custom.details_funnel }},
+    {% endif %}
+    {% if product.metafields.custom.variant_description %}
+    variant_description: {{ product.metafields.custom.variant_description }},
+    {% endif %}
+    {% if product.metafields.custom.customerfeedback %}
+    customerFeedback: {{ product.metafields.custom.customerfeedback }},
+    {% endif %}
+    {% if product.metafields.custom.benefits %}
+    benefits: {{ product.metafields.custom.benefits }},
+    {% endif %}
+    {% if product.metafields.custom.video_funnel %}
+    videoFunnel: {{ product.metafields.custom.video_funnel }},
+    {% endif %}
+    {% if product.metafields.custom.faq_funnel %}
+    faqFunnel: {{ product.metafields.custom.faq_funnel }},
+    {% endif %}
+    {% if product.metafields.custom.happy_customers %}
+    happyCustomers :{{ product.metafields.custom.happy_customers }},
+    {% endif %}
+    {% if product.metafields.custom.funnel_stories %}
+    funnelStories: {{ product.metafields.custom.funnel_stories }},
+    {% endif %}
+    {% if product.metafields.yotpo.product_id %}
+    yotpoId: {{ product.metafields.yotpo.product_id }},
+    {% endif %}
+  };
+</script>
+
+
+<div class="page-margin--product product-wrapper product-funnel-wrapper">
+  <div>
+    {% include 'product-react-f' %}
+  </div>
+</div>
+
+<style>
+  model-viewer {
+    --progress-bar-color: {{ settings.color_body_text }};
+  }
+  .product-funnel-wrapper {
+    background-color: #eff2f2;
+  }
+
+
+</style>
+{% unless product == empty %}
+  <script type="application/json" data-product-json>
+    {{ product | json }}
+  </script>
+  <script type="application/json" id="ModelJson-{{ section.id }}">
+    {{ product.media | where: 'media_type', 'model' | json }}
+  </script>
+{% endunless %}

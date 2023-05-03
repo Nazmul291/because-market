@@ -1,0 +1,20 @@
+export default {
+  "layout.cart.items_count.other": "Items",
+  "cart.general.title": "Shopping Cart",
+  "cart.general.empty": "Your cart is currently empty.",
+  "cart.general.continue_browsing_html": "Keep Shopping",
+  "cart.general.cookies_required": "Enable cookies to use the shopping cart",
+  "cart.general.item_quantity": "Item quantity",
+  "cart.general.savings": "You&#39;re saving",
+  "cart.general.with": "with",
+  "cart.general.remove": "Remove",
+  "cart.general.note": "Special instructions for seller",
+  "cart.general.subtotal": "Subtotal",
+  "cart.general.shipping_at_checkout":
+    "Shipping &amp; taxes calculated at checkout",
+  "cart.general.checkout": "Check Out",
+  "cart.label.price": "Price",
+  "cart.label.quantity": "Quantity",
+  "cart.label.total": "Total",
+  "products.product.quantity": "Quantity",
+}

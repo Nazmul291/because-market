@@ -1,0 +1,167 @@
+<script>
+    $('.review-carousel').carousel()
+  </script>
+
+  <!-- /snippets/product.liquid-->
+  {% include 'product-new-form-pdp-scripts.liquid' %}
+  {% assign description_position = '' %}
+  {%- assign product_description_content = product.description -%}
+  {%- assign has_tabs = false -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == "tab_description" -%}
+      {%- assign has_tabs = true -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%-if has_tabs -%}
+    {%- assign product_description_content = product_description_content | split: '<h6>' | first -%}
+  {%- endif -%}
+  {% if product_description_content contains '[split]' %}
+    {% assign description_position = 'both' %}
+  {% endif  %}
+
+  {% for tag in product.tags %}
+    {% assign yotpoParts = tag | split: 'yotpoProductID='  %}
+    {% if yotpoParts.size == 2 %}
+      {% assign yotpoProductID = yotpoParts[1] %}
+    {% endif %}
+    {% if tag contains 'sustainable-product-icons' %}
+       {% assign sustainableImages = true %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="wrapper page-margin--product product-wrapper">
+    {%- assign current_variant = product.selected_or_first_available_variant -%}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-5 col-lg-12" data-product-wrapper>
+          {%- include 'product-slideshow' -%}
+        </div>
+
+        <div class="col-xl-7 col-lg-12 product__form__wrapper">
+          <div class="container">
+            <div class="row">
+              <div class="product-title-features col-lg-12 col-xl-6">
+                <div class="product-title-features-wrapper">
+                  {% include 'product-title-and-features.liquid' %}
+                </div>
+              </div>
+              <div class="product-selectors-container col-lg-6 col-sm-12 order-xl-3">
+                {%- include 'product-form' -%}
+              </div>
+              <div class="onetime-subscribe-wrapper col-lg-6 col-sm-12 order-xl-2">
+                {% include 'new-onetime-or-subscribe.liquid' %}
+
+                {% if sustainableImages %}
+                   <div class="guarantee-image eco-friendly-icon">
+                    <img style="width: 24em;" src="https://cdn.shopify.com/s/files/1/1522/0906/files/greenhouse_1.png?v=1639505606" />
+                  </div>
+                {% else %}
+                  <div class="guarantee-image">
+                    <img src="https://cdn.shopify.com/s/files/1/1522/0906/files/Guarantee_3X_5f689c8b-89c2-46ed-a2f5-45584ec39464.png?v=1635323888" />
+                  </div>
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+          <div class="product-info-accordion">
+          </div>
+          <div class="product__description rte d-none">
+            {{ product_description_content | replace: '<p>[split]</p>', '[split]' | split: '[split]' | first }}
+          </div>
+
+          {% if section.settings.show_share_buttons %}
+            {%- assign share_image = current_variant.featured_media.preview_image | default: product.featured_media.preview_image -%}
+            {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: share_image %}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="related-products col-12">
+        </div>
+      </div>
+
+      {%  if product.type == "Underwear" or product.type == "Pads" or product.type == "Liners" or product.type == "Guards" or product.type == "Boosters" %}
+
+      <div class="row">
+        <div class="col-12">
+            <h2 class="title--decorated dark">
+              Thousands of <ul class="review__stars unstyled">{% for i in (1..5) %}<li>{% include 'icon-star' %}</li>{% endfor %}</ul> Reviews
+            </h2>
+        </div>
+      </div>
+
+      {% comment %} Desktop version of reviews {% endcomment %}
+      <div class="row d-none d-md-flex">
+        <div class="col-4">
+          <div class="image-container">
+              {{ 'review1.jpg' | file_img_url: '576x' | img_tag: 'first review image' }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="image-container">
+            {{ 'review2.jpg' | file_img_url: '576x' | img_tag: 'second review image' }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="image-container">
+            {{ 'review3.jpg' | file_img_url: '576x' | img_tag: 'third review image' }}
+          </div>
+        </div>
+      </div>
+
+      {% comment %} Mobile version of reviews {% endcomment %}
+      <div class="row d-block d-md-none">
+        {% comment %} Below carousel is exactly from from https://getbootstrap.com/docs/4.0/components/carousel/#with-controls
+        with arrow icons changed to fontawesome chevrons {% endcomment %}
+        <div id="carouselExampleControls" class="review-carousel carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              {{ 'review1.jpg' | file_img_url: '768x' | img_tag: 'first review image', 'd-block w-100' }}
+            </div>
+            <div class="carousel-item">
+              {{ 'review2.jpg' | file_img_url: '768x' | img_tag: 'second review image', 'd-block w-100' }}
+            </div>
+            <div class="carousel-item">
+              {{ 'review3.jpg' | file_img_url: '768x' | img_tag: 'third review image', 'd-block w-100' }}
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <i class="fa fa-chevron-circle-right fa-2x" aria-hidden="true"></i>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+
+      {% endif %}
+
+      {% if yotpoProductID != 'hide' %}
+      <div class="row">
+        <div class="col-12">
+          <div class="yotpo yotpo-main-widget" data-product-id="{{ product.id }}" data-name="{{ product_title }}"
+               data-mode="reviews" data-yotpo-element-id="1">
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      </div>
+  </div>
+
+  <style>
+    model-viewer {
+      --progress-bar-color: {{ settings.color_body_text }};
+    }
+  </style>
+  {% unless product == empty %}
+    <script type="application/json" data-product-json>
+      {{ product | json }}
+    </script>
+    <script type="application/json" id="ModelJson-{{ section.id }}">
+      {{ product.media | where: 'media_type', 'model' | json }}
+    </script>
+  {% endunless %}

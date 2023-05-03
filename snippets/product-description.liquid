@@ -1,0 +1,133 @@
+<!-- snippets/product-description.liquid -->
+<div class="product-info-accordion"></div>
+
+<script>
+(function() {
+
+  const selectors = {
+    OLD_ROOT: '.description',
+    OLD_PRODUCT_BODY: '.description-features',
+    ACCORDION_CONTAINER: ".product-info-accordion",
+    ACCORDION_ENTRIES: ".accordion-info .entry",
+    ACCORDION_ENTRY_TITLE: ".entry-title",
+    ACCORDION_ENTRY_TEXT: ".entry-text",
+    ACCORDION_ENTRY_VIEW_DETAIL: ".entry-view-detail",
+    PRODUCT_DETAILS: '.product_details_content',
+    PRODUCT_DETAILS_CONTENT: '.product_all_details',
+    PRODUCT_DETAILS_CLOSE: '.close_icon'
+  }
+
+  const handleViewDetailClick = (entryDetail) => {
+    const $root = $(selectors.PRODUCT_DETAILS)
+    $root.find(selectors.PRODUCT_DETAILS_CONTENT).html(entryDetail)
+    $root.find(selectors.PRODUCT_DETAILS_CLOSE).one('click', () => {
+      $root.find(selectors.PRODUCT_DETAILS_CONTENT).html('')
+      $root.css('display', 'none')
+    })
+    $root.css('display', 'flex')
+  }
+
+  const getEntriesOldFormat = ($root) => {
+    const $bodyFirst = $root.find(selectors.OLD_PRODUCT_BODY).remove()
+    const $entries = $root.find(selectors.ACCORDION_ENTRIES)
+    const hasBodyFirst = $bodyFirst.length > 0
+    const entries = []
+
+    $entries.each((idx, entry) => {
+      const name = `accordionEntry${idx}`
+      const $entry = $(entry)
+      const title = $entry.find(selectors.ACCORDION_ENTRY_TITLE).remove().text()
+      let detail
+      let body
+
+      if (idx === 0 && hasBodyFirst) {
+        detail = $(entry).find(selectors.ACCORDION_ENTRY_TEXT).remove().html()
+        body = $('<div></div>').append($bodyFirst).html()
+      } else {
+        detail = $(entry).find(selectors.ACCORDION_ENTRY_VIEW_DETAIL).remove().html()
+        body = $(entry).find(selectors.ACCORDION_ENTRY_TEXT).remove().html()
+      }
+
+      entries.push({
+        name,
+        title,
+        detail,
+        body
+      })
+    })
+
+    return entries
+  }
+
+  const getEntriesNewFormat = ($root) => {
+    const entries = []
+
+    $(selectors.ACCORDION_ENTRIES, $root).each((idx, entry) => {
+      const name = `accordionEntry${idx}`
+      const $entry = $(entry)
+      const title = $entry.find(selectors.ACCORDION_ENTRY_TITLE).remove().text()
+      const detail = $(entry).find(selectors.ACCORDION_ENTRY_VIEW_DETAIL).remove().html()
+      const body = $(entry).find(selectors.ACCORDION_ENTRY_TEXT).remove().html()
+
+      entries.push({
+        name,
+        title,
+        detail,
+        body
+      })
+    })
+
+    return entries
+  }
+
+  const getEntries = ($root) => {
+    const $oldRoot = $root.find(selectors.OLD_ROOT)
+    const isOld = $oldRoot.length > 0
+
+    return isOld ? getEntriesOldFormat($oldRoot): getEntriesNewFormat($root)
+  }
+
+  const renderAccordion = (entries = []) => {
+    return entries.reduce(($root, { name, title, body, detail }, idx) => {
+      const $accordionEntryWrapper = $('<div class="product-accordion-entry-wrapper"></div>')
+      const $accordionEntryTitle =
+        $(`<div class="product-accordion-title" data-toggle="collapse" data-target=".${name}" aria-expanded="${(idx===0) ? 'true' : 'false'}" aria-controls="${name}">${title}</div>`)
+      const $accordionChevron = $(`<i class="fa ${(idx === 0) ? 'fa fa-minus' : 'fa fa-plus'}" aria-hidden="true"></i>`)
+      $accordionEntryTitle.append($accordionChevron)
+      const $accordionEntryText = $(`<div class="${(idx === 0) ? 'show' : ''} collapse ${name} product-accordion-text">${body}</div>`)
+
+      $accordionEntryText.on('show.bs.collapse', (e) => {
+        $accordionEntryTitle.find("i.fa").removeClass("fa fa-plus").addClass("fa fa-minus")
+      })
+      $accordionEntryText.on('hidden.bs.collapse', (e) => {
+        $accordionEntryTitle.find("i.fa").removeClass("fa fa-minus").addClass("fa fa-plus")
+      })
+
+      $accordionEntryWrapper.append($accordionEntryTitle)
+      $accordionEntryWrapper.append($accordionEntryText)
+
+      if (detail) {
+        const $button = $('<a class="more_details">View all Details</a>')
+
+        $button.on('click', (e) => {
+          e.preventDefault();
+          handleViewDetailClick(detail)
+        })
+
+        $accordionEntryText.append($(`<div class="product_more_details_layout"></div>`).append($button))
+      }
+
+      return $root.append($accordionEntryWrapper)
+    }, $(selectors.ACCORDION_CONTAINER))
+  }
+
+  const layoutAccordion = ($root) => {
+    const entries = getEntries($root)
+    renderAccordion(entries)
+  }
+
+  layoutAccordion($(`<div>{{ currentProduct.content }}</div>`))
+})()
+</script>
+
+<!--/ snippets/product-description.liquid -->

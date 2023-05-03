@@ -1,0 +1,123 @@
+<!-- /sections/index-team.liquid -->
+
+<div class="index-team {{ section.settings.background_color }}" data-section-id="{{ section.id }}" data-section-type="team">
+ {% include 'team' %}
+</div>
+
+{% schema %}
+{
+  "name": "Team",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Our Team"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Use this area to describe your team."
+    },
+    {
+      "type": "select",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "index--gray",
+      "options": [
+        { "value": "index--white", "label": "White"},
+        { "value": "index--gray", "label": "Secondary"}
+      ]
+    }
+    ],
+    "blocks": [
+      {
+        "type": "text_block",
+        "name": "Column",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Name",
+            "default": "Given Surname"
+          },
+          {
+            "type": "text",
+            "id": "job",
+            "label": "Job title",
+            "default": "Founder"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>Use this text to describe your team member, share details on their background, and describe their contributions.</p>"
+          },
+          {
+            "type": "text",
+            "id": "social_twitter_link",
+            "label": "Twitter link"
+          },
+          {
+            "type": "text",
+            "id": "social_facebook_link",
+            "label": "Facebook link"
+          },
+          {
+            "type": "text",
+            "id": "social_pinterest_link",
+            "label": "Pinterest link"
+          },
+          {
+            "type": "text",
+            "id": "social_instagram_link",
+            "label": "Instagram link"
+          },
+          {
+            "type": "text",
+            "id": "social_snapchat_link",
+            "label": "Snapchat link"
+          },
+          {
+            "type": "text",
+            "id": "social_tumblr_link",
+            "label": "Tumblr link"
+          },
+          {
+            "type": "text",
+            "id": "social_youtube_link",
+            "label": "Youtube link"
+          },
+          {
+            "type": "text",
+            "id": "social_vimeo_link",
+            "label": "Vimeo link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Team",
+        "category": "Text",
+        "blocks": [
+          {
+            "type": "text_block"
+          },
+          {
+            "type": "text_block"
+          },
+          {
+            "type": "text_block"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

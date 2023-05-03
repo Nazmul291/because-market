@@ -1,0 +1,80 @@
+<script src="https://app.brightback.com/js/current/brightback.js?compiled=true" defer></script>
+<script src="https://js.recurly.com/v4/recurly.js" defer></script>
+<!-- optional: include recurly.css -->
+<link rel="stylesheet" href="https://js.recurly.com/v4/recurly.css">
+
+<script>
+  window.addMouseFlow()
+
+  window._customer = {
+    "id": {{ customer.id | json }},
+    "email": {{ customer.email | json }},
+    "name": {{ customer.name | json }},
+    "firstName": {{ customer.first_name | json }},
+    "lastName": {{ customer.last_name | json }},
+    "phone": {{ customer.phone | json }},
+    "defaultAddress": {{ customer.default_address | json }},
+    "addresses": {{ customer.addresses | json }},
+    "addressesCount": {{ customer.addresses_count | json }},
+    "lastOrder": {% render 'order-to-json', order: customer.last_order %},
+    "orders": [
+      {% for order in customer.orders %}
+        {% render 'order-to-json', order: order %},
+      {% endfor %}
+    ],
+    "ordersCount": {{ customer.orders_count | json }},
+    "metafields": {{ customer.metafields | json }},
+    "totalSpent": {{ customer.total_spent | json }},
+  }
+
+  window._portalAllProductsMenu = [
+    {% for link in linklists.portal-all-products.links -%}
+      {
+        "title": "{{ link.title }}",
+        "levels": {{ link.levels }},
+        "handle": "{{ link.handle }}",
+        "type": "{{ link.type }}",
+        "url": "{{ link.url }}",
+        "object": {
+          "handle": "{{ link.object.handle }}",
+          "title": "{{ link.object.title }}",
+          "body_html": {{ link.object.description | json }},
+          "image": {
+            "src": "{{ link.object.image.src | image_url }}"
+          },
+          "metafields": {
+            "portal": {
+              {% for meta in link.object.metafields.portal -%}
+                "{{meta[0]}}": "{{meta[1]}}",
+              {%- endfor %}
+            }
+          }
+        }
+      },
+    {%- endfor %}
+  ]
+</script>
+
+<div class="account-skeleton react-remove">
+  <aside class="account-skeleton__aside">
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+  </aside>
+  <main class="account-skeleton__main">
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+  </main>
+</div>
+
+<div id="s-page-account"></div>
+
+{% include 'page-account-image-bundle' %}
+
+<script src="{{ 'react.bundle.js' | asset_url }}" defer></script>
+<script src="{{ 'react-dom.bundle.js' | asset_url }}" defer></script>
+<script src="{{ 'pageAccount.bundle.js' | asset_url }}" defer></script>
+{{ 'pageAccount.bundle.css' | asset_url | stylesheet_tag }}

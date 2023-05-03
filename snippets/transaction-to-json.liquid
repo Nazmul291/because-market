@@ -1,0 +1,15 @@
+{
+  "id": {{ transaction.id | json }},
+  "name": {{ transaction.name | json }},
+  "kind": {{ transaction.kind | json }},
+  "amount": {{ transaction.amount | json }},
+  "created_at": "{{ transaction.created_at }}",
+  "gateway": {{ transaction.gateway | json }},
+  "gateway_display_name": {{ transaction.gateway_display_name | json }},
+  "payment_details": {{ transaction.payment_details | json }},
+  "credit_card_number": {{ transaction.credit_card_number | json }},
+  "gift_card": {{ transaction.gift_card | json }},
+  "receipt": {{ transaction.receipt | json }},
+  "status": {{ transaction.status | json }},
+  "status_label": {{ transaction.status_label | json }},
+}

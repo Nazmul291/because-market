@@ -1,0 +1,143 @@
+<!-- /sections/index-row.liquid -->
+
+{% assign text_z = 'below' %}
+{% assign image_z = 'above' %}
+{%- if section.settings.above == 'text' -%}
+  {% assign text_z = 'above' %}
+  {% assign image_z = 'below' %}
+{%- endif -%}
+
+
+<div class="index-row {{ section.settings.color_bg }}">
+  <div class="wrapper overlap">
+
+    {% capture image_layout %}
+      <div class="overlap__item overlap__image overlap--{{ image_z }}">
+        {% if section.settings.image != blank %}
+          {% assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+            <div class="lazy-image" style="padding-top:{{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100}}%; background-image:  url('{{ section.settings.image | img_url: '1x1' }}');">
+              <img class="lazyload fade-in"
+                alt="{{ section.settings.image.alt }}"
+                data-src="{{ img_url }}"
+                data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2450, 2700, 3000, 3350, 3750, 4100]"
+                data-aspectratio="{{  section.settings.image.aspect_ratio }}"
+                data-parent-fit="cover"
+                data-sizes="auto"/>
+            </div>
+            <noscript>
+              <img src="{{ section.settings.image | img_url: '720x' }}" alt="{{ section.settings.image.alt | default: section.settings.title }}" style="width: 100%;"/>
+            </noscript>
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+    {% endcapture %}
+
+
+
+    <div class="overlap">
+
+      {% if section.settings.layout == 'left' %}
+        {{ image_layout }}
+      {% endif %}
+
+      <div class="overlap__item overlap__text overlap--{{ text_z }}">
+          {% if section.settings.title != blank %}
+            <h2 class="h1">{{ section.settings.title | escape }}</h2>
+          {% endif %}
+          {% if section.settings.text != blank %}
+            <div class="rte-setting index--rte overlap__rte">{{ section.settings.text }}</div>
+          {% endif %}
+          {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+            <a href="{{ section.settings.button_link }}" class="btn overlap__button">
+              {{ section.settings.button_label | escape }}
+            </a>
+          {% endif %}
+      </div>
+
+      {% if section.settings.layout == 'right' %}
+        {{ image_layout }}
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Image with text",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Image alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Image with text"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      },
+      {
+        "type": "select",
+        "id": "color_bg",
+        "label": "Background color",
+        "default": "index--white",
+        "options": [
+          { "value": "index--white", "label": "White"},
+          { "value": "index--gray", "label": "Secondary"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "above",
+        "label": "Overlap",
+        "default": "image",
+        "options": [
+          { "value": "image", "label": "Image above"},
+          { "value": "text", "label": "Text above"}
+        ],
+        "info": "For best results place the taller item above."
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image with text",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

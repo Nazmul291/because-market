@@ -1,0 +1,209 @@
+<style>
+    .contact-info__image {
+        background-color: #667799;
+        border-radius: 50%;
+        flex-shrink: 0;
+        flex-grow: 0;
+        float: left;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        margin-right: 5px;
+    }
+    .contact-info__image img {
+        width: 24px;
+        height: 24px;
+        float: left;
+        margin: 5px;
+    }
+    .contact-info__details {
+        display: inline-block;
+        color: #808080;
+    }
+    .contact-info__text {
+        padding-left: 5px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+    .contact-info__phone-number {
+        font-size: 22px;
+        line-height: 31px;
+    }
+    .contact-info__phone-number a:hover {
+        text-decoration: none;
+        color: #667799;
+    }
+
+    .header {
+        padding: 0 16px !important;
+        background: #fff;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        position: relative;
+        justify-content: space-between;
+    }
+    .bex-header-humanoid {
+        display: block;
+        top: 20px;
+        position: absolute;
+        z-index: 9998;
+        width: 96px;
+        height: 96px;
+        left: 50%;
+        margin-left: -45px;
+        transition: width 0.15s, height 0.15s;
+    }
+    .avatar {
+        width: 96px;
+        height: 96px;
+        background-size: 96px 96px;
+        transition: width 0.15s, height 0.15s, background-size 0.15s;
+    }
+
+    .header__section_scrolling .bex-header-humanoid {
+        top: 5px;
+        position: fixed;
+        z-index: 998;
+        width: 60px;
+        height: 60px;
+        left: 60px;
+        margin-left: -45px;
+    }
+    .header__section_scrolling .avatar {
+        width: 60px;
+        height: 60px;
+        background-size: 60px 60px;
+    }
+    .header__section_scrolling .header__logo {
+        margin-left: 72px
+    }
+    .header__section_scrolling .contact-info {
+        position: absolute;
+        left: 264px;
+    }
+    .header__section_scrolling .contact-info__phone-number {
+        font-size: 16px;
+    }
+    .header__section_scrolling .contact-info__image,
+    .header__section_scrolling .contact-info__text {
+        display: none;
+    }
+
+    .action-button {
+        color: #333;
+        font-family: Roboto,Arial,Helvetica,sans-serif;
+        box-shadow: #333 3px 3px;
+        background: rgb(67,237,220);
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 24px;
+        height: 50px;
+        line-height: .7;
+        margin-top: -2px;
+        width: 325px;
+        display: none;
+    }
+    .desktop-phone-icon,
+    .mobile-phone-icon {
+        display: none !important;
+    }
+
+    .call_us {
+        min-height: 100%;
+        color: #667799;
+        font-size: 14px;
+        margin-right: 25px;
+    }
+    .phone_number {
+        display: flex;
+        gap: 4px;
+        align-items: baseline;
+    }
+    .phone_number a {
+        font-size: 20px;
+        text-decoration: none;
+        color: #000000;
+    }
+    .phone_number i {
+        font-size: 20px;
+        color: #000000;
+    }
+    .phone_number a:hover {
+        color: #000000;
+    }
+
+
+    @media (min-width: 1025px) {
+        .header__section_action_desktop .action-button {
+            display: block !important;
+        }
+    }
+    @media (min-width: 1024px) {
+        .header__section_action_mobile .action-button {
+            display: block !important;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .desktop-phone-icon {
+            display: block !important;
+        }
+    }
+
+    @media (max-width: 1023px) {
+        .header {
+            height: 60px !important;
+        }
+        .header__logo {
+            width: 100px;
+            margin-left: 16px !important;
+        }
+
+        .mobile-phone-icon {
+            display: flex !important;
+        }
+        .mobile-phone-icon svg {
+            height: 20px;
+        }
+        .contact-info__phone-number {
+            font-size: 16px;
+        }
+        .contact-info__phone-number a {
+            color: #fff;
+        }
+        .header__section_scrolling .contact-info, .contact-info {
+            position: relative;
+            left: initial;
+        }
+        .header__section_scrolling .contact-info__text, .contact-info__text {
+            font-size: 14px;
+            color: #fff;
+            display: block;
+        }
+        .header__section_scrolling .bex-header-humanoid, .bex-header-humanoid {
+            top: 12px;
+            width: 40px;
+            height: 40px;
+            left: 50%;
+            margin-left: -20px;
+        }
+        .header__section_scrolling .avatar, .avatar {
+            width: 40px;
+            height: 40px;
+            background-size: 40px 40px;
+        }
+        .call_us {
+            display: none;
+        }
+        .phone_number {
+            border-radius: 5px;
+            border: 1px solid #dadada;
+            padding: 6px;
+            align-items: center;
+        }
+        .phone_number a {
+            font-size: 14px;
+        }
+    }
+</style>

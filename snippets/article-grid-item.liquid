@@ -1,0 +1,66 @@
+<div class="{% if forloop.index ==1 or forloop.index ==4 %}full_width_blog{% else %}half_width_blog{% endif %} grid__item {{ grid_width_small }} {{ grid_width_medium }} {{ grid_width_large }}">
+  <div class="article__card{% if article.image %} article__card--image{% endif %}">
+    {% if article.image %}
+      {% assign img_url = article.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+      <a class="article_img" href="{{ article.url }}">
+        <div class="lazy-image article__card__image__wrapper" style="padding-top:{{ 1 | divided_by: article.image.aspect_ratio | times: 100}}%; background-image:  url('{{ article.image | img_url: '1x1' }}');">
+          <img class="lazyload fade-in article__card__image"
+            data-src="{{ img_url }}"
+            data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2450, 2700, 3000, 3350, 3750, 4100]"
+            data-aspectratio="{{  article.image.aspect_ratio }}"
+            alt="{{ article.image.alt | default: article.title }}"
+            data-parent-fit="cover"
+            data-sizes="auto"/>
+        </div>
+        <noscript>
+          <div class="article__card__image__wrapper">
+            <img claass="article__card__image" src="{{ article.image | img_url: '540x' }}" alt="{{ article.image.alt | default: article.title }}"/>
+          </div>
+        </noscript>
+      </a>
+    {% endif %}
+    {% if article.image and article.tags.size > 0 and show_tags %}
+      <div class="article__card__tags">
+        {% for tag in article.tags %}
+          <a class="btn btn--pill" href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <div class="article__card__content">
+      <a href="{{ article.url }}" class="h3 article__card__title">{{ article.title }}</a>
+      {% if show_meta %}
+        <p class="article__card__meta {% if show_comments and article.comments_count > 0 %}article__card__meta--comments{% endif %}">
+          <span class="hide_div meta--light">{{ 'blogs.article.by' | t }}</span>
+          <span class="hide_div meta--dark">{{ article.author }}</span>
+          <span class="hide_div meta--light">{{ 'blogs.article.on' | t }}</span>
+          <span class="meta--dark">{{ article.published_at | date: "%b %d, %Y" }}</span>
+        </p>
+      {% endif %}
+      {% if show_excerpt %}
+        <div class="article__card__text">
+          {% if article.excerpt == blank %}
+            <p class="rte">{{ article.content | strip_html | truncate: 210 }}</p>
+          {% else %}
+            <p class="rte">{{ article.excerpt | strip_html }}</p>
+          {% endif %}
+            <a class="h6--body border-bottom-link" href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a>
+        </div>
+      {% endif %}
+      {% if show_comments and article.comments_count > 0 %}
+        <a class="article__card__comments" href="{{ article.url }}/#comments">
+          <span class="h6--accent">{{ article.comments_count }}</span>
+          {% include 'icon-comment' %}
+        </a>
+      {% endif %}
+      {% unless article.image %}
+        {% if article.tags.size > 0 and show_tags %}
+        <div class="article__card__tags">
+          {% for tag in article.tags %}
+            <a class="btn btn--pill" href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      {% endunless %}
+    </div>
+  </div>
+</div>

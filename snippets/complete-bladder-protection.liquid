@@ -1,0 +1,22 @@
+
+{% assign collection_title = 'complete-bladder-protection' %}
+{%- assign collection = collections[collection_title] -%}
+
+{% assign grid_width_large = 'large-up--one-quarter' %}
+{% assign grid_width_medium = 'medium--one-half' %}
+{% assign grid_width_small = 'small--one-half' %}
+
+<div class="index-collection carousel-content index-collection--{{ collection.products_count }} {{ section.settings.homepage_collection_color }}" data-section-id="{{ section.id }}" data-section-type="index-collection">
+  <div class="wrapper">
+    <div class="index-collection__background"></div>
+    <div class="index-collection__foreground">
+      <div class="grid" data-index-collection-slideshow>
+        {% for product in collection.products limit: 20 %}
+          {% include 'product-grid-item' %}
+        {% else %}
+          {% include 'onboarding-featured-products' %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

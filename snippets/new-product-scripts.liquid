@@ -1,0 +1,28 @@
+<style>
+  .new-product-variant {
+    width: 100%;
+  }
+</style>
+
+<div id="new-product-variant" class="new-product-variant"></div>
+
+<script>
+  const currentProduct = {{ product | json }}
+  window.currentSetting = {{ settings | json }}
+  window.assetsUrls = {
+    tick: "{{ 'tick.png' | asset_url }}",
+    logoUrl: "{{ 'Logo_Image_only.png' | asset_url }}",
+    productImg: "{{ product | img_url: '400x400' }}",
+  }
+
+  currentProduct.metafields = {
+    subscription: {
+      {% for subscription in product.metafields.subscription %}
+        "{{ subscription[0] }}": {{ subscription[1] }},
+      {% endfor %}
+    }
+  };
+</script>
+
+{{ 'product.bundle.js' | asset_url | script_tag }}
+{{ 'product.bundle.css' | asset_url | stylesheet_tag }}

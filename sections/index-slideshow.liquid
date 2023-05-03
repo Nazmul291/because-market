@@ -1,0 +1,318 @@
+<!-- /sections/index-slideshow.liquid-->
+
+<div class="homepage-slideshow {{ section.settings.height }}" data-section-id="{{ section.id }}" data-section-type="slideshow">
+  {% if section.blocks.size > 0 %}
+    <div id="slideshow-{{ section.id }}" data-autoplay="{{ section.settings.autoplay }}" data-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
+      {% for block in section.blocks %}
+        {%- if block.settings.image -%}
+          {%- assign img_object = block.settings.image -%}
+          {%- assign img_small = block.settings.image | img_url: '18x' -%}
+          {%- assign img_api = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        {%- else -%}
+          {%- assign img_object = 'blank.svg' | asset_url -%}
+          {%- assign img_small =  'blank.svg' | asset_url -%}
+          {%- assign img_api = 'blank.svg' | asset_url -%}
+        {%- endif -%}
+
+        {%- assign no_text_case = '' -%}
+        {%- if block.settings.title == '' and block.settings.description == '' -%}
+          {%- assign no_text_case = 'hero__content--blank' -%}
+        {%- endif -%}
+
+        {%- assign no_button_case = '' -%}
+        {%- if block.settings.link_text == '' -%}
+          {%- assign no_button_case = 'hero__button--blank' -%}
+        {%- endif -%}
+
+        {%- assign transparency_class = '' -%}
+        {%- if block.settings.transparent-%}
+          {%- assign transparency_class = 'hero__content--transparent' -%}
+        {%- endif -%}
+
+        <div class="wide-image slick-slide slideshow__slide slideshow__slide--{{ block.id }}" data-prevent-overflow {{ block.shopify_attributes }}>
+          {% if block.settings.link_text == '' and block.settings.link and block.settings.button_image == nil %}
+            <a href="{{ block.settings.link }}">
+            {% endif %}
+            <div class="hero__content__wrapper {{ block.settings.text_align }} {{ transparency_class }} {{ block.settings.text_color }}">
+              {% if block.settings.button_image %}
+                {%- assign img_button = block.settings.button_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                <a href="{{ block.settings.link }}" class="button-image-slide">
+                  <img class="lazyload image--flex" alt="{{ block.settings.button_image.alt | default: block.settings.link_text }}" src="{{ block.settings.button_image | img_url: '180x' }}" data-src="{{ img_button }}" data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2450, 2700, 3000, 3350, 3750, 4100]" data-aspectratio="{{ block.settings.button_image.aspect_ratio }}" data-sizes="auto"/>
+                </a>
+              {% else %}
+                <div class="hero__content {{ no_text_case }}  {{ no_button_case }}" data-prevent-overflow-content>
+                  {% unless block.settings.title == '' %}
+                    <h2 class="hero__title">{{ block.settings.title | escape }}</h2>
+                  {% endunless %}
+                  {% unless block.settings.description == '' %}
+                    <p class="hero__description h4--body">{{ block.settings.description }}</p>
+                  {% endunless %}
+                  {% unless block.settings.link_text == '' %}
+                    <a class="{{ block.settings.button_style }} hero__button slider-action" href="{{ block.settings.link }}">{{ block.settings.link_text | escape }}</a>
+                  {% endunless %}
+                  <img class="d-sm-block d-md-none lazyload responsive-wide-image mobile-image" alt="{{ block.settings.image.alt | default: block.settings.title }}" src="{{ img_small }}" data-src="{{ img_api }}" data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2450, 2700, 3000, 3350, 3750, 4100, 4480, 5800]" data-aspectratio="{{ block.settings.image.aspect_ratio }}" data-sizes="auto"/>
+                </div>
+              {% endif %}
+            </div>
+            <div class="image-overlay image-overlay-{{ block.settings.overlay_opacity }}"></div>
+            {% if section.settings.height == 'use_image' %}
+              <img class="lazyload responsive-wide-image" alt="{{ block.settings.image.alt | default: block.settings.title }}" src="{{ img_small }}" data-src="{{ img_api }}" data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512]" data-aspectratio="{{ block.settings.image.aspect_ratio }}" data-parent-fit="cover" data-sizes="auto"/>
+            {% else %}
+              <div class="d-none d-md-block background-size-cover background-size-cover--slide lazyload" data-bgset="{% include 'bgset', image: img_object %}"></div>
+            {% endif %}
+            {% if block.settings.link_text == '' and block.settings.link and block.settings.button_image == nil %}
+            </a>
+          {% endif %}
+
+          {% if section.settings.height == 'use_screen_full' %}
+            <div class="scroll_icon_wrap">
+              <a class="scroll_link bloop" href="#scroll-{{ section.id }}">
+                <span class="scroll_icon">{% include 'icon-arrow-down' %}</span>
+              </a>
+            </div>
+            <div class="scroll__link" id="scroll-{{ section.id }}"></div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if section.blocks.size == 0 %}
+    <div class="slideshow__slide">
+      <div class="hero__content__wrapper align--middle-left">
+        <div class="hero__content">{{ 'homepage.onboarding.no_content' | t }}</div>
+      </div>
+      <div class="image-overlay image-overlay-15"></div>
+    </div>
+  {% endif %}
+
+  <noscript>
+    {% for block in section.blocks %}
+      <div class="wide-image">
+        <div class="hero__content__wrapper {{ block.settings.text_align }}">
+          <div class="hero__content {{ no_text_case }}" data-prevent-overflow-content>
+            {% if block.settings.button_image %}
+              <div class="align--middle-center">
+                <a href="{{ block.settings.link }}" class="button-image-slide"><img src="{{ block.settings.button_image | img_url: '540x' }}" alt="{{ block.settings.button_image.alt | default: block.settings.link_text }}" class="image--flex"/></a>
+              </div>
+            {% else %}
+              {% unless block.settings.title == '' %}
+                <h2 class="hero__title">{{ block.settings.title | escape }}</h2>
+              {% endunless %}
+              {% unless block.settings.description == '' %}
+                <p class="hero__description h4--body">{{ block.settings.description }}</p>
+              {% endunless %}
+              {% unless block.settings.link_text == '' %}
+                <a class="{{ block.settings.button_style }} hero__button slider-action" href="{{ block.settings.link }}">{{ block.settings.link_text | escape }}</a>
+              {% endunless %}
+            {% endif %}
+          </div>
+        </div>
+        <img src="{{ block.settings.image | img_url: '1440x' }}" alt="{{ block.settings.image.alt | default: section.settings.title }}" class="responsive-wide-image"/>
+      </div>
+    {% endfor %}
+  </noscript>
+</div>
+
+{% schema %}
+
+{
+  "name": "Slideshow",
+  "class": "borderless",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": false
+    }, {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "unit": "sec",
+      "label": "Change slides every",
+      "default": 8
+    }, {
+      "type": "select",
+      "id": "height",
+      "label": "Section height",
+      "default": "use_screen_two_thirds",
+      "options": [
+        {
+          "value": "use_screen_full",
+          "label": "Full screen height"
+        }, {
+          "value": "use_screen_two_thirds",
+          "label": "Tall"
+        }, {
+          "value": "use_screen_one_half",
+          "label": "Medium"
+        }, {
+          "value": "use_screen_one_third",
+          "label": "Short"
+        }, {
+          "value": "use_image",
+          "label": "Image height"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Match size to other slides"
+        }, {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "label": "Image overlay opacity",
+          "info": "Increase contrast for legible text.",
+          "default": 15
+        }, {
+          "type": "header",
+          "content": "Text"
+        }, {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Slide"
+        }, {
+          "type": "textarea",
+          "id": "description",
+          "label": "Subheading",
+          "default": "Tell your brand's story through images."
+        }, {
+          "type": "select",
+          "id": "text_align",
+          "label": "Alignment",
+          "default": "align--middle-left",
+          "options": [
+            {
+              "value": "align--top-left",
+              "label": "Top left"
+            }, {
+              "value": "align--top-center",
+              "label": "Top center"
+            }, {
+              "value": "align--top-right",
+              "label": "Top right"
+            }, {
+              "value": "align--middle-left",
+              "label": "Middle left"
+            }, {
+              "value": "align--middle-center",
+              "label": "Absolute center"
+            }, {
+              "value": "align--middle-right",
+              "label": "Middle right"
+            }, {
+              "value": "align--bottom-left",
+              "label": "Bottom left"
+            }, {
+              "value": "align--bottom-center",
+              "label": "Bottom center"
+            }, {
+              "value": "align--bottom-right",
+              "label": "Bottom right"
+            }
+          ]
+        }, {
+          "type": "select",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "text-white",
+          "options": [
+            {
+              "value": "text-white",
+              "label": "White"
+            }, {
+              "value": "text-warm",
+              "label": "Primary accent"
+            }, {
+              "value": "text-cool",
+              "label": "Secondary accent"
+            }, {
+              "value": "text-dark",
+              "label": "Dark"
+            }
+          ]
+        }, {
+          "type": "checkbox",
+          "id": "transparent",
+          "label": "Transparent background",
+          "default": false
+        }, {
+          "type": "header",
+          "content": "Button"
+        }, {
+          "type": "text",
+          "id": "link_text",
+          "label": "Text",
+          "default": "View products",
+          "info": "Leave blank to link entire image"
+        }, {
+          "type": "url",
+          "id": "link",
+          "label": "Slide link"
+        }, {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button color",
+          "default": "btn btn--large",
+          "options": [
+            {
+              "value": "btn btn--large btn--white",
+              "label": "White"
+            }, {
+              "value": "btn btn--large",
+              "label": "Primary accent"
+            }, {
+              "value": "btn btn--large btn--cool",
+              "label": "Secondary accent"
+            }, {
+              "value": "btn btn--large btn--neutral",
+              "label": "Dark"
+            }
+          ]
+        }, {
+          "type": "header",
+          "content": "Button image",
+          "info": "Replace text with a clickable image"
+        }, {
+          "type": "image_picker",
+          "id": "button_image",
+          "label": "Button image",
+          "info": "2000 x 2000px .png"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow",
+      "category": "Image",
+      "settings": {
+        "height": "use_screen_two_thirds"
+      },
+      "blocks": [
+        {
+          "type": "image"
+        }, {
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

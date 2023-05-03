@@ -1,0 +1,28 @@
+<div
+  class="product-subscription-switch product-subscription-switch--{{layout}}"
+  {% if is_one_time == false or item.product.tags contains "NonSubscriptionItem"  %} hidden {% endif %}
+>
+  <span class="product-subscription-switch__text">
+    <span class="product-subscription-switch__icon">
+      {% include 'icon-recycle' %}
+    </span>
+    Subscribe & save 10%. Cancel anytime.
+  </span>
+  <button type="button" onclick="javascript:changeSubscribe(event, true)">
+    Subscribe
+  </button>
+</div>
+<div
+  class="product-subscription-switch product-subscription-switch--{{layout}}"
+  {% if is_one_time == true %} hidden {% endif %}
+>
+  <span class="product-subscription-switch__text">
+    <span class="product-subscription-switch__icon">
+      {% include 'icon-checkmark-grey' %}
+    </span>
+    You’re set up for monthly deliveries.
+  </span>
+  <button type="button" onclick="javascript:changeSubscribe(event, false)">
+    Buy Once
+  </button>
+</div>

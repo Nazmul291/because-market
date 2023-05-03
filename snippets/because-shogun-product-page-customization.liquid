@@ -1,0 +1,426 @@
+{%  include 'suggest-subscription-modal' %}
+<script>
+const DEBUG_SINGLE_ITEM_CHECKOUT = true
+const PARENTHASIS_REGEXP = /[0-9]+(-[0-9]+)+/;
+const SHOULD_SKIP_CART = false
+const selectors = {
+  FORM_ADD_TO_CART: 'form[action="/cart/add"]',
+  QUANTITY_FIELD_NAME: "quantity",
+  VARIANT_FIELD_NAME: "id",
+  PURCHASE_TYPE_FIELD : ".radio-option-inner:visible input.onetime_subscribe_radio:checked",
+  SUBSCRIBE_PURCHASE_TYPE_RADIO_OPTION: ".radio-option-inner:visible input.subscribe",
+  ONETIME_PURCHASE_TYPE_RADIO_OPTION: ".radio-option-inner:visible input.onetime",
+  PURCHASE_TYPE_PROPERTY_NAME: "properties[purchase_type]",
+  ONETIME_PRICE: ".one-time-price",
+  SUBSCRIBE_PRICE: ".subscribe-price",
+  QUANTITY_INPUT: ".shg-product-quantity-wrapper input",
+  QUANTITY_BUTTONS: ".shg-product-quantity-wrapper button",
+  ALLOW_30_QUANTITY: ".allow-30-quantity",
+  DEFAULT_QUANTITY_OVERRIDE: ".default-quantity-override-quantity",
+  SHOGUN_PRODUCT_SELECT_WRAPPER: ".shg-product-selector-wrapper",
+  SHOGUN_VISIBLE_PRODUCT_SELECT_WRAPPER: ".shg-product-selector-wrapper:visible",
+  SHOGUN_VARIANT_SELECTOR: ".shg-product-variant-select",
+  SHOGUN_VARIANT_SELECTOR_VISIBLE_LABEL: ".shg-product-selector-inline-wrapper > label:visible",
+  getQuantityOption: (quantity) => `option[value=${quantity}]`
+}
+
+let needToSuggestSubscribe = true
+let cartCleared = false
+const ONE_TIME_MARKUP = 10
+let defaultAdjusted = false
+let lastSelectedVal = new Map()
+
+
+{% if product.type == "Pads" or product.type == "Guards" or product.type == "Liners"  or product.type == "Underwear"%}
+const DEFAULT_QUANTITY = 40
+{% else %}
+const DEFAULT_QUANTITY = 60
+{% endif %}
+
+const setDefaultQuantity = () => {
+  const $defaultOverride = $(selectors.DEFAULT_QUANTITY_OVERRIDE)
+  const quantity = $defaultOverride.length ? Number($defaultOverride.val()) : DEFAULT_QUANTITY
+
+  if (!defaultAdjusted) {
+    defaultAdjusted = true
+    const $quantityOptionToSelect = $(selectors.getQuantityOption(quantity))
+    const $quantitySelector = $($quantityOptionToSelect.parent())
+    $quantitySelector.val(quantity)
+    updateVariantQuerystring()
+  }
+}
+
+const printDebug = (msg) => { if (DEBUG_SINGLE_ITEM_CHECKOUT) { console.log(msg) }}
+
+const getQuantity = () => {
+  const $quantityField = $(`input[name=${selectors.QUANTITY_FIELD_NAME}]`)
+  return ($quantityField) ? $quantityField.val() : null
+}
+
+const addReturnToInput = (formElement)  => {
+  if (SHOULD_SKIP_CART) {
+    $(formElement).append('<input type="hidden" name="return_to" value="/cart?view=redirect" />')
+  }
+}
+
+const setPropertyType = (formElement) => {
+  let $purchaseType = $(formElement).find(`input[name="${selectors.PURCHASE_TYPE_PROPERTY_NAME}"]`)
+  const purchaseTypeVal = getPurchaseType()
+  if (!$purchaseType.length) {
+    $(formElement).append(`<input type="hidden" name="${selectors.PURCHASE_TYPE_PROPERTY_NAME}" value="${purchaseTypeVal}" />`)
+  } else {
+    $purchaseType.val(purchaseTypeVal)
+  }
+}
+
+const setAddToCartFormElement = (formElement, elementName, value) => {
+  let $hiddenInput = $(formElement).find(`input[name="${elementName}"]`)
+  if (!$hiddenInput.length) {
+    $(formElement).append(`<input type="hidden" name="${elementName}" value="${value}" />`)
+  } else {
+    $hiddenInput.val(value)
+  }
+}
+
+
+
+function convertTextToButton(selectText) {
+  const parts = selectText.split(' ')
+  let subtitle = null;
+  const title = parts[0].replace("Small/Medium", "S/M").replace("Large", "L").replace("-", "")
+  for (let part in parts) {
+    if (part == 0) {
+      if (!isNaN(Number(parts[part]))) {
+        return { title: selectText, subtitle: null}
+      }
+      continue;
+    }
+    const curPart = parts[part]
+    const matches = PARENTHASIS_REGEXP.exec(curPart)
+    if (matches) {
+      subtitle = matches[0]
+      break;
+    }
+  }
+  return { title, subtitle }
+}
+
+
+function removeShogunVariantSelectButtons() {
+  const $containers = $(".radioSelectContainer")
+  $containers.each((idx, container) => {
+    const $container = $(container)
+    const select = $container.find(selectors.SHOGUN_VARIANT_SELECTOR)
+    $(select).detach()
+    $container.parent().append(select)
+    $container.find("label").remove()
+  })
+  $containers.remove()
+}
+
+
+function convertShogunVariantSelectToButtons() {
+  removeShogunVariantSelectButtons()
+  if ($(window).width() <= 750) {
+    return
+  }
+
+  const $variantSelectItems = $('.shg-product-variant-select:visible')
+
+  if (lastSelectedVal.size && $(selectors.QUANTITY_BUTTONS).length) {
+    $variantSelectItems.each((idx, selectElement) => {
+      const $selectElement = $(selectElement)
+      const selectType = $selectElement.prev().text()
+      if (lastSelectedVal.has(selectType)) {
+        $selectElement.val(lastSelectedVal.get(selectType))
+      }
+    })
+    updatePricing(getVariant())
+  }
+
+  $variantSelectItems.each(function (selectIndex, selectElement) {
+
+    const select = $(selectElement);
+    const container = $("<div class='radioSelectContainer' />");
+    select.parent().append(container);
+    container.append(select);
+
+    select.find('option').each(function (optionIndex, optionElement) {
+      const radioGroup = select.attr('id') + "Group";
+      const label = $(`<label class=\'variant-option\ ${(select.val() == $(this).val()) ? "selected" : ""}' />`);
+      if (isNaN(Number($(this).val()))) {
+        label.addClass("text-radio-select")
+      }
+      container.append(label);
+
+      $("<input type='radio' name='" + radioGroup + "' />")
+              .attr("value", $(this).val())
+              .click(((e) => {
+                lastSelectedVal.set($(this).parent().parent().parent().find("label:first-child").text(), $(this).val())
+                select.val($(this).val());
+                const $hiddenOptions = $(`option[value='${$(this).val()}']`)
+                $hiddenOptions.each((idx, option) => {
+                  if ($(option.parentElement).is(':hidden')) {
+                    $(option.parentElement).val($(this).val())
+                  }
+                })
+                $(this).parent().parent().find(".variant-option").removeClass('selected')
+                $(e.target).parent().addClass('selected')
+                updatePricing(getVariant())
+              }))
+              .appendTo(label);
+
+      const buttonInfo = convertTextToButton($(this).val())
+      const buttonFace = $(`<span data-val="${$(this).val()}"></span>`).appendTo(label)
+      $(`<div class="title">${buttonInfo.title}</div>`).appendTo(buttonFace)
+      $(`<div class="subtitles">${(buttonInfo.subtitle) ? `${buttonInfo.subtitle} Inches` : '' }</div>`).appendTo(buttonFace)
+    });
+  });
+
+
+}
+
+
+const suggestSubscriptionFirst = (e) => {
+  const purchaseType = getPurchaseType()
+  trackEvent(`BM Product ${purchaseType} AddToCart clicked`, { product:  {{  product | json }} })
+  const shouldSuggest = purchaseType !== "subscription" && needToSuggestSubscribe
+  if (shouldSuggest) {
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    showSuggestSubscribeModal((changeToSubscribe) => {
+      if (changeToSubscribe) {
+        setPurchaseTypeAsSubscribe()
+      }
+      needToSuggestSubscribe = false
+      manualSubmitForm(e.target)
+    })
+  } else {
+    manualSubmitForm(e.target)
+  }
+}
+
+const clearCartAndSubmitForm = (e) => {
+  printDebug(`clearCartAndSubmitForm called with cartClear ${cartCleared}`);
+
+  if (!SHOULD_SKIP_CART) {
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    ($(e.target).find(selectors.SUBMIT_ADD_TO_CART) ||
+            $(e.originalEvent.target).attr('disabled', true).addClass('disabled'))
+    manualSubmitForm(e.target)
+    return true
+  }
+
+  if (!cartCleared) {
+    e.preventDefault ? e.preventDefault() : e.returnValue = false;
+    ($(e.target).find(selectors.SUBMIT_ADD_TO_CART) ||
+      $(e.originalEvent.target).attr('disabled', true).addClass('disabled'))
+      .attr('disabled', true).addClass('disabled');
+      clearCart((data) =>  { cartCleared = true; manualSubmitForm(e.target); }, handleError)
+      manualSubmitForm(e.target)
+    }
+  }
+
+const bindCartSubmitForm = () => {
+  const $submitForm = $(selectors.FORM_ADD_TO_CART);
+  if (!$submitForm.length) {
+    printDebug('could not find add to cart form, sleep and try again')
+    return setTimeout(bindCartSubmitForm, 100)
+  }
+  if ($submitForm.length > 1) {
+    console.error('multiple add to cart forms on page, this can cause serious problems, please verify layout (shogun / shopify) is ok!')
+  }
+  printDebug('found one add to cart form, binding to it now')
+  $(selectors.FORM_ADD_TO_CART).submit(suggestSubscriptionFirst);
+}
+
+const generateToken = (s) => 'ST-' + s.split('-').join('').slice(0, 28)
+
+const getPurchaseType = () => $(selectors.PURCHASE_TYPE_FIELD).val() || 'subscription'
+const setPurchaseTypeAsSubscribe = () => $(selectors.SUBSCRIBE_PURCHASE_TYPE_RADIO_OPTION).prop('checked', true)
+
+const manualSubmitForm = (formElement) => {
+  printDebug(`manualSubmitForm called with cartClear ${cartCleared}`);
+  setCookie('product_id',meta.product.id);
+  if (SHOULD_SKIP_CART) {
+    setCookie('cart', generateToken(createUuid()))
+    setCookie('purchase_type', getPurchaseType())
+
+    let hasReturnTo = false;
+    for (let i = 0; i < formElement.elements.length; ++i) {
+      switch (formElement.elements[i].name) {
+        case 'id':
+          setCookie('variant_id', formElement.elements[i].value);
+          break;
+        case 'quantity':
+          setCookie('quantity', formElement.elements[i].value);
+          break;
+        case 'return_to':
+          hasReturnTo = true;
+        default:
+          break;
+      }
+    }
+    if (!hasReturnTo) {
+      addReturnToInput(formElement)
+    }
+
+    mixpanel.track("Added to Cart (cartless checkout)", {"name": "{{ product.title }}", "placement": "top bar"});
+  } else {
+    setAddToCartFormElement(formElement,selectors.PURCHASE_TYPE_PROPERTY_NAME, getPurchaseType())
+    setAddToCartFormElement(formElement, selectors.VARIANT_FIELD_NAME, getVariant().id)
+    const quantity = getQuantity()
+    if (quantity) {
+      setAddToCartFormElement(formElement, selectors.QUANTITY_FIELD_NAME, quantity)
+    }
+  }
+  $(formElement).off('submit', suggestSubscriptionFirst) //remove to prevent loops, we want to submit now.
+  $(formElement).submit();
+}
+
+
+const generatePriceString = (priceInCents, multiplier, markup = 0)  => {
+  const itemPrice = ((Number(priceInCents) / 100 * (markup + 100)) / 100)
+  const totalPrice = (itemPrice * multiplier).toFixed(2)
+  let priceText = `<span class="total-price">$${totalPrice}</span>`
+
+  $(selectors.SHOGUN_VARIANT_SELECTOR_VISIBLE_LABEL).each((idx, label) => {
+    const $label = $(label)
+    if ($label.text().indexOf("Quantity") !== -1 || $label.text().indexOf("Count") !== -1) {
+      const quantity = $label.parent().find("select").val()
+      priceText += `<span class="item-price">$${(itemPrice / quantity).toFixed(2)} Per Piece</span>`
+    }
+  })
+
+  return priceText
+}
+
+const updatePricing = (selectedVar) => {
+  if (!selectedVar) {
+    console.warn('updatePricing called with selected Variant being null or undefined')
+    return
+  }
+  const $visibleQunatitySelector = $(`${selectors.QUANTITY_INPUT}:visible`)
+  const multiply = $visibleQunatitySelector.length ? Number($visibleQunatitySelector.val()) : 1
+  $(selectors.ONETIME_PRICE).html(generatePriceString(selectedVar.price, multiply , ONE_TIME_MARKUP))
+  $(selectors.SUBSCRIBE_PRICE).html(generatePriceString(selectedVar.price, multiply))
+}
+
+let prevWidth = $(window).width()
+const createSecondButtonsIfNeeded = () => {
+  $(window).on('resize',function () {
+    let curWidth = $(window).width()
+    if (curWidth <= 799  && prevWidth > 799 || curWidth > 799 && prevWidth <= 799 ||
+        curWidth <= 1199 && prevWidth > 1199 || curWidth > 1199 && prevWidth <= 1199) {
+      convertShogunVariantSelectToButtons()
+      prevWidth = curWidth
+    }
+  })
+}
+
+const getVariant = () => {
+  const $variantSelect = $(selectors.SHOGUN_VISIBLE_PRODUCT_SELECT_WRAPPER).find("select");
+  const variantTitle = $variantSelect
+          .map(function() {
+            return $(this).val()
+          })
+          .toArray()
+          .map(val => cleanAttributeUnescape(val))
+          .join(" / ")
+
+  return meta.product.variants.find((variant) => variant.public_title === variantTitle)
+}
+
+const cleanAttributeUnescape = (string)  => string.replace(/\\/g, "")
+
+const updateVariantQuerystring = () => {
+  const hasVariant = getUrlParameter("variant")
+  if (!hasVariant) {
+    const variant = getVariant()
+    insertUrlParam('variant', variant.id)
+    updatePricing(variant)
+  }
+}
+
+const initShogunHacks = ($variantSelect) => {
+  setDefaultQuantity()
+  bindSillyShogunVariantSelector($variantSelect)
+  $(selectors.ONETIME_PURCHASE_TYPE_RADIO_OPTION).prop('checked', true)
+  const selectedVariantId = getUrlParameter('variant') ||  meta.product.variants[0].id
+  updatePricing(meta.product.variants.find(prodVar => prodVar.id == selectedVariantId))
+}
+
+const waitForShogunSelect = (readyCallback) => {
+  const $variantSelect = $(selectors.SHOGUN_VISIBLE_PRODUCT_SELECT_WRAPPER).find("select");
+  if (!$variantSelect.length) {
+    setTimeout(waitForShogunSelect.bind(this,readyCallback), 100);
+    return
+  }
+  readyCallback($variantSelect)
+}
+
+const bindSillyShogunVariantSelector = ($variantSelect) => {
+  const $quantitySelector = $(selectors.QUANTITY_INPUT)
+  const $quantityButtons = $(selectors.QUANTITY_BUTTONS)
+  const handleChangeEvent = (changeEvent) => {
+
+
+    const newVariant = getVariant()
+    if (!newVariant) {
+      console.error(`could not find variant for ${variantTitle} on shopfy meta.product.variants, something is wrong on this page!`)
+    }
+
+    updatePricing(newVariant)
+    waitForShogunSelect(bindSillyShogunVariantSelector)
+  }
+
+
+  $quantitySelector.off('change paste click').on('change paste click', handleChangeEvent)
+  $quantityButtons.off('click').on('click', () => setTimeout(handleChangeEvent, 50)) //let things complete before we check
+  $variantSelect.off('change').on('change',handleChangeEvent)
+
+  if (0 === $(selectors.ALLOW_30_QUANTITY).length) {
+    const $30Quantity = $(selectors.getQuantityOption(30))
+    if ($30Quantity.length) {
+      const $quantitySelection = $($30Quantity.parent())
+      $30Quantity.remove()
+      if ($quantitySelection.val() == "30") {
+        $quantitySelection.find("option")[0].value
+        updateVariantQuerystring()
+      }
+    }
+  }
+
+  if (window.location.href.indexOf('because-hand-sanitizing-gel') !== -1) {
+      $(selectors.SHOGUN_VARIANT_SELECTOR_VISIBLE_LABEL).each((idx, curLabel) => {
+        if (curLabel.innerText === "Size") {
+          const sizeSelector = $($(curLabel).next()[0])
+          for (let childIdx = 0; childIdx < sizeSelector.children().length; ++childIdx) {
+            const $curOption = $(sizeSelector.children()[childIdx])
+            if ($curOption.val() !== '8 oz') {
+              $curOption.remove()
+              --childIdx
+            }
+          }
+        }
+      })
+  }
+
+  convertShogunVariantSelectToButtons()
+  createSecondButtonsIfNeeded()
+}
+
+
+$(() => {
+  waitForShogunSelect(initShogunHacks)
+  bindCartSubmitForm()
+})
+
+addMouseFlow()
+
+
+
+
+
+</script>
+
+

@@ -1,0 +1,171 @@
+<!-- sections/index-subtitle-row.liquid -->
+<script type="text/javascript">
+    function duringBusinessHours() {
+
+        const BEGINHOUR = "09:00:00"; //9am eastern
+        const ENDHOUR = "18:00:00"; //6pm eastern
+        const BEGINBREAK = "15:00:00"; //3pm eastern
+        const ENDBREAK = "16:00:00"; //4pm eastern
+        const BEGINDAY = 1; //Monday; 0-indexed weeks
+        const ENDDAY = 5; //Friday
+        let d = new Date();
+        let ua = window.navigator.userAgent;
+        let isIE = /MSIE|Trident/.test(ua);
+
+        let numericDayInNYC; //0-6 inclusive
+        if (isIE) {
+            //assume user is in USA
+            numericDayInNYC = d.getDay();
+        } else {
+            dayInNYC = d.toLocaleDateString('en-us',{timeZone: 'America/New_York', weekday: 'long'});
+            //console.log("dayinNYC",dayInNYC);
+            let m = new Map([['Sunday',0],['Monday',1],['Tuesday',2],['Wednesday',3],['Thursday',4],['Friday',5],['Saturday',6]]);
+            numericDayInNYC = m.get(dayInNYC);
+        }
+        //console.log("numericday=",numericDayInNYC)
+
+        if (numericDayInNYC<BEGINDAY || numericDayInNYC>ENDDAY) return false;
+
+
+
+        let timezoneInNYC; //EDT or EST
+        if (isIE) {
+            //Assume user is in United States
+
+            //Below, from https://gist.github.com/senthilmpro/7a48e87117e5a950cb7fd0239c198ea5
+            //detects whether user's system time is in daylight savings or not
+            function stdTimezoneOffset() {
+                var d = new Date();
+                var jan = new Date(d.getFullYear(), 0, 1);
+                var jul = new Date(d.getFullYear(), 6, 1);
+                return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+            }
+            /*
+            Gets offset of current timezone and calculates if it has daylight timings enabled.
+            */
+            function dst() {
+                var d = new Date();
+                return d.getTimezoneOffset() < stdTimezoneOffset();
+            }
+
+            timezoneInNYC = dst() ? "EDT" : "EST";
+        } else {
+            //not IE.
+            let tempstring = d.toLocaleString('en-us',{timeZoneName: 'short', timeZone: 'America/New_York'});
+            timezoneInNYC = tempstring.includes('EDT') ? "EDT" : "EST";
+        }
+
+        //ISOString is like "2020-08-21T15:30:26.817Z"
+        let tempstring = d.toISOString();
+        let datePrefix = tempstring.slice(0,tempstring.indexOf('T')); //like "2020-08-21"
+        let beginTimeString = datePrefix+" "+BEGINHOUR+" "+timezoneInNYC;
+        let endTimeString = datePrefix+" "+ENDHOUR+" "+timezoneInNYC;
+
+        //make sure it is within business hours
+        //(We construct date object utilizing ability of Date() to parse strings
+        //See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date )
+        let dBegin = new Date(beginTimeString);
+        if (d<dBegin) return false;
+        let dEnd = new Date(endTimeString);
+        if (d>dEnd) return false;
+
+        //make sure it is not during the break time
+        let beginBreakString = datePrefix+" "+BEGINBREAK+" "+timezoneInNYC;
+        let endBreakString = datePrefix+" "+ENDBREAK+" "+timezoneInNYC;
+        let dBreakBegin = new Date(beginBreakString);
+        let dBreakEnd = new Date(endBreakString);
+        if (d>dBreakBegin && d<dBreakEnd) return false;
+
+        return true;
+    }
+
+    let attempt = null;
+
+    function openChatraWithFallback() {
+        //Tries to open Chatra;
+        //If not in business hours, presumably, openChatra will not do anything.
+        //But if in some edge case, chatra is available outside of business hours,
+        //then we will both open chatra and display the 'sorry' popup; we think this is preferable
+        //to not opening Chatra at all.
+        if (!duringBusinessHours()) {
+            console.log("not business hours!");
+            $('#missedChatModal').modal('show');
+        }
+        openChatra();
+    }
+
+    function openChatra(retry) {
+      if (attempt && !retry) {
+        return
+      }
+      try {
+        attempt = (attempt) ? attempt + 1 : 1
+        Chatra('openChat', true)
+        attempt = null
+      }
+      catch (error) {
+        if (attempt === 4) {
+          console.error(`failed to open Chatra ${error}`)
+          attempt = null
+          return
+        }
+        return setTimeout(openChatra.bind(this,true), 100*attempt)
+      }
+    }
+</script>
+<div class="info_buttons_header d-none d-lg-flex three_columns_row">
+    <a href="javascript:void(0)" data-toggle="modal" data-target="#guaranteeModal">
+        <img src="https://cdn.shopify.com/s/files/1/1522/0906/files/icon-Satisfaction.svg?v=1604571158" class="subtitle-icon icon-satisfaction"/>
+        30-day Satisfaction Guarantee
+    </a>
+    <a href="javascript:void(0)" data-toggle="modal" data-target="#shippedModal">
+        <img src="https://cdn.shopify.com/s/files/1/1522/0906/files/icon-delivery.svg?v=1604571158" class="subtitle-icon icon-package" />
+        Discreet Packaging
+    </a>
+    <!--Removed data-toggle and target from below <a>, since we only want to trigger the show action outside business hours-->
+    <a href="javascript:openChatraWithFallback()">
+        <img src="https://cdn.shopify.com/s/files/1/1522/0906/files/icon-chat.svg?v=1604571158" class="subtitle-icon icon-chat"/>
+        Chat With a Real Person
+    </a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="guaranteeModal" tabindex="-1" role="dialog" aria-labelledby="guaranteeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-lg">
+                <div class="modal-body">
+                    <i class="fa fa-thumbs-o-up fa-3x" aria-hidden="true"></i>
+                    <i class="white-close fa fa-times float-right" aria-hidden="true" data-dismiss="modal" aria-label="Close"></i>
+                    <h2>We guarantee our product to be of the highest quality.</h2>
+                    <p>If you don't like the product, you can ship it back to us hassle-free. Change your subscription or cancel at anytime.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="shippedModal" tabindex="-1" role="dialog" aria-labelledby="shippedModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-lg">
+                <div class="modal-body">
+                    <i class="fa fa-archive fa-3x" aria-hidden="true"></i>
+                    <i class="white-close fa fa-times float-right" aria-hidden="true" data-dismiss="modal" aria-label="Close"></i>
+                    <h2>Products shipped right to your doorstep.</h2>
+                    <p>Worry less with discreet packaging for your personal goods. One of the many reasons why 40,000 of our customers prefer our products.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="missedChatModal" tabindex="-1" role="dialog" aria-labelledby="missedChatModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-lg">
+                <div class="modal-body">
+                    <i class="fa fa-comments fa-3x" aria-hidden="true"></i>
+                    <i class="white-close fa fa-times float-right" aria-hidden="true" data-dismiss="modal" aria-label="Close"></i>
+                    <h2>We'll be right back!</h2>
+                    <p>Currently our agents are offline. Please email us at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> or come back during business hours, 9am-3pm and 4pm-6pm ET Monday-Friday.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

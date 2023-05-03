@@ -1,0 +1,80 @@
+<!-- /sections/page.liquid-->
+
+{%- assign page_nav = linklists[section.settings.page_nav] -%}
+
+{%- assign page_nav_enable = false -%}
+{%- if page_nav.links.size > 0 -%}
+  {%- assign page_nav_enable = true -%}
+{%- endif -%}
+
+{%- assign page_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+{%- assign title_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+
+{%- if page_nav_enable %}
+  {%- assign page_grid = 'medium-up--three-quarters' -%}
+  {%- assign title_grid = 'one-whole' -%}
+{%- endif -%}
+
+<div class="wrapper page-margin">
+
+  <div class="grid">
+
+    <div class="grid__item {{ title_grid }}">
+      {%- if section.settings.show_title -%}
+        {% include 'dots', direction: 'down' %}
+        <div class="title-decoration"></div>
+        <h1 class="title--decorated">{{ page.title | escape }}</h1>
+      {%- endif -%}
+    </div>
+
+    {%- if page_nav_enable -%}
+
+      <div class="grid__item medium-up--hide">
+        <ul class="inline-nav">
+          {% for link in page_nav.links %}
+            <li {% if link.active %}class="inline-nav--active"{% endif %}>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="grid__item medium-up--one-quarter">
+        <ul class="vertical-nav small--hide">
+          {% for link in page_nav.links %}
+            <li {% if link.active %}class="vertical-nav--active"{% endif %}>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    {% endif %}
+
+    <div class="grid__item {{ page_grid }}">
+      <div class="rte page__team__content">
+        {{ page.content }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Page",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "page_nav",
+        "label": "Secondary page navigation",
+        "info": "This menu won't show dropdown items"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_title",
+        "label": "Show page title",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

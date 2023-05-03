@@ -1,0 +1,67 @@
+<!-- /sections/page.vitamin.liquid-->
+<div class="wrapper page-margin">
+  <div class="grid">
+    <div class="wrapper" id="product-supplements">
+      <section class="row" id="hero">
+          <div class="col col-12 col-lg-8 col-md-12 col-sm-12 justify-content-center">
+              <h2 class="title">Boost your health & immune system</h2>
+              <p>Experience the next generation in older adults supplements. Coming soon!</p>
+              <div class="d-flex row">
+                <!--
+                  <form class="col-12 col-md-12 col-lg-12 col-sm-12 search supplement-signup-form" method="POST">
+                      <input type="email" class="email" name="client-email" placeholder="Enter your email" maxlength=100 />
+                      <input type="hidden" name="supplement-signup">
+                      <button type="submit" class="primary start">Be the first</button>
+                  </form>
+  
+                  <div class="successful-message-container">
+                      <div class="successful-message">
+                          <img src="{{ 'icon-success.png' | file_url }}" alt="success-icon">
+                          <h3>Message sent successfully</h3>
+                          <h6>Someone will be in touch with you shortly</h6>
+                      </div>
+                  </div>
+                -->
+              </div>
+          </div>
+      </section><!-- hero.row -->
+  
+      <section class="row" id="features">
+          <div class="col col-12 col-lg-12 col-md-12 col-sm-12">
+              <img class="mx-auto d-block" src="{{ 'products-vitamin.png' | file_url }}" alt="" />
+          </div>
+      </section><!-- difference.row -->
+    </div><!-- #page-wrapper -->
+  </div>
+</div>
+
+<!-- Theme Javascript ============================================================== -->
+
+<script>
+  var $ = jQuery;
+  var successMessage = $('.successful-message-container');
+  var supplementForm = $('.supplement-signup-form');
+  $('.supplement-signup-form').on('submit', function(e) {
+      e.preventDefault();
+      var emailVal = $('.email').val();
+      if(!emailVal) { return }
+      var data = new FormData($(this)[0]);
+      $.ajax({
+      url: "http://www.becausemarket.com/home-api/send-contact-email.php",
+      data: data,
+      cache: false,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      success: function (successData) {
+          // do something with the result
+          successMessage.show();
+          supplementForm.hide();
+          
+      },
+      error: function(e) {
+          // do something if errors
+      }
+  });
+  })
+</script>

@@ -1,0 +1,479 @@
+@import '../theme/theme_variables.scss';
+@import '../../src/sass/bootstrap4/mixins/_breakpoints.scss';
+
+.skincare-wrapper {
+  .two-columns > .row {
+    margin-bottom: 1rem!important;
+    padding-right: 1vw;
+    padding-left: 1vw;
+  }
+
+  .skincare-title-row {
+    background: $cream-background;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-right: 2vw;
+    padding-left: 5vw;
+    @include media-breakpoint-down(sm) {
+      padding-right: 0;
+      padding-left: 2vw;
+      margin-bottom: 0!important;
+      padding-bottom: 0;
+    }
+    .title-col {
+      padding-left: 2vw;
+    }
+    .two-column-header {
+      padding-right: 8vw !important;
+      @include media-breakpoint-down(sm) {
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+        padding-right: 0vw !important;
+      }
+    }
+
+    .two-column-subheader {
+      margin-bottom: 3rem!important;
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 4rem!important;
+        font-size: 5.07vw;
+      }
+    }
+
+    .button {
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 3rem;
+      }
+    }
+
+    &.two-columns {
+      padding-bottom: 0;
+    }
+  }
+
+  .categories-row {
+    width: 80%;
+    margin: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    .hide-me[aria-expanded="true"] {display: none;}
+
+    h3.face {
+      // padding-right: 8vw!important;
+    }
+
+    h3 {
+      font-weight: 600;
+      line-height: 1.38;
+      letter-spacing: -1.04px;
+      text-align: center;
+      color: $mainColor;
+      font-family: $mainFontSemibold;
+      // padding-right: 5vw;
+      font-style: normal;
+      font-stretch: normal;
+      font-size: 1.77vw;
+      @include media-breakpoint-down(sm) {
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.38;
+        letter-spacing: -1.04px;
+        font-size: 7vw;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .col-12 {
+      padding-top: 5vh;
+      padding-bottom: 5vh;
+      @include media-breakpoint-down(sm) {
+          padding-top: 2rem;
+          padding-bottom: 0;
+
+          text-align: center;
+          h3,
+          h3.face {
+            padding: 0;
+            text-align: center;
+          }
+      } 
+    }
+
+    .col-md-3 {
+      @include media-breakpoint-up(md) {
+        flex: 0 0 30%!important;
+        max-width: 30%!important;
+      }
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .learn-more {
+      font-family: $mainFontSemibold;
+      color: $mainColor;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 2.5;
+      letter-spacing: -0.64px;
+      font-size: 1.08vw;
+      @include media-breakpoint-down(sm) {
+        font-size: 4.3vw;
+        font-weight: 600;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.5;
+        letter-spacing: -0.64px;
+      }
+    }
+
+    .details-section {
+      padding-top: 5vh;
+      padding-bottom: 5vh;
+      padding-right: 3vw;
+      @include media-breakpoint-down(sm) {
+        padding-top: 0;
+        padding-bottom: 1rem;
+      }
+
+      p {
+        font-family: $secondaryFontItalic;
+        color: $mainColor;
+        font-stretch: normal;
+        line-height: 1.27;
+        letter-spacing: normal;
+        @include media-breakpoint-down(sm) {
+          font-weight: 300;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.27;
+          letter-spacing: normal;
+        }
+
+        &:first-child {
+          font-size: 1.49vw;
+          font-style: normal;
+          @include media-breakpoint-down(sm) {
+            font-size: 5.92vw;
+          }
+        }
+
+        &:nth-child(3) {
+          font-size: 1.42vw;
+          @include media-breakpoint-down(sm) {
+            font-size: 5.65vw;
+            line-height: 1.43;
+          }
+        }
+
+
+      }
+
+      hr {
+        width: 2.5vw;
+        background-color: $mainColor;
+        color: $mainColor;
+        border-color: $mainColor;
+        margin-left: 0;
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem;
+        @include media-breakpoint-down(sm) {
+          width: 10vw;
+        }
+
+      }
+
+      p.cooper {
+        padding-right: 3vw;
+      }
+    }
+  }
+
+  .products-title-row {
+    border-top: none;
+    @include media-breakpoint-down(sm) {
+      padding-bottom: 0;
+    }
+    .section-header {
+      text-align: center;
+      line-height: 0.87;
+      letter-spacing: -1.84px;
+      font-family: $mainFontSemibold!important;
+    }
+
+    hr {
+      width: 2.5vw;
+      background-color: $mainColor;
+      color: $mainColor;
+      border-color: $mainColor;
+      text-align: center;
+      margin: 0 auto;
+      @include media-breakpoint-down(sm) {
+        width: 10vw;
+      }
+    }
+
+    .section-subheader {
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.33;
+      letter-spacing: -0.42px;
+      text-align: center;
+      font-family: $secondaryFont;
+      color: $mainColor;
+      font-size: 1.14vw;
+    }
+  }
+
+
+  .filter-row {
+    @include media-breakpoint-down(sm) {
+      padding-bottom: 0;
+    }
+
+    .subfilter {
+      padding-right: 4vw;
+      @include media-breakpoint-down(sm) {
+        padding-right: 5.5vw;
+      }
+    }
+    .filter-items {
+      visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.19vw;
+      font-family: $mainFontSemibold;
+      font-weight: 600;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.82;
+      letter-spacing: -0.44px;
+
+      @include media-breakpoint-down(sm) {
+        font-size: 6.1vw;
+      }
+
+      .filter-by {
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.5;
+        letter-spacing: -0.32px;
+        text-align: center;
+        font-size: 0.869vw;
+        font-family: $mainFont;
+        @include media-breakpoint-down(sm) {
+          font-size: 4.44vw;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 2.5;
+          letter-spacing: -0.32px;
+        }
+      }
+
+      span {
+        display: inline-block;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+
+      .filter-item {
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 1vw;
+        margin-left: 1vw;
+        border-bottom: 1px solid transparent;
+        &.active {
+          border-bottom: 1px solid $mainColor;
+          cursor: text;
+        }
+      }
+
+
+      &.subfilter-items {
+        margin-top: 2vh;
+        visibility: visible;
+        justify-content: left;
+        @include media-breakpoint-down(sm) {
+          justify-content: center;
+          margin-top: 0;
+          padding-bottom: 0;
+        }
+        .subfilter-item {
+          font-size: 0.86vw;
+          line-height: 2.5;
+          letter-spacing: -0.32px;
+          cursor: pointer;
+          display: inline-block;
+          margin-right: 0.5vw;
+          margin-left: 0.5vw;
+          border-bottom: 1px solid transparent;
+          @include media-breakpoint-down(sm) {
+            font-size: 4.44vw;
+            margin-right: 1.5vw;
+            margin-left: 1.5vw;
+          }
+          &.active {
+            text-decoration: underline;
+            cursor: text;
+          }
+        }
+      }
+
+
+    }
+  }
+  .product-row {
+    @include media-breakpoint-up(md) {
+      margin-left: 18%;
+    }
+    .col-12,
+    .col-md-3 {
+      .product-hover-info {
+        height: 100%;
+        width: 100%;
+        display: none;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+
+        .member-only {
+          font-weight: 600;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          font-family: $mainFontSemibold;
+          margin: 0 5vw 6vh 5vw;
+        }
+
+        .button {
+          color: $white;
+        }
+      }
+
+      img {
+        display: inline-block;
+        height: auto;
+        max-height: 100%;
+
+        @include media-breakpoint-down(md) {
+          height: 10rem;
+        }
+      }
+      .z-guard {
+        // height: 90%;
+        // margin-top: 1.5rem;
+      }
+    }
+
+    .product {
+      &:hover {
+        cursor: pointer;
+        .product-image {
+          background-color: $secondaryColor;
+        }
+        .product-hover-info {
+          display: flex;
+        }
+        img {
+          display: none;
+        }
+      }
+      margin-bottom: 4rem;
+      @include media-breakpoint-down(md) {
+        margin-bottom: 2rem;
+      }
+      @include media-breakpoint-down(sm) {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .product-image {
+      height: 18rem;
+      background-color: #bedadb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      img {
+        height: auto;
+        max-height: 100%;
+      }
+      @include media-breakpoint-down(md) {
+        height: 10rem;
+        padding: 2rem;
+        
+      }
+      @include media-breakpoint-down(sm) {
+        padding: 1rem;
+        height: 25.313rem;
+      }
+
+      .buy-one {
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2;
+        letter-spacing: 1.8px;
+        text-align: center;
+        font-family: $secondaryFont;
+        color: $mainColor;
+        background-color: $secondaryColor;
+        font-size: 0.639vw;
+        padding: 0.5rem 2vw;
+        display: inline-block;
+        margin-top: 1rem;
+        @include media-breakpoint-down(sm) {
+          margin-top: 4rem;
+          font-size: 3vw;
+          padding: 2vh 2vw;
+          display: inline-block;
+        }
+      }
+    }
+    .product-name {
+      font-weight: 600;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 2;
+      letter-spacing: -0.4px;
+      font-size: 1.08vw;
+      font-family: $mainFontSemibold;
+      color: $mainColor;
+      margin-top: 1rem;
+      @include media-breakpoint-down(sm) {
+        font-size: 5.55vw;
+        margin-top: 0.5rem;
+        padding-top: 0;
+      }
+    }
+
+    .product-desc {
+      font-size: 0.864vw;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 2.5;
+      letter-spacing: -0.32px;
+      font-family: $mainFontSemibold;
+      color: $mainColor;
+
+      @include media-breakpoint-down(sm) {
+        font-size: 4.44vw;
+        padding-bottom: 0;
+      }
+
+    }
+  }
+}
+

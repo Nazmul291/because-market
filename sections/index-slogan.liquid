@@ -1,0 +1,77 @@
+<!-- /sections/index-slogan.liquid-->
+
+{% if section.settings.highlighted_text != nil or section.settings.regular_text != nil %}
+    <div class="slogan" data-section-id="{{ section.id }}" data-section-type="slogan">
+        <div class="slogan-wrapper">
+            <span>
+                <span class="slogan__highlighted">{{ section.settings.highlighted_text }}</span>
+                <span class="slogan__regular">{{ section.settings.regular_text }}</span>
+            </span>
+        </div>
+    </div>
+{% endif %}
+
+{% stylesheet %}
+    .slogan {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 60px 72px;
+        font-family: 'Cooper Md BT W05 Regular';
+        font-size: 36px;
+        line-height: 50px;
+    }
+
+    .slogan__highlighted {
+        color: #667796;
+    }
+
+    .slogan__regular {
+        color: #333333;
+    }
+
+    .slogan-wrapper {
+        display: grid;
+        grid-column-gap: 24px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 1fr;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) {
+        .slogan {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 45px 24px 24px;
+            font-family: 'Cooper Md BT W05 Regular';
+            font-size: 28px;
+            line-height: 40px;
+        }
+
+        .slogan-wrapper {
+            grid-template-columns: 1fr;
+        }
+    }
+{% endstylesheet %}
+
+{% schema %}
+    {
+        "name": "Slogan",
+        "tag": "section",
+        "settings": [
+            {
+                "type": "text",
+                "id": "highlighted_text",
+                "label": "Highlighted text",
+                "default": "Because."
+            }, {
+                "type": "text",
+                "id": "regular_text",
+                "label": "Regular text",
+                "default": "Convenient and discreet essentials for you."
+            }
+        ],
+        "presets": [{
+            "name": "Slogan",
+            "category": "Custom Sections"
+        }]
+    }
+{% endschema %}

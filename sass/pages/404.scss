@@ -1,0 +1,28 @@
+#error-404-wrapper {
+  display: flex;
+  align-items: center;
+  height: 500px;
+  .page-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    a.button {
+      color: #fff;
+      padding: 1rem;
+      width: auto;
+      margin-top: 1rem;
+
+      &:hover {
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #566582;
+        color: #566582;
+      }
+    }
+  }
+
+  @media (max-width: 376px) {
+    height: 350px;  
+  }
+}

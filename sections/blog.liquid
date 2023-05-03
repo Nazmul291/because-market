@@ -1,0 +1,210 @@
+<!-- /sections/blog.liquid -->
+
+{% paginate blog.articles by 8 %}
+
+<div class="blog" data-section-id="{{ section.id }}" data-section-type="blog">
+  <div class="wrapper page-margin">
+    {% if section.settings.show_title or section.settings.show_rss %}
+      {% include 'dots', direction: 'down' %}
+      <div class="title-decoration"></div>
+    {% endif %}
+    {% if section.settings.show_title %}
+    <div class="blog_heading blue_color">
+      <div class="ot_container">
+        <div class="ot_data">
+          <h1 class="title--decorated inline-block">Because We Care</h1>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% if section.settings.show_rss %}
+      <a class="blog__rss" href="{{ blog.url }}.atom" title="{{ shop.name }} RSS" target="_blank">
+        {% include 'icon-rss' %}
+      </a>
+    {% endif %}
+
+    {%- if section.settings.show_tag_navigation -%}
+      <ul class="inline-nav capitalize">
+        <li {% if current_tags == blank %} class="inline-nav--active"{% endif %}>
+          <a href="/blogs/{{ blog.handle }}/">{{ 'blogs.general.all' | t }}</a>
+        </li>
+        {% for tag in blog.all_tags %}
+          <li {% if current_tags contains tag %}class="inline-nav--active"{% endif %}>
+            {{ tag | link_to_tag: tag }}
+          </li>
+        {% endfor %}
+      </ul>
+    {%- endif -%}
+
+    <div class="blog_main">
+    <div class="grid grid--uniform blog_left">
+      <div id="AjaxinateLoop" class="set_blog">
+      {% for article in blog.articles %}
+        {% liquid
+          if current_page == 1 and forloop.index < 2 and section.settings.blocks == empty
+            assign grid_width_large = 'large-up--one-half'
+            assign grid_width_medium = 'medium--one-half'
+            assign grid_width_small = 'small--one-whole'
+          else
+            assign grid_width_large = 'large-up--one-third'
+            assign grid_width_medium = 'medium--one-third'
+            assign grid_width_small = 'small--one-whole'
+          endif
+        %}
+        {%- unless pinned contains article.id -%}
+          {% include 'article-grid-item-new', show_excerpt: section.settings.show_excerpt, show_meta: section.settings.show_meta, show_tags: section.settings.show_tags, show_comments: section.settings.show_comments %}
+        {%- endunless -%}
+      {% endfor %}
+      </div>
+      <div class="mob_page paginate_custom">
+        {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+        {% endif %}
+      </div>
+    </div>
+      <div class="blog_right">
+        <div class="sticky">
+        <div class="social_sidebar">
+          <h2 class="mp_head">Keep in touch:</h2>
+          {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+            <ul class="social-icons unstyled">
+                {% for social in social_accounts %}
+                    {%- assign social_handle = social | handleize -%}
+                    {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+                    {% if social_handle == 'facebook' or social_handle == 'instagram' or social_handle == 'youtube' %}
+                        {% capture social_icon %}icon-footer-{{ social_handle }}{% endcapture %}
+                    {% else %}
+                        {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+                    {% endif %}
+                    {% if settings[social_link] != blank %}
+                        <li>
+                            <a target="_blank" href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+                                {% include social_icon %}
+                                <span class="icon-fallback-text">{{ social }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <h2 class="mp_head mr_bottom">Most popular:</h2>
+        {%- assign pinned = '' -%}
+        {% for block in section.blocks %}
+          {% assign grid_width_large = 'large-up--one-half' %}
+          {% assign grid_width_medium = 'medium--one-half' %}
+          {% assign grid_width_small = 'small--one-whole' %}
+
+          {%- assign article = articles[block.settings.pinned_post] -%}
+
+          {% if article != blank or page.empty? %}
+            <div class="article_setting">
+                {% include 'article-grid-item', show_excerpt: section.settings.show_excerpt, show_meta: section.settings.show_meta, show_tags: section.settings.show_tags, show_comments: section.settings.show_comments %}
+            </div>
+            {%- assign pinned = pinned | append: article.id | append: ", " -%}
+          {% else %}
+            {% comment %}    Onboarding content    {% endcomment %}
+              <div class="grid__item {{ grid_width_small }} {{ grid_width_medium }} {{ grid_width_large }}">
+                <div class="article__card article__card--image">
+                  <p class="lazy-image article__card__image__wrapper">
+                    <span>
+                      {% capture imgCount %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                      {% capture svg_name %}collection-{{ imgCount }}{% endcapture %}
+                      {{ svg_name | placeholder_svg_tag: 'placeholder-svg' }}
+                    </span>
+                  </p>
+                  <div class="article__card__content">
+                    <p class="h3 article__card__title">{{ 'homepage.onboarding.blog_title' | t }}</p>
+                    <div class="article__card__text">
+                      <p>{{ 'homepage.onboarding.blog_excerpt' | t }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% comment %}    End onboarding content    {% endcomment %}
+          {% endif %}
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% if section.settings.show_view_all %}
+      <div class="text-center">
+        <a href="{{ blog.url }}" class="btn">
+          {{ 'blogs.general.view_all' | t }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Blog posts",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tag_navigation",
+      "default": false,
+      "label": "Show tag navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show blog title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rss",
+      "label": "Show RSS",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Article grid"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_meta",
+      "label": "Show date and author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comments",
+      "default": true,
+      "label": "Show article comment count"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "default": false,
+      "label": "Show article excerpt"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "default": false,
+      "label": "Show article tags"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pinned_post",
+      "name": "Most Popular",
+      "settings": [
+        {
+          "type": "article",
+          "id": "pinned_post",
+          "label": "Pinned post",
+          "info": "Feature a popular post at the top of the blog"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

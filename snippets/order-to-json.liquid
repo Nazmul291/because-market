@@ -1,0 +1,53 @@
+{
+  "attributes": {{ order.attributes | json }},
+  "billing_address": {{ order.billing_address | json }},
+  "cancelled": {{ order.cancelled | json }},
+  "cancelled_at": {{ order.cancelled_at | json }},
+  "cancel_reason": {{ order.cancel_reason | json }},
+  "cancel_reason_label": {{ order.cancel_reason_label | json }},
+  "cart_level_discount_applications": {{ order.cart_level_discount_applications | json }},
+  "created_at": "{{ order.created_at }}",
+  "discount_applications": {{ order.discount_applications | json }},
+  "discount_applications": {{ order.discount_applications | json }},
+  "email": {{ order.email | json }},
+  "financial_status": {{ order.financial_status | json }},
+  "financial_status_label": {{ order.financial_status_label | json }},
+  "fulfillment_status": {{ order.fulfillment_status | json }},
+  "fulfillment_status_label": {{ order.fulfillment_status_label | json }},
+  "line_items": {{ order.line_items | json }},
+  "line_items_subtotal_price": {{ order.line_items_subtotal_price | json }},
+  "location": {{ order.location | json }},
+  "metafields": {{ order.metafields | json }},
+  "name": {{ order.name | json }},
+  "note": {{ order.note | json }},
+  "order_number": {{ order.order_number | json }},
+  "order_status_url": {{ order.order_status_url | json }},
+  "payment_terms": {{ order.payment_terms | json }},
+  "phone": {{ order.phone | json }},
+  "shipping_address": {{ order.shipping_address | json }},
+  "shipping_methods": [
+    {% for shipping_method in order.shipping_methods %}
+      {% render 'shipping-method-to-json', shipping_method: shipping_method %},
+    {% endfor %}
+  ],
+  "shipping_price": {{ order.shipping_price | json }},
+  "subtotal_line_items": {{ order.subtotal_line_items | json }},
+  "subtotal_price": {{ order.subtotal_price | json }},
+  "tags": {{ order.tags | json }},
+  "tax_lines": [
+    {% for tax_line in order.tax_lines %}
+      {% render 'tax-line-to-json', tax_line: tax_line %},
+    {% endfor %}
+  ],
+  "tax_price": {{ order.tax_price | json }},
+  "total_discounts": {{ order.total_discounts | json }},
+  "total_duties": {{ order.total_duties | json }},
+  "total_net_amount": {{ order.total_net_amount | json }},
+  "total_price": {{ order.total_price | json }},
+  "total_refunded_amount": {{ order.total_refunded_amount | json }},
+  "transactions": [
+    {% for transaction in order.transactions %}
+      {% render 'transaction-to-json', transaction: transaction %},
+    {% endfor %}
+  ],
+}

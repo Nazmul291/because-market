@@ -1,0 +1,30 @@
+<div class="only_text blue_color">
+  <div class="ot_container">
+    <div class="ot_data">
+      <h4>{{ section.settings.title }} </h4>
+      <h1>{{ section.settings.subtitle }}</h1>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Background and Text",
+    "settings": [
+     {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+     },
+     {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sub Title"
+     }
+    ],
+    "presets": [
+      {
+        "name": "Background and Text"
+      }
+    ]
+  }
+{% endschema %}

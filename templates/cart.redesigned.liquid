@@ -1,0 +1,715 @@
+<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<!-- /templates/cart.liquid -->
+<!-- {% assign checkout_url = "/checkout/purchase" %} -->
+{% comment %}
+
+  This is your /cart template. If you are using the Ajaxify Cart plugin,
+  your form (with action="/cart") layout will be used in the drawer/modal.
+
+  For info on test orders:
+    - General http://docs.shopify.com/manual/your-store/orders/test-orders
+    - Shopify Payments - http://docs.shopify.com/manual/more/shopify-payments/testing-shopify-payments
+
+{% endcomment %}
+{% if cart.item_count > 0 %}
+<script>
+  const renderedCartData = {{ cart | json }};
+  const e = React.createElement;
+  const { useState, useEffect, useCallback, useRef } = React;
+
+  if (window.performance && window.performance.navigation.type == window.performance.navigation.TYPE_BACK_FORWARD) {
+    document.location.reload()
+  }
+
+  const trackMixpanelEvent = (eventName, data) => {
+    const namespacedEventName = `Redesigned Cart: ${eventName}`;
+    try {
+      mixpanel.track(namespacedEventName, data);
+    } catch (err) {
+      debug(`Failed to track cart event "${namespacedEventName}"`);
+    }
+  }
+  trackMixpanelEvent("BM Cart - redesign", { cartInfo: renderedCartData })
+  trackLinks("input[name='checkout']", "BM Checkout started", { cartInfo : {{ cart | json }} })
+
+  const runRequest = (type, url, data) =>
+    new Promise((resolve, reject) => {
+      $.ajax(url, {
+        type,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(data),
+      })
+        .done(resolve)
+        .fail((jqXHR, textStatus, errorThrown) => {
+          console.error(jqXHR.responseText)
+          console.error(textStatus)
+          reject(errorThrown);
+        })
+    })
+
+  const getCart = () => runRequest('GET', '/cart');
+  const addToCart = (data) => runRequest('POST', '/cart/add.js', data)
+  const changeCart = (data) => runRequest('POST', '/cart/change.js', data)
+  const updateCart = (data) => runRequest('POST', '/cart/update.js', data)
+
+  const useAsync = (asyncFunction) => {
+    const [status, setStatus] = useState("idle");
+    const [value, setValue] = useState(null);
+    const [error, setError] = useState(null);
+    useEffect(() => {
+      setStatus("pending");
+      setValue(null);
+      setError(null);
+      return asyncFunction()
+        .then((response) => {
+          setValue(response);
+          setStatus("success");
+        })
+        .catch((error) => {
+          setError(error);
+          setStatus("error");
+        });
+    }, []);
+    return { status, value, error };
+  };
+
+  const useProducts = (itemHandles) =>
+    useAsync(() => Promise.all(
+      itemHandles.map((handle) =>
+        $.ajax(`/products/${handle}.js`, {type: "GET", dataType: 'json'})
+      )
+    ))
+  ;
+
+  const useDebouncedCallback = (func, wait) => {
+    const timeout = useRef();
+    return useCallback(
+      (...args) => {
+        const later = () => {
+          clearTimeout(timeout.current);
+          func(...args);
+        };
+        clearTimeout(timeout.current);
+        timeout.current = setTimeout(later, wait);
+      },
+      [func, wait]
+    );
+  };
+
+  const toUSD = (priceInCents) => `$${(priceInCents / 100).toFixed(2)}`;
+
+  const getCartItemPrice = (cartItem) =>
+    cartItem.price * cartItem.quantity * (cartItem.properties?.purchase_type === "onetime" ? 1.1 : 1);
+
+  const sum = items => items.reduce((a, b) => a + b, 0);
+
+  const Variants = ({ cartItem, product, onChange }) => {
+    const variantSelects = (() => {
+      if (product.has_only_default_variant) return []
+      const optionsToRemove = (() => {
+        const removedOptionsTag = product.tags.find(_ => /^removedOptions=\[.+\]$/.test(_));
+        if (removedOptionsTag) {
+          const optionsJsonString = removedOptionsTag.replace('removedOptions=', '').replaceAll(`'`, `"`);
+          if (optionsJsonString) {
+            try {
+              return JSON.parse(optionsJsonString).map(String);
+            } catch (e) {}
+          }
+        }
+        return []
+      })();
+      return product.options.map(option => ({
+        ...option,
+        options: option.values.filter(v => !optionsToRemove.includes(String(v)))
+      }))
+    })();
+    return e('div', { className: 'cart-product__variants' },
+      variantSelects.map((select, index) => {
+        const onSelectChange = (e) => {
+          const newVariantOptions = [...cartItem.variant_options];
+          newVariantOptions[index] = e.target.value;
+          const variantToChangeTo = product.variants.find(variant =>
+            JSON.stringify(variant.options) === JSON.stringify(newVariantOptions)
+          );
+          if (variantToChangeTo?.available) {
+            onChange(variantToChangeTo);
+          }
+        };
+        return e('select',
+          {
+            key: select.name,
+            defaultValue: cartItem.variant_options[index],
+            onChange: onSelectChange
+          },
+          select.options.map(option =>
+            e('option', { key: option, value: option }, option)
+          )
+        );
+      })
+    );
+  }
+
+  const QuantityInput = ({ cartItem, product, askForItemRemove, changeItemQuantity }) => {
+    const [inputValue, setInputValue] = useState(cartItem.quantity);
+    const currentNumber = Number(inputValue);
+
+    useEffect(() => {
+      setInputValue(cartItem.quantity);
+    }, [cartItem.quantity])
+
+    if (['Underwear', 'Pads', 'Guards', 'Liners'].includes(product.type)) return null;
+
+    const onRemoveCancel = () => setInputValue(cartItem.quantity)
+
+    const updateWithDebounce = useDebouncedCallback((value) => {
+      if (value === 0) {
+        askForItemRemove(cartItem, onRemoveCancel);
+      } else {
+        changeItemQuantity(cartItem, value);
+      }
+    }, 500);
+
+    const onMinusClick = () => {
+      if (!Number.isNaN(currentNumber)) {
+        const newValue = currentNumber - 1;
+        if (newValue >= 0) {
+          setInputValue(newValue);
+          updateWithDebounce(newValue);
+        }
+      }
+    };
+
+    const onPlusClick = () => {
+      if (!Number.isNaN(currentNumber)) {
+        const newValue = currentNumber + 1;
+        setInputValue(newValue);
+        updateWithDebounce(newValue);
+      }
+    };
+
+    const onTextChange = (e) => {
+      const { value } = e.target;
+      if (/^[0-9]*$/.test(value)) {
+        setInputValue(value);
+        if (value && !Number.isNaN(Number(value))) {
+          updateWithDebounce(Number(value));
+        }
+      }
+    };
+
+    const onBlur = () => {
+      if (inputValue === '') {
+        setInputValue(cartItem.quantity);
+      }
+    };
+
+    return e('div', { className: 'js-qty quantity-selector' },
+      e('label', { htmlFor: `updates_${cartItem.key}`, className: 'label-hidden' },
+        `{{ 'products.product.quantity' | t }}`
+      ),
+      e('span', {
+        className: 'js-qty__adjust js-qty__adjust--minus quantity__minus',
+        dangerouslySetInnerHTML: {__html: `{% include "icon-minus" %}`},
+        onClick: onMinusClick,
+      }),
+      e('input', {
+        className: 'js-qty__num quantity__input',
+        ['data-line-quantity']: true,
+        type: 'text',
+        value: inputValue,
+        onChange: onTextChange,
+        onBlur,
+        min: 0,
+        pattern: '[0-9]*',
+        name: 'updates[]',
+        id: `updates_${cartItem.key}`,
+        ['aria-label']: `{{ 'cart.general.item_quantity' | t }}`,
+      }),
+      e('span', {
+        className: 'js-qty__adjust js-qty__adjust--plus quantity__plus',
+        dangerouslySetInnerHTML: {__html: `{% include "icon-plus" %}`},
+        onClick: onPlusClick,
+      }),
+    );
+  };
+
+  const PurchaseTypeSwitch = ({ cartItem, product, onChange, layout }) => {
+    const computeState = () =>
+      product.tags.includes('NonSubscriptionItem')
+        ? undefined
+        : (cartItem.properties?.purchase_type ?? 'subscription')
+
+    const [purchaseType, setPurchaseType] = useState(computeState);
+
+    useEffect(() => {
+      setPurchaseType(computeState);
+    }, [cartItem, product])
+
+    const onChangeInternal = (newValue) => {
+      setPurchaseType(newValue);
+      onChange(newValue);
+    }
+
+    if (purchaseType === "onetime") {
+      return e('div', { className: `product-subscription-switch product-subscription-switch--${layout}` },
+        e('span', { className: 'product-subscription-switch__text' },
+          e('span', {
+            className: 'product-subscription-switch__icon',
+            dangerouslySetInnerHTML: { __html: `{% include 'icon-recycle' %}` }
+          }),
+          'Subscribe & save 10%. Cancel anytime.'
+        ),
+        e('button', { type: 'button', onClick: () => onChangeInternal('subscription') }, 'Subscribe'),
+      );
+    }
+    if (purchaseType === "subscription") {
+      return e('div', { className: `product-subscription-switch product-subscription-switch--${layout}` },
+        e('span', { className: 'product-subscription-switch__text' },
+          e('span', {
+            className: 'product-subscription-switch__icon',
+            dangerouslySetInnerHTML: { __html: `{% include 'icon-checkmark-grey' %}` }
+          }),
+          'You’re set up for monthly deliveries.'
+        ),
+        e('button', { type: 'button', onClick: () => onChangeInternal('onetime') }, 'Buy Once'),
+      );
+    }
+    return null;
+  }
+
+  const RemovedCartItem = ({ cartItem }) =>
+    e('tr', { className: 'removed__item__banner--row' },
+      e('td', { colspan: 4 },
+        e('div', { className: 'removed__item__banner' },
+          e('h5', { className: 'removed__item__info' },
+            e('span', { className: 'removed__item__title' },
+              e('a', { href: `${window.location.origin}${cartItem.url}` }, cartItem.title),
+            ),
+            e('span', {}, ' - was removed from your cart')
+          )
+        )
+      )
+    )
+  ;
+
+  const CartItem = ({
+    cartItem, product, removeItem, changeItemPurchaseType, changeItemQuantity, changeItemVariant
+  }) => {
+    const askForItemRemove = (itemToRemove, onCancel) => {
+      jQuery.noConflict();
+      $('#confirmRemove button.btn-confirm-remove').off('click').on('click', () => {
+        $('#confirmRemove').modal('hide');
+        removeItem(itemToRemove);
+      });
+      $('#confirmRemove button.btn-cancel-remove').off('click').on('click', onCancel);
+      $('#confirmRemove').modal('show');
+    };
+    return e('tr', { className: 'cart__row' },
+      e('td', { className: 'cart_row_table_cell' },
+        e('div', { className: 'd-flex' },
+          e('div', { className: 'cart__image' },
+            e('a', { href: cartItem.url },
+              e('img', {
+                src: cartItem.image.replace(/\/(.+)\.(.+)/, '/$1_120x120.$2'),
+                alt: cartItem.title,
+              })
+            )
+          ),
+          e('div', { style: { flex: 1 } },
+            e('div', { className: 'cart-item__top-line' },
+              e('a', { href: cartItem.url },
+                e('div', { className: 'cart__item__title' }, product.title),
+              ),
+              e('div', { className: 'item__price cart-items__price' },
+                e('p', { className: 'item__price--final' },
+                  toUSD(getCartItemPrice(cartItem))
+                )
+              ),
+            ),
+            e('div', { className: 'cart-product__controls' },
+              e(Variants, {
+                cartItem,
+                product,
+                onChange: (newVariant) => changeItemVariant(cartItem, newVariant)
+              }),
+              e('div', {},
+                e(QuantityInput, { cartItem, product, askForItemRemove, changeItemQuantity })
+              ),
+              e('a', { className: 'cart__remove', onClick: () => askForItemRemove(cartItem) },
+                `{{ 'cart.general.remove' | t }}`
+              )
+            ),
+            e(PurchaseTypeSwitch, {
+              cartItem,
+              product,
+              layout: 'desktop',
+              onChange: (purchaseType) => changeItemPurchaseType(cartItem, purchaseType)
+            })
+          )
+        ),
+        e(PurchaseTypeSwitch, {
+          cartItem,
+          product,
+          layout: 'mobile',
+          onChange: (purchaseType) => changeItemPurchaseType(cartItem, purchaseType)
+        })
+      )
+    );
+  }
+
+  const SubmitButton = ({ cart }) => {
+    const onClick = (e) => {
+      let queryUpdated = false;
+      function regenerateToken() {
+        // BAD HACK - seems cart token are sometimes shown as purchased when they are not
+        // I would suppose this has to do with the cart token lifecycle managed part on shopify, part on our system.
+        // Regenerate new one each time, this is bad, we should not do this..
+        const generateToken = (s) => 'ST-' + s.split('-').join('').slice(0, 28)
+        const newToken = generateToken(createUuid());
+        $("input[name='cartInfo']").val(JSON.stringify({ ...cart, token: newToken }))
+      }
+      regenerateToken();
+
+      const MAX_ATTEMPTS_MIXPANEL = 10
+      function buildCheckoutQuery(readyCB, attempt=0) {
+        let mixpanel_id = ''
+        try {
+          mixpanel_id = mixpanel.get_distinct_id()
+        }
+        catch (err) {}
+        if (!mixpanel_id || mixpanel_id === '') {
+          if (attempt < MAX_ATTEMPTS_MIXPANEL) {
+            return setTimeout(() => buildCheckoutQuery(readyCB, attempt+1), 200)
+          }
+          console.error('max attempts reached and mixpanel id is still unavailable!')
+        }
+        const urlParams = new URLSearchParams(window.location.search);
+        PERSIST_PARAMS.forEach(persistParam => {
+          const persistCookieValue = getCookie(persistParam)
+          if (persistCookieValue && persistCookieValue !== 'undefined' &&
+                  (!urlParams.has(persistParam) || urlParams.get(persistParam) !== persistCookieValue)) {
+            urlParams.set(persistParam, persistCookieValue)
+          }
+        })
+        urlParams.set('did', mixpanel_id)
+        readyCB(`${urlParams.toString()}&site=because`)
+      }
+
+      buildCheckoutQuery((queryString) => {
+        $("input[name='return_to']").val(`/cart?${queryString}`)
+        const checkoutForm = $("#checkoutForm")
+        checkoutForm.attr('action', `${checkoutForm.attr('action')}?${queryString}`)
+        queryUpdated = true
+      });
+
+      e.preventDefault ? e.preventDefault() : e.returnValue = false;
+      const submitWhenQueryReady = (attempt=0) => {
+        if (!queryUpdated && attempt < MAX_ATTEMPTS_MIXPANEL) {
+          return setTimeout(() => submitWhenQueryReady(attempt + 1), 220)
+        }
+        $('#checkoutForm').submit()
+      }
+      submitWhenQueryReady()
+      return false
+    };
+
+    return e('input', {
+      type: 'button',
+      name: 'checkout',
+      className: 'primary start btn btn--large checkout__button',
+      defaultValue: `{{ 'cart.general.checkout' | t }}`,
+      onClick,
+    });
+  }
+
+  const MobileCheckoutButton = ({ cart }) => {
+    const [mainCheckoutButtonIsVisible, setMainCheckoutButtonIsVisible] = useState(true);
+    useEffect(() => {
+      const interval = setInterval(() => {
+        const topCheckoutButtonNode = document.querySelector('.cart__buttons_container .checkout__button');
+        setMainCheckoutButtonIsVisible(topCheckoutButtonNode.getBoundingClientRect().y > 50);
+      }, 500);
+      return () => clearInterval(interval);
+    }, []);
+    const visibility = mainCheckoutButtonIsVisible ? 'hidden' : undefined;
+    return e('div', { className: 'mobile-checkout-button-slot', style: { visibility } },
+      e(SubmitButton, { cart }),
+    );
+  }
+
+  const ShippingInfo = ({ totalPrice }) => {
+    const FREE_SHIPPING_PRICE = 2500;
+    const shippingIsFree = totalPrice > FREE_SHIPPING_PRICE;
+    const icon = shippingIsFree ? `{% include 'icon-checkmark-green' %}` : `{% include 'icon-info-warn' %}`
+    const text = (() => {
+      if (shippingIsFree) {
+        return 'You’ve qualified for FREE Shipping!'
+      }
+      const remainingMoney = toUSD(FREE_SHIPPING_PRICE - totalPrice);
+      return `Add ${remainingMoney} of items to your order to qualify for FREE Shipping.`
+    })();
+    return e('div', { className: 'cart-shipping-info' },
+      e('span', { className: 'cart-shipping-info__icon', dangerouslySetInnerHTML: { __html: icon } }),
+      e('span', {}, text)
+    );
+  }
+
+  const Disclaimer = ({ cartItems }) => {
+    if (cartItems.every(_ => _.properties?.purchase_type === "onetime")) return null;
+    return e('span', { className: 'disclaimer' },
+      e('p', {},
+        'By placing your order, you agree to Because\'s ',
+        e('a', { target: '_blank', href: '/pages/privacy' }, 'privacy notice'),
+        ' and ',
+        e('a', { target: '_blank', href: '/pages/terms-and-conditions' }, 'terms and conditions.')
+      ),
+      e("p", {},
+        'You also agree to the subscription and authorize us to charge your default payment method or another payment method on file. ',
+        'Your subscription continues until canceled. You can cancel at any time via the Member Portal under your account.'
+      )
+    );
+  };
+
+  const Checkout = ({ cart }) => {
+    const totalPrice = sum(cart.items.map(getCartItemPrice));
+    return e('div', { className: 'cart-checkout-wrapper' },
+      e('div', { className: 'cart-checkout' },
+        e('div', { className: 'grid' },
+          e('div', { className: 'grid__item' },
+            e(ShippingInfo, { totalPrice }),
+            e('hr'),
+            e('p', { className: 'cart__footer__text' },
+              e('span', { className: 'cart__subtotal__title' },
+                `{{ 'cart.general.subtotal' | t  }}`
+              ),
+              e('span', { className: 'cart__subtotal money', 'data-cart-total': true },
+                toUSD(totalPrice)
+              )
+            ),
+            e('div', { className: 'cart__buttons-and-disclaimer' },
+              e('span', { className: 'cart__buttons_container' },
+                e(SubmitButton, { cart })
+              ),
+              e(Disclaimer, { cartItems: cart.items })
+            )
+          )
+        )
+      )
+    );
+  }
+
+  const App = () => {
+    const [cart, setCart] = useState(renderedCartData);
+    const [removedItems, setRemovedItems] = useState([]);
+    const products = useProducts(cart.items.map(_ => _.handle));
+    if (products.status !== 'success') return null;
+
+    const removeItem = async (itemToDelete) => {
+      setRemovedItems(items => items.concat([itemToDelete]));
+      setCart((cart) => ({ ...cart, items: cart.items.filter(_ => _.key !== itemToDelete.key) }));
+      try {
+        const newCartInfo = await changeCart({ id: itemToDelete.key, quantity:  0 });
+        trackMixpanelEvent('Variant has been removed', { variant: itemToDelete });
+        setCart(newCartInfo);
+      } catch (e) {
+        const cartData = await getCart();
+        setCart(cartData);
+        const oldRemovedItems = removedItems;
+        setRemovedItems(oldRemovedItems)
+      }
+    }
+
+    const changeItemPurchaseType = async (cartItem, newPurchaseType) => {
+      try {
+        const newCartData = await changeCart({
+          id: cartItem.key,
+          quantity: cartItem.quantity,
+          properties: { purchase_type: newPurchaseType }
+        });
+        trackMixpanelEvent('Change subscription type', { variant: cartItem, newPurchaseType });
+        setCart(newCartData);
+      } catch (e) {
+        const cartData = await getCart();
+        setCart(cartData);
+      }
+    }
+
+    const changeItemQuantity = async (cartItem, newQuantity) => {
+      try {
+        const newCartData = await updateCart({ updates: { [cartItem.key]: newQuantity } })
+        trackMixpanelEvent('Change variant quantity', { variant: cartItem, newQuantity });
+        setCart(newCartData);
+      } catch (e) {
+        const cartData = await getCart();
+        setCart(cartData);
+      }
+    };
+
+    const changeItemVariant = async (cartItem, variantToChangeTo) => {
+      try {
+        await updateCart({ updates: { [cartItem.key]: 0 }});
+        await addToCart({
+          id: String(variantToChangeTo.id),
+          quantity: cartItem.quantity,
+          properties: { purchase_type: cartItem.properties?.purchase_type ?? 'onetime' }
+        });
+        trackMixpanelEvent('Change product variant', { from: cartItem, to: variantToChangeTo });
+      } finally {
+        const newCartData = await getCart();
+        setCart(newCartData);
+      }
+    }
+
+    const removedItemNodes = removedItems.map(cartItem =>
+      e(RemovedCartItem, { key: `removed-item-${cartItem.key}`, cartItem })
+    );
+
+    const cartItemNodes = cart.items.map(cartItem => {
+      const product = products.value.find(_ => _.handle === cartItem.handle);
+      return e(CartItem, {
+        key: `regular-item-${cartItem.key}`,
+        cartItem, 
+        product,
+        removeItem,
+        changeItemPurchaseType,
+        changeItemQuantity,
+        changeItemVariant
+      })
+    });
+
+    return [
+      e('div', { key: 'cart-items-wrapper', className: 'cart-items-wrapper' },
+        e('table', { className: 'stack cart-items' },
+          e('tbody', {}, [...removedItemNodes, ...cartItemNodes]),
+          e('a', { href: '/collections/for-women', className: 'cart__exit' },
+            e('span', { className: 'icon-left', dangerouslySetInnerHTML: {__html: `{% include 'icon-arrow-down' %}`} }),
+            e('span', { className: 'exit-text' }, `{{ 'cart.general.continue_browsing_html' | t }}`),
+          ),
+          e(MobileCheckoutButton, { cart }),
+        )
+      ),
+      e(Checkout, { key: 'checkout', cart })
+    ];
+  }
+
+  const renderApp = () => {
+    const domContainer = document.querySelector('.cart-content-wrapper');
+    ReactDOM.render(e(App), domContainer);
+  };
+
+</script>
+
+{% assign has_subscription = false %}
+<style>
+  .removed__item__banner--row td {
+    padding-right:1.2rem;
+  }
+  .removed__item__banner--row td:first-child {
+    padding-left:1.2rem;
+  }
+  .removed__item__banner--row .close-btn-cell {
+    text-align: right;
+    position: relative;
+  }
+  .removed__item__banner--row .removed__item__title a {
+    color: #566583;
+  }
+  .removed__item__banner--row .removed__item__info--close {
+    border-radius: 8px;
+    padding: 6px 10px;
+    border: 1px solid #979797;
+    background-color: rgb(239, 239, 239);
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+  }
+</style>
+<div class="cart-page-redesigned-wrapper">
+  <div class="wrapper page-margin cart-page">
+    <form action="/cart" method="post" novalidate class="cart cartForm">
+      <h2 class="cart__title hidden-small">{{ 'cartRedesigned.general.title' | t }}</h2>
+      <div class="cart-content-wrapper"></div>
+    </form>
+
+    <form id="checkoutForm" action="{{ settings.checkout_cart_redirect }}{{ checkout_url }}" method="post">
+      <input type="hidden" name="return_to" value="/cart" />
+      <input name="cartInfo" value="{{ cart | json | escape}} " type="hidden"/>
+    </form>
+
+
+    <div class="modal fade" id="confirmRemove" tabindex="-1" role="dialog"
+         aria-labelledby="removeModalLabel" aria-hidden="true" data-backdrop="static"
+         data-keyboard="false"
+         style="z-index: 5000">
+      <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="removeModalLabel">Confirm Remove</h5>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to remove this item from the cart?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-cancel-remove" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-primary btn-confirm-remove">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+<div class="cart__empty wrapper page-margin text-center" style="display: none">
+
+  <div class="supports-cookies">
+    <h2 class="h2 cart__title">{{ 'cart.general.title' | t }}</h2>
+    <p>{{ 'cart.general.empty' | t }}</p>
+    <a href="/collections/for-women" class="btn btn--large">{{ 'cart.general.continue_browsing_html' | t }}</a>
+  </div>
+
+  {% comment %}
+    Cart no cookies state
+    ---------------------
+    Browser cookies are required to use the cart. If cookies aren't enabled in the
+    browser a message is displayed prompting the user to enable them.
+  {% endcomment %}
+  <div class="supports-no-cookies">
+    <p>{{ 'cart.general.cookies_required' | t }}</p>
+  </div>
+</div>
+
+{% else %}
+  {% comment %}
+    The cart is empty
+  {% endcomment %}
+  <div class="cart__empty wrapper page-margin text-center">
+
+    <div class="supports-cookies">
+      <h2 class="h2 cart__title">{{ 'cart.general.title' | t }}</h2>
+      <p>{{ 'cart.general.empty' | t }}</p>
+      <a href="/collections/for-women" class="btn btn--large">{{ 'cart.general.continue_browsing_html' | t }}</a>
+    </div>
+
+    {% comment %}
+    Cart no cookies state
+    ---------------------
+    Browser cookies are required to use the cart. If cookies aren't enabled in the
+    browser a message is displayed prompting the user to enable them.
+    {% endcomment %}
+    <div class="supports-no-cookies">
+      <p>{{ 'cart.general.cookies_required' | t }}</p>
+    </div>
+  </div>
+{% endif %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">  // MIXPANEL CUSTOMIZATION 18 APR 2017.</script>
+<script>
+  document.body.style.background = '#FCFCF4';
+  renderApp();
+</script>
+
+<!-- <script>$(window).ready(function() {$('[name="checkout"]').click();});</script><br> -->

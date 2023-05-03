@@ -1,0 +1,141 @@
+<div class="topBanner">
+    <div class="topBanner_container">
+        <div class="topBanner_block">
+            {% if section.settings.title %}
+                <h1>{{ section.settings.title }}</h1>
+            {% endif %}
+            {% if section.settings.text %}
+                <p class="font-desktop-subtitle">{{ section.settings.text }}</p>
+            {% endif %}
+            {% if section.settings.button_text and section.settings.button_href %}
+                <a onclick="trackEvent('BM HeroLink Clicked')" class="redesign_btn" href="{{ section.settings.button_href }}">{{ section.settings.button_text }}</a>
+            {% endif %}
+        </div>
+        {% if section.settings.image_desktop != nil %}
+            <img class="topBanner_image" src="{{ section.settings.image_desktop | img_url: 'master' }}" alt="">
+        {% endif %}
+    </div>
+</div>
+
+{% schema %}
+{
+	"name": "Top banner",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "image_desktop",
+			"label": "Image"
+		}, {
+			"type": "text",
+            "id": "title",
+            "label": "Title"
+		}, {
+			"type": "text",
+            "id": "text",
+            "label": "Text"
+		}, {
+			"type": "text",
+            "id": "button_text",
+            "label": "Button text"
+		}, {
+			"type": "url",
+            "id": "button_href",
+            "label": "Button URL"
+		}
+	],
+	"presets": [
+		{
+			"name": "Top banner",
+       		"category": "Custom Sections",
+       		"settings": {
+       			"title": "Because its time for something better.",
+       			"text": "Our Underwear and Pads Keep you dry.",
+       			"button_text": "Shop Now",
+       			"button_href": "/collections/for-women"
+       		}
+		}
+	]
+}
+{% endschema %}
+
+{% stylesheet %}
+    .topBanner {
+        background: #CDEFDE;
+    }
+    .topBanner_container {
+        max-width: 1440px;
+        margin: 0 auto;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .topBanner_image {
+        max-width: 80%;
+    }
+    .topBanner_block {
+        margin: 24px 24px 25px;
+    }
+    .topBanner_block h1 {
+        color: #000000;
+        font: 30px/110% "Graphik Medium";
+        margin-bottom: 8px;
+        letter-spacing: 0.03em;
+    }
+    .topBanner_block h1 span {
+        font-family: "Cooper Md BT W05 Regular";
+    }
+    .topBanner_block p {
+        margin-bottom: 8px;
+    }
+    @media only screen and (min-width: 768px) {
+        .topBanner_container {
+            flex-direction: row;
+            padding-right: 40px;
+        }
+
+        .topBanner_block {
+            width: 50%;
+            max-width: 700px;
+        }
+
+        .topBanner_image {
+            max-width: 596px;
+            width: 41.3889%;
+            align-self: flex-end;
+            margin-top: 5.625%;
+        }
+
+        .topBanner_block h1 {
+            font-size: 48px;
+            margin-bottom: 8px;
+        }
+
+        .topBanner_block p {
+            margin-bottom: 32px;
+        }
+    }
+    @media only screen and (min-width: 1200px) {
+        .topBanner_block {
+            margin: auto auto auto 9.375%;
+        }
+        .topBanner_block h1 {
+            font-size: 68px;
+            margin-bottom: 16px;
+        }
+        .topBanner_block p {
+            margin-bottom: 32px;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .topBanner_block {
+            margin-left: calc((100vw - 1440px) / -2 + 135px)
+        }
+    }
+    @media only screen and (min-width: 1520px) {
+        .topBanner_container {
+            padding-right: 0;
+        }
+    }
+{% endstylesheet %}

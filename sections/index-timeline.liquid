@@ -1,0 +1,177 @@
+<!-- /sections/index-timeline.liquid-->
+
+{% assign grid_width_large = 'large-up--one-third' %}
+{% assign grid_width_medium = 'medium--one-half' %}
+{% assign grid_width_small = 'small--one-whole' %}
+
+<div class="index-timeline {{ section.settings.color_bg }}{% if section.settings.border %} timeshow--border{% endif %}" data-section-id="{{ section.id }}" data-overlay="{{ section.settings.overlay }}" data-section-type="index-timeline" data-tallest="300">
+  <div class="grid">
+    <div class="grid__item {{ timeshow_grid }}">
+      <div class="timeshow__wrapper" data-index-timeline-slideshow>
+        {% for block in section.blocks %}
+          <div class="timeshow__block timeshow__block--{{ block.id }}" {{ block.shopify_attributes }}>
+            <div class="image-{{block.id}}" data-image-height>
+              <div class="timeshow__images">
+                {% if block.settings.first_image != blank %}
+                  {%- assign img_api = block.settings.first_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                  <div class="timeshow__image timeshow__image--one">
+                    <div class="lazy-image" style="padding-top:{{ 1 | divided_by: block.settings.first_image.aspect_ratio | times: 100 | round: 1 }}%; background-image:  url('{{ block.settings.first_image | img_url: '1x1' }}');">
+                      <img class="lazyload fade-in"
+                        data-src="{{ img_api }}"
+                        data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2450, 2700, 3000, 3350, 3750, 4100]"
+                        data-aspectratio="{{  block.settings.first_image.aspect_ratio }}"
+                        data-parent-fit="cover"
+                        data-sizes="auto"/>
+                    </div>
+                    <noscript>
+                      <img src="{{ block.settings.first_image | img_url: '540x' }}" alt="{{ block.settings.first_image.alt | default: block.settings.title }}"/>
+                    </noscript>
+                  </div>
+                {% endif %}
+                {% if block.settings.second_image != blank %}
+                  {%- assign img_two_api = block.settings.second_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                  <div class="timeshow__image timeshow__image--two">
+                    <div class="lazy-image" style="padding-top:{{ 1 | divided_by: block.settings.second_image.aspect_ratio | times: 100 | round: 1 }}%; background-image:  url('{{ block.settings.second_image | img_url: '1x1' }}');">
+                      <img class="lazyload fade-in"
+                        data-src="{{ img_two_api }}"
+                        data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2450, 2700, 3000, 3350, 3750, 4100]"
+                        data-aspectratio="{{  block.settings.second_image.aspect_ratio }}"
+                        data-parent-fit="cover"
+                        data-sizes="auto"/>
+                    </div>
+                    <noscript>
+                      <img src="{{ block.settings.second_image | img_url: '540x' }}" alt="{{ block.settings.second_image.alt | default: block.settings.title }}"/>
+                    </noscript>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            {% if block.settings.date != blank %}
+              <p class="h6--accent timeshow__date">{{ block.settings.date | escape }}</p>
+            {% endif %}
+            <div class="timeshow__text">
+              {% if block.settings.title != blank %}
+                <h2 class="timeshow__title h4">{{ block.settings.title | escape }}</h2>
+              {% endif %}
+              {% if block.settings.story != blank %}
+                <div class="rte">{{ block.settings.story }}</div>
+              {% endif %}
+              {% if block.settings.link_text != blank and block.settings.link != blank %}
+                <a href="{{ block.settings.link }}" class="border-bottom-link">
+                  {{ block.settings.link_text | escape }}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Timeline",
+    "class": "timeshow",
+    "settings": [
+      {
+        "type": "select",
+        "id": "color_bg",
+        "label": "Background color",
+        "default": "index--white",
+        "options": [
+          { "value": "index--white", "label": "White"},
+          { "value": "index--gray", "label": "Secondary"}
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "border",
+        "label": "Show image border",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "overlay",
+        "label": "Overlay images",
+        "info": "Overlay timeline images when there is an Image with text overlay section above.",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "episode",
+        "name": "Timeline",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Timeline episode"
+          },
+          {
+            "type": "image_picker",
+            "id": "first_image",
+            "label": "First image"
+          },
+          {
+            "type": "image_picker",
+            "id": "second_image",
+            "label": "Second image"
+          },
+          {
+            "type": "text",
+            "id": "date",
+            "label": "Date",
+            "default": "January 2016"
+          },
+          {
+            "type": "richtext",
+            "id": "story",
+            "label": "Text",
+            "default": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>"
+          },
+          {
+            "type": "header",
+            "content": "Link"
+          },
+          {
+            "type": "text",
+            "id": "link_text",
+            "label": "Link text",
+            "default": "Continued..."
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link URL"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Timeline",
+        "category": "Text",
+        "blocks": [
+          {
+            "type": "episode"
+          },
+          {
+            "type": "episode"
+          },
+          {
+            "type": "episode"
+          },
+          {
+            "type": "episode"
+          },
+          {
+            "type": "episode"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

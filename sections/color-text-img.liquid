@@ -1,0 +1,52 @@
+<div class="gt_main">
+  <div class="gt_container">
+    <div class="gt_data">
+      <div class="gt_block">
+        <div class="gt_grey">
+          <div class="grey_text">
+            <div class="grey_img">
+            <img src="{{ section.settings.rimg | img_url :'master' }}">
+            </div>
+            <h4>{{ section.settings.lcont }}</h4>
+          </div>
+        </div>
+        <div class="gt_text">
+          <h3>{{ section.settings.rtitle }}</h3>
+          {{ section.settings.rcont }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Image With Text",
+    "settings": [
+    {
+      "type": "image_picker",
+      "id": "rimg",
+      "label": "Right Image"
+     },
+     {
+      "type": "text",
+      "id": "lcont",
+      "label": "Content Under Image"
+     },
+     {
+      "type": "text",
+      "id": "rtitle",
+      "label": "Right Title"
+     },
+     {
+      "type": "html",
+      "id": "rcont",
+      "label": "Right Content"
+     }
+    ],
+    "presets": [
+      {
+        "name": "Image With Text"
+      }
+    ]
+  }
+{% endschema %}

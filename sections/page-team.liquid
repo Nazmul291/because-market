@@ -1,0 +1,161 @@
+<!-- /sections/page-team.liquid-->
+
+{%- assign page_nav = linklists[section.settings.page_nav] -%}
+
+{%- assign page_nav_enable = false -%}
+{%- if page_nav.links.size > 0 -%}
+  {%- assign page_nav_enable = true -%}
+{%- endif -%}
+
+{% assign page_grid = 'one-whole' %}
+{% if page_nav_enable %}
+  {% assign page_grid = 'medium-up--three-quarters' %}
+{% endif %}
+
+<div class="wrapper page-margin">
+
+  {%- if section.settings.show_title -%}
+    {% include 'dots', direction: 'down' %}
+    <div class="title-decoration"></div>
+    <h1 class="title--decorated">{{ page.title | escape }}</h1>
+  {%- endif -%}
+
+  <div class="grid">
+
+    {%- if page_nav_enable -%}
+
+      <div class="grid__item medium-up--hide">
+        <ul class="inline-nav">
+          {% for link in page_nav.links %}
+            <li {% if link.active %}class="inline-nav--active"{% endif %}>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="grid__item medium-up--one-quarter">
+        <ul class="vertical-nav small--hide">
+          {% for link in page_nav.links %}
+            <li {% if link.active %}class="vertical-nav--active"{% endif %}>
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    {% endif %}
+
+    <div class="grid__item {{ page_grid }}">
+      <div class="rte page__team__content">
+        {{ page.content }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-team {{ section.settings.background_color }}" data-section-id="{{ section.id }}" data-section-type="team">
+ {% include 'team' %}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Team page",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "page_nav",
+        "label": "Secondary page navigation",
+        "info": "This menu won't show dropdown items"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_title",
+        "label": "Show page title",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "index--white",
+        "options": [
+          { "value": "index--white", "label": "White"},
+          { "value": "index--gray", "label": "Secondary"}
+        ]
+      }
+      ],
+      "blocks": [
+        {
+          "type": "team_member",
+          "name": "Team member",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Name",
+              "default": "Team Member"
+            },
+            {
+              "type": "text",
+              "id": "job",
+              "label": "Job title",
+              "default": "Founder"
+            },
+            {
+              "type": "richtext",
+              "id": "text",
+              "label": "Text",
+              "default": "<p>Use this text to describe your team member, share details on their background, and describe their contributions.</p>"
+            },
+            {
+              "type": "text",
+              "id": "social_twitter_link",
+              "label": "Twitter link"
+            },
+            {
+              "type": "text",
+              "id": "social_facebook_link",
+              "label": "Facebook link"
+            },
+            {
+              "type": "text",
+              "id": "social_pinterest_link",
+              "label": "Pinterest link"
+            },
+            {
+              "type": "text",
+              "id": "social_instagram_link",
+              "label": "Instagram link"
+            },
+            {
+              "type": "text",
+              "id": "social_snapchat_link",
+              "label": "Snapchat link"
+            },
+            {
+              "type": "text",
+              "id": "social_tumblr_link",
+              "label": "Tumblr link"
+            },
+            {
+              "type": "text",
+              "id": "social_youtube_link",
+              "label": "Youtube link"
+            },
+            {
+              "type": "text",
+              "id": "social_vimeo_link",
+              "label": "Vimeo link"
+            }
+          ]
+        }
+      ]
+    }
+  {% endschema %}

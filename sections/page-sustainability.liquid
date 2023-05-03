@@ -1,0 +1,185 @@
+<!-- /sections/page.sustainability.liquid-->
+
+{%- assign page_nav = linklists[section.settings.page_nav] -%}
+
+{%- assign page_nav_enable = false -%}
+{%- if page_nav.links.size > 0 -%}
+    {%- assign page_nav_enable = true -%}
+{%- endif -%}
+
+{%- assign page_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+{%- assign title_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+
+{%- if page_nav_enable %}
+    {%- assign page_grid = 'medium-up--three-quarters' -%}
+    {%- assign title_grid = 'one-whole' -%}
+{%- endif -%}
+
+<div class="wrapper page-margin">
+    <div class="grid">
+        {%- if page_nav_enable -%}
+            <div class="grid__item medium-up--hide">
+                <ul class="inline-nav">
+                    {% for link in page_nav.links %}
+                        <li {% if link.active %} class="inline-nav--active" {% endif %}>
+                            <a href="{{ link.url }}">{{ link.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="grid__item medium-up--one-quarter">
+                <ul class="vertical-nav small--hide">
+                    {% for link in page_nav.links %}
+                        <li {% if link.active %} class="vertical-nav--active" {% endif %}>
+                            <a href="{{ link.url }}">{{ link.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+
+        <div id="our-story-page-wrapper">
+            <div class="container">
+                <section class="story-main-section">
+                    <div class="row text-section-1 page-padding">
+                        <div class="col-12">
+                            <h1>Because we care.
+                            </h1>
+                        </div>
+                    </div>
+
+                    <div class="row text-section-3 page-padding">
+                        <div class="col-lg-4">
+                            <p>Doing our part:</p>
+                        </div>
+                        <div class="col-lg-8">
+                            <p>We are proud to make sustainability a priority. With each new collection, we are focused on incorporating clean ingredients, reducing our carbon footprint and utilizing advanced technology to offer the most to our customers and our environment.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row text-section-4">
+                        <div class="col-lg-7">
+                            {% if section.settings.image1 %}
+                                {{ section.settings.image1 | image_url: width: 1000 | image_tag: class: 'img-responsive', loading: 'lazy' }}
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-5">
+                            <!-- <p>“</p> -->
+                            <b style="font-size:2rem; line-height:2.2rem; font-family:Cooper Lt BT W05 Regular; color:#4a4a4a">Reducing CO2 Emissions</b><br>
+                            <p style="line-height:1.6rem; font-size:1.3rem;">As part of our commitment to sustainability, we are honored to produce our newest line of protective underwear in a certified carbon-neutral facility. We continue to invest in a low-impact supply chain without sacrificing the quality our customers rely on.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="row text-section-4">
+                        <div class="col-lg-7">
+                            {% if section.settings.image2 %}
+                                {{ section.settings.image2 | image_url: width: 1000 | image_tag: class: 'img-responsive', loading: 'lazy' }}
+                            {% endif %}
+                        </div>
+
+                        <div class="col-lg-5 align-self-center">
+                            <b style="font-size:2rem; line-height:2.2rem; font-family:Cooper Lt BT W05 Regular; color:#4a4a4a">I'm Green™ Polyethylene</b> <br>
+                            <p style="line-height:1.6rem; font-size:1.3rem;">We are excited to offer the innovative I'm Green™ technology in many of our products. This bio-based polyethylene is produced from sugarcane instead of traditional crude oil, which provides a renewable source while also reducing CO2 emission during its production.
+                            </p>
+                        </div>
+
+                        <!-- <p>“</p> -->
+                    </div>
+
+                </section>
+                <section class="in-news-main-section container">
+                    <h4 class="in-news-heading">The Difference in Our Products</h4>
+                    <div class="headlines-container row">
+                        <div class="col-lg-4 headline">
+                            {% if section.settings.image3 %}
+                                {{ section.settings.image3 | image_url: width: 400 | image_tag: class: 'img-responsive', loading: 'lazy' }}
+                            {% endif %}
+                            <h6>
+                                <p>Our PEFC certification highlights our dedication to promoting sustainable forest management through responsible forestry practices.</p>
+                            </h6>
+                            <hr>
+                        </div>
+
+                        <div class="col-lg-4 headline">
+                            {% if section.settings.image4 %}
+                                {{ section.settings.image4 | image_url: width: 400 | image_tag: class: 'img-responsive', loading: 'lazy' }}
+                            {% endif %}
+                            <h6>
+                                <p>We are proud to partner with ISO-certified manufacturers and continue to lead the industry in exceeding environmental management standards.</p>
+                            </h6>
+                            <hr>
+                        </div>
+
+                        <div class="col-lg-4 headline">
+                            {% if section.settings.image5 %}
+                                {{ section.settings.image5 | image_url: width: 400 | image_tag: class: 'img-responsive', loading: 'lazy' }}
+                            {% endif %}
+                            <h6>
+                                <p>We are the first US-based adult incontinence company to produce products in a carbon-neutral facility.</p>
+                            </h6>
+                            <hr>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Javascript ============================================================== -->
+{{ 'bootstrap.js' | asset_url | script_tag }}
+
+{% schema %}
+{
+    "name": "Page",
+    "settings": [
+        {
+            "type": "link_list",
+            "id": "page_nav",
+            "label": "Secondary page navigation",
+            "info": "This menu won't show dropdown items"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_title",
+            "label": "Show page title",
+            "default": true
+        },
+        {
+            "label": "Image1",
+            "type": "image_picker",
+            "id": "image1",
+            "info": "Image 1"
+        },
+        {
+            "label": "Image2",
+            "type": "image_picker",
+            "id": "image2",
+            "info": "Image 2"
+        },
+        {
+            "label": "Image3",
+            "type": "image_picker",
+            "id": "image3",
+            "info": "Image 3"
+        },
+        {
+            "label": "Image4",
+            "type": "image_picker",
+            "id": "image4",
+            "info": "Image 4"
+        },
+        {
+            "label": "Image5",
+            "type": "image_picker",
+            "id": "image5",
+            "info": "Image 5"
+        }
+    ]
+}
+{% endschema %}
+

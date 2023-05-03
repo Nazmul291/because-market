@@ -1,0 +1,111 @@
+<!-- /sections/collections-bottom-addition.liquid -->
+
+{% if section.blocks.size > 0 %}
+  <div data-section-id="{{ section.id }}">
+    {% for blurb in section.blocks %}
+      {% if blurb.settings.collection.id != collection.id %}
+        {% continue %}
+      {% endif %}
+
+      <section id="{{ blurb.id }}" class="products-bottom-addition_section">
+        <div class="products-bottom-addition_section_img">
+          <img src="{{ blurb.settings.product_bottom_img | img_url :'master' }}">
+        </div>
+        <div class="products-bottom-addition_container">
+          <div class="products-bottom-addition_title">
+            {{ blurb.settings.title }}
+          </div>
+          <div class="products-bottom-addition_description">
+            {{ blurb.settings.description }}
+          </div>
+        </div>
+      </section>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .products-bottom-addition_section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-direction: row;
+    align-content: stretch;
+    padding: 0 72px 90px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #000;
+  }
+  .products-bottom-addition_section_img{
+    background-color: #08C5BC;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+  }
+  .products-bottom-addition_section_img img{
+    margin: auto;
+    display: block;
+  }
+  .products-bottom-addition_container {
+    background-color: #CCF1EF;
+    padding: 15%;
+  }
+  .products-bottom-addition_title {
+    font-family: 'Cooper Md BT';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 43px;
+    display: flex;
+    align-items: center;
+
+    /* Dark */
+
+    color: #333333;
+    margin-bottom: 24px;
+  }
+  .products-bottom-addition_description,
+  .products-bottom-addition_description p {
+    font-family: 'Graphik';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collections Addition",
+  "tag": "section",
+  "blocks": [
+    {
+      "name": "Collections Addition",
+      "type": "product",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection where to show"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_bottom_img",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Because Flushable Cleansing Wipes"
+        },
+        {
+          "id": "description",
+          "type": "richtext",
+          "label": "Text",
+          "default": "<p>Stay fresh with these large, parabens and fragrance-free cleansing wet wipes. They give a gentle and effective cleansing to keep your skin looking smooth and feeling healthy, whether you are at home or on the go. Our soft and gentle pH-balanced wipes are moist and infused with aloe vera and vitamin e to soothe and moisturize your most sensitive, intimate areas. The level of these pH-balanced wipes helps maintain the natural balance of the skin. Subscribe & save now!<\/p>"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

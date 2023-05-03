@@ -1,0 +1,53 @@
+{% assign collection = collections[section.settings.collection] %}
+<div class="index-popular-products">
+    <h2 class="title--decorated dark">Some of our most popular products.</h2>
+    <h4 class="h4--body">Favorited by our customers, curated by the Because family.</h4>
+
+  <div class="container-fluid">
+    <div class="row">
+    {% for product in collection.products limit: 20 %}
+      {%- assign product_img = product.featured_media.preview_image | img_url: '1x1' | replace: '_1x1.', '_240x.' -%}
+      {% assign left_column = forloop.index | modulo: 2 %}
+      <div class="{% unless left_column == 0 %}offset-md-2 offset-sm-2{% endunless %} col-md-4 col-sm-8">
+        <div class="product--wrapper">
+          <div class="product-image-wrapper lazy-image">
+              <img class="lazyload fade-in"
+                   alt="{{ product.featured_media.preview_image.alt | default: product.title  }}"
+                   data-src="{{ product_img }}"
+                   data-aspectratio="{{  product.featured_media.preview_image.aspect_ratio }}"
+                   data-widths="[180, 240]"
+                   data-sizes="auto"
+                   data-optimumx="2" />
+              <noscript>
+                <img src="{{ product.featured_media.preview_image | img_url: '360x' }}" alt="{{ product.featured_media.preview_image.alt | default: product.title  }}">
+              </noscript>
+          </div>
+          <div class="product-info">
+              <div class="title">{{ product.title }}</div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Popular Products",
+  "settings": [
+    {
+      "id": "collection",
+      "type": "collection",
+      "label": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Popular Products",
+      "category": "Collection"
+    }
+  ]
+}
+
+{% endschema %}

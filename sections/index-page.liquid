@@ -1,0 +1,66 @@
+<!-- /sections/index-page.liquid -->
+
+<div class="index-page {{ section.settings.color_bg }}" data-section-id="{{ section.id }}" data-section-type="index-page">
+  <div class="wrapper">
+    <div class="grid">
+      {% if section.settings.home_page_content != blank or page.empty? %}
+        {% assign page = pages[section.settings.home_page_content] %}
+        {% assign page_src = page.content | escape %}
+        {% if page_src contains '&lt;img' %}
+          {% assign homepage_page_grid = 'one-whole' %}
+        {% else %}
+          {% assign homepage_page_grid = 'large-up--five-sixths push--large-up--one-twelfth' %}
+        {% endif %}
+        <div class="grid__item {{ homepage_page_grid }}">
+          {% if section.settings.home_page_show_title %}
+            {% include 'dots', direction: 'down' %}
+            <div class="title-decoration"></div>
+            <h1 class="title--decorated">{{ page.title | escape }}</h1>
+          {% endif %}
+          <div class="rte homepage-page__content rte--index rte">
+            {{ page.content }}
+          </div>
+        </div>
+      {% else %}
+        <div class="grid__item large-up--five-sixths push--large-up--one-twelfth">
+          <div class="rte homepage-page__content rte--index rte">
+            {{ 'homepage.onboarding.no_content' | t }}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": [
+    {
+      "id": "home_page_content",
+      "type": "page",
+      "label": "Page"
+    },
+    {
+      "type": "checkbox",
+      "id": "home_page_show_title",
+      "label": "Show page title",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "color_bg",
+      "label": "Background color",
+      "default": "index--white",
+      "options": [
+        { "value": "index--white", "label": "White"},
+        { "value": "index--gray", "label": "Secondary"}
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Page",
+    "category": "Text"
+  }]
+}
+{% endschema %}

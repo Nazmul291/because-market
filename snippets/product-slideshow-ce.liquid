@@ -1,0 +1,14 @@
+<!-- /snippets/product-slideshow-ce.liquid -->
+{%- assign custom_badge = '' -%}
+{% for tag in product.tags %}
+  {% assign splittedTag = tag | split: "=" %}
+  {% assign tagName = splittedTag[0] %}
+  {% assign tagValue = splittedTag[1] %}
+  {% if tagName == "badge" %}
+    {%- assign custom_badge = tagValue -%}
+  {% endif  %}
+{% endfor %}
+<div id="s-product-slideshow" style="height: 100%;" data-media="{{ product.media | json | escape }}" data-badge="{{ custom_badge }}"></div>
+
+{{ 'productSlideShow.bundle.js' | asset_url | script_tag }}
+{{ 'productSlideShow.bundle.css' | asset_url | stylesheet_tag }}

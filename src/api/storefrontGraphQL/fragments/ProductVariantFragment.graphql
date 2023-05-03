@@ -1,0 +1,37 @@
+fragment ProductVariantFragment on ProductVariant {
+  id
+  title
+  price {
+    amount
+    currencyCode
+  }
+  weight
+  available: availableForSale
+  sku
+  compareAtPrice {
+    amount
+    currencyCode
+  }
+  image {
+    id
+    src: url
+    altText
+    width
+    height
+  }
+  selectedOptions {
+    name
+    value
+  }
+  unitPrice {
+    amount
+    currencyCode
+  }
+  unitPriceMeasurement {
+    measuredType
+    quantityUnit
+    quantityValue
+    referenceUnit
+    referenceValue
+  }
+}

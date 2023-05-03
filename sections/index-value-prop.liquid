@@ -1,0 +1,227 @@
+<!-- /sections/index-value-prop.liquid -->
+
+<div class="valueProp" data-section-id="{{ section.id }}" data-section-type="valueProp">
+    {% if section.settings.first_row %}
+        <div class="valueProp_firstRow font-desktop-subtitle" >{{ section.settings.first_row }}</div>
+    {% endif %}
+    {% if section.settings.second_row %}
+        <h2 class="valueProp_secondRow">{{ section.settings.second_row }}</h2>
+    {% endif %}
+    {% if section.blocks.size > 0 %}
+        <div id="slideshow-{{ section.id }}" class="valueProp_slider">
+            {% for block in section.blocks %}
+                {% if block.settings.title != '' or block.settings.text != '' or block.settings.icon != nil %}
+                    <div class="slick-slide valueProp_slide valueProp_slide--{{ block.id }}" data-prevent-overflow {{ block.shopify_attributes }}>
+                        {% if block.settings.icon != nil %}
+                            <i class="valueProp_slide_icon" style="background-image:url('{{ block.settings.icon | img_url: '96px' }}');"></i>
+                        {% endif %}
+                        {% unless block.settings.title == '' %}
+                            <h3 class="valueProp_slide_title font-desktop-subtitle">{{ block.settings.title | escape }}</h3>
+                        {% endunless %}
+                        {% unless block.settings.text == '' %}
+                            <div class="font-desktop-body">{{ block.settings.text }}</div>
+                        {% endunless %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "Value Prop",
+    "max_blocks": 3,
+    "settings": [
+        {
+            "type": "richtext",
+            "id": "first_row",
+            "label": "First row"
+        },
+        {
+            "type": "text",
+            "id": "second_row",
+            "label": "First row"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "image",
+            "name": "Item",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "icon",
+                    "label": "Item icon"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Heading",
+                    "default": "Title"
+                },
+                {
+                    "type": "textarea",
+                    "id": "text",
+                    "label": "Text",
+                    "default": "Text"
+                }
+            ]
+        }
+    ],
+    "presets": [{
+        "name": "Value Prop",
+        "category": "Custom Sections",
+        "settings": {
+            "first_row": "<p>We started <strong>Because</strong> with a simple idea</p>",
+            "second_row": "we wanted a better way to serve and support our families."
+        },
+        "blocks": [
+            {
+                "type": "image",
+                "settings": {
+                    "title": "Leading Quality",
+                    "text": "From ultra-soft, absorbent, and slim bladder control products to soothing and protective creams, we never compromise on quality."
+                }
+            }, {
+                "type": "image",
+                "settings": {
+                    "title": "Honestly Priced",
+                    "text": "By selling directly to you, we can offer high quality products without the upcharge."
+                }
+            }, {
+                "type": "image",
+                "settings": {
+                    "title": "Convenient and Discrete",
+                    "text": "Your business stays your own with discrete and convenient subscriptions on your terms."
+                }
+            }
+        ]
+    }]
+}
+{% endschema %}
+{% stylesheet %}
+    .valueProp{
+        margin: 40px auto;
+        padding: 0 20px;
+        max-width: 1210px;
+        text-align: center;
+    }
+    .valueProp_firstRow {
+        margin-bottom: 8px;
+    }
+    .valueProp_firstRow p {
+        margin: 0;
+        font-size: inherit;
+    }
+    .valueProp_firstRow strong {
+        font-weight: inherit;
+        color: #679;
+        font-family: "Cooper Md BT W05 Regular";
+    }
+    .valueProp_secondRow {
+        font-family: "Cooper Md BT W05 Regular";
+        font-size: 24px;
+        line-height: 26px;
+        letter-spacing: 0.03em;
+        margin: 0 auto 24px;
+        max-width: 1000px;
+        color: #000;
+    }
+    .valueProp_slide_icon {
+        display: block;
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 8px;
+        background-size: contain;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+    }
+    .valueProp_slide_title {
+        color: #000;
+        line-height: 140%;
+        margin-bottom: 8px;
+    }
+    .valueProp_slider .slick-dots {
+        margin: 24px 0 0;
+        padding: 0;
+        list-style-type: none;
+        display: flex;
+        justify-content: center;
+        pointer-events: none;
+
+    }
+    .valueProp_slider .slick-dots li {
+        margin: 0 12px;
+    }
+    .valueProp_slider .slick-dots li:not(.slick-active) button {
+        background: #C4C4C4;
+    }
+    .valueProp_slider .slick-dots button {
+        padding: 0;
+        text-indent: -9999px;
+        overflow: hidden;
+        width: 8px;
+        height: 8px;
+        border-radius: 4px;
+        background: #679;
+        transition: background .2s;
+    }
+    @media only screen and (min-width: 768px) {
+        .valueProp{
+            margin: 134px auto;
+        }
+        .valueProp_firstRow {
+            margin-bottom: 16px;
+        }
+        .valueProp_secondRow {
+            font-size: 48px;
+            line-height: 52px;
+            margin-bottom: 64px;
+        }
+        .valueProp_slider {
+            display: flex;
+            justify-content: space-between;
+        }
+        .valueProp_slide {
+            height: unset;
+            float: none;
+            width: calc((100% - 60px) / 3);
+            display: block;
+        }
+        .valueProp_slide_icon {
+            margin-bottom: 16px;
+        }
+        .valueProp_slide_title {
+            letter-spacing: 0.05em;
+            margin-bottom: 3px;
+        }
+    }
+{% endstylesheet %}
+
+<script type="text/javascript">
+  (function () {
+    let galleryInit = false
+    const $gallery = $('.valueProp[data-section-id="{{ section.id }}"] .valueProp_slider')
+    function fireEvent() {
+      trackEvent('BM ValueProp Scroll')
+    }
+    $(window).on('load resize orientationchange', function() {
+      if (window.innerWidth >= 768 && galleryInit) {
+        $gallery.off('afterChange', fireEvent)
+        $gallery.slick('unslick')
+        galleryInit = false
+      } else if (window.innerWidth < 768 && !galleryInit) {
+        $gallery.slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          dots: true,
+          mobileFirst: true
+        })
+        $gallery.on('afterChange', fireEvent)
+        galleryInit = true
+      }
+    });
+  })()
+</script>

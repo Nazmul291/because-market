@@ -1,0 +1,65 @@
+{%- assign showFAQ = true -%}
+{% for tag in product.tags %}
+  {% if tag contains 'hide-faq' %}
+    {% assign showFAQ = false %}
+  {% endif %}
+{% endfor %}
+
+{% if showFAQ %}
+<div class = "faq_here">
+  <div class="product-faq">
+    <div class="here">
+      <h2>We're here to help.</h2>
+      <p>Find answers to our most Frequently Asked Questions.</p>
+    </div>
+    <div class = "faq">
+      <div class = "qa collapsed">
+        <p class = "qa_question">How do subscriptions work?<i class = "fa fa-plus"></i><i class = "fa fa-minus"></i></p>
+        <p class = "qa_answer">
+          To Subscribe, you can visit <a href="/">Wellness Products for Adult Care | Because Market</a>, select the product you’d like to order under “Shop”, and when you’re ready you can click “Subscribe and Save”.
+          We offer special discount pricing for individuals ordering on subscription- the plans are very flexible and you can always make changes through your online account. Orders are shipped automatically and delivered discreetly to your door.
+        </p>
+      </div>
+      <hr class = "question_break">
+      <div class = "qa collapsed">
+        <p class = "qa_question">How do I update my plan?<i class = "fa fa-plus"></i><i class = "fa fa-minus"></i></p>
+        <p class = "qa_answer">
+          All of your settings are available on your online account where you can make changes such as shipment dates, address, payment details, subscription products and more.
+          <br /><br />
+          To access your online account simply click <a href="/account">here</a> and input your email address- we’ll send you an email to directly access your account. You can also email us at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and we would be happy to help.
+        </p>
+      </div>
+      <hr class = "question_break">
+      <div class = "qa collapsed">
+        <p class = "qa_question">Can I change products?<i class = "fa fa-plus"></i><i class = "fa fa-minus"></i></p>
+        <p class = "qa_answer">
+          You can use your online account to adjust your products, order dates, or make changes to your account. To access your online account simply click <a href="/account">here</a> and input your email address-we’ll send you an email with the link.
+          <br /><br /><br />
+          Open the “Access Your Account” email from us in your inbox
+          <br /><br />
+          Click the “Access Account” button from your email.
+          <br /><br />
+          Once your Because Account loads, click “My Subscriptions” on the left hand navigation column.
+          <br /><br />
+          When the screen loads, add or remove products.
+          <br /><br />
+          Click “Update Item”.
+          <br /><br />
+          You can also email us and we would be happy to help you. We have an assortment of products and sizes available and want you to be happy! You’ll get an email and text (if enabled) confirming any changes.
+        </p>
+      </div>
+      <hr class = "question_break">
+      <div class = "qa collapsed">
+        <p class = "qa_question">When will my order arrive?<i class = "fa fa-plus"></i><i class = "fa fa-minus"></i></p>
+        <p class = "qa_answer">
+          Standard delivery is generally 5-7 days through FedEx SmartPost. Shorter for metropolitan areas, longer for more rural areas.
+          You will receive a shipping confirmation email with tracking information once your order ships.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'productFaq.bundle.js' | asset_url }}" defer></script>
+{{ 'productFaq.bundle.css' | asset_url | stylesheet_tag }}
+{% endif %}

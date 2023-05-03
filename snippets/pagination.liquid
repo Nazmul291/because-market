@@ -1,0 +1,14 @@
+<!-- /snippets/pagination.liquid -->
+{% if template == 'blog' %}
+  <div id="AjaxinatePagination">
+    {% if paginate.next %}
+      <div id="more">
+        <a href="{{ paginate.next.url }}">More Articles</a>
+      </div>
+    {% endif %}
+  </div>
+{% else %}
+  <div class="pagination">
+    {{ paginate | default_pagination }}
+  </div>
+{% endif %}

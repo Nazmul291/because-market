@@ -1,0 +1,183 @@
+<!-- /snippets/product.liquid-->
+{% assign description_position = '' %}
+{%- assign product_description_content = product.description -%}
+{%- assign has_tabs = false -%}
+{%- for block in section.blocks -%}
+  {%- if block.type == "tab_description" -%}
+    {%- assign has_tabs = true -%}
+  {%- endif -%}
+{%- endfor -%}
+{%-if has_tabs -%}
+  {%- assign product_description_content = product_description_content | split: '<h6>' | first -%}
+{%- endif -%}
+{% if product_description_content contains '[split]' %}
+  {% assign description_position = 'both' %}
+{% endif  %}
+
+{% for tag in product.tags %}
+  {% if tag contains 'sustainable-product-icons' %}
+     {% assign sustainableImages = true %}
+  {% endif %}
+{% endfor %}
+
+<div class = "product_details_content">
+  <div class = "product_details_left"></div>
+  <div class = "product_details_right">
+    <div class = "close_icon">
+      <img src = "{{'close_icon.png' | asset_url}}">
+    </div>
+    <div class = "all_details">
+      <h2>Product Details</h2>
+      <div class = "product_all_details"></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper page-margin--product product-wrapper">
+
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-6 col-lg-12" data-product-wrapper>
+        {%- include 'product-slideshow-ce' -%}
+      </div>
+
+      <div class="col-xl-6 col-lg-12 product__form__wrapper">
+        <div class="container">
+            <div class="product-title-features col-lg-12 col-xl-6">
+              <div class="product-title-features-wrapper">
+                {% include 'product-title-and-features.liquid' %}
+              </div>
+            </div>
+            <div class="product-selectors-container col-lg-6 col-sm-12 order-xl-3">
+              {%- include 'product-form' -%}
+            </div>
+            {% comment %} <div class="onetime-subscribe-wrapper col-lg-6 col-sm-12 order-xl-2">
+              {% comment %} {% include 'onetime-or-subscribe.liquid' %} {% endcomment %}
+              <div class="onetime_or_subscribe onetime_or_subscribe-accordion" id="add-card"></div>
+
+              {% if sustainableImages %}
+                <div class="guarantee-image eco-friendly-icon">
+                  <img style="width: 24em;" src="https://cdn.shopify.com/s/files/1/1522/0906/files/greenhouse_1.png?v=1639505606" />
+                </div>
+              {% else %}
+                <div class="guarantee-image">
+                  <img src="https://cdn.shopify.com/s/files/1/1522/0906/files/Guarantee_3X_5f689c8b-89c2-46ed-a2f5-45584ec39464.png?v=1635323888" />
+                </div>
+              {% endif %}
+            </div> {% endcomment %}
+            <div class="onetime_or_subscribe col-lg-6 col-sm-12 order-xl-2">
+              {% include 'new-product-scripts' %}
+            </div>
+        </div>
+
+        {% include 'product-description', currentProduct: product %}
+
+        <div class="product__description rte d-none">
+          {{ product_description_content | replace: '<p>[split]</p>', '[split]' | split: '[split]' | first }}
+        </div>
+
+        {% if section.settings.show_share_buttons %}
+          {%- assign share_image = current_variant.featured_media.preview_image | default: product.featured_media.preview_image -%}
+          {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: share_image %}
+        {% endif %}
+      </div>
+    </div>
+
+    {% if sustainableImages %}
+      <div class = "icons_text">
+        {% if product.type == "Pads" or product.type == "Guards" or product.type == "Liners"  or product.type == "Underwear" %}
+          <div class = "icon_txt">
+            <img src = "{{'caduceus_36x36.png' | asset_url}}">
+            <p>Urologist Recommended</p>
+          </div>
+        {% endif %}
+        <div class = "icon_txt">
+          <img src = "{{'psa.png' | asset_url}}">
+          <p>FSA / HSA Eligible</p>
+        </div>
+        <div class = "icon_txt">
+          <img src = "{{'sensitive.png' | asset_url}}">
+          <p>Sensitive-skin Friendly</p>
+        </div>
+        <div class = "icon_txt">
+          <img src = "{{'latex.png' | asset_url}}">
+          <p>Latex / Fragrance-free</p>
+        </div>
+        <div class = "icon_txt">
+          <img src = "{{'no_harsh.png' | asset_url}}">
+          <p>No Harsh Chemicals</p>
+        </div>
+        <div class = "icon_txt">
+          <img src = "{{'made_usa.png' | asset_url}}">
+          <p>Made in USA</p>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class = "cf_image_text">
+      <div class = "left_field">
+        <div class = "cf_img">
+          {% if product.metafields.product_left_img.left_one.value != blank %}
+            <img src = "{{ product.metafields.product_left_img.left_one.value | img_url:'large' }}">
+          {% endif %}
+        </div>
+        <h2 class = "cf_title">{{ product.metafields.product_left_title.left_two.value }}</h2>
+        <p class = "cf_desc">{{ product.metafields.product_left_desc.left_three.value }}</p>
+      </div>
+      <div class = "right_field">
+        <div class = "cf_img">
+          {% if product.metafields.product_right_img.right_one.value != blank %}
+            <img src = "{{ product.metafields.product_right_img.right_one.value | img_url:'large' }}">
+          {% endif %}
+        </div>
+        <h2 class = "cf_title">{{ product.metafields.product_right_title.right_two.value }}</h2>
+        <p class = "cf_desc">{{ product.metafields.product_right_desc.right_three.value }}</p>
+      </div>
+    </div>
+ 
+    {% include 'product-bottom-addition' %}
+    {% include 'product-faq' %}
+
+    {% include 'reviews-honest'%}
+
+    <div class="row yotpo_reviews">
+      <div class="col-12">
+        {% include 'yotpo-product-review', currentProduct: product %}
+      </div>
+    </div>
+
+{% if shop.metafields.rp_app_settings.rp_status == 1 %}
+  <div id="related_products_app_html" data-currency="{{ cart.currency.symbol }}"></div>
+  {% assign related_rp_items = product.metafields.related_items %}
+  <noscript id="rp_app_items">
+    {{ related_rp_items | json }}
+  </noscript>
+  <noscript id="rp_app_settings">
+    {
+      "rp_lazyload": {{ shop.metafields.rp_app_settings.rp_lazyload }},
+      "rp_status": {{ shop.metafields.rp_app_settings.rp_status }},
+      "rp_titletext": {{ shop.metafields.rp_app_settings.rp_titletext | json }},
+      "currency": {{ cart.currency.symbol | json }}
+    }
+  </noscript>
+{% endif %}
+
+{% include 'product-differences', currentProduct: product %}
+
+    </div>
+</div>
+
+<style>
+  model-viewer {
+    --progress-bar-color: {{ settings.color_body_text }};
+  }
+</style>
+{% unless product == empty %}
+  <script type="application/json" data-product-json>
+    {{ product | json }}
+  </script>
+  <script type="application/json" id="ModelJson-{{ section.id }}">
+    {{ product.media | where: 'media_type', 'model' | json }}
+  </script>
+{% endunless %}

@@ -1,0 +1,37 @@
+<!-- /snippets/product-overlap.liquid -->
+
+<div class="product__overlap overlap">
+  {% capture image_layout %}
+    <div class="overlap__item overlap__image">
+      {% if image != blank %}
+        {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+          <div class="lazy-image" style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%; background-image:  url('{{ image | img_url: '1x1' }}');">
+            <img class="lazyload fade-in"
+              data-src="{{ img_url }}"
+              data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2450, 2700, 3000, 3350, 3750, 4100]"
+              data-aspectratio="{{  image.aspect_ratio }}"
+              data-parent-fit="cover"
+              data-sizes="auto"/>
+          </div>
+          <noscript>
+            <img src="{{ image | img_url: '540x' }}" alt="{{ image.alt | default: section.settings.title }}"/>
+          </noscript>
+      {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+  {% endcapture %}
+
+  <div class="overlap">
+    {% if position == 'left' %}
+      {{ image_layout }}
+    {% endif %}
+    <div class="overlap__item overlap__text">
+      <h2>{{ heading | escape }}</h2>
+      <div class="rte-setting index--rte overlap__rte">{{ text }}</div>
+    </div>
+    {% if position == 'right' %}
+      {{ image_layout }}
+    {% endif %}
+  </div>
+</div>

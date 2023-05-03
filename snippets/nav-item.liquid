@@ -1,0 +1,132 @@
+{% liquid
+  assign parent = false
+  if link.levels == 1
+    assign parent = true
+  endif
+
+  assign grandparent = false
+  if link.levels == 2
+    assign grandparent = true
+  endif
+
+  assign child_count = 0
+  if grandparent
+    assign child_count = link.links.size
+    if child_count > 10
+      assign child_count = 10
+    endif
+  endif
+%}
+
+{%- capture link_id -%}
+  {{ link.title | handleize }}-{{ seed }}-{{ version }}{%- endcapture -%}
+{% assign menu_item_names_hide = "Fit Finder|UTI Supplements|Facebook|Instagram|Youtube" | split: "|" %}
+{% assign social_menu_items = "Facebook|Instagram|Youtube" | split: "|" %}
+
+<li class="
+      {{ customClass }}
+      {% if grandparent %} grandparent kids-{{child_count}}
+      {% elsif parent %} parent {% else %}child{%endif%}
+      {% if link.active %} main-menu--active {% endif %}
+      {% if link.title == 'Bladder Protection' %}bladder-protection{% endif %}
+      ">{% if parent or grandparent > 0 %}
+    <p>
+      {% render 'nav-item-content', hasImage: hasImage, link: link, parent: parent, grandparent: grandparent %}
+    </p>
+  {% else %}
+    <a class="nav-link{% if parent or grandparent > 0 %}{% endif %}" href="{% if link.title == 'Bladder Protection' %}javascript:;{%else%}{{ link.url }}{%endif%}">
+      {% if hasImage == "true" %}
+        {% render 'shop-menu-collection-image', collectionName: link.title %}
+      {% endif %}
+
+      {% unless menu_item_names_hide contains link.title %}
+        {{ link.title | escape }}{% endunless %}
+      {% if link.title == 'Overnight' %}
+        {% render 'image-teardrop-header', imageNumber: 3 %}
+      {% elsif link.title == 'Maximum' %}
+        {% render 'image-teardrop-header', imageNumber: 2 %}
+      {% elsif link.title == 'Moderate' %}
+        {% render 'image-teardrop-header', imageNumber: 1 %}
+      {% endif %}
+      {% if grandparent %}
+        <span class="nav-carat-small">
+          {% include 'icon-arrow-down-small' %}
+        </span>
+      {% endif %}
+      {% if link.title == "Fit Finder" or link.title == "UTI Supplements" %}
+        <div class="navbar-featured">
+          {% if link.title == 'Fit Finder' %}
+            <div class="img-container" style="background-image:url('{{ 'group-22.png' | asset_url }}');"></div>
+          {% elsif link.title == 'UTI Supplements' %}
+            <div class="img-container" style="background-image:url('{{ 'pad-bundle.png' | asset_url }}');"></div>
+          {% endif %}
+
+          <div class="text-container">
+            <h2>
+              {% if link.title == 'Fit Finder' %}
+                Bladder Protection Fit Finder
+              {% elsif link.title == 'UTI Supplements' %}
+                Shop Bundles
+                <br/>
+              {% endif %}
+            </h2>
+
+            <h6>
+              {% if link.title == 'Fit Finder' %}
+                Take the quiz. Try for free.
+              {% elsif link.title == 'UTI Supplements' %}
+                Explore our Favorite Pads Bundle
+              {% endif %}
+            </h6>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if social_menu_items contains link.title %}
+        <img src="{{ link.title | append: '.svg' | downcase | asset_url }}" alt="{{ link.title | downcase }} icon">
+      {% endif %}
+    </a>
+  {% endif %}
+
+  {% comment %} Makes the shop submenu have pictures {% endcomment %}
+  {% if link.title == "Shop" and parent %}
+
+    <div class="main-menu-dropdown shop-submenu-container expanded" id="{{ link_id }}">
+      <ul id="shop-submenu">
+        {% for link1 in link.links %}
+          {% render 'nav-item', hasImage: "true", link: link1 %}
+        {% endfor %}
+      </ul>
+    </div>
+
+  {% elsif parent or grandparent %}
+
+    <!--Below <a> and <div> contain conditions that make "Shop", and "Incontinence/Bladder Protection"
+    already expanded in mobile, without the toggle carat-->
+    {% unless link.title == "Shop" or link.title == "Bladder Protection" or link.title == "Incontinence" %}
+      <a
+        href="#"
+        class="nav-carat ariaToggle"
+        aria-haspopup="true"
+        aria-controls="{{ link_id }}"
+        aria-expanded="false">
+        <span class="visually-hidden">{{ 'collections.sidebar.more' | t }}</span>
+        {% comment %} {% include 'icon-arrow-down' %} {% endcomment %}
+      </a>
+    {% endunless %}
+    <div
+      class="main-menu-dropdown full-width-dropdown
+      {% if link.title == "Shop" or link.title == "Bladder Protection" or link.title == "Incontinence" %}{% endif %}
+      {% if expanded %}expanded{% endif %}
+      "
+      id="{{ link_id }}">
+      <ul class="{% if parent or grandparent > 0 %}last-child{% endif %} {{link.title}}">
+        {% for link1 in link.links %}
+          {% render 'nav-item', hasImage: "false", link: link1 %}
+        {% endfor %}
+      </ul>
+    </div>
+
+  {% endif %}
+  {% comment %} this is the parent or grandparent case{% endcomment %}
+</li>

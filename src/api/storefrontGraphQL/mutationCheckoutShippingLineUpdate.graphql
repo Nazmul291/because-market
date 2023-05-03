@@ -1,0 +1,34 @@
+mutation checkoutShippingLineUpdate(
+  $checkoutId: ID!
+  $shippingRateHandle: String!
+) {
+  checkoutShippingLineUpdate(
+    checkoutId: $checkoutId
+    shippingRateHandle: $shippingRateHandle
+  ) {
+    checkout {
+      updatedAt
+      subtotalPriceV2 {
+        amount
+        currencyCode
+      }
+      totalPriceV2 {
+        amount
+        currencyCode
+      }
+      shippingLine {
+        handle
+        title
+        priceV2 {
+          amount
+          currencyCode
+        }
+      }
+    }
+    checkoutUserErrors {
+      code
+      field
+      message
+    }
+  }
+}

@@ -1,0 +1,430 @@
+$bg-color: $white;
+$fold-color: $secondaryColor;
+
+#faq-page-wrapper {
+    // .row {
+    //     margin-left: 0px !important;
+    //     margin-right: 0px !important;
+    // }
+    border: none;
+    padding: 0 !important;
+    background-color: transparent;
+    section.row {
+        // flex-direction: column !important;
+        align-items: center;
+        margin: 0;
+        min-width: 100%;
+
+        p.small-title {
+            font-family: $secondaryFont !important;
+            font-size: 0.875rem !important;
+            font-weight: 500 !important;
+            line-height: 1.71 !important;
+            letter-spacing: 3.5px !important;
+            text-align: center !important;
+            text-transform: uppercase !important;
+            color: $white;
+            margin-bottom: 0;
+        }
+
+        .slider-circle {
+            width: 10px;
+            height: 10px;
+            background-color: #667799;
+            border-radius: 100%;
+            opacity: 0.2;
+            &.active {
+                opacity: 1;
+            }
+        }
+    }
+
+    section#hero {
+        height: auto;
+        display: flex;
+        justify-content: center;
+        background-color: #fcf8f5;
+        padding-bottom: 66px;
+
+        h2.title {
+            font-family: $secondaryFontSemibold;
+            font-size: 4.75rem;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1;
+            letter-spacing: -3.04px;
+            text-align: left;
+            color: $mainColor;
+            // padding-top: 69px;
+
+            span {
+                font-family: $mainFontMedium;
+            }
+        }
+
+        p {
+            padding-top: 24px;
+            font-family: $secondaryFont;
+            font-size: 1.25rem;
+            font-weight: 300;
+            font-stretch: normal;
+            line-height: 2;
+            letter-spacing: normal;
+            text-align: left;
+            color: $mainColor;
+        }
+
+        button.start {
+            background-color: #9effd9;
+            font-family: $mainFontSemibold;
+            font-size: 1rem;
+            font-weight: 600;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 2.5;
+            letter-spacing: -0.32px;
+            text-align: center;
+            color: $mainColor;
+            width: 166px;
+            height: 64px;
+            border-radius: 8px;
+            margin-top: 23px;
+        }
+
+        .underline {
+            width: 44px;
+            height: 3px;
+            background-color: #667799;
+        }
+
+        @include media-breakpoint-down(sm) {
+            h2.title {
+                font-size: 3.75rem;
+                line-height: 1;
+                letter-spacing: -2.4px;
+                padding-top: 0;
+            }
+
+            p {
+                font-style: italic;
+                font-family: $secondaryFont;
+                font-size: 1.1875rem;
+                font-weight: 300;
+                font-stretch: normal;
+                line-height: 2;
+                letter-spacing: normal;
+                text-align: left;
+                color: $mainColor;
+            }
+
+            img {
+                margin-top: 26px;
+                display: none !important;
+            }
+        }
+    }
+
+    section#features {
+        display: flex;
+        justify-content: center;
+        margin-left: 34px;
+        margin-right: 34px;
+        background: $white;
+        min-width: auto;
+
+        @include media-breakpoint-down(sm) {
+            margin: 0;
+        }
+        #subsections {
+            background-color: $white;
+            border-bottom: solid 1px #fafaf3;
+            height: 132px;
+            display: flex;
+            align-items: center;
+            ul.categories {
+                padding-left: 0;
+                li {
+                    position: relative;
+                    padding-right: 70px;
+                    cursor: pointer;
+                    color: $mainColor;
+                    font-family: $mainFontMedium;
+                    line-height: 40px;
+                    letter-spacing: -0.32px;
+                    list-style: none;
+                    display: flex;
+                    align-items: center;
+                    white-space: nowrap;
+
+                    &.active {
+                        color: #b8c0d2;
+                    }
+
+                    &:not(:first-child) {
+                        &:before {
+                            content: "";
+                            position: absolute;
+                            left: -30px;
+                            width: 3px;
+                            height: 3px;
+                            border-radius: 100%;
+                            background: #b8c0d2;
+                        }
+                    }
+                }
+
+                @include media-breakpoint-down(sm) {
+                    overflow-x: scroll;
+                    li {
+                        flex: 1;
+                        line-height: 2.5;
+                        letter-spacing: -0.32px;
+                        padding-bottom: 12px;
+
+                        &.active {
+                            border-bottom: 2px solid #e5e7ed;
+                        }
+                    }
+                }
+            }
+
+            @include media-breakpoint-down(sm) {
+                height: 116px !important;
+            }
+        }
+
+        .faq-subsection {
+            display: none;
+            &.show {
+                display: block;
+            }
+            a.link {
+                color: #566583;
+                &:hover {
+                    color: #566583;
+
+                }
+            }
+        }
+
+        #questions {
+            background-color: $white;
+            padding-top: 80px;
+
+            div#questions-detail {
+                margin-top: 80px;
+            }
+
+            @include media-breakpoint-down(sm) {
+                padding-top: 0;
+            }
+
+            .menu {
+                height: 585px;
+                max-width: 320px;
+                width: 320px;
+                padding: 62px;
+                background-color: #667799;
+                color: $white;
+                position: relative;
+
+                @include media-breakpoint-down(sm) {
+                    display: none !important;
+                }
+
+                .fold {
+                    position: absolute;
+                    border-style: solid;
+                    &.top {
+                        top: 0;
+                        &.left {
+                            left: 0;
+                            border-width: 48px 48px 0 0;
+                            border-color: $bg-color $fold-color $bg-color
+                                $bg-color;
+                        }
+                        &.right {
+                            right: 0;
+                            border-width: 0 48px 48px 0;
+                            border-color: $bg-color $bg-color $fold-color
+                                $bg-color;
+                        }
+                    }
+                    &.bottom {
+                        bottom: 0;
+                        &.left {
+                            left: 0;
+                            border-width: 0 48px 48px 0;
+                            border-color: $bg-color $fold-color $bg-color
+                                $bg-color;
+                        }
+                        &.right {
+                            right: 0;
+                            border-width: 48px 48px 0 0;
+                            border-color: $fold-color $bg-color $bg-color
+                                $bg-color;
+                        }
+                    }
+                }
+
+                h3.title {
+                    font-family: $secondaryFont;
+                    font-size: 14px;
+                    font-weight: 500;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 1.71;
+                    letter-spacing: 3.5px;
+                    text-align: left;
+                    color: $white;
+                    text-transform: uppercase;
+                }
+
+                ul {
+                    padding-top: 55px;
+                    padding-left: 0;
+                    li {
+                        list-style: none;
+                        font-family: $mainFontMedium;
+                        font-size: 1rem;
+                        font-weight: 500;
+                        font-style: normal;
+                        font-stretch: normal;
+                        line-height: 42px;
+                        letter-spacing: -0.32px;
+                        text-align: left;
+                        color: $white;
+                        a {
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+
+            .group {
+                @include media-breakpoint-up(md) {
+                    // padding-left: 179px;
+                    padding-left: 2rem;
+                }
+
+                @include media-breakpoint-between(sm, md) {
+                    padding-left: 1rem;
+                }
+
+                > .flex-row {
+                    &:not(:first-child) {
+                        margin-top: 82px;
+                        @include media-breakpoint-down(sm) {
+                            margin-top: 21px;
+                        }
+                    }
+
+                    &:first-child {
+                        @include media-breakpoint-down(sm) {
+                            margin-top: 48px;
+                        }
+                    }
+                }
+                h4.sub-category {
+                    width: 100%;
+                    font-family: $mainFontSemibold;
+                    font-size: 1.5rem;
+                    font-weight: 600;
+                    font-style: normal;
+                    font-stretch: normal;
+                    letter-spacing: -0.96px;
+                    text-align: left;
+                    color: $mainColor;
+                    padding-bottom: 22px;
+                    border-bottom: 1px solid #d0dcda;
+
+                    @include media-breakpoint-down(sm) {
+                        margin-bottom: 40px;
+                    }
+                }
+
+                a.question-link {
+                    text-decoration: none;
+                    font-family: $mainFontMedium;
+                    font-size: 1.25rem;
+                    font-weight: 500;
+                    font-style: normal;
+                    font-stretch: normal;
+                    // line-height: 2.3;
+                    letter-spacing: -0.8px;
+                    text-align: left;
+                    color: $mainColor;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+
+                    @include media-breakpoint-down(sm) {
+                        font-size: 1.125rem;
+                        line-height: 1;
+                        letter-spacing: -0.72px;
+                    }
+                }
+
+                .card {
+                    border: none !important;
+                    .card-header {
+                        border: none !important;
+                        background: $white;
+                        cursor: pointer;
+                        padding-top: 0;
+                        padding-bottom: 0;
+                        padding-left: 0;
+                        margin: .5rem 0;
+
+                        @include media-breakpoint-down(sm) {
+                            margin-bottom: 1.56rem;
+                        }
+                    }
+
+                    .card-body {
+                        font-family: $mainFont;
+                        font-size: 1rem;
+                        font-style: normal;
+                        font-stretch: normal;
+                        line-height: 2.3;
+                        letter-spacing: -0.8px;
+                        text-align: left;
+                        color: $mainColor;
+                        padding: 1rem;
+                        border: none !important;
+
+                        @include media-breakpoint-down(sm) {
+                            line-height: 1.6;
+                            padding: 0 0 1rem 1rem;
+                        }
+
+                        a {
+                            text-decoration: none;
+                            font-family: $secondaryFont;
+                        }
+
+                        ul {
+                            list-style: circle;
+                            padding-left: 2rem;
+                        }
+
+                        p {
+                            font-family: $mainFont;
+                            font-size: 1rem;
+                            font-style: normal;
+                            font-stretch: normal;
+                            line-height: 2.3;
+                            letter-spacing: -0.8px;
+                            text-align: left;
+                            color: $mainColor;
+                            padding: 0;
+                            border: none !important; 
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

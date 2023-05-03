@@ -1,0 +1,130 @@
+-<!-- /sections/index-collection-grid.liquid -->
+
+{%- assign grid_item_width = 'medium-up--one-third' -%}
+
+{% case section.settings.grid %}
+  {% when 1 %}
+    {%- assign grid_item_width = 'large-up--one-sixth collection-grid--single' -%}
+  {% when 2 %}
+    {%- assign grid_item_width = 'medium--one-third' -%}
+  {% when 3 %}
+    {%- assign grid_item_width = 'large-up--one-sixth medium--one-half' -%}
+{% endcase %}
+
+
+{% assign grid_width_large = 'large-up--one-sixth' %}
+{% assign grid_width_medium = 'medium--one-third' %}
+{% assign grid_width_small = 'small--one-half' %}
+
+{%- assign hover_class = '' -%}
+{%- if section.settings.title_hover -%}
+  {%- assign hover_class = 'index-collection-grid--hover' -%}
+{%- endif -%}
+
+<div class="index-collection-grid {{ section.settings.color_bg }} {{ hover_class }}" data-section-id="{{ section.id }}" data-section-type="index-collection-grid">
+  <div class="wrapper">
+    <div class="index-collection__background"></div>
+    {% include 'dots', direction: 'right' %}
+    <div class="index-collection__foreground">
+      <div class="grid grid--uniform" data-index-grid-collection-slideshow>
+          {% include 'collection-item', name: 'INCONTINENCE', subtitle: 'For Women', collection: 'for-women', img: 'https://cdn.shopify.com/s/files/1/1522/0906/files/Pads-Moderate_720x_2559af44-d846-485c-9b49-e32a3bc074ab.png?v=1604583453' %}
+          {% include 'collection-item', name: 'INCONTINENCE', subtitle: 'For Men', collection: 'for-men', img: 'https://cdn.shopify.com/s/files/1/1522/0906/files/Underwear-maximum-front_720x_105d89f2-1509-4fdd-a195-bd4f48d437f1.png?v=1604583453' %}
+          {% include 'collection-item', name: 'URINARY HEALTH', collection: 'urinary-health', img: 'https://cdn.shopify.com/s/files/1/1522/0906/files/UTIbundle_720x_733b9079-4cdf-4c16-97b4-6125b5c388ce.png?v=1604583453' %}
+          {% include 'collection-item', name: 'SKIN CARE', collection: 'skin-care', img: 'https://cdn.shopify.com/s/files/1/1522/0906/files/Soothing-Cream_720x_3a08018f-227f-4946-8dcf-3f134959d3e5.png?v=1604583453' %}
+          {% include 'collection-item', name: 'SUPPLEMENTS', collection: 'oral-care', img: 'https://cdn.shopify.com/s/files/1/1522/0906/files/omega3_720x_6935836e-a910-4de7-8e9a-c734868209fd.png?v=1604583453' %}
+          {% include 'collection-item', name: 'HEMP', collection: 'cbd', img: 'https://cdn.shopify.com/s/files/1/1522/0906/files/Spray2_720x_4c8ec56c-be10-49d5-8a22-97b79b524b9c.jpg?v=1604583670' %}
+      </div>
+    </div>
+  </div>
+  {% if section.blocks.size == 0 %}
+    <div class="text-center">{{ 'homepage.onboarding.no_content' | t }}</div>
+  {% endif %}
+</div>
+
+{% schema %}
+
+{
+  "name": "Collection list",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Collection list"
+    }, {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Use this area to describe the collection."
+    }, {
+      "type": "range",
+      "id": "grid",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Collections per row",
+      "default": 2
+    }, {
+      "type": "select",
+      "id": "color_bg",
+      "label": "Background color",
+      "default": "index--white",
+      "options": [
+        {
+          "value": "index--white",
+          "label": "White"
+        }, {
+          "value": "index--gray",
+          "label": "Secondary"
+        }
+      ]
+    }, {
+      "type": "checkbox",
+      "id": "title_hover",
+      "label": "Show title on hover",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "featured_collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "label": "Collection",
+          "id": "collection",
+          "type": "collection"
+        }, {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Featured collection"
+        }, {
+          "type": "image_picker",
+          "id": "collection_image",
+          "label": "Collection image",
+          "info": "Override the default collection image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection list",
+      "category": "Collection",
+      "settings": {
+        "grid": 2
+      },
+      "blocks": [
+        {
+          "type": "featured_collection"
+        }, {
+          "type": "featured_collection"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

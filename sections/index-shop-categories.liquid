@@ -1,0 +1,144 @@
+<!-- /sections/index-shop-categories.liquid-->
+
+{% if section.blocks.size > 0 %}
+    <div class="shopCategories" data-section-id="{{ section.id }}" data-section-type="shopCategories">
+        {% for collection in section.blocks %}
+            <div class="shopCategories_item" {% if collection.settings.image %}style="background-image:url('{{ collection.settings.image | img_url: '720x', format: 'pjpg', scale: '2' }}');"{% endif %}>
+                {% if collection.settings.title %}
+                    <h2 class="shopCategories_title">{{ collection.settings.title }}</h2>
+                {% endif %}
+                {% if collection.settings.description %}
+                    <div class="shopCategories_description font-desktop-body">{{ collection.settings.description }}</div>
+                {% endif %}
+                <div class="shopCategories_footer">
+                    {% if collection.settings.link_text != '' and collection.settings.item != nil %}
+                        {% assign collectionItem = collections[collection.settings.item] %}
+                        <a onclick="trackEvent('BM ShopCategoryLink Clicked')" class="shopCategories_link" href="{{ collectionItem.url | default: '#' }}">{{ collection.settings.link_text }}</a>
+                    {% endif %}
+                    {% if collection.settings.link_text2 != '' and collection.settings.item2 != nil %}
+                        {% assign collectionItem2 = collections[collection.settings.item2] %}
+                        <a onclick="trackEvent('BM ShopCategoryLink Clicked')" class="shopCategories_link" href="{{ collectionItem2.url | default: '#' }}">{{ collection.settings.link_text2 }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% schema %}
+    {
+        "name": "Shop Categories",
+        "max_blocks": 4,
+        "blocks": [
+            {
+                "name": "Item",
+                "type": "collection",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    }, {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title"
+                    }, {
+                        "type": "text",
+                        "id": "description",
+                        "label": "Description"
+                    }, {
+                        "type": "collection",
+                        "id": "item",
+                        "label": "Select 1 collection"
+                    }, {
+                        "type": "text",
+                        "id": "link_text",
+                        "label": "Link 1 text"
+                    }, {
+                        "type": "collection",
+                        "id": "item2",
+                        "label": "Select 2 collection"
+                    }, {
+                        "type": "text",
+                        "id": "link_text2",
+                        "label": "Link 2 text"
+                    }
+                ]
+            }
+        ],
+        "presets": [{
+            "name": "Shop Categories",
+            "category": "Custom Sections"
+        }]
+    }
+{% endschema %}
+{% stylesheet %}
+    .shopCategories {
+        display: flex;
+        flex-wrap: wrap;
+        color: #000;
+    }
+    .shopCategories_item {
+        width: 100%;
+        height: 400px;
+        background-size: cover;
+        background-position: 50% 100%;
+        text-align: center;
+        padding: 40px 20px;
+        background-repeat: no-repeat;
+    }
+    .shopCategories_title {
+        font-family: "Cooper Md BT W05 Regular";
+        font-size: 24px;
+        line-height: 26px;
+        letter-spacing: 0.03em;
+        margin-bottom: 8px;
+        color: #000;
+    }
+    .shopCategories_description {
+        max-width: 490px;
+        margin: 0 auto 6px;
+    }
+    .shopCategories_link {
+        font-family: "Graphik Medium";
+        color: #000;
+        padding: 10px;
+        text-decoration: underline;
+        text-transform: uppercase;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .shopCategories_link:hover {
+        color: #000;
+        text-decoration: none;
+    }
+    .shopCategories_footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        max-width: 450px;
+        margin: 0 auto;
+    }
+    .shopCategories_link:only-child {
+        margin: auto
+    }
+    @media only screen and (min-width: 768px) {
+       .shopCategories_item {
+            width: 50%;
+            height: calc(50vw * 0.66667);
+            padding-top: 48px;
+            min-height: 390px;
+        }
+        .shopCategories_title {
+            font-size: 48px;
+            line-height: 53px;
+        }
+        .shopCategories_description {
+            margin-bottom: 16px;
+        }
+        .shopCategories_link{
+            font-size: 24px;
+            padding: 0;
+        }
+    }
+{% endstylesheet %}

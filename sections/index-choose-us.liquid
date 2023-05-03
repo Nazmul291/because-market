@@ -1,0 +1,122 @@
+
+
+<script>
+
+  $(document).on('show.bs.collapse', '#whyChooseUsAccordion', function (e) {
+    const $accorditionImage = $("#accordionImage")
+    const newImage = $(e.target).data('image')
+    $(".accordion-item-text").removeClass('active')
+    $(e.target).parent().addClass('active')
+    $accorditionImage.fadeOut('fast', function () {
+      $accorditionImage.attr('src', newImage)
+      $accorditionImage.fadeIn('fast');
+    });
+  })
+
+
+</script>
+
+<div class="index-choose-us">
+    <h1 class="title--decorated dark">Why Choose Our Products</h1>
+
+    <div class="accordion" id="whyChooseUsAccordion">
+        <div class="container">
+           <div class="row">
+               <div class="col-md-6 col-sm-12">
+                   <div class="accordion-items">
+                        <div class="accordion-item">
+                            <div class="accordion-item-text active">
+                                <div class="accordion-title"
+                                     data-toggle="collapse"
+                                     href="#collapseProductThatWork"
+                                     role="button"
+                                     aria-expanded="true"
+                                     aria-controls="collapseProductThatWork">
+                                    Products that just work.
+                                </div>
+                                <div
+                                    class="accordion-body collapse show"
+                                    id="collapseProductThatWork"
+                                    data-parent="#whyChooseUsAccordion"
+                                    data-image="https://cdn.shopify.com/s/files/1/0024/5107/9257/files/productsthatwork.png?v=1592229429"
+                                >
+                                    At Because, we have constant feedback from our customers to tell us what works and what doesn’t. We then run it back to our labs where we work with leading scientists to develop the perfect fit.
+                                </div>
+                            </div>
+                        </div>
+
+                       <div class="accordion-item">
+                           <div class="accordion-item-text">
+                               <div class="accordion-title"
+                                    data-toggle="collapse"
+                                    href="#collapseDesignedByScientists"
+                                    role="button"
+                                    aria-expanded="false"
+
+                                    aria-controls="collapseDesignedByScientists">
+                                   Designed by scientists.
+                               </div>
+                               <div
+                                   class="accordion-body collapse"
+                                   id="collapseDesignedByScientists"
+                                   data-image="https://cdn.shopify.com/s/files/1/0024/5107/9257/files/designedbyscientist.png?v=1592229436"
+                                   data-parent="#whyChooseUsAccordion"
+                               >
+                                   We worked with industry-leading Stanford University trained professionals to create the optimal product.
+                               </div>
+                           </div>
+                       </div>
+
+                       <div class="accordion-item">
+                           <div class="accordion-item-text">
+                               <div class="accordion-title"
+                                    data-toggle="collapse"
+                                    href="#collapseSaveEveryTime"
+                                    role="button"
+                                    aria-expanded="false"
+                                    aria-controls="collapseSaveEveryTime">
+                                   Save every time.
+                               </div>
+                               <div
+                                    class="accordion-body collapse"
+                                    id="collapseSaveEveryTime"
+                                    data-image="https://cdn.shopify.com/s/files/1/0024/5107/9257/files/Saveeverytime.png?v=1592229459"
+                                    data-parent="#whyChooseUsAccordion"
+                               >
+                                   You buy directly from  us - no middlemen adding hidden costs.
+                               </div>
+                           </div>
+                       </div>
+
+                       <div class="accordion-item">
+                           <div class="accordion-item-text">
+                               <div class="accordion-title"
+                                    data-toggle="collapse"
+                                    href="#collapseFitForEveryone"
+                                    role="button"
+                                    aria-expanded="false"
+                                    aria-controls="collapseFitForEveryone">
+                                   Fit for everyone.
+                               </div>
+                               <div
+                                   class="accordion-body collapse"
+                                   id="collapseFitForEveryone"
+                                   data-parent="#whyChooseUsAccordion"
+                                   data-image="https://cdn.shopify.com/s/files/1/0024/5107/9257/files/fitforeveryone.png?v=1592229459"
+                               >
+                                   Premium products, manufactured with quality materials for optimal fit.
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="col-md-6 col-sm-12 ">
+                   <div class="image-container">
+                    <img id="accordionImage" src="https://cdn.shopify.com/s/files/1/0024/5107/9257/files/productsthatwork.png?v=1592229429" />
+                   </div>
+               </div>
+           </div>
+        </div>
+    </div>
+
+</div>

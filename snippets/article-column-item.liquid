@@ -1,0 +1,12 @@
+
+<a href="{{ article.url }}" class="article__card--small">
+  {% if article.image %}
+    <div class="article__card__image__wrapper--small">
+      <div class="article__card__image--small lazyload"  data-bgset="{% include 'bgset', image: article.image %}"></div>
+    </div>
+  {% endif %}
+  <div class="article__card__contents--small">
+    <h6 class="h6--body article__card__title--small">{{ article.title }}</h6>
+    <span class="meta--light">{{ article.author }}</span>
+  </div>
+</a>

@@ -1,0 +1,52 @@
+<div class="logo_text">
+  <div class="lt_container">
+    <div class="lt_content">
+      <div class="lt_text">
+        <h3>{{ section.settings.title }}</h3>
+         {{ section.settings.cont }}      
+      </div>
+      <div class="lt_img">
+        {% for block in section.blocks %}
+        <div class="img_box">
+          <img src="{{ block.settings.image | img_url :'master' }}">
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Logo With Text",
+    "settings": [
+     {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+     },
+     {
+      "type": "richtext",
+      "id": "cont",
+      "label": "Content"
+     }
+    ],
+    "blocks": [
+      {
+        "type": "logo_image",
+        "name": "Logo",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Logo With Text"
+      }
+    ]
+  }
+{% endschema %}

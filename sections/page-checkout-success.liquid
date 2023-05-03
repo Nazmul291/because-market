@@ -1,0 +1,27 @@
+<!-- /sections/page-checkout-success.liquid-->
+
+<div data-section-id="{{ section.id }}">
+    <div id="r-checkout-success"></div>
+</div>
+
+{% include 'page-checkout-success-image-bundle' %}
+
+<script src="{{ 'react.bundle.js' | asset_url }}" defer></script>
+<script src="{{ 'react-dom.bundle.js' | asset_url }}" defer></script>
+<script src="{{ 'pageCheckoutSuccess.bundle.js' | asset_url }}" defer></script>
+{{ 'pageCheckoutSuccess.bundle.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+  {
+    "name": "Checkout success",
+    "class": "checkout success",
+    "settings": [],
+    "blocks": [],
+    "presets": [
+      {
+        "name": "Checkout success",
+        "category": "Custom Sections"
+      }
+    ]
+  }
+{% endschema %}

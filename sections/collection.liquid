@@ -1,0 +1,436 @@
+<!-- /sections/collection.liquid -->
+{% liquid
+  assign grid_offset = ''
+  assign products_count = collection.products_count
+
+  assign product_count = 48
+  if grid_width_large == 'large-up--one-whole'
+    assign product_count = 20
+  elsif grid_width_large == 'large-up--one-half'
+    assign product_count = 50
+  elsif grid_width_large == 'large-up--one-third'
+    assign product_count = 48
+  elsif grid_width_large == 'large-up--one-quarter'
+    assign product_count = 48
+  elsif grid_width_large == 'large-up--one-fifth'
+    assign product_count = 50
+  endif
+%}
+
+{%- paginate collection.products by product_count -%}
+{% liquid
+  if section.settings.collection_custom_nav_list
+    assign main_menu_linklist = section.settings.collection_custom_nav_list
+  else
+    assign main_menu_linklist = 'main-menu'
+  endif
+%}
+
+<div class="collection">
+  {% if section.settings.show_title %}
+    <h1 class="collection__title">{{ collection.title }}</h1>
+  {% endif %}
+
+  {% if collection.description.size > 0 and section.settings.show_description  %}
+    <div class="collection__description">{{ collection.description }}</div>
+  {% endif %}
+
+  {% if section.settings.show_menu %}
+    <ul class="collection-submenu">
+      {%- for link in linklists[main_menu_linklist].links -%}
+          {%- if link.title != collection.title -%}
+              {%- continue -%}
+          {%- endif -%}
+          {%- for shop-link in link.links-%}
+              <li class="collection-submenu__item">
+                  <a {% if shop-link.active and shop-link.child_active != true%}
+                        class="active"
+                      {% else %}
+                        {% unless shop-link.title == "Incontinence" or shop-link.title == "Bladder Protection" %}href="{{ shop-link.url }}"{% endunless %}
+                      {% endif %}>
+                      {{shop-link.title }}
+                  </a>
+                  <ul>{%- for submenu-shop-link in shop-link.links -%}
+                          <li><a {% if submenu-shop-link.active %}class="active"{% else %}href="{{ submenu-shop-link.url }}"{% endif %}>{{ submenu-shop-link.title }}</a></li>
+                      {%- endfor -%}
+                  </ul>
+              </li>
+          {%- endfor -%}
+      {%- endfor -%}
+    </ul>
+  {% endif %}
+
+  <div class="collection__products">
+    {% for product in collection.products %}
+      {% if forloop.index == 6 and section.settings.ads_image %}
+        {% if section.settings.ads_url != blank %}
+          <a class="collections__ads" href="{{ section.settings.ads_url }}" target="_blank">
+        {% else %}
+          <span class="collections__ads">
+        {% endif %}
+          <img src="{{ section.settings.ads_image | img_url: '720x', format: 'pjpg', scale: '2' }}" alt="Because Ads" />
+        </a>
+        {% if section.settings.ads_url != blank %}
+          </a>
+        {% else %}
+          </span>
+        {% endif %}
+      {% endif %}
+
+      {% liquid
+        assign on_sale = false
+        if product.compare_at_price > product.price
+          assign on_sale = true
+        endif
+
+        assign sold_out = true
+        if product.available
+          assign sold_out = false
+        endif
+
+        assign new_product = false
+        assign published_date = product.published_at | date: "%s"
+        assign now_date = 'now' | date: "%s"
+        assign age_in_days = now_date | minus: published_date | divided_by: 60 | divided_by: 60 | divided_by: 12
+        if age_in_days < settings.tag_new_limit
+          assign new_product = true
+        endif
+
+        assign sellout_tag = false
+        if sold_out and settings.tag_sellout
+          assign sellout_tag = true
+        endif
+
+        assign new_tag = false
+        if new_product and settings.tag_new
+          assign new_tag = true
+        endif
+
+        assign sale_tag = false
+        if on_sale and settings.tag_sale
+          assign sale_tag = true
+        endif
+
+        assign custom_badge = false
+        for tag in product.tags
+          assign splittedTag = tag | split: "="
+          assign tagName = splittedTag[0]
+          assign tagValue = splittedTag[1]
+          if tagName == "badge"
+            assign custom_badge = tagValue
+          endif
+        endfor
+
+        assign tagged = false
+        if sellout_tag or new_tag or sale_tag or custom_badge
+          assign tagged = true
+        endif
+      %}
+
+      <a class="collection-product" data-product-id="{{ product.id }}" href="{{ product.url }}">
+        <span class="collection-product__image" {% if product.featured_image %}style="background-image:url('{{ product.featured_image | img_url: '720x', format: 'pjpg', scale: '2' }}');"{% endif %}>
+          {%- if tagged %}
+            <span class="collection-product__label">
+              {%- if custom_badge -%}
+                {{ custom_badge }}
+              {%- elsif sellout_tag -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- elsif sale_tag -%}
+                {{ 'products.product.sale' | t }}
+              {%- elsif new_tag -%}
+                {{ 'products.product.new' | t }}
+              {%- endif -%}
+            </span>
+          {%- endif -%}
+        </span>
+        <span class="collection-product__vendor">
+          {{ product.metafields.global.brand.value }}
+        </span>
+        <span class="collection-product__title">{{ product.title }}</span>
+        <span class="collection-product__price">
+          {% assign minPerPieceVariantPrice = false %}
+          {% if product.price_varies or product.metafields.subscription != empty %}
+            {% if product.metafields.subscription != empty and product.tags contains 'show_price/piece' %}
+              {% liquid
+                assign subDiscount = 0
+                for subscription in product.metafields.subscription
+                  if subscription[1] > subDiscount
+                    assign subDiscount = subscription[1]
+                  endif
+                endfor
+
+                assign subDiscount = subDiscount | divided_by: 100.0
+                assign subDiscount = 1.0 | minus: subDiscount
+
+                assign minPerPiece = 1000000
+                for variant in product.variants
+                  assign perPiece = variant.price | divided_by: variant.option2
+                  if perPiece < minPerPiece
+                    assign minPerPiece = perPiece
+                    assign minPerPieceVariantPrice = variant.price | times: subDiscount
+                  endif
+                endfor
+              %}
+            {% endif %}
+
+            {% if minPerPieceVariantPrice %}
+              From {{ minPerPieceVariantPrice | money }}
+            {% else %}
+              {% unless product.tags contains 'hasDefaultCollectionsPrice' %}
+                {% if product.metafields.subscription != empty %}
+                  {% liquid
+                    assign subDiscount = 0
+                    for subscription in product.metafields.subscription
+                      if subscription[1] > subDiscount
+                        assign subDiscount = subscription[1]
+                      endif
+                    endfor
+
+                    assign subDiscount = subDiscount | divided_by: 100.0
+                    assign subDiscount = 1.0 | minus: subDiscount
+
+                    echo product.price | times: subDiscount | money
+                  %}
+                {% else %}
+                  From {{ product.price | money }}
+                {% endif %}
+              {% endunless %}
+            {% endif %}
+
+          {% else %}
+            {{ product.price | money }}
+          {% endif %}
+        </span>
+      </a>
+    {% else %}
+      {% if collection.handle == 'all' and current_tags == blank %}
+        {% include 'onboarding-empty-collection' %}
+      {% else %}
+      <div class="grid__item">
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {% if paginate.pages > 1 %}
+    <hr>
+    <div class="text-center">
+      {% include 'pagination' %}
+    </div>
+  {% endif %}
+</div>
+{% endpaginate %}
+
+{% stylesheet %}
+  .collection {
+    padding: 64px 72px;
+  }
+
+  .collection__title {
+    font-family: "Cooper Md BT W05 Regular";
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 58px;
+    color: black;
+  }
+
+  .collection__description {
+    max-width: 75%;
+    padding: 16px 0;
+    font-family: "Cooper Lt BT W05 Regular";
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 35px;
+    color: #333333;
+  }
+
+  .collection-submenu {
+    list-style: none;
+    margin: 54px 0;
+    padding: 0;
+  }
+
+  .collection-submenu__item {
+    display: inline-block;
+    margin-right: 24px;
+  }
+
+  .collection-submenu__item:last-of-type {
+    margin-right: 0;
+  }
+
+  .collection-submenu__item a {
+    display: inline-block;
+    font-family: "Cooper Md BT W05 Regular";
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 25px;
+    color: #333333;
+    border-bottom: 3px solid transparent;
+  }
+
+  .collection-submenu__item a:hover,
+  .collection-submenu__item a.active {
+    text-decoration: none;
+    border-bottom: 3px solid #333333;
+  }
+
+  .collection__products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 36px;
+    grid-row-gap: 64px;
+  }
+
+  .collection-product,
+  .collection-product:hover,
+  .collection-product:active,
+  .collection-product:visited {
+    display: block;
+    position: relative;
+    font-family: "Cooper Md BT W05 Regular";
+    text-align: center;
+    text-decoration: none;
+    color: #333333;
+  }
+
+  .collection-product__image {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    margin-bottom: 32px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: contain;
+  }
+
+  .collection-product__label {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 12px;
+    max-width: calc(100% - 24px);
+    background-color: #fff;
+    color: #333333;
+    padding: 7px 17px;
+    border-radius: 0 18px;
+    font-family: "Graphik Medium";
+    font-size: 14px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  .collection-product__vendor {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 25px;
+    margin-bottom: 8px;
+  }
+
+  .collection-product__title {
+    display: block;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 35px;
+    margin: 0 0 16px;
+    padding: 0;
+  }
+
+  .collections__ads img {
+    width: 100%;
+    height: auto;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 767px) {
+    .collection {
+      padding: 24px;
+    }
+
+    .collection__title {
+      font-size: 36px;
+      line-height: 50px;
+    }
+
+    .collection__description {
+      max-width: 100%;
+      font-size: 24px;
+      line-height: 35px;
+    }
+
+    .collection-submenu {
+      margin: 20px 0 36px;
+    }
+
+    .collection__products {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Collection page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show collection title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show collection description",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Collection navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_menu",
+      "label": "Show collection menu",
+      "default": false
+    },
+    {
+      "type": "link_list",
+      "id": "collection_custom_nav_list",
+      "label": "Replace collection list with custom menu",
+      "info": "If no menu is selected all collections will show"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_sorting",
+      "default": false,
+      "label": "Show collection sort options"
+    },
+    {
+      "type": "header",
+      "content": "Collection sidebar"
+    },
+    {
+      "type": "header",
+      "content": "Product Grid Ads"
+    },
+    {
+      "type": "image_picker",
+      "id": "ads_image",
+      "label": "Ads Image"
+    },
+    {
+        "type": "text",
+        "id": "ads_url",
+        "label": "Ads URL"
+    }
+    ]
+}
+
+{% endschema %}

@@ -1,0 +1,159 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies{% if settings.layout_container_enable %} container-layout{% endif %}" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies{% if settings.layout_container_enable %} container-layout{% endif %}" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.accent_cool }}">
+  <meta name="google-site-verification" content="T6jzDgth7ydEqvYEDnQK6a3KI1S52CCOGVI2IYY2ujQ" />
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  <!-- ======================= Story Theme V1.2.0 ========================= -->
+
+  {% if settings.favicon != blank %}
+    <link rel="icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {% endif %}
+
+  {% capture seo_title %}
+    {{ page_title }}
+    {% if current_tags %}
+      {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {% endif %}
+    {% if current_page != 1 %}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {% endif %}
+    {% unless page_title contains shop.name %}
+      &ndash; {{ shop.name }}
+    {% endunless %}
+  {% endcapture %}
+  <title>{{ seo_title }}</title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% include 'social-meta-tags' %}
+
+  {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+
+  {{ 'styles.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'blog.css' | asset_url | stylesheet_tag }}
+
+  {% if product.template_suffix != "new" %}
+    {{ 'custom.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+
+  <script>
+    window.theme = {
+      strings: {
+        addToCart: {{ 'products.product.add_to_cart' | t | json }},
+        soldOut: {{ 'products.product.sold_out' | t | json }},
+        unavailable: {{ 'products.product.unavailable' | t | json }}
+      },
+      moneyFormat: {{ shop.money_format | json }},
+      version: '1.2.0'
+    }
+  </script>
+
+  <!--  Gladly Sidekick-->
+  <script type="text/javascript">
+    !function(c,n,r,t){if(!c[r]){var i,d,p=[];d="PROD"!==t&&t?"STAGING"===t?"https://cdn.gladly.qa/gladly/chat-sdk/widget.js":t:"https://cdn.gladly.com/chat-sdk/widget.js",c[r]={init:function(){i=arguments;var e={then:function(t){return p.push({type:"t",next:t}),e},catch:function(t){return p.push({type:"c",next:t}),e}};return e}},c.__onHelpAppHostReady__=function(t){if(delete c.__onHelpAppHostReady__,(c[r]=t).loaderCdn=d,i)for(var e=t.init.apply(t,i),n=0;n<p.length;n++){var a=p[n];e="t"===a.type?e.then(a.next):e.catch(a.next)}},function(){try{var t=n.getElementsByTagName("script")[0],e=n.createElement("script");e.async=!0,e.src=d+"?q="+(new Date).getTime(),t.parentNode.insertBefore(e,t)}catch(t){}}()}}
+    (window,document,'Gladly','{{ settings.gladly_env }}')
+  </script>
+  <!--  Gladly Sidekick-->
+
+  {% if settings.segment_analytics_write_key %}
+    <!-- Segment Analytics -->
+    <script>
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="{{ settings.segment_analytics_write_key }}";;analytics.SNIPPET_VERSION="4.15.3";analytics.load({{ settings.segment_analytics_write_key  | json }});
+    }}();
+    </script>
+    <!-- Segment Analytics -->
+  {% endif %}
+
+  {% if template.directory == 'customers' %}
+    <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
+    <!--[if lte IE 9]><script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script><![endif]-->
+  {% endif %}
+
+  <script src="{{ 'theme.js' | asset_url }}"></script>
+  <script src="{{ 'theme.bundle.js' | asset_url }}"></script>
+
+  <script src="{{ 'navbar.js' | asset_url }}"></script>
+  <script src="{{ 'footer.js' | asset_url }}"></script>
+
+  {{ 'bootstrap.js' | asset_url | script_tag }}
+
+  <script src="//s3-us-west-2.amazonaws.com/static.becausemarket.com/jsExperiments/jsExperimentBundle-1.1.2-jsFlagr-1.1.10.js" />
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
+  {% include 'meteor-menu', load: 'head' %}
+  {{ content_for_header }}
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MFVKGQH');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ENX6N2W43S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ENX6N2W43S');
+</script>
+
+  {% render 'shogun-head' %}
+  {% render 'hucs-honey-app' %}
+
+  <!-- google optimize -->
+  <script src="https://www.googleoptimize.com/optimize.js?id=OPT-59DPSM4"></script>
+  <!-- /google optimize -->
+</head>
+
+<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }} {{ settings.decoration_style }}">
+
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+  {% section 'header' %}
+
+  <main role="main" id="MainContent" class="main-content">
+    {{ content_for_layout }}
+  </main>
+
+  {% if template != "page.checkout" and template != "page.checkout-success" %}
+    {% section 'footer' %}
+  {% endif %}
+
+  <script src="//cdn.codeblackbelt.com/js/modules/frequently-bought-together/main.min.js?shop=star-because.myshopify.com" defer></script>
+{{ 'ajaxinate.min.js' | asset_url | script_tag }}
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var endlessScroll = new Ajaxinate({
+      container: '#AjaxinateLoop',
+      pagination: '#AjaxinatePagination',
+      method: 'click'
+    });
+  });
+  </script>
+
+  <!--  Gladly Sidekick-->
+  <script>
+    window.gladlyConfig = {
+      appId: 'becausemarket.com'
+    };
+  </script>
+  <!--  Gladly Sidekick-->
+
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFVKGQH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>

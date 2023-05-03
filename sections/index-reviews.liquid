@@ -1,0 +1,193 @@
+<!-- /sections/index-reviews.liquid -->
+{% if section.blocks.size > 0 %}
+    <div class="happyCustomers" data-section-id="{{ section.id }}" data-section-type="happyCustomers">
+        {% if section.settings.top_text %}
+            <h2 class="happyCustomers_title">{{ section.settings.top_text }}</h2>
+        {% endif %}
+        <div class="happyCustomers_container">
+            <div id="slideshow-{{ section.id }}" class="happyCustomers_slider">
+                {% for block in section.blocks %}
+                    <div class="slick-slide happyCustomers_slide happyCustomers_slide--{{ block.id }}" data-prevent-overflow {{ block.shopify_attributes }}>
+                        {% if block.settings.image != nil %}
+                            <div class="happyCustomers_image" style="background-image:url('{{ block.settings.image | img_url: '360x360' }}');"></div>
+                        {% endif %}
+                        {% unless block.settings.text == '' %}
+                            <div class="happyCustomers_review font-desktop-subtitle">{{ block.settings.text }}</div>
+                        {% endunless %}
+                        {% unless block.settings.author == '' %}
+                            <span class="happyCustomers_author font-desktop-body">{{ block.settings.author }}</span>
+                        {% endunless %}
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="flickity-button flickity-prev-next-button previous" type="button" aria-label="Previous"><svg class="flickity-button-icon" viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow"></path></svg></button>
+            <button class="flickity-button flickity-prev-next-button next" type="button" aria-label="Next"><svg class="flickity-button-icon" viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow" transform="translate(100, 100) rotate(180) "></path></svg></button>
+        </div>
+    </div>
+{% endif %}
+
+{% schema %}
+{
+    "name": "Happy customers",
+    "max_blocks": 3,
+    "settings": [
+        {
+            "type": "text",
+            "id": "top_text",
+            "label": "Title"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "review",
+            "name": "Review",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "textarea",
+                    "id": "text",
+                    "label": "Review"
+                },
+                {
+                    "type": "text",
+                    "id": "author",
+                    "label": "Author"
+                }
+            ]
+        }
+    ],
+    "presets": [{
+        "name": "Happy customers",
+        "category": "Custom Sections",
+        "settings": {
+            "top_text": "Over 100,000+ Happy Customers"
+        }
+    }]
+}
+{% endschema %}
+{% stylesheet %}
+    .happyCustomers {
+        padding: 40px 24px;
+        max-width: 1210px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .happyCustomers_slider:not(.slick-initialized) ~ .flickity-button {
+        display: none;
+    }
+    .happyCustomers .flickity-button {
+        opacity: 1;
+        color: #667799;
+        top: 90px;
+        padding: 0;
+    }
+    .happyCustomers .flickity-button .flickity-button-icon {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .happyCustomers .flickity-button.slick-disabled {
+        opacity: 1 !important;
+        color: #CCCCCC;
+        pointer-events: none;
+    }
+    .happyCustomers .flickity-button:focus {
+        box-shadow: none;
+    }
+    .happyCustomers_title {
+        font-family: "Cooper Md BT W05 Regular";
+        font-size: 24px;
+        line-height: 26px;
+        letter-spacing: 0.03em;
+        margin-bottom: 24px;
+        color: #000;
+    }
+    .happyCustomers_container {
+        position: relative;
+    }
+    .happyCustomers_image {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto 16px;
+        border-radius: 50%;
+        background-size: contain;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+    }
+    .happyCustomers_review {
+        margin-bottom: 8px;
+        color: #000;
+        line-height: 140%;
+    }
+    .happyCustomers_review p {
+        font-size: inherit;
+        margin: 0;
+    }
+    .happyCustomers_review:before,
+    .happyCustomers_review:after{
+        content: '"'
+    }
+    @media only screen and (min-width: 768px) {
+        .happyCustomers {
+            padding: 120px 20px;
+        }
+        .happyCustomers_title {
+            font-size: 48px;
+            line-height: 53px;
+            margin-bottom: 64px;
+        }
+        .happyCustomers_review{
+            margin-bottom: 16px;
+        }
+        .happyCustomers_image {
+            margin-bottom: 32px;
+        }
+        .happyCustomers_slider {
+            display: flex;
+            justify-content: space-between;
+        }
+        .happyCustomers_slide {
+            height: unset;
+            float: none;
+            width: calc((100% - 60px) / 3);
+            display: block;
+        }
+    }
+{% endstylesheet %}
+
+<script type="text/javascript">
+  (function () {
+    let galleryInit = false
+    const $gallery = $('.happyCustomers[data-section-id="{{ section.id }}"] .happyCustomers_slider')
+    const $prevBtn = $('.happyCustomers[data-section-id="{{ section.id }}"] .flickity-button.previous')
+    const $nextBtn = $('.happyCustomers[data-section-id="{{ section.id }}"] .flickity-button.next')
+    function fireEvent() {
+      trackEvent('BM Reviews Scroll')
+    }
+    $(window).on('load resize orientationchange', function() {
+      if (window.innerWidth >= 768 && galleryInit) {
+        $gallery.off('afterChange', fireEvent)
+        $gallery.slick('unslick')
+        galleryInit = false
+      } else if (window.innerWidth < 768 && !galleryInit) {
+        $gallery.slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          mobileFirst: true,
+          prevArrow: $prevBtn,
+          nextArrow: $nextBtn,
+          infinite: false
+        })
+        $gallery.on('afterChange', fireEvent)
+        galleryInit = true
+      }
+    });
+  })()
+</script>

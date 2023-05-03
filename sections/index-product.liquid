@@ -1,0 +1,162 @@
+<!-- /sections/index-product.liquid-->
+
+{%- assign product = all_products[section.settings.product] -%}
+
+{% if product.empty? %}
+  <div class="index-product {{ section.settings.color_bg }}" >
+      {% include 'onboarding-product' %}
+  </div>
+{% else %}
+  <div class="index-product {{ section.settings.color_bg }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="false" data-image-zoom-enable="{{ section.settings.zoom_enable }}">
+    {% include 'product' %}
+  </div>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Featured product",
+    "settings": [
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      },
+      {
+        "type": "select",
+        "id": "color_bg",
+        "label": "Background color",
+        "default": "index--white",
+        "options": [
+          { "value": "index--white", "label": "White"},
+          { "value": "index--gray", "label": "Secondary"}
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "product_show_vendor",
+        "label": "Show vendor",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_payment_button",
+        "label": "Show dynamic checkout button",
+        "info": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Media",
+        "info": "Learn more about [media types](https://help.shopify.com/manual/products/product-media)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_video_looping",
+        "label": "Enable video looping",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "zoom_enable",
+        "label": "Enable image zoom",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Product tabs"
+      },
+      {
+        "type": "select",
+        "id": "tabs_position",
+        "options": [
+          { "value": "sidebar", "label": "Tabs beside image"},
+          { "value": "below", "label": "Tabs below"}
+        ],
+        "label": "Tabs position",
+        "default": "below",
+        "info": "Add tab content to enable tabs"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "tab_description",
+        "name": "Description H6",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "paragraph",
+            "content": "Heading 6 titles will be converted to tab headings, tab content will be everything between the Heading 6 titles. [Product Tabs Documentation](https://story.groupthought.com/article/926-story-theme-using-tabs)."
+          }
+        ]
+      },
+      {
+        "type": "tab_richtext",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Text tab",
+            "info": "Example: Warranty policy"
+          },
+          {
+            "type": "richtext",
+            "id": "raw_content",
+            "label": "Tab content",
+            "default": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>"
+          }
+        ]
+      },
+      {
+        "type": "tab_html",
+        "name": "HTML",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "HTML tab",
+            "info": "Example: Sizing video"
+          },
+          {
+            "type": "html",
+            "id": "raw_content",
+            "label": "Tab content",
+            "default": "<p>This tab content type will accept HTML code for advanced styling. Use this to add video embeds, or other advanced HTML content.</p>"
+          }
+        ]
+      },
+      {
+        "type": "tab_page",
+        "name": "Page",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Page tab",
+            "info": "Example: Size chart"
+          },
+          {
+            "type": "page",
+            "id": "raw_content",
+            "label": "Tab content"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured product",
+        "category": "Product"
+      }
+    ]
+  }
+{% endschema %}

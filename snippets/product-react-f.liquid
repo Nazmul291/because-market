@@ -1,0 +1,8 @@
+<div id="r-product-funnel-react"></div>
+
+{% include 'product-funnel-react-image-bundle' %}
+
+<script src="{{ 'react.bundle.js' | asset_url }}" defer></script>
+<script src="{{ 'react-dom.bundle.js' | asset_url }}" defer></script>
+<script src="{{ 'productFunnelReact.bundle.js' | asset_url }}" defer></script>
+{{ 'productFunnelReact.bundle.css' | asset_url | stylesheet_tag }}

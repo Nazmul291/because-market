@@ -1,0 +1,77 @@
+<script>
+
+
+    /* IF the window size is small enough, and if the A/B test is positive,
+    we display index-sticky-cta */
+    if ($(window).width() <= 768) {
+        // console.log("about to wait for flagr");
+        waitForFlagr();
+        //hides sticky footer when scrolled to the bottom of page
+        document.onscroll = function() {
+            if($(window).scrollTop() + $(window).height() == $(document).height()) {
+                $('#sticky-cta').hide();
+            } else {
+                $('#sticky-cta').show();
+            }
+        }
+    }
+
+    function waitForFlagr() {
+
+        //Make sure that external script https://s3-us-west-2.amazonaws.com/static.becausemarket.com/jsExperiments/jsExperimentBundle-1.1.10.js loads before attempting A/B test
+        if (!window.Flagr) {
+            return setTimeout(waitForFlagr, 100)
+        }
+
+        //Get variant randomly (flag key is passed to evaluateFlag)
+        window.Flagr.evaluateFlag('homepage_show_sticky_cta', (error, result) => {
+            if (error) {
+                console.log(error)
+                trackEvent("Mobile homepage show sticky CTA", { "sticky_CTA_shown": false, "error": error })
+                return
+            }
+
+            //Wait 5 attempts for the relevant input to load 
+            const tryToShowCTA = (selector, showCTA, retry = 0) => {
+                if (retry === 5) {
+                    console.error(`failed to find ${selector} for 5 time, enable default`)
+                    trackEvent("Mobile homepage show sticky CTA", {
+                        "sticky_CTA_shown": false,
+                        "error": "element not found in 5 attempts"
+                    })
+                    return
+                }
+
+                //Wait till sticky element loads
+                if ($(selector).length === 0) {
+                    return setTimeout(() => tryToShowCTA(selector, showCTA, retry++), 100)
+                }
+
+                //mixpanel tracking
+                trackEvent("Mobile homepage show sticky CTA", { "sticky_CTA_shown": showCTA })
+
+                if (showCTA) {
+                    $(document).ready(() => {
+                        $(selector).removeClass('d-none'); //restores div#sticky-cta to default of display:block
+                    })
+                }
+            }
+
+            //See schema for variantAttachment object at https://stage-flagr.becausemarket.com/#/flags/39
+            //ctaSectionSelector is always "div#sticky-cta"
+            //and showCTA is distributed between true or false
+            tryToShowCTA(result.variantAttachment.ctaSectionSelector, result.variantAttachment.showCTA)
+        })
+    }
+
+
+
+
+</script>
+
+
+<div id="sticky-cta" class="d-none">
+    <a class="btn index-sticky-cta" href="https://try.becausemarket.com/api/v1/split/subscribe">
+        <h2><i class="fa fa-hand-pointer-o"></i> Click HERE to take our Fit Quiz!</h2>
+    </a>
+</div>

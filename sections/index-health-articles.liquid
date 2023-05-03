@@ -1,0 +1,220 @@
+<!-- /sections/index-health-articles.liquid-->
+
+{% if section.blocks.size > 0 %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // tracking
+            const ARTICLE_LINK_SELECTOR = '.health-articles-item-link'
+            const SEE_ALL_SELECTOR = '.health-articles__see-all'
+
+            document.querySelectorAll(ARTICLE_LINK_SELECTOR).forEach((bundleLink) => {
+                bundleLink.addEventListener('click', () => mixpanel.track('Redesign Bundle Product Clicked'))
+            })
+
+            document.querySelector(SEE_ALL_SELECTOR).addEventListener('click', () => mixpanel.track('Redesign Bundle CTA clicked'))
+        })
+    </script>
+
+    <div class="health-articles" data-section-id="{{ section.id }}" data-section-type="healthArticles">
+        <h2 class="health-articles__title">Health Articles</h2>
+        <div class="health-articles-content">
+            {% for collection in section.blocks %}
+                {% if collection.settings.url != "" %}
+                    <a href="{{ collection.settings.url }}" class="health-articles-item-link">
+                {% endif %}
+                <span class="health-articles-item">
+                    <span class="health-articles-item__image" {% if collection.settings.image %}style="background-image:url('{{ collection.settings.image | img_url: '720x', format: 'pjpg', scale: '2' }}');"{% endif %}>
+                        {% if collection.settings.label_text != "" %}
+                            <span class="health-articles-item__label">{{ collection.settings.label_text }}</span>
+                        {% endif %}
+                    </span>
+                    {% if collection.settings.title %}
+                        <span class="health-articles-item__title">{{ collection.settings.title }}</span>
+                    {% endif %}
+                    {% if collection.settings.description %}
+                        <span class="health-articles-item__description">{{ collection.settings.description }}</span>
+                    {% endif %}
+                </span>
+                {% if collection.settings.url != "" %}
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% if section.settings.action_url != blank or section.settings.action_text != blank %}
+            <div class="health-articles__actions">
+                <a href="{{ section.settings.action_url }}" class="health-articles__see-all">{{ section.settings.action_text }}</a>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% stylesheet %}
+    .health-articles {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 72px;
+        margin-bottom: 90px;
+    }
+
+    .health-articles__title {
+        display: block;
+        font-family: "Cooper Md BT W05 Regular";
+        font-size: 36px;
+        font-weight: 500;
+        line-height: 50px;
+        text-align: left;
+    }
+
+    .health-articles-content {
+        display: grid;
+        grid-column-gap: 24px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr;
+        width: 100%;
+        height: auto;
+        overflow-x: auto;
+    }
+
+    .health-articles__actions {
+        padding-top: 64px;
+        text-align: center;
+    }
+
+    .health-articles-content a {
+        color: #333333;
+    }
+
+    .health-articles-item {
+        display: block;
+        color: #333333;
+    }
+
+    .health-articles-item__image {
+        position: relative;
+        display: block;
+        min-width: 154px;
+        padding-top: 66.6%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+
+    .health-articles-item__label {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 12px;
+        max-width: calc(100% - 24px);
+        background-color: #fff;
+        color: #333333;
+        padding: 7px 17px;
+        border-radius: 0 18px;
+        font-family: "Graphik Medium"
+        font-size: 14px;
+        box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    .health-articles-item__title {
+        display: block;
+        font-family: "Cooper Md BT W05 Regular";
+        font-size: 24px;
+        line-height: 35px;
+        padding: 18px 0;
+    }
+
+    .health-articles-item__description {
+        display: block;
+        font-family: "Graphik Regular";
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 30px;
+    }
+
+    .health-articles__see-all,
+    .health-articles__see-all:hover,
+    .health-articles__see-all:active {
+        display: inline-block;
+        padding: 17px 36px;
+        font-family: "Cooper Md BT W05 Regular";
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 25px;
+        text-decoration: none;
+        background: #0AE5DA;
+        color: #333333;
+        border-radius: 30px;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 767px) {
+        .health-articles {
+            padding: 0 24px 60px;
+        }
+
+        .health-articles-content {
+            grid-column-gap: 12px;
+        }
+
+        .health-articles-item__title {
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .health-articles-item__description {
+            display: none;
+        }
+    }
+{% endstylesheet %}
+
+{% schema %}
+    {
+        "name": "Health Articles",
+        "tag": "section",
+        "max_blocks": 3,
+        "blocks": [
+            {
+                "name": "Item",
+                "type": "collection",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    }, {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title"
+                    }, {
+                        "type": "richtext",
+                        "id": "description",
+                        "label": "description"
+                    }, {
+                        "type": "text",
+                        "id": "url",
+                        "label": "URL"
+                    }, {
+                        "type": "text",
+                        "id": "label_text",
+                        "label": "Label text"
+                    }
+                ]
+            }
+        ],
+        "settings": [
+            {
+                "type": "text",
+                "id": "action_url",
+                "label": "Action button URL"
+            }, {
+                "type": "text",
+                "id": "action_text",
+                "label": "Action button text"
+            }
+        ],
+        "presets": [{
+            "name": "Health Articles",
+            "category": "Custom Sections"
+        }]
+    }
+{% endschema %}

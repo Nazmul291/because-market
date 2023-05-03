@@ -1,0 +1,11 @@
+<!-- snippets/shop-menu-collection-image.liquid -->
+
+{% comment %} 
+Below assumes the picture names in shopify admin > settings > files are formatted 
+exactly like:  mensincontinence_shop_menu.jpg or wellness_shop_menu.jpg
+{% endcomment %}
+{% capture pictureTitle %}
+{{ collectionName | remove: " " | remove: "'" | replace: "&", "" | downcase }}_shop_menu.jpg
+{% endcapture %}
+
+<img src = "{{ pictureTitle | strip | file_img_url: '144x144' }}" alt="{{collectionName}} image" >

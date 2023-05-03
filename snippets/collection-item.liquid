@@ -1,0 +1,20 @@
+<div class="grid__item {{ grid_width_small }} {{ grid_width_medium }} {{ grid_width_large }}" {{ block.shopify_attributes }} data-aos="fade-up">
+    <div class="collection-grid-item {{ section.settings.color }}">
+        <a href="{% if collection %}/collections/{{collection}}{% else %}#{% endif %}" class="collection-grid-item__link">
+            <div class="collection-grid-item__content__wrapper">
+                <div class="collection-grid-item__content">
+                    <h2 class="h5--body collection-grid-item__title">{{ name }}</h2>
+                    {% if subtitle %}
+                    <h4 class="h6--body collection-grid-item__description">{{ subtitle }}</h4>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="collection-grid-item__overlay lazyload">
+                <img src="{{ img }}">
+            </div>
+            <noscript>
+                <div class="collection-grid-item__overlay" style="background-image: url({{ img }})"></div>
+            </noscript>
+        </a>
+    </div>
+</div>

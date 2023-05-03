@@ -1,0 +1,567 @@
+<!-- /sections/page.incontinence.liquid-->
+
+{%- assign page_nav = linklists[section.settings.page_nav] -%}
+
+{%- assign page_nav_enable = false -%}
+{%- if page_nav.links.size > 0 -%}
+  {%- assign page_nav_enable = true -%}
+{%- endif -%}
+
+{%- assign page_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+{%- assign title_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+
+{%- if page_nav_enable %}
+  {%- assign page_grid = 'medium-up--three-quarters' -%}
+  {%- assign title_grid = 'one-whole' -%}
+{%- endif -%}
+
+{% if page.title contains 'Women' %}
+  {% assign gender = 'Women' %}
+  {% assign pads_icon = 'icon-pads.png' | file_url %}
+  {% assign pads_type = 'Pads' %}
+  {% assign plant_background = 'bladder-women-plant.png' | file_url %}
+  {% assign category_row_class = 'women' %}
+  {% assign category_col_class = 'col-md-5' %}
+  {% assign fit_mobile_image = 'bladder-women-fit-mobile.png' | file_url %}
+  {% assign funnel_url = '' %}
+  {% assign category_col_desktop_class = 'col-5 offset-1' %}
+  {% assign nobulking_mobile_image = 'bladder-women-nobulking-mobile.png' | file_url %}
+  {% assign nobulking_mobile_image2 = 'bladder-women-nobulking-mobile2.png' | file_url %}
+  {% assign nobulking_col_class = 'col-md-4' %}
+  {% assign testimonial_text = "“They are soft, absorbent, and comfortable. I no longer have any excoriated skin, and don't need to worry about odors. Thank you!”" %}
+  {% assign testimonial_avatar = 'laurie-avatar.png' | file_url %}
+  {% assign testimonial_commentor_name = 'Luarie' %}
+  {% assign noodor_col_class = 'col-md-6' %}
+  {% assign noodor_mobile_image = 'bladder-women-no-odor-mobile.png' | file_url %}
+  {% assign build_image = 'bladder-women-build.png' | file_url %}
+  {% assign discreetly_mobile_image = 'bladder-women-discreetly-mobile.png' | file_url %}
+  {% assign invisible_title = 'Easy to bring. Discreetly.' %}
+  {% assign invisible_description = 'Compact design means Because pads will fit in your bag or pocket. You’re covered whether you’re having coffee with a friend, out in the garden, or playing with kids or grandkids.' %}
+  {% assign invisible_foot_note = '' %}
+  {% assign collection_page_url = '/collections/for-women' %}
+{% else %}
+  {% assign gender = 'Men' %}
+  {% assign pads_icon = 'icon-guards.png' | file_url %}
+  {% assign pads_type = 'Guards' %}
+  {% assign plant_background = 'bladder-men-pants.png' | file_url %}
+  {% assign category_row_class = 'men' %}
+  {% assign category_col_class = 'col-md-4' %}
+  {% assign fit_mobile_image = 'bladder-men-fit-mobile.png' | file_url %}
+  {% assign funnel_url = '' %}
+  {% assign category_col_desktop_class = 'col-7' %}
+  {% assign nobulking_mobile_image = 'bladder-men-nobulking-mobile.png' | file_url %}
+  {% assign nobulking_mobile_image2 = 'bladder-men-nobulking-mobile.png' | file_url %}
+  {% assign nobulking_col_class = 'col-md-5' %}
+  {% assign testimonial_text = "“Good product that works well at a reasonable price. The convenience of auto shipping seals the deal.”" %}
+  {% assign testimonial_avatar = 'william_avatar.png' | file_url %}
+  {% assign testimonial_commentor_name = 'William A.' %}
+  {% assign noodor_col_class = 'col-md-7' %}
+  {% assign noodor_mobile_image = 'bladder-men-no-odor-mobile.png' | file_url %}
+  {% assign build_image = 'bladder-men-build.png' | file_url %}
+  {% assign discreetly_mobile_image = 'bladder-men-discreetly-mobile.png' | file_url %}
+  {% assign invisible_title = 'Definitely invisible' %}
+  {% assign invisible_description = 'Anatomically designed to offer cup shaped protection, our guards are used in your own briefs or boxer briefs. Our guards provide the protection you need to get back into your running shoes or daily activities.' %}
+  {% assign invisible_foot_note = 'several length options.' %}
+  {% assign collection_page_url = '/collections/for-men' %}
+{% endif %}
+
+
+<div class="wrapper">
+  <div class="grid--extended">
+    <div class="bladder-products-wrapper">
+      <div class="modal" id="size-modal" role="dialog" tabindex="-1">
+        <div class="modal-dialog size-modal modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="text-right modal-close" data-dismiss="modal">Close</div>
+              <table align="center">
+                <thead>
+                  <th>Size</th>
+                  <th>Waist</th>
+                  <th>Hips</th>
+                  <th>Weight</th>
+                </thead>
+                <tr>
+                  <td>S/M</td>
+                  <td>28-38</td>
+                  <td>28-38</td>
+                  <td>115-190 lbs</td>
+                </tr>
+                <tr>
+                  <td>L</td>
+                  <td>38-48</td>
+                  <td>38-48</td>
+                  <td>170-260 lbs</td>
+                </tr>
+                <tr>
+                  <td>XL</td>
+                  <td>48-62</td>
+                  <td>48-62</td>
+                  <td>200-300 lbs</td>
+                </tr>
+                <tr>
+                  <td>XXL</td>
+                  <td>62-70</td>
+                  <td>62-70</td>
+                  <td>300+ lbs</td>
+                </tr>
+              </table>
+              <div class="how-to-measure">
+                <div class="title">How to measure</div>
+                <div class="row">
+                  <div class="col-12 col-md-6 pr-0">
+                    <img src="{{ 'bladder-women-measure.png' | file_url }}"/>
+                  </div>
+                  <div class="col-12 col-md-6 pl-0">
+                    <img src="{{ 'bladder-men-measure.png' | file_url }}"/>
+                  </div>
+                </div>
+                <p class="footnote">
+                  Waist: Measure around your natural waistline.<br/>
+                  Hips: Stand with your feet together and measure atound the fullest part of your hips.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container-fluid incontinence">
+        <div class="row bladder-title-row">
+          <div class="col-12">
+            <h1 class="title-header">Quality Bladder
+              <br class="d-none d-md-block"/>
+              Protection for
+              {{ gender }}
+            </h1>
+            <div class="subtitle-header">Shipped discreetly to your doorstep each month.</div>
+          </div>
+        </div>
+        <div class="row products-title-row" id="padsguardsheader">
+          <div class="col-6 col-md-3 col-lg-2 offset-md-3 offset-lg-4">
+            <a class="pointer" onclick="showSection('#underwear')">
+              <img src="{{ 'logo_underwear.png' | file_url }}"/>
+              Underwear
+            </a>
+          </div>
+          <div class="col-6 col-md-3 col-lg-2">
+            <a class="pointer" onclick="showSection('#guardspads')">
+              <img src="{{ pads_icon }}"/>
+              {{ pads_type }}
+            </a>
+          </div>
+        </div>
+        <div class="row title-image-row">
+          <div class="col-12 p-0">
+            <img class="full-width" src="{{ plant_background }}"/>
+          </div>
+        </div>
+
+        <div class="complete-bladder-products row">
+          <div class="container-fluid">
+            <div class="col-12">
+              <h2 class="section-header">Complete bladder protection</h2>
+            </div>
+            <div class="wrapper">
+              {% include 'complete-bladder-protection' %}
+            </div>
+          </div>
+        </div>
+
+        <div class="row core-row">
+          <div class="col-12 col-md-5 offset-md-1 order-12 order-md-1 my-auto core-text">
+            <h2 class="section-header">Our unique
+              <br/>absorption core</h2>
+            <p class="cooper section-text">
+              We partnered with urologists at Stanford Medical Center
+                                to develop cutting-edge new materials.
+                                Our pads and underwear are 25% more absorbent than leading brands*
+                                - that means less leaks, better protection, and more comfort.
+            </p>
+            <p class="cooper-italics footnote">
+              *For example, US Industry average is 1200mL absorbency for an overnight product - ours is over 1500mL.
+            </p>
+          </div>
+          <div class="col-12 col-md-6 order-1 order-md-6 p-0">
+            <img class="full-width" src="{{ 'bladder-absorb-mobile.png' | file_url }}"/>
+          </div>
+        </div>
+
+        <div class="row perfect-fit-row product-number-row {{ category_row_class }}" id="underwear">
+          <div class="col-12 {{ category_col_class }} offset-md-1 p-0">
+            <div class="container-fluid p-0">
+              <div class="row">
+                <div class="col-12 product-number col-xs-12">
+                  <hr/>
+                  <p class="cooper spaced-header">
+                    1. OUR UNDERWEAR
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 d-block d-md-none">
+                  <img class="full-width h-100" src="{{ fit_mobile_image }}"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-11 offset-md-1 core-text">
+                  <h2 class="section-header">Always the<br/>perfect fit</h2>
+                  <p class="cooper info section-text">
+                    Contoured with a
+                    <br/>
+                    next-generation cotton blend for optimal fit and comfort.
+                                                  A new kind of adaptive absorbent material holds
+                                                  snugly in place and eliminates leakage.
+                                                  Our proven fit quiz will guide you towards the
+                                                  perfect customized fit.
+                  </p>
+                  <a href="{{ collection_page_url }}" class="button button-blue d-none d-md-inline-block funnel-link">
+                    <span>View Here</span>
+                  </a>
+                  <img src="{{ 'icon-size-table-icon.png' | file_url }}"/>
+                  <a class="cooper" data-target="#size-modal" data-toggle="modal">SIZE
+                                                  TABLE</a>
+                  <div class="spacer">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="{{ category_col_desktop_class }} d-none d-md-block p-0">
+            <img class="full-width" src="{{ fit_mobile_image }}"/>
+          </div>
+        </div>
+
+        <div class="row no-bulking testimonials-row {{ category_row_class }}">
+          <div class="col-12 d-block d-md-none">
+            <img class="full-width" src="{{ nobulking_mobile_image }}"/>
+          </div>
+          <div class="col-12 col-md-3 offset-md-1 my-auto core-text">
+            <h2 class="section-header">No bulking</h2>
+            <p class="cooper section-text">
+              Premium quality cotton-like fabric holds snugly
+                                in place without bulking up under pants or dresses.
+                                Making it feel like underwear, not like a diaper.
+            </p>
+            <a href="{{ collection_page_url }}" class="button button-blue d-none d-md-inline-block funnel-link">
+              <span>View Here</span>
+            </a>
+          </div>
+          <div class="{{ nobulking_col_class }} d-none d-sm-block">
+            <img class="full-width" src="{{ nobulking_mobile_image2 }}"/>
+          </div>
+          <div class="col-12 col-md-3 my-auto p-0">
+            <div class="container-fluid testimonials-container">
+              <div class="row">
+                <div class="col-2 p-0">
+                  <hr/>
+                </div>
+                <div class="col-10 p-0">
+                  <p class="cooper testimonials-text">
+                    {{ testimonial_text}}
+                  </p>
+                </div>
+              </div>
+              <div class="row testimonials">
+                <div class="col-10 offset-1">
+                  <img class="avatar" src="{{ testimonial_avatar }}"/>
+                  <span>{{ testimonial_commentor_name }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row dry-clean-row reverse-title-row <?php output_men_women('men', 'women')?>">
+          <div class="col-12 {{ noodor_col_class }} p-0">
+              <img class="full-width"
+                  src="{{ noodor_mobile_image }}" />
+          </div>
+          <div class="col-12 col-md-5 my-auto mx-auto core-text">
+              <h2 class="section-header">Drier, cleaner, no more odors</h2>
+              <p class="cooper section-text">
+                  Engineered leg openings with full elastic coverage
+                  prevent outside leaks. Double-stitching in the
+                  leg barrier provides exceptional protection and
+                  reduces odors.
+              </p>
+              <hr />
+              <p class="cooper footnote">
+                  Available in three absorbencies, <span class="bold">Moderate</span> and <span
+                      class="bold">Maximum</span> for during the day and <span class="bold">Overnight</span> for the
+                  nighttime.
+              </p>
+              <a href="{{ collection_page_url }}"
+                  class="button button-blue d-none d-md-inline-block funnel-link"><span>View Here</span></a>
+          </div>
+        </div>
+
+        <div class="row incontinence-because">
+          <div class="col-12">
+              {% include 'why-because-section' %}
+          </div>
+        </div>
+
+        <div id="guardspads" class="row build-row product-number-row {{ category_row_class }}">
+          <div class="col-12 col-md-5 offset-md-1 p-0">
+              <div class="container-fluid p-0">
+                  <div class="row">
+                      <div class="col-12 product-number">
+                          <hr />
+                          <p class="cooper spaced-header">
+                              2. OUR {{ pads_type }}
+                          </p>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12 d-block d-md-none">
+                          <img class="full-width h-100" src="{{ build_image }}" />
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12 col-md-11 offset-md-1 core-text">
+                          <h2 class="section-header">Simply better</h2>
+                          <p class="cooper info section-text">
+                              Advanced new materials in the Because <?php output_men_women('guards', 'pads')?>
+                              line were developed with urologists at Stanford Medical Center.
+                              A new and unique absorption core captures and holds moisture quickly and completely.
+                              A new, softer kind of quick-drying outer layer wicks liquid away from your body,
+                              keeping you dry and comfortable.
+                          </p>
+                          <a href="{{ collection_page_url }}" class="button button-blue d-none d-md-inline-block funnel-link"><span>View Here</span></a>
+                      </div>
+                  </div>
+                  <div class="col-12 col-md-11 offset-md-1 my-auto core-text">
+                      <div class="container-fluid testimonials-container">
+                          <div class="row">
+                              <div class="col-2 p-0">
+                                  <hr />
+                              </div>
+                              <div class="col-10 p-0">
+                                  <p class="cooper testimonials-text">
+                                      <span class="d-none d-sm-block">“These pads are so soft & comfortable! Love
+                                          them!”</span>
+                                      <span class="d-block d-sm-none">
+                                          “They are soft, absorbent, and comfortable.
+                                          I no longer have any <br class="d-block d-md-none" />excoriated skin, and
+                                          don't<br class="d-block d-md-none" /> need to worry about odors. <br />Thank
+                                          you!”
+                                      </span>
+                                  </p>
+                              </div>
+                          </div>
+                          <div class="row testimonials">
+                              <div class="col-10 offset-1">
+                                  <img src="{{ 'kay-avatar.png' | file_url }}" />
+                                  <span>Key B</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-6 d-none d-md-block p-0">
+              <img class="full-width"
+                  src="{{ build_image }}" />
+          </div>
+        </div>
+
+        <div class="row women-invisible-only testimonials-row {{ category_row_class }}>">
+          <div class="col-12 d-block d-md-none">
+              <img class="full-width" src="{{ 'bladder-women-invisible-and-thin.png' | file_url }}" />
+          </div>
+          <div class="col-12 col-md-4 offset-md-1 my-auto core-text">
+              <h2 class="section-header">Invisible and thin</h2>
+              <p class="cooper section-text">
+                  Super locking adhesive will keep the pad in place.
+                  Anatomically designed just for women,
+                  the invisible profile and hourglass shape of
+                  Because pads keeps them thin so they fit in any underwear.
+              </p>
+              <a href="{{ collection_page_url }}"
+                  class="button button-blue d-none d-md-inline-block funnel-link"><span>View Here</span></a>
+          </div>
+          <div class="col-md-7 d-none d-sm-block p-0">
+              <img class="full-width"
+                  src="{{ 'bladder-women-invisible-and-thin.png' | file_url }}" />
+          </div>
+
+        </div>
+
+        <div class="row discreetly-row reverse-title-row {{ category_row_class }}">
+          <div class="col-12 col-md-7">
+              <img class="full-width"
+                  src="{{ discreetly_mobile_image }}" />
+          </div>
+          <div class="col-12 col-md-5 my-auto mx-auto core-text">
+              <h2 class="section-header">
+                  {{ invisible_title }}
+              </h2>
+              <p class="cooper section-text">
+                {{ invisible_description}}
+              </p>
+              <hr />
+              <p class="cooper footnote">
+                  Available in three absorbencies, <span class="bold">Moderate</span> and <span
+                      class="bold">Maximum</span> for during the day and <span class="bold">Overnight</span>
+                  absorbencies {{ invisible_foot_note }}
+              </p>
+              <a href="{{ collection_page_url }}"
+                  class="button button-blue d-none d-md-inline-block funnel-link"><span>View Here</span></a>
+          </div>
+        </div>
+
+        <div class="row why-love-because-row">
+          <div class="col-12">
+              <h2 class="section-header">Why {{ gender }} love Because</h2>
+          </div>
+          <div class="col-10 offset-1">
+            {% include 'incontinence-reviews' %}
+          </div>
+        </div>
+
+        <div class="leak-info-row row">
+          <div class="col-12 leak-info-container d-flex flex-column align-self-center justify-content-center">
+              <div class="spaced-header">FIND YOUR SOLUTION</div>
+              <div class="leak-info">
+                  Around 50% of leaks happen because of incorrect fit.
+              </div>
+              <div class="text-center mx-auto">
+                  <div class="button button-blue button-find funnel-link"><span>Find your perfect fit</span></div>
+              </div>
+          </div>
+        </div>
+
+        <div class="row compare-table-row">
+          <div class="section-header d-block d-md-none">Us versus the rest</div>
+          <table class="table my-auto mx-auto">
+              <thead>
+                  <th>Us versus the rest</th>
+                  <th><img class="logo-white" src="{{ 'logo_logo-white.png' | file_url }}" /></th>
+                          <th>THE REST</th>
+              </thead>
+              <tr>
+                  <td>Average absorption</td>
+                  <td>25% more (1500mL)</td>
+                  <td>1200mL</td>
+              </tr>
+              <tr>
+                  <td>Great fit</td>
+                  <td><img src="{{ 'icon-check.png' | file_url }}" /></td>
+                  <td><img src="{{ 'icon-x.png' | file_url }}" /></td>
+              </tr>
+              <tr>
+                  <td>Delivery to your doorstep</td>
+                  <td><img src="{{ 'icon-check.png' | file_url }}" /></td>
+                  <td><img src="{{ 'icon-x.png' | file_url }}" /></td>
+              </tr>
+              <tr>
+                  <td>Personal care and advice</td>
+                  <td><img src="{{ 'icon-check.png' | file_url }}" /></td>
+                  <td><img src="{{ 'icon-x.png' | file_url }}" /></td>
+              </tr>
+              <tr>
+                  <td>Customer satisfaction</td>
+                  <td>
+                      <img src="{{ 'icon-star-cyan.png' | file_url }}" />
+                      <img src="{{ 'icon-star-cyan.png' | file_url }}" />
+                      <img src="{{ 'icon-star-cyan.png' | file_url }}" />
+                      <img src="{{ 'icon-star-cyan.png' | file_url }}" />
+                      <img src="{{ 'icon-star-cyan.png' | file_url }}" />
+                      <div>5 star rating</div>
+                  </td>
+                  <td>
+                      <img src="{{ 'icon-dark-gray-star.png' | file_url }}" />
+                      <img src="{{ 'icon-dark-gray-star.png' | file_url }}" />
+                      <img src="{{ 'icon-dark-gray-star.png' | file_url }}" />
+                      <img src="{{ 'icon-semi-field-star.png' | file_url }}" />
+                      <img src="{{ 'icon-light-gray-star.png' | file_url }}" />
+                      <div>3.1 star rating</div>
+                  </td>
+              </tr>
+          </table>
+        </div>
+
+
+
+        <div class="smarter-way-row row">
+          <div class="col-12 col-md-3 offset-md-1 my-auto order-12 order-md-1">
+              <h2 class="section-header">A smarter way to try</h2>
+              <p class="cooper section-text">
+                  The Because fit quiz was developed and honed by helping
+                  tens of thousands of members find their perfect fit.
+                  The options in your starter pack are thoughtfully
+                  selected based on the specifics of your needs.
+              </p>
+              <div class="button button-blue button-trial funnel-link"><span>Get your FREE starter pack</span></div>
+          </div>
+          <div class="col-12 col-md-8 p-0 order-1 order-md-5 ">
+              <img class="w-100" src="{{ 'delivery-mobile.png' | file_url }}" />
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <div class="container-fluid">
+        <div class="wrapper">
+          {% include 'featured-products-slider' %}
+        </div>
+      </div>
+
+      {% include 'home-help-section' %}
+    </div>
+  </div>
+</div>
+
+<!-- Theme Javascript ============================================================== -->
+{{ 'bootstrap.js' | asset_url | script_tag }}
+<script>
+  jQuery("#completeBladderCarousel .carousel-item").first().addClass("active");
+</script>
+
+<script>
+  window.onscroll = function() {
+      myFunction()
+  };
+
+  function showSection(sectionID) {
+    jQuery('html, body').animate({
+      scrollTop: jQuery(sectionID).offset().top-80
+    }, 500);
+
+    return false
+  }
+  const header = document.getElementById("padsguardsheader");
+  const sticky = header.offsetTop;
+
+  function myFunction() {
+      if (window.pageYOffset > sticky) {
+          header.classList.add("sticky");
+      } else {
+          header.classList.remove("sticky");
+      }
+  }
+</script>
+
+{% schema %}
+
+{
+  "name": "Page",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "page_nav",
+      "label": "Secondary page navigation",
+      "info": "This menu won't show dropdown items"
+    }, {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show page title",
+      "default": true
+    }
+  ]
+}
+
+{% endschema %}

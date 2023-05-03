@@ -1,0 +1,2937 @@
+{
+  "current": {
+    "gladly_env": "PROD",
+    "segment_analytics_write_key": "Hv3ZsMPCsyCNshpEty9xjJDqb2vPbfvC",
+    "checkout_cart_redirect": "https://dev.store2.becausemarket.com/",
+    "type_heading_font": "itc_caslon_no_224_n9",
+    "type_heading_size": 100,
+    "type_base_font": "harmonia_sans_n4",
+    "type_body_size": 100,
+    "type_number_font": "din_next_slab_n4",
+    "type_number_size": 100,
+    "color_body_text": "#586272",
+    "accent_warm": "#197bbd",
+    "accent_cool": "#586272",
+    "color_border": "#dfe1e3",
+    "color_body_light": "#667799",
+    "color_nav_bg": "#fcfcf4",
+    "color_nav_text": "#667799",
+    "color_nav_border": "rgba(0,0,0,0)",
+    "color_footer_bg": "#667799",
+    "color_footer_text": "#ffffff",
+    "color_product_grid": "rgba(0,0,0,0)",
+    "layout_container_enable": true,
+    "decoration_style": "decoration-none",
+    "share_facebook": true,
+    "share_twitter": false,
+    "share_pinterest": false,
+    "social_twitter_link": "",
+    "social_facebook_link": "https://www.facebook.com/becausemarket",
+    "social_pinterest_link": "",
+    "social_instagram_link": "https://www.instagram.com/because_market/?hl=en",
+    "social_snapchat_link": "",
+    "social_tumblr_link": "",
+    "social_youtube_link": "https://www.youtube.com/channel/UCg0UStPL8YT7fgJeyGRrAcA",
+    "social_vimeo_link": "",
+    "social_home_image": "",
+    "cart_notes_enable": false,
+    "cart_show_additional_buttons": false,
+    "cart_continue_browsing": "shopify://collections/all-incontinence",
+    "collection_text_alignment": "text-left",
+    "show_vendow": "hide-vendor",
+    "image_hover_enable": true,
+    "tag_sellout": false,
+    "tag_sale": false,
+    "tag_new": false,
+    "tag_new_limit": 14,
+    "favicon": "shopify://shop_images/because-favicon-32.png",
+    "checkout_header_image": "",
+    "checkout_logo_image": "",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_accent_color": "#197bbd",
+    "checkout_button_color": "#197bbd",
+    "checkout_error_color": "#e32c2b",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_max_width": 160,
+          "main_linklist": "",
+          "show_search": false,
+          "show_social": false,
+          "transparent": false,
+          "opacity": 0,
+          "transparent_text_color": "#ffffff",
+          "message": true,
+          "home_page_only": true,
+          "message_text": "Enjoy Free Shipping on Orders Over $25",
+          "message_link": "",
+          "color_bg": "#667799",
+          "color_text": "#ffffff"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "footer_linklist": "shop",
+          "footer_second_linklist": "because",
+          "footer_third_linklist": "account",
+          "footer_bottom_linklist": "footer",
+          "contact_text": "Our Customer Support team is here to help. Just call or text us M-F 9am–6pm ET at 855-318-5318.",
+          "contact_support": "help@becausemarket.com",
+          "contact_inquiries": "",
+          "footer_social_enable": true,
+          "footer_payment_enable": false
+        }
+      },
+      "default-reviews": {
+        "type": "reviews",
+        "disabled": true,
+        "blocks": {
+          "default-reviews-0": {
+            "type": "review",
+            "settings": {
+              "title": "Barbara",
+              "job": "May 2019",
+              "stars": 5,
+              "text": "<p>“I am very happy with my Because underwear and it’s so convenient to have them delivered to my door.”</p>"
+            }
+          },
+          "default-reviews-1": {
+            "type": "review",
+            "settings": {
+              "title": "Rachel",
+              "job": "January 2020",
+              "stars": 5,
+              "text": "<p>&quot;I love the convenience of receiving my product in the mail. The pads are very nice.&quot;</p>"
+            }
+          },
+          "default-reviews-2": {
+            "type": "review",
+            "settings": {
+              "title": "Carol",
+              "job": "May 2019",
+              "stars": 5,
+              "text": "<p>“Because is comfortable, strong and very absorbent. The best underwear, and I have tried so many.”</p>"
+            }
+          },
+          "default-reviews-3": {
+            "type": "review",
+            "settings": {
+              "title": "Roy",
+              "job": "October 2019",
+              "stars": 5,
+              "text": "<p>&quot;Because gives me the confidence to know my bed is safe at night. This is now a crucial product in my life!&quot;</p>"
+            }
+          }
+        },
+        "block_order": [
+          "default-reviews-0",
+          "default-reviews-1",
+          "default-reviews-2",
+          "default-reviews-3"
+        ],
+        "settings": {
+          "title": "Testimonials",
+          "description": "Learn why our customers love our products",
+          "background_color": "index--gray"
+        }
+      },
+      "default-featured-news": {
+        "type": "index-featured-news",
+        "disabled": true,
+        "settings": {}
+      },
+      "default-subtitle-row": {
+        "type": "index-subtitle-row",
+        "disabled": true,
+        "settings": {}
+      },
+      "default-sleeping": {
+        "type": "index-sleeping",
+        "disabled": true,
+        "settings": {}
+      },
+      "default-seen-us": {
+        "type": "index-seen-us",
+        "disabled": true,
+        "settings": {}
+      },
+      "default-choose-us": {
+        "type": "index-choose-us",
+        "disabled": true,
+        "settings": {}
+      },
+      "default-quiz-start": {
+        "type": "index-quiz-start",
+        "disabled": true,
+        "settings": {}
+      },
+      "default-popular-products": {
+        "type": "index-popular-products",
+        "disabled": true,
+        "settings": {
+          "collection": "popular-products"
+        }
+      },
+      "default-slideshow": {
+        "type": "index-slideshow",
+        "disabled": true,
+        "blocks": {
+          "1214ac88-27fb-45fd-bffd-90f785e1c9f3": {
+            "type": "image",
+            "settings": {
+              "overlay_opacity": 0,
+              "title": "Because I have things to do.",
+              "description": "Our Underwear and Pads keep you dry.",
+              "text_align": "align--middle-left",
+              "text_color": "text-dark",
+              "transparent": true,
+              "link_text": "View products",
+              "link": "",
+              "button_style": "btn btn--large"
+            }
+          },
+          "default-slideshow-0": {
+            "type": "image",
+            "settings": {
+              "overlay_opacity": 0,
+              "title": "Because I always stay fresh.",
+              "description": "Skin care crafted for your needs.",
+              "text_align": "align--middle-left",
+              "text_color": "text-dark",
+              "transparent": true,
+              "link_text": "Shop Now",
+              "link": "shopify://collections/personalcare",
+              "button_style": "btn btn--large"
+            }
+          },
+          "default-slideshow-1": {
+            "type": "image",
+            "settings": {
+              "overlay_opacity": 0,
+              "title": "Because pain won't keep me out of the action.",
+              "description": "Hemp products formulated specifically for older adults.",
+              "text_align": "align--middle-left",
+              "text_color": "text-dark",
+              "transparent": true,
+              "link_text": "Shop Now",
+              "link": "shopify://collections/for-women",
+              "button_style": "btn btn--large"
+            }
+          },
+          "default-slideshow-3": {
+            "type": "image",
+            "settings": {
+              "overlay_opacity": 0,
+              "title": "Because I deserve a good night's sleep.",
+              "description": "Super absorbent Overnight Underwear keeps you resting.",
+              "text_align": "align--middle-left",
+              "text_color": "text-dark",
+              "transparent": true,
+              "link_text": "Shop Now",
+              "link": "shopify://collections/personalcare",
+              "button_style": "btn btn--large"
+            }
+          },
+          "1582058327294": {
+            "type": "image",
+            "settings": {
+              "overlay_opacity": 0,
+              "title": "Because my life is nobody's business.",
+              "description": "Discreet delivery in plain packages, always.",
+              "text_align": "align--middle-left",
+              "text_color": "text-dark",
+              "transparent": true,
+              "link_text": "Shop Now",
+              "link": "shopify://collections/for-men",
+              "button_style": "btn btn--large"
+            }
+          }
+        },
+        "block_order": [
+          "1214ac88-27fb-45fd-bffd-90f785e1c9f3",
+          "default-slideshow-0",
+          "default-slideshow-1",
+          "default-slideshow-3",
+          "1582058327294"
+        ],
+        "settings": {
+          "autoplay": true,
+          "autoplay_speed": 4,
+          "height": "use_screen_two_thirds"
+        }
+      },
+      "default-collection": {
+        "type": "index-collection",
+        "disabled": true,
+        "settings": {
+          "title": "Featured Products",
+          "description": "",
+          "collection": "featured-products",
+          "homepage_collection_color": "index--white",
+          "show_view_all": false
+        }
+      },
+      "default-collection-grid": {
+        "type": "index-collection-grid",
+        "disabled": true,
+        "blocks": {
+          "default-collection-grid-0": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "oral-care",
+              "title": "Oral Care"
+            }
+          },
+          "default-collection-grid-1": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "incontinence-1",
+              "title": "Bladder Protection"
+            }
+          },
+          "default-collection-grid-2": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "mobilitypain",
+              "title": "CBD"
+            }
+          }
+        },
+        "block_order": [
+          "default-collection-grid-0",
+          "default-collection-grid-1",
+          "default-collection-grid-2"
+        ],
+        "settings": {
+          "title": "Collections",
+          "description": "Get better care, delivered",
+          "grid": 3,
+          "color_bg": "index--white",
+          "title_hover": false
+        }
+      },
+      "collection": {
+        "type": "collection",
+        "settings": {
+          "show_title": true,
+          "show_description": true,
+          "show_menu": true,
+          "collection_custom_nav_list": "collection-sub-menu",
+          "collection_sorting": false,
+          "ads_url": ""
+        }
+      },
+      "product": {
+        "type": "product",
+        "settings": {
+          "show_share_buttons": false,
+          "product_show_vendor": false,
+          "enable_payment_button": true,
+          "enable_video_looping": true,
+          "zoom_enable": false,
+          "tabs_position": "below"
+        }
+      },
+      "related": {
+        "type": "related",
+        "settings": {
+          "related_products_enable": true,
+          "limit": 4,
+          "product_recommendations_heading": "Related products"
+        }
+      },
+      "1617887407f0f66948": {
+        "type": "index-shop-categories",
+        "disabled": true,
+        "blocks": {
+          "d8fbce19-c68b-4ca2-a4b6-f7b2544da298": {
+            "type": "collection",
+            "settings": {
+              "title": "Bladder Control",
+              "description": "Ultra-soft, absorbent, and slim underwear, pads, guards, and boosters.",
+              "item": "for-women",
+              "link_text": "Shop Women",
+              "item2": "for-men",
+              "link_text2": "Shop Men"
+            }
+          },
+          "2309f80f-ca44-4b47-beaa-1da282a88eee": {
+            "type": "collection",
+            "settings": {
+              "title": "Skincare",
+              "description": "Stay clean and fresh wherever you go.",
+              "item": "personalcare",
+              "link_text": "SHOP SKINCARE",
+              "item2": "",
+              "link_text2": ""
+            }
+          },
+          "742f3412-5283-459e-9c79-05375551c8da": {
+            "type": "collection",
+            "settings": {
+              "title": "Vitamins and Supplements",
+              "description": "Enhance your natural defenses and make complete nutrition easier than ever.",
+              "item": "vitamins-and-supplements",
+              "link_text": "SHOP VITAMINS AND SUPPLEMENTS",
+              "item2": "",
+              "link_text2": ""
+            }
+          },
+          "928b3afd-1757-4e7f-9c95-f3ab960e74af": {
+            "type": "collection",
+            "settings": {
+              "title": "Hemp",
+              "description": "Developed to relieve your pain, relax your mind, and improve your sleep.",
+              "item": "mobilitypain",
+              "link_text": "SHOP HEMP",
+              "item2": "",
+              "link_text2": ""
+            }
+          }
+        },
+        "block_order": [
+          "d8fbce19-c68b-4ca2-a4b6-f7b2544da298",
+          "2309f80f-ca44-4b47-beaa-1da282a88eee",
+          "742f3412-5283-459e-9c79-05375551c8da",
+          "928b3afd-1757-4e7f-9c95-f3ab960e74af"
+        ],
+        "settings": {}
+      },
+      "16179617959f169e17": {
+        "type": "index-featured-in",
+        "disabled": true,
+        "blocks": {
+          "f1e7616f-1596-4a9b-bfb8-2d2c70e988f9": {
+            "type": "company",
+            "settings": {
+              "title": "CBS",
+              "height": "23"
+            }
+          },
+          "d26d585d-3b65-4664-838b-4e560942d769": {
+            "type": "company",
+            "settings": {
+              "title": "Fast Company",
+              "height": "19"
+            }
+          },
+          "950d762f-e7e9-408e-bf37-cf9a2c184150": {
+            "type": "company",
+            "settings": {
+              "title": "USA Today",
+              "height": "29"
+            }
+          },
+          "4da78681-782f-43eb-a57f-0d300d4e9f6e": {
+            "type": "company",
+            "settings": {
+              "title": "Medium",
+              "height": "20"
+            }
+          },
+          "9ef4481b-579b-4cd3-8b35-70637107f572": {
+            "type": "company",
+            "settings": {
+              "title": "Radio Public",
+              "height": "24"
+            }
+          },
+          "9cfdcd48-5d33-460e-adfa-94a582f76d8f": {
+            "type": "company",
+            "settings": {
+              "title": "Forbes",
+              "height": "30"
+            }
+          },
+          "e5754a1f-1cf1-4f11-b30c-badde224bf73": {
+            "type": "company",
+            "settings": {
+              "title": "Fox40",
+              "height": "22"
+            }
+          },
+          "a2bf99e6-c009-48a4-87b9-2828de0b78c0": {
+            "type": "company",
+            "settings": {
+              "title": "yahoo!",
+              "height": "25"
+            }
+          }
+        },
+        "block_order": [
+          "f1e7616f-1596-4a9b-bfb8-2d2c70e988f9",
+          "d26d585d-3b65-4664-838b-4e560942d769",
+          "950d762f-e7e9-408e-bf37-cf9a2c184150",
+          "4da78681-782f-43eb-a57f-0d300d4e9f6e",
+          "9ef4481b-579b-4cd3-8b35-70637107f572",
+          "9cfdcd48-5d33-460e-adfa-94a582f76d8f",
+          "e5754a1f-1cf1-4f11-b30c-badde224bf73",
+          "a2bf99e6-c009-48a4-87b9-2828de0b78c0"
+        ],
+        "settings": {
+          "title": "Featured in"
+        }
+      },
+      "16179670295c228bb1": {
+        "type": "index-quiz-cta",
+        "disabled": true,
+        "settings": {
+          "top_text": "Not sure what products are right for you?",
+          "title": "Click below to start our fit quiz and get your FREE starter pack.",
+          "link_href": "https://try.becausemarket.com/api/v1/split/homepage",
+          "link_text": "Get Your FREE Starter Pack"
+        }
+      },
+      "1618317671bd65478c": {
+        "type": "index-top-banner",
+        "disabled": true,
+        "settings": {
+          "title": "<span>Because</span> it’s time for something better",
+          "text": "Our underwear and pads keep you dry.",
+          "button_text": "Get Your FREE Starter Pack",
+          "button_href": "https://try.becausemarket.com/api/v1/split/homepage"
+        }
+      },
+      "blog": {
+        "type": "blog",
+        "blocks": {
+          "c556863b-9679-48e1-b0f4-b751f7918d09": {
+            "type": "pinned_post",
+            "settings": {
+              "pinned_post": "news/tips-and-tricks-for-the-newly-incontinent-1"
+            }
+          },
+          "e9eefa3b-5d46-40aa-9b76-08e188bcb7a9": {
+            "type": "pinned_post",
+            "settings": {
+              "pinned_post": "news/tips-on-how-to-stay-hydrated"
+            }
+          },
+          "2bcd9b21-00c8-4e29-996e-1fca917ef8d5": {
+            "type": "pinned_post",
+            "settings": {
+              "pinned_post": "news/can-cbd-be-used-for-back-pain"
+            }
+          }
+        },
+        "block_order": [
+          "c556863b-9679-48e1-b0f4-b751f7918d09",
+          "e9eefa3b-5d46-40aa-9b76-08e188bcb7a9",
+          "2bcd9b21-00c8-4e29-996e-1fca917ef8d5"
+        ],
+        "settings": {
+          "show_tag_navigation": false,
+          "show_title": true,
+          "show_rss": false,
+          "show_meta": true,
+          "show_comments": true,
+          "show_excerpt": true,
+          "show_tags": false
+        }
+      },
+      "only-text": {
+        "type": "only-text",
+        "settings": {
+          "title": "We started <span> Because </span>with a simple idea",
+          "subtitle": "We wanted a better way to serve and support our families."
+        }
+      },
+      "color-text-img": {
+        "type": "color-text-img",
+        "settings": {
+          "rimg": "shopify://shop_images/Group_662.webp",
+          "lcont": "“We are the sons and daughters, caretakers, and friends who are willing drive all over town to ensure the people we love have everything they need.”",
+          "rtitle": "To our community:",
+          "rcont": "<p>We created this company to make it easier for our families to get the things they needed most. After dozens of trips to supermarkets and drugstores on behalf of our loved ones, we know there had to be a better way. </p>\n<p>It started with family - honest conversations, open minds, and a desire to make things better for everyone like us. The more people we spoke with, the more we realized the impact we could have in giving people the confidence to leave their homes. </p>\n<p>Every day, we are humbled by the openness of our community to help us make this company even better. From video reviews to sample testing and website tweaks to product suggestions - our members have made it possible for us to grow our mission to serve hundreds of thousands of people.</p>\n<p>Whether it’s Nana, Nonna, or Nani - we thank you for your wisdom and willingness to help us grow, and we can’t wait to serve you. Every day we are devoted to doing more and doing better, Because our members are our family. </p>\n<p>Sincerely,</p>\n<p style=\"font-family: Cooper Md BT W05 Regular; font-size: 18px;line-height: 27px; font-style: normal;font-weight: 500; letter-spacing: .03em;\"><strong>The Because Family </strong></p>"
+        }
+      },
+      "left-right-img": {
+        "type": "left-right-img",
+        "settings": {
+          "ltitle": "We’re on a mission to be the #1 brand for older adults.",
+          "lcont": "<p>Do you know that bladder leaks affect 25 million people in the US (and half of women over 50)? Chances are that either you’re facing it, or you know someone that deals with it. The right bladder protection products can be life changing, and finding and shopping for them should be easy and seamless. But, no one is really talking about it which usually means nobody is helping. We want to change that.</p>\n<p>We’ve designed our bladder protection products to be 25% more absorbent than leading competitors - when you’re managing bladder leaks, we know that’s important! </p>\n<p>We’re committed to quality products, honestly priced, conveniently and discreetly delivered to your door. We’re proud of our curated assortment of bladder protection, skincare, wellness, and hemp products and can’t wait for you to experience the quality for yourself. If you have any feedback, get in touch, our team is here to help. </p>",
+          "rimg": "shopify://shop_images/TakeOurBladderQuiz.png",
+          "rtitle": "Meet Alexi & Luca.",
+          "rcont": "<p>Our founders, Alexi and Luca, started Because after dozens of trips to the drugstores on behalf of their loved ones (usually, turning up empty). Instead, they wanted high-quality products that just worked, delivered right to their family. They’ve completely devoted themselves to building this business, bringing together their tech and business backgrounds with their love of their grandparents. </p>",
+          "limg": "shopify://shop_images/MeetAlexiLuca.webp"
+        }
+      },
+      "logos-with-text": {
+        "type": "logos-with-text",
+        "blocks": {
+          "329c7396-30c8-4b7f-907b-58deb339612e": {
+            "type": "logo_image",
+            "settings": {
+              "image": "shopify://shop_images/logo_logo-salvation-army.webp"
+            }
+          },
+          "5a318dd8-7546-43aa-9640-8c1c26304edb": {
+            "type": "logo_image",
+            "settings": {
+              "image": "shopify://shop_images/logo_logo-sequoia-urology-center.png"
+            }
+          },
+          "e132b246-6db8-48ab-88b6-a95bcd8a8f2a": {
+            "type": "logo_image",
+            "settings": {
+              "image": "shopify://shop_images/logo_nafc-logo.webp"
+            }
+          },
+          "beff8732-a283-48b3-b81b-51cbeb922c97": {
+            "type": "logo_image",
+            "settings": {
+              "image": "shopify://shop_images/logo_logo-st-francis-center.png"
+            }
+          },
+          "4940dac4-8701-4e98-a1ae-8a434e0079ad": {
+            "type": "logo_image",
+            "settings": {
+              "image": "shopify://shop_images/logo_logo-life-moves.png"
+            }
+          }
+        },
+        "block_order": [
+          "329c7396-30c8-4b7f-907b-58deb339612e",
+          "5a318dd8-7546-43aa-9640-8c1c26304edb",
+          "e132b246-6db8-48ab-88b6-a95bcd8a8f2a",
+          "beff8732-a283-48b3-b81b-51cbeb922c97",
+          "4940dac4-8701-4e98-a1ae-8a434e0079ad"
+        ],
+        "settings": {
+          "title": "Say hello to our partners",
+          "cont": "<p>Because is proud to partner with community organizations and initiatives across the US. Together we can create lasting impact and improve the lives and lifestyles of millions of people.<br/></p>"
+        }
+      },
+      "index-blog": {
+        "type": "index-blog",
+        "settings": {
+          "title": "More Articles:",
+          "index_blog": "news",
+          "grid": 3,
+          "rows": 1,
+          "show_meta": true,
+          "show_excerpt": true,
+          "show_view_all": false,
+          "background": "index--white"
+        }
+      },
+      "article": {
+        "type": "article",
+        "settings": {
+          "meta": true,
+          "tags": false,
+          "social": false,
+          "arrows": true,
+          "image_height": "use_image",
+          "sidebar_tags": true,
+          "recent": true
+        }
+      },
+      "page-faq": {
+        "type": "page-faq",
+        "settings": {
+          "page_nav": "",
+          "show_title": true,
+          "gladly_config": "{\n    api: 'https://becausemarket.gladly.com',\n    orgId: 'JldJ2WBgQXuVQUMFxvslFA',\n    brandId: 'vLMcdrJKQd29Alt3-O7QOQ',\n    cdn: 'https://cdn.gladly.com',\n    selector: '#gladly-help-center'\n}"
+        }
+      },
+      "16402392426f69a794": {
+        "type": "index-slogan",
+        "settings": {
+          "highlighted_text": "Because.",
+          "regular_text": "Thoughtfully designed essentials for your ever-evolving life."
+        }
+      },
+      "1640239263220ba6c7": {
+        "type": "index-row-slides",
+        "blocks": {
+          "a8231aec-6256-4fb8-b97c-36af235bcfbc": {
+            "type": "collection",
+            "settings": {
+              "image": "shopify://shop_images/PremiumPads.png",
+              "title": "Banish leaks with Women’s Premium Pads!",
+              "url": "/collections/pads-for-women",
+              "label_text": "",
+              "button_text": "Shop Women"
+            }
+          },
+          "4b6effe6-0d73-405b-976a-01605d5f9941": {
+            "type": "collection",
+            "settings": {
+              "image": "shopify://shop_images/MenOvernightUnderwear.png",
+              "title": "Say goodbye to bulk with Men’s Protective Underwear",
+              "url": "/collections/demo-collection",
+              "label_text": "",
+              "button_text": "Shop Men"
+            }
+          },
+          "504533ac-0877-43bc-b304-439564f30f3e": {
+            "type": "collection",
+            "settings": {
+              "image": "shopify://shop_images/BarrierCream.png",
+              "title": "Soothe & protect delicate skin with Barrier Cream",
+              "url": "/collections/demo-collection",
+              "label_text": "",
+              "button_text": "Shop Personal Care"
+            }
+          },
+          "a0b4a98c-4ec6-49d6-839c-9d2e905cdb17": {
+            "type": "collection",
+            "settings": {
+              "image": "shopify://shop_images/JointSupport.png",
+              "title": "Prioritize you in 2022 with Joint Support",
+              "url": "/collections/second-collection",
+              "label_text": "",
+              "button_text": "Take Quiz"
+            }
+          }
+        },
+        "block_order": [
+          "a8231aec-6256-4fb8-b97c-36af235bcfbc",
+          "4b6effe6-0d73-405b-976a-01605d5f9941",
+          "504533ac-0877-43bc-b304-439564f30f3e",
+          "a0b4a98c-4ec6-49d6-839c-9d2e905cdb17"
+        ],
+        "settings": {}
+      },
+      "164024027975da560d": {
+        "type": "index-action-banner",
+        "settings": {
+          "image": "shopify://shop_images/LeakProtection.png",
+          "title": "Leak protection you can (actually) count on",
+          "image_on_the_right": false,
+          "description": "Up to 37% more absorbent than leading brands.",
+          "note": "",
+          "background_color": "#caf2f0",
+          "action_text": "Shop Underwear",
+          "action_url": "https://dev.store2.becausemarket.com/collections/incontinence-underwear",
+          "action_class": "",
+          "tracking_event": "Redesign Hero Click"
+        }
+      },
+      "1640240578fdde7587": {
+        "type": "index-trusted",
+        "blocks": {
+          "db25504b-2358-4809-860b-80ef1744954e": {
+            "type": "collection",
+            "settings": {
+              "icon": "shield",
+              "title": "Leading Quality",
+              "description": "From bladder protection to skin creams, we never compromise on quality."
+            }
+          },
+          "ee6428a0-ea43-40c3-89bb-3c39c3c0fafa": {
+            "type": "collection",
+            "settings": {
+              "icon": "box",
+              "title": "Convenient and Discreet",
+              "description": "Your business stays your own with discreet and convenient subscriptions on your terms."
+            }
+          },
+          "6abf8f24-fb08-441d-8922-e0751962893b": {
+            "type": "collection",
+            "settings": {
+              "icon": "coin",
+              "title": "Affordably Priced",
+              "description": "By selling directly to you, we can offer high quality products without the upcharge."
+            }
+          }
+        },
+        "block_order": [
+          "db25504b-2358-4809-860b-80ef1744954e",
+          "ee6428a0-ea43-40c3-89bb-3c39c3c0fafa",
+          "6abf8f24-fb08-441d-8922-e0751962893b"
+        ],
+        "settings": {
+          "highlighted_text": "Because.",
+          "regular_text": "Convenient and discreet essentials for you."
+        }
+      },
+      "16402406628db90237": {
+        "type": "index-row-slides-large",
+        "blocks": {
+          "1758894d-81d1-441d-b611-fde551f64e8e": {
+            "type": "collection",
+            "settings": {
+              "image": "shopify://shop_images/SweetRelief.png",
+              "title": "Sweet relief for counting sheep.",
+              "description": "Enjoy better sleep with natural melatonin",
+              "url": "/collections/demo-collection",
+              "label_text": ""
+            }
+          },
+          "204fcbcc-4498-4e99-9ad2-fbd120fdbf6d": {
+            "type": "collection",
+            "settings": {
+              "image": "shopify://shop_images/StayActive.png",
+              "title": "Stay active & On-the-go",
+              "description": "Keep on the move with our mobility products",
+              "url": "/collections/demo-collection",
+              "label_text": ""
+            }
+          }
+        },
+        "block_order": [
+          "1758894d-81d1-441d-b611-fde551f64e8e",
+          "204fcbcc-4498-4e99-9ad2-fbd120fdbf6d"
+        ],
+        "settings": {}
+      },
+      "16402406679a8d85d1": {
+        "type": "index-bundle-and-save",
+        "blocks": {
+          "99ce4338-2515-423a-a0e3-9576a6f8f4e6": {
+            "type": "collection",
+            "settings": {
+              "product": "test-for-new-store",
+              "discount": "10",
+              "description": "<p>Flushable wipes, hand sanitizers, and no-rinse cleansing spray to stay clean and fresh.</p>"
+            }
+          },
+          "d52ba172-4e28-4116-8a04-122a479ff104": {
+            "type": "collection",
+            "settings": {
+              "product": "test-2",
+              "discount": "10",
+              "description": "<p>Daily skin cream, cleansing spray, and soothing cream to keep skin clean, dry, and protected.</p>"
+            }
+          },
+          "62dd91ec-11be-4440-99b6-8d1875b3088c": {
+            "type": "collection",
+            "settings": {
+              "product": "woman-pads-test",
+              "discount": "10",
+              "description": "<p>Daily sleep and joint supplements to support a healthier, calmer sleep.</p>"
+            }
+          }
+        },
+        "block_order": [
+          "99ce4338-2515-423a-a0e3-9576a6f8f4e6",
+          "d52ba172-4e28-4116-8a04-122a479ff104",
+          "62dd91ec-11be-4440-99b6-8d1875b3088c"
+        ],
+        "settings": {
+          "action_url": "https://becausemarket.com/collections/bundles-1",
+          "action_text": "See all Bundles"
+        }
+      },
+      "1640240838ca5b25c2": {
+        "type": "index-action-banner",
+        "settings": {
+          "image": "shopify://shop_images/TakeOurBladderQuiz.png",
+          "title": "Take our Bladder Protection Quiz and get a FREE Starter Pack.",
+          "image_on_the_right": true,
+          "description": "50% of leaks are caused by incorrect fit. Let’s fix that.",
+          "note": "",
+          "background_color": "#bfdaed",
+          "action_text": "Take The Quiz",
+          "action_url": "/collections/demo-collection",
+          "action_class": "",
+          "tracking_event": "Redesign Quiz Hero Clicked"
+        }
+      },
+      "1640240918564bf628": {
+        "type": "index-featured-in",
+        "blocks": {
+          "74609790-fafc-4da5-8174-09ecce930a87": {
+            "type": "company",
+            "settings": {
+              "title": "",
+              "height": ""
+            }
+          },
+          "b33bc3d8-9ed8-4d45-9670-27c60f554fba": {
+            "type": "company",
+            "settings": {
+              "title": "",
+              "height": ""
+            }
+          },
+          "37929f0b-eaaf-46b7-b143-49bd7bfcff37": {
+            "type": "company",
+            "settings": {
+              "title": "",
+              "height": ""
+            }
+          },
+          "397ef343-574b-40d4-a48d-af9869735069": {
+            "type": "company",
+            "settings": {
+              "title": "",
+              "height": ""
+            }
+          },
+          "ef3a2d1d-7cb5-4453-a12e-0bc9c0b6a308": {
+            "type": "company",
+            "settings": {
+              "title": "",
+              "height": ""
+            }
+          }
+        },
+        "block_order": [
+          "74609790-fafc-4da5-8174-09ecce930a87",
+          "b33bc3d8-9ed8-4d45-9670-27c60f554fba",
+          "37929f0b-eaaf-46b7-b143-49bd7bfcff37",
+          "397ef343-574b-40d4-a48d-af9869735069",
+          "ef3a2d1d-7cb5-4453-a12e-0bc9c0b6a308"
+        ],
+        "settings": {
+          "title": "Featured in"
+        }
+      },
+      "164024099079fa73f8": {
+        "type": "index-health-articles",
+        "blocks": {
+          "385abbc8-9c5d-43e8-9c49-bfe61215308e": {
+            "type": "collection",
+            "settings": {
+              "image": "shopify://shop_images/HowSeniorsCanImproveSleep.png",
+              "title": "How Seniors Can Improve Sleep",
+              "description": "<p>It’s normal to experience changes in your sleep patterns as you get older.</p>",
+              "url": "https://perche-market-dev.myshopify.com/blogs/news/how-seniors-can-improve-sleep",
+              "label_text": "2 min read"
+            }
+          },
+          "2ebd5ea6-4c65-44a6-af99-c826b119092d": {
+            "type": "collection",
+            "settings": {
+              "image": "shopify://shop_images/CanCBDHelpwithJointPain.png",
+              "title": "Can CBD Help with Joint Pain?",
+              "description": "<p>Joint pain and joint discomfort are the leading causes of declining health in the United States.</p>",
+              "url": "https://perche-market-dev.myshopify.com/blogs/news/can-cbd-be-used-for-back-pain",
+              "label_text": "2 min read"
+            }
+          },
+          "62b7d803-b295-4bbf-9062-bba4d4821c2f": {
+            "type": "collection",
+            "settings": {
+              "title": "Tips on How to Stay Hydrated",
+              "description": "<p>Just like regular exercise, a nutritious diet, and mental health care, hydration is vital to our…</p>",
+              "url": "https://perche-market-dev.myshopify.com/blogs/news/tips-on-how-to-stay-hydrated",
+              "label_text": "5 min read"
+            }
+          }
+        },
+        "block_order": [
+          "385abbc8-9c5d-43e8-9c49-bfe61215308e",
+          "2ebd5ea6-4c65-44a6-af99-c826b119092d",
+          "62b7d803-b295-4bbf-9062-bba4d4821c2f"
+        ],
+        "settings": {
+          "action_url": "https://perche-market-dev.myshopify.com/blogs/news/",
+          "action_text": "See all Articles"
+        }
+      },
+      "index-action-banner": {
+        "type": "index-action-banner",
+        "settings": {
+          "image": "shopify://shop_images/TakeOurBladderQuiz.png",
+          "title": "Take our Bladder Protection Quiz & get a FREE Starter Pack.",
+          "image_on_the_right": true,
+          "description": "50% of leaks are caused by incorrect fit. Let’s fix that.",
+          "note": "",
+          "background_color": "#bfdaed",
+          "action_text": "Take the Quiz",
+          "action_url": "https://try.becausemarket.com/start/startwelcome?utm_source=hp",
+          "action_class": "",
+          "tracking_event": "Quiz Bottom Click"
+        }
+      },
+      "collections-blurb": {
+        "type": "collections-blurb",
+        "blocks": {
+          "a4e85235-0760-423a-ada2-51d757ff812f": {
+            "type": "collection",
+            "settings": {
+              "collection": "personal-care",
+              "title": "Absorbent Incontinence Underwear",
+              "description": "Staying leak-free with highly absorbent products that fit is key to managing bladder leakage. Our adult briefs and pads are built with a super-absorbent core, reinforced leak guards, odor protection, and a comfortable discreet fit. Designed with sensitive-skin in mind, our incontinence underwear are breathable and latex-free. Our product range includes moderate absorbency, maximum absorbency, and overnight absorbency items. Whether you prefer pull-up protective underwear or incontinence pads, shop Because Market for all of your ever-evolving needs. To find the right fit and absorbency level to prevent unwanted leakage, take our bladder protection quiz."
+            }
+          },
+          "b3af4309-380b-489c-9820-9cc421cf72b8": {
+            "type": "collection",
+            "settings": {
+              "collection": "supplements",
+              "title": "Absorbent Incontinence Underwear & Pads for Women",
+              "description": "Specifically tailored to fit a woman's body, our adult briefs and pads are designed to prevent leaks day and night. Each incontinence product is built with a super-absorbent core, reinforced leak guards, odor protection, and a comfortable, discreet fit. Designed with sensitive-skin in mind, our incontinence underwear is breathable and latex-free. Our women's absorbent underwear comes in maximum absorbency and overnight absorbency. Our women's pads are available in moderate, maximum, and overnight absorbencies. Whether you prefer pull-up protective underwear or incontinence pads, shop Because Market for all of your bladder protection needs. To find the right fit and absorbency level to prevent unwanted leakage, take our bladder protection quiz."
+            }
+          }
+        },
+        "block_order": [
+          "a4e85235-0760-423a-ada2-51d757ff812f",
+          "b3af4309-380b-489c-9820-9cc421cf72b8"
+        ],
+        "settings": {
+        }
+      },
+      "collection-bottom-offer": {
+        "type": "collection-bottom-offer",
+        "blocks": {
+          "af0b5481-0bea-4a96-b8ce-23883b205707": {
+            "type": "collection",
+            "settings": {
+              "collection": "shop-all",
+              "image": "shopify://shop_images/Screen_Shot_2021-11-22_at_6.26.21_PM_1.png",
+              "title": "Discover your routine",
+              "description": "Skincare and personal care essentials that keep you fresh, clean, and protected.",
+              "note": "",
+              "action_text": "Explore Personal Care",
+              "action_url": "https://becausemarket.com/collections/personal-care",
+              "action_class": "",
+              "tracking_event": "Personal Care Bottom Click"
+            }
+          },
+          "92bb24bd-fc45-47ae-ab57-9f1238b5aca4": {
+            "type": "collection",
+            "settings": {
+              "collection": "personal-care",
+              "image": "shopify://shop_images/Boostyournutrition.png",
+              "title": "Discover your routine",
+              "description": "Boost your nutrition with vitamins and supplements",
+              "note": "",
+              "action_text": "Explore Supplements",
+              "action_url": "https://becausemarket.com/collections/supplements",
+              "action_class": "",
+              "tracking_event": "Supplements Bottom Click"
+            }
+          },
+          "d66f1aa6-2069-4149-8cdf-e8de184de957": {
+            "type": "collection",
+            "settings": {
+              "collection": "supplements",
+              "image": "shopify://shop_images/Moregooddays.png",
+              "title": "Discover your routine",
+              "description": "More good days delivered. Products to help relieve pain and keep you on the move.",
+              "note": "",
+              "action_text": "Explore Mobility",
+              "action_url": "https://becausemarket.com/collections/mobility-new",
+              "action_class": "",
+              "tracking_event": "Mobility Bottom Click"
+            }
+          },
+          "d4a035bd-2c8b-4e2e-97b4-32f9e12dda95": {
+            "type": "collection",
+            "settings": {
+              "collection": "mobility-new",
+              "image": "shopify://shop_images/Ourbestbundles.png",
+              "title": "Discover your routine",
+              "description": "Our best bundles for great savings",
+              "note": "",
+              "action_text": "Explore Bundles",
+              "action_url": "https://becausemarket.com/collections/bundles-1",
+              "action_class": "",
+              "tracking_event": "Bundles Bottom Click"
+            }
+          },
+          "cb3997e4-505a-4847-8787-93ae64cc3cc5": {
+            "type": "collection",
+            "settings": {
+              "collection": "bundles-1",
+              "image": "shopify://shop_images/Saygoodbyetoleaks.png",
+              "title": "Discover your routine",
+              "description": "Say goodbye to leaks with our super absorbent underwear and pads.",
+              "note": "",
+              "action_text": "Explore Skincare",
+              "action_url": "https://becausemarket.com/collections/personal-care",
+              "action_class": "",
+              "tracking_event": "Skincare Bottom Click"
+            }
+          }
+        },
+        "block_order": [
+          "af0b5481-0bea-4a96-b8ce-23883b205707",
+          "92bb24bd-fc45-47ae-ab57-9f1238b5aca4",
+          "d66f1aa6-2069-4149-8cdf-e8de184de957",
+          "d4a035bd-2c8b-4e2e-97b4-32f9e12dda95",
+          "cb3997e4-505a-4847-8787-93ae64cc3cc5"
+        ],
+        "settings": {}
+      },
+      "page-default": {
+        "type": "page-default",
+        "settings": {
+          "page_nav": "",
+          "show_title": false
+        }
+      },
+      "page-aboutus": {
+        "type": "page-aboutus",
+        "settings": {
+          "page_nav": "",
+          "show_title": true
+        }
+      },
+      "page-news": {
+        "type": "page-news",
+        "settings": {}
+      }
+    },
+    "content_for_index": [
+      "16402392426f69a794",
+      "1640239263220ba6c7",
+      "164024027975da560d",
+      "1640240578fdde7587",
+      "16402406628db90237",
+      "16402406679a8d85d1",
+      "1640240838ca5b25c2",
+      "default-slideshow",
+      "default-subtitle-row",
+      "default-collection-grid",
+      "default-featured-news",
+      "default-collection",
+      "default-sleeping",
+      "default-reviews",
+      "default-seen-us",
+      "default-popular-products",
+      "default-choose-us",
+      "default-quiz-start",
+      "1618317671bd65478c",
+      "1617887407f0f66948",
+      "16179617959f169e17",
+      "16179670295c228bb1",
+      "1640240918564bf628",
+      "164024099079fa73f8"
+    ]
+  },
+  "presets": {
+    "Chronicle": {
+      "type_heading_font": "itc_caslon_no_224_n9",
+      "type_heading_size": 100,
+      "type_number_font": "din_next_slab_n4",
+      "type_body_size": 100,
+      "type_base_font": "harmonia_sans_n4",
+      "type_number_size": 100,
+      "color_body_text": "#586272",
+      "accent_warm": "#ff8277",
+      "accent_cool": "#267da1",
+      "color_border": "#dfe1e3",
+      "color_body_light": "#f7f9fa",
+      "color_nav_bg": "#ffffff",
+      "color_nav_text": "#586272",
+      "color_nav_border": "rgba(0,0,0,0)",
+      "color_footer_bg": "#ffffff",
+      "color_footer_text": "#586272",
+      "color_product_grid": "#fcfcfc",
+      "layout_container_enable": true,
+      "decoration_style": "decoration-modern",
+      "cart_notes_enable": false,
+      "cart_show_additional_buttons": false,
+      "collection_text_alignment": "text-left",
+      "image_hover_enable": false,
+      "tag_sellout": false,
+      "tag_sale": true,
+      "tag_new": false,
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "logo": "",
+            "logo_max_width": 180,
+            "main_linklist": "main-menu",
+            "show_search": true,
+            "show_social": true,
+            "transparent": true,
+            "opacity": 0,
+            "transparent_logo": "",
+            "transparent_text_color": "#ffffff",
+            "message": false,
+            "home_page_only": true,
+            "message_text": "Announce something here",
+            "message_link": "",
+            "color_bg": "#f7f7f7",
+            "color_text": "#586272"
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "settings": {
+            "footer_linklist": "main-menu",
+            "footer_second_linklist": "footer",
+            "footer_social_enable": true,
+            "footer_payment_enable": true
+          }
+        },
+        "default-row": {
+          "type": "index-row",
+          "settings": {
+            "image": "",
+            "layout": "left",
+            "title": "Image with text",
+            "text": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "button_label": "",
+            "button_link": "",
+            "color_bg": "index--white",
+            "above": "image"
+          }
+        },
+        "default-hero": {
+          "type": "index-hero",
+          "settings": {
+            "image": "",
+            "height": "use_screen_two_thirds",
+            "overlay_opacity": 0,
+            "parallax": false,
+            "title": "Image with text overlay",
+            "description": "This area is used to describe your store.",
+            "text_align": "align--middle-left",
+            "text_color": "text-white",
+            "transparent": false,
+            "link_text": "View products",
+            "link": "",
+            "button_style": "btn btn--large btn--transparent",
+            "button_image": ""
+          }
+        },
+        "default-timeline": {
+          "type": "index-timeline",
+          "blocks": {
+            "default-timeline-0": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "January 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-1": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "February 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-2": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "March 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-3": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "April 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-4": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "May 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-timeline-0",
+            "default-timeline-1",
+            "default-timeline-2",
+            "default-timeline-3",
+            "default-timeline-4"
+          ],
+          "settings": {
+            "color_bg": "index--white",
+            "border": true,
+            "overlay": true
+          }
+        },
+        "default-map": {
+          "type": "index-map",
+          "settings": {
+            "layout": "right",
+            "height": "use_screen_one_half",
+            "above": "image",
+            "heading": "Our store",
+            "address": "<p>123 Fake St.<br>Whistler, Canada</p><p>Mon - Fri, 10am - 9pm<br>Weekends, 11am - 4pm</p>",
+            "button": "Directions",
+            "color_bg": "index--white",
+            "api_key": "",
+            "map_address": "4300 Main St, Whistler",
+            "image": ""
+          }
+        },
+        "default-reviews": {
+          "type": "reviews",
+          "blocks": {
+            "default-reviews-0": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-1": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-2": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-3": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-4": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            }
+          },
+          "block_order": [
+            "default-reviews-0",
+            "default-reviews-1",
+            "default-reviews-2",
+            "default-reviews-3",
+            "default-reviews-4"
+          ],
+          "settings": {
+            "title": "Testimonials",
+            "description": "Use this area to describe your testimonials.",
+            "background_color": "index--teal"
+          }
+        },
+        "default-team": {
+          "type": "index-team",
+          "blocks": {
+            "default-team-0": {
+              "type": "text_block",
+              "settings": {
+                "image": "",
+                "title": "Given Surname",
+                "job": "Founder",
+                "text": "<p>Use this text to describe your team member, share details on their background, and describe their contributions.</p>",
+                "social_twitter_link": "",
+                "social_facebook_link": "",
+                "social_pinterest_link": "",
+                "social_instagram_link": "",
+                "social_snapchat_link": "",
+                "social_tumblr_link": "",
+                "social_youtube_link": "",
+                "social_vimeo_link": ""
+              }
+            },
+            "default-team-1": {
+              "type": "text_block",
+              "settings": {
+                "image": "",
+                "title": "Given Surname",
+                "job": "Founder",
+                "text": "<p>Use this text to describe your team member, share details on their background, and describe their contributions.</p>",
+                "social_twitter_link": "",
+                "social_facebook_link": "",
+                "social_pinterest_link": "",
+                "social_instagram_link": "",
+                "social_snapchat_link": "",
+                "social_tumblr_link": "",
+                "social_youtube_link": "",
+                "social_vimeo_link": ""
+              }
+            },
+            "default-team-2": {
+              "type": "text_block",
+              "settings": {
+                "image": "",
+                "title": "Given Surname",
+                "job": "Founder",
+                "text": "<p>Use this text to describe your team member, share details on their background, and describe their contributions.</p>",
+                "social_twitter_link": "",
+                "social_facebook_link": "",
+                "social_pinterest_link": "",
+                "social_instagram_link": "",
+                "social_snapchat_link": "",
+                "social_tumblr_link": "",
+                "social_youtube_link": "",
+                "social_vimeo_link": ""
+              }
+            }
+          },
+          "block_order": ["default-team-0", "default-team-1", "default-team-2"],
+          "settings": {
+            "title": "Our Team",
+            "description": "Use this area to describe your team.",
+            "background_color": "index--white"
+          }
+        },
+        "default-newsletter": {
+          "type": "index-newsletter",
+          "settings": {
+            "title": "Newsletter",
+            "richtext": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.  We promise to send emails you will love.</p>",
+            "homepage_bg_color": "index--white"
+          }
+        },
+        "default-columns": {
+          "type": "index-columns",
+          "blocks": {
+            "default-columns-0": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            },
+            "default-columns-1": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            },
+            "default-columns-2": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            },
+            "default-columns-3": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-columns-0",
+            "default-columns-1",
+            "default-columns-2",
+            "default-columns-3"
+          ],
+          "settings": {
+            "title": "Text columns with images",
+            "color_bg": "index--white",
+            "align_text": "text-left"
+          }
+        },
+        "default-logos": {
+          "type": "index-logos",
+          "blocks": {
+            "default-logos-0": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-1": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-2": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-3": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-4": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-5": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-logos-0",
+            "default-logos-1",
+            "default-logos-2",
+            "default-logos-3",
+            "default-logos-4",
+            "default-logos-5"
+          ],
+          "settings": {
+            "title": "",
+            "color_bg": "index--gray"
+          }
+        },
+        "default-blog": {
+          "type": "index-blog",
+          "settings": {
+            "title": "News",
+            "index_blog": "",
+            "grid": 3,
+            "rows": 1,
+            "show_meta": true,
+            "show_excerpt": true,
+            "show_view_all": false,
+            "background": "index--white"
+          }
+        },
+        "default-product": {
+          "type": "index-product",
+          "settings": {
+            "product": "",
+            "color_bg": "index--white",
+            "show_share_buttons": false,
+            "product_show_vendor": false,
+            "enable_payment_button": true,
+            "zoom_enable": false,
+            "tabs_position": "below"
+          }
+        },
+        "default-slideshow": {
+          "type": "index-slideshow",
+          "blocks": {
+            "default-slideshow-0": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "overlay_opacity": 15,
+                "title": "Slide one",
+                "description": "Tell your brand's story through images.",
+                "text_align": "align--middle-center",
+                "text_color": "text-white",
+                "transparent": false,
+                "link_text": "View products",
+                "link": "",
+                "button_style": "btn btn--large",
+                "button_image": ""
+              }
+            },
+            "default-slideshow-1": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "overlay_opacity": 15,
+                "title": "Slide two",
+                "description": "Tell your brand's story through images.",
+                "text_align": "align--middle-center",
+                "text_color": "text-white",
+                "transparent": false,
+                "link_text": "View products",
+                "link": "",
+                "button_style": "btn btn--large",
+                "button_image": ""
+              }
+            },
+            "default-slideshow-3": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "overlay_opacity": 15,
+                "title": "Slide three",
+                "description": "Tell your brand's story through images.",
+                "text_align": "align--middle-center",
+                "text_color": "text-white",
+                "transparent": false,
+                "link_text": "View products",
+                "link": "",
+                "button_style": "btn btn--large",
+                "button_image": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-slideshow-0",
+            "default-slideshow-1",
+            "default-slideshow-3"
+          ],
+          "settings": {
+            "autoplay": true,
+            "autoplay_speed": 4,
+            "height": "use_screen_two_thirds"
+          }
+        },
+        "default-video": {
+          "type": "index-video",
+          "settings": {
+            "image": "",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "height": "use_screen_two_thirds",
+            "overlay_opacity": 15,
+            "parallax": false,
+            "title": "Featured video",
+            "description": "This area is used to describe your video’s details.",
+            "text_align": "align--middle-left",
+            "text_color": "text-white",
+            "transparent": false,
+            "button_image": ""
+          }
+        },
+        "default-text": {
+          "type": "index-richtext",
+          "settings": {
+            "title": "Rich Text",
+            "description": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "color_bg": "index--white"
+          }
+        },
+        "default-collection": {
+          "type": "index-collection",
+          "settings": {
+            "title": "Featured Products",
+            "description": "Use this area to describe the collection.",
+            "collection": "",
+            "homepage_collection_color": "index--white",
+            "show_view_all": false
+          }
+        },
+        "default-collection-grid": {
+          "type": "index-collection-grid",
+          "blocks": {
+            "default-collection-grid-0": {
+              "type": "featured_collection",
+              "settings": {
+                "collection": "",
+                "title": "Featured collection",
+                "collection_image": ""
+              }
+            },
+            "default-collection-grid-1": {
+              "type": "featured_collection",
+              "settings": {
+                "collection": "",
+                "title": "Featured collection",
+                "collection_image": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-collection-grid-0",
+            "default-collection-grid-1"
+          ],
+          "settings": {
+            "title": "Collection list",
+            "description": "Use this area to describe the collection.",
+            "grid": 2,
+            "color_bg": "index--white",
+            "title_hover": true
+          }
+        }
+      },
+      "content_for_index": [
+        "default-hero",
+        "default-timeline",
+        "default-collection",
+        "default-collection-grid",
+        "default-team",
+        "default-row",
+        "default-map",
+        "default-reviews",
+        "default-logos",
+        "default-text",
+        "default-product",
+        "default-slideshow",
+        "default-columns",
+        "default-video",
+        "default-blog",
+        "default-newsletter"
+      ]
+    },
+    "Quest": {
+      "type_heading_font": "avenir_next_n7",
+      "type_heading_size": 90,
+      "type_base_font": "avenir_next_n4",
+      "type_body_size": 100,
+      "type_number_font": "itc_conduit_n4",
+      "type_number_size": 100,
+      "color_body_text": "#3a4b55",
+      "accent_warm": "#2a71b0",
+      "accent_cool": "#a4beb8",
+      "color_border": "#dfe1e3",
+      "color_body_light": "#f2f7fa",
+      "color_nav_bg": "#ffffff",
+      "color_nav_text": "#36434e",
+      "color_nav_border": "#f2f2f2",
+      "color_footer_bg": "#f2f7fa",
+      "color_footer_text": "#3a4b55",
+      "color_product_grid": "#fcfcfc",
+      "layout_container_enable": false,
+      "decoration_style": "decoration-none",
+      "cart_notes_enable": true,
+      "collection_text_alignment": "text-center",
+      "image_hover_enable": true,
+      "tag_sellout": true,
+      "tag_sale": true,
+      "tag_new": true,
+      "tag_new_limit": 14,
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "logo": "",
+            "logo_max_width": 180,
+            "main_linklist": "main-menu",
+            "show_search": false,
+            "show_social": true,
+            "transparent": false,
+            "opacity": 100,
+            "transparent_logo": "",
+            "transparent_text_color": "#ffffff",
+            "message": true,
+            "home_page_only": true,
+            "message_text": "Announce something here",
+            "message_link": "",
+            "color_bg": "#f2f7fa",
+            "color_text": "#3a4b55"
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "settings": {
+            "footer_linklist": "main-menu",
+            "footer_second_linklist": "footer",
+            "footer_social_enable": true,
+            "footer_payment_enable": true
+          }
+        },
+        "default-row": {
+          "type": "index-row",
+          "settings": {
+            "image": "",
+            "layout": "left",
+            "title": "Image with text",
+            "text": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "button_label": "",
+            "button_link": "",
+            "color_bg": "index--white",
+            "above": "image"
+          }
+        },
+        "default-hero": {
+          "type": "index-hero",
+          "settings": {
+            "image": "",
+            "height": "use_screen_two_thirds",
+            "overlay_opacity": 0,
+            "parallax": false,
+            "title": "Image with text overlay",
+            "description": "This area is used to describe your store.",
+            "text_align": "align--middle-left",
+            "text_color": "text-white",
+            "transparent": false,
+            "link_text": "View products",
+            "link": "",
+            "button_style": "btn btn--large btn--transparent",
+            "button_image": ""
+          }
+        },
+        "default-timeline": {
+          "type": "index-timeline",
+          "blocks": {
+            "default-timeline-0": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "January 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-1": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "February 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-2": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "March 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-3": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "April 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-4": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "May 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-timeline-0",
+            "default-timeline-1",
+            "default-timeline-2",
+            "default-timeline-3",
+            "default-timeline-4"
+          ],
+          "settings": {
+            "color_bg": "index--white",
+            "border": true,
+            "overlay": true
+          }
+        },
+        "default-map": {
+          "type": "index-map",
+          "settings": {
+            "layout": "right",
+            "height": "use_screen_one_half",
+            "above": "image",
+            "heading": "Our store",
+            "address": "<p>123 Fake St.<br>Whistler, Canada</p><p>Mon - Fri, 10am - 9pm<br>Weekends, 11am - 4pm</p>",
+            "button": "Directions",
+            "color_bg": "index--white",
+            "api_key": "",
+            "map_address": "4300 Main St, Whistler",
+            "image": ""
+          }
+        },
+        "default-reviews": {
+          "type": "reviews",
+          "blocks": {
+            "default-reviews-0": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-1": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-2": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-3": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-4": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            }
+          },
+          "block_order": [
+            "default-reviews-0",
+            "default-reviews-1",
+            "default-reviews-2",
+            "default-reviews-3",
+            "default-reviews-4"
+          ],
+          "settings": {
+            "title": "Testimonials",
+            "description": "Use this area to describe your testimonials.",
+            "background_color": "index--teal"
+          }
+        },
+        "default-team": {
+          "type": "index-team",
+          "blocks": {
+            "default-team-0": {
+              "type": "text_block",
+              "settings": {
+                "image": "",
+                "title": "Given Surname",
+                "job": "Founder",
+                "text": "<p>Use this text to describe your team member, share details on their background, and describe their contributions.</p>",
+                "social_twitter_link": "",
+                "social_facebook_link": "",
+                "social_pinterest_link": "",
+                "social_instagram_link": "",
+                "social_snapchat_link": "",
+                "social_tumblr_link": "",
+                "social_youtube_link": "",
+                "social_vimeo_link": ""
+              }
+            },
+            "default-team-1": {
+              "type": "text_block",
+              "settings": {
+                "image": "",
+                "title": "Given Surname",
+                "job": "Founder",
+                "text": "<p>Use this text to describe your team member, share details on their background, and describe their contributions.</p>",
+                "social_twitter_link": "",
+                "social_facebook_link": "",
+                "social_pinterest_link": "",
+                "social_instagram_link": "",
+                "social_snapchat_link": "",
+                "social_tumblr_link": "",
+                "social_youtube_link": "",
+                "social_vimeo_link": ""
+              }
+            },
+            "default-team-2": {
+              "type": "text_block",
+              "settings": {
+                "image": "",
+                "title": "Given Surname",
+                "job": "Founder",
+                "text": "<p>Use this text to describe your team member, share details on their background, and describe their contributions.</p>",
+                "social_twitter_link": "",
+                "social_facebook_link": "",
+                "social_pinterest_link": "",
+                "social_instagram_link": "",
+                "social_snapchat_link": "",
+                "social_tumblr_link": "",
+                "social_youtube_link": "",
+                "social_vimeo_link": ""
+              }
+            }
+          },
+          "block_order": ["default-team-0", "default-team-1", "default-team-2"],
+          "settings": {
+            "title": "Our Team",
+            "description": "Use this area to describe your team.",
+            "background_color": "index--white"
+          }
+        },
+        "default-newsletter": {
+          "type": "index-newsletter",
+          "settings": {
+            "title": "Newsletter",
+            "richtext": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.  We promise to send emails you will love.</p>",
+            "homepage_bg_color": "index--white"
+          }
+        },
+        "default-columns": {
+          "type": "index-columns",
+          "blocks": {
+            "default-columns-0": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            },
+            "default-columns-1": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            },
+            "default-columns-2": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            },
+            "default-columns-3": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-columns-0",
+            "default-columns-1",
+            "default-columns-2",
+            "default-columns-3"
+          ],
+          "settings": {
+            "title": "Text columns with images",
+            "color_bg": "index--white",
+            "align_text": "text-left"
+          }
+        },
+        "default-logos": {
+          "type": "index-logos",
+          "blocks": {
+            "default-logos-0": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-1": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-2": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-3": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-4": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-5": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-logos-0",
+            "default-logos-1",
+            "default-logos-2",
+            "default-logos-3",
+            "default-logos-4",
+            "default-logos-5"
+          ],
+          "settings": {
+            "title": "",
+            "color_bg": "index--gray"
+          }
+        },
+        "default-blog": {
+          "type": "index-blog",
+          "settings": {
+            "title": "News",
+            "index_blog": "",
+            "grid": 3,
+            "rows": 1,
+            "show_meta": true,
+            "show_excerpt": true,
+            "show_view_all": false,
+            "background": "index--white"
+          }
+        },
+        "default-product": {
+          "type": "index-product",
+          "settings": {
+            "product": "",
+            "color_bg": "index--white",
+            "show_share_buttons": false,
+            "product_show_vendor": false,
+            "enable_payment_button": true,
+            "zoom_enable": false,
+            "tabs_position": "below"
+          }
+        },
+        "default-slideshow": {
+          "type": "index-slideshow",
+          "blocks": {
+            "default-slideshow-0": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "overlay_opacity": 15,
+                "title": "Slide one",
+                "description": "Tell your brand's story through images.",
+                "text_align": "align--middle-center",
+                "text_color": "text-white",
+                "transparent": false,
+                "link_text": "View products",
+                "link": "",
+                "button_style": "btn btn--large",
+                "button_image": ""
+              }
+            },
+            "default-slideshow-1": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "overlay_opacity": 15,
+                "title": "Slide two",
+                "description": "Tell your brand's story through images.",
+                "text_align": "align--middle-center",
+                "text_color": "text-white",
+                "transparent": false,
+                "link_text": "View products",
+                "link": "",
+                "button_style": "btn btn--large",
+                "button_image": ""
+              }
+            },
+            "default-slideshow-3": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "overlay_opacity": 15,
+                "title": "Slide three",
+                "description": "Tell your brand's story through images.",
+                "text_align": "align--middle-center",
+                "text_color": "text-white",
+                "transparent": false,
+                "link_text": "View products",
+                "link": "",
+                "button_style": "btn btn--large",
+                "button_image": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-slideshow-0",
+            "default-slideshow-1",
+            "default-slideshow-3"
+          ],
+          "settings": {
+            "autoplay": true,
+            "autoplay_speed": 4,
+            "height": "use_screen_two_thirds"
+          }
+        },
+        "default-video": {
+          "type": "index-video",
+          "settings": {
+            "image": "",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "height": "use_screen_two_thirds",
+            "overlay_opacity": 15,
+            "parallax": false,
+            "title": "Featured video",
+            "description": "This area is used to describe your video’s details.",
+            "text_align": "align--middle-left",
+            "text_color": "text-white",
+            "transparent": false,
+            "button_image": ""
+          }
+        },
+        "default-text": {
+          "type": "index-richtext",
+          "settings": {
+            "title": "Rich Text",
+            "description": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "color_bg": "index--white"
+          }
+        },
+        "default-collection": {
+          "type": "index-collection",
+          "settings": {
+            "title": "Featured Products",
+            "description": "Use this area to describe the collection.",
+            "collection": "",
+            "homepage_collection_color": "index--white",
+            "show_view_all": false
+          }
+        },
+        "default-collection-grid": {
+          "type": "index-collection-grid",
+          "blocks": {
+            "default-collection-grid-0": {
+              "type": "featured_collection",
+              "settings": {
+                "collection": "",
+                "title": "Featured collection",
+                "collection_image": ""
+              }
+            },
+            "default-collection-grid-1": {
+              "type": "featured_collection",
+              "settings": {
+                "collection": "",
+                "title": "Featured collection",
+                "collection_image": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-collection-grid-0",
+            "default-collection-grid-1"
+          ],
+          "settings": {
+            "title": "Collection list",
+            "description": "Use this area to describe the collection.",
+            "grid": 2,
+            "color_bg": "index--white",
+            "title_hover": true
+          }
+        }
+      },
+      "content_for_index": [
+        "default-hero",
+        "default-timeline",
+        "default-collection",
+        "default-collection-grid",
+        "default-team",
+        "default-row",
+        "default-map",
+        "default-reviews",
+        "default-logos",
+        "default-text",
+        "default-product",
+        "default-slideshow",
+        "default-columns",
+        "default-video",
+        "default-blog",
+        "default-newsletter"
+      ]
+    },
+    "Heritage": {
+      "type_heading_font": "baskerville_no_2_n7",
+      "type_heading_size": 100,
+      "type_base_font": "montserrat_n4",
+      "type_body_size": 100,
+      "type_number_font": "source_sans_pro_n4",
+      "type_number_size": 100,
+      "color_body_text": "#301a41",
+      "accent_warm": "#a73a3a",
+      "accent_cool": "#5c4c8d",
+      "color_border": "#e1dce4",
+      "color_body_light": "#f7f8fa",
+      "color_nav_bg": "#ffffff",
+      "color_nav_text": "#4c325f",
+      "color_nav_border": "#f7f8fa",
+      "color_footer_bg": "#f7f8fa",
+      "color_footer_text": "#4c325f",
+      "color_product_grid": "#ffffff",
+      "decoration_style": "decoration-none",
+      "cart_notes_enable": true,
+      "collection_text_alignment": "text-left",
+      "image_hover_enable": true,
+      "tag_sellout": false,
+      "tag_sale": false,
+      "tag_new": false,
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "logo": "",
+            "logo_max_width": 180,
+            "main_linklist": "main-menu",
+            "show_search": false,
+            "show_social": true,
+            "transparent": true,
+            "opacity": 45,
+            "transparent_logo": "",
+            "transparent_text_color": "#4c325f",
+            "message": false,
+            "home_page_only": true,
+            "message_text": "Announce something here",
+            "message_link": "",
+            "color_bg": "#f7f7f7",
+            "color_text": "#586272"
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "settings": {
+            "footer_linklist": "main-menu",
+            "footer_second_linklist": "footer",
+            "footer_social_enable": true,
+            "footer_payment_enable": true
+          }
+        },
+        "default-row": {
+          "type": "index-row",
+          "settings": {
+            "image": "",
+            "layout": "left",
+            "title": "Image with text",
+            "text": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "button_label": "",
+            "button_link": "",
+            "color_bg": "index--white",
+            "above": "image"
+          }
+        },
+        "default-hero": {
+          "type": "index-hero",
+          "settings": {
+            "image": "",
+            "height": "use_screen_two_thirds",
+            "overlay_opacity": 0,
+            "parallax": false,
+            "title": "Image with text overlay",
+            "description": "This area is used to describe your store.",
+            "text_align": "align--middle-left",
+            "text_color": "text-white",
+            "transparent": false,
+            "link_text": "View products",
+            "link": "",
+            "button_style": "btn btn--large btn--transparent",
+            "button_image": ""
+          }
+        },
+        "default-timeline": {
+          "type": "index-timeline",
+          "blocks": {
+            "default-timeline-0": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "January 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-1": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "February 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-2": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "March 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-3": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "April 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            },
+            "default-timeline-4": {
+              "type": "episode",
+              "settings": {
+                "title": "Timeline episode",
+                "first_image": "",
+                "second_image": "",
+                "date": "May 2018",
+                "story": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+                "link_text": "Continued...",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-timeline-0",
+            "default-timeline-1",
+            "default-timeline-2",
+            "default-timeline-3",
+            "default-timeline-4"
+          ],
+          "settings": {
+            "color_bg": "index--white",
+            "border": true,
+            "overlay": true
+          }
+        },
+        "default-map": {
+          "type": "index-map",
+          "settings": {
+            "layout": "right",
+            "height": "use_screen_one_half",
+            "above": "image",
+            "heading": "Our store",
+            "address": "<p>123 Fake St.<br>Whistler, Canada</p><p>Mon - Fri, 10am - 9pm<br>Weekends, 11am - 4pm</p>",
+            "button": "Directions",
+            "color_bg": "index--white",
+            "api_key": "",
+            "map_address": "4300 Main St, Whistler",
+            "image": ""
+          }
+        },
+        "default-reviews": {
+          "type": "reviews",
+          "blocks": {
+            "default-reviews-0": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-1": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-2": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-3": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            },
+            "default-reviews-4": {
+              "type": "review",
+              "settings": {
+                "image": "",
+                "title": "Testimonial name",
+                "job": "Founder, Company",
+                "stars": 5,
+                "text": "<p>Use this text to showcase a review from one of your customers.  A great review is honest and relatable.  A great reviewer is a person who represents your target audience and can speak to concerns that might block your customers from buying.</p>"
+              }
+            }
+          },
+          "block_order": [
+            "default-reviews-0",
+            "default-reviews-1",
+            "default-reviews-2",
+            "default-reviews-3",
+            "default-reviews-4"
+          ],
+          "settings": {
+            "title": "Testimonials",
+            "description": "Use this area to describe your testimonials.",
+            "background_color": "index--teal"
+          }
+        },
+        "default-team": {
+          "type": "index-team",
+          "blocks": {
+            "default-team-0": {
+              "type": "text_block",
+              "settings": {
+                "image": "",
+                "title": "Given Surname",
+                "job": "Founder",
+                "text": "<p>Use this text to describe your team member, share details on their background, and describe their contributions.</p>",
+                "social_twitter_link": "",
+                "social_facebook_link": "",
+                "social_pinterest_link": "",
+                "social_instagram_link": "",
+                "social_snapchat_link": "",
+                "social_tumblr_link": "",
+                "social_youtube_link": "",
+                "social_vimeo_link": ""
+              }
+            },
+            "default-team-1": {
+              "type": "text_block",
+              "settings": {
+                "image": "",
+                "title": "Given Surname",
+                "job": "Founder",
+                "text": "<p>Use this text to describe your team member, share details on their background, and describe their contributions.</p>",
+                "social_twitter_link": "",
+                "social_facebook_link": "",
+                "social_pinterest_link": "",
+                "social_instagram_link": "",
+                "social_snapchat_link": "",
+                "social_tumblr_link": "",
+                "social_youtube_link": "",
+                "social_vimeo_link": ""
+              }
+            },
+            "default-team-2": {
+              "type": "text_block",
+              "settings": {
+                "image": "",
+                "title": "Given Surname",
+                "job": "Founder",
+                "text": "<p>Use this text to describe your team member, share details on their background, and describe their contributions.</p>",
+                "social_twitter_link": "",
+                "social_facebook_link": "",
+                "social_pinterest_link": "",
+                "social_instagram_link": "",
+                "social_snapchat_link": "",
+                "social_tumblr_link": "",
+                "social_youtube_link": "",
+                "social_vimeo_link": ""
+              }
+            }
+          },
+          "block_order": ["default-team-0", "default-team-1", "default-team-2"],
+          "settings": {
+            "title": "Our Team",
+            "description": "Use this area to describe your team.",
+            "background_color": "index--white"
+          }
+        },
+        "default-newsletter": {
+          "type": "index-newsletter",
+          "settings": {
+            "title": "Newsletter",
+            "richtext": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.  We promise to send emails you will love.</p>",
+            "homepage_bg_color": "index--white"
+          }
+        },
+        "default-columns": {
+          "type": "index-columns",
+          "blocks": {
+            "default-columns-0": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            },
+            "default-columns-1": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            },
+            "default-columns-2": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            },
+            "default-columns-3": {
+              "type": "text_block",
+              "settings": {
+                "enable_image": true,
+                "image": "",
+                "title": "Add a title or tagline",
+                "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+                "button_label": "",
+                "button_link": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-columns-0",
+            "default-columns-1",
+            "default-columns-2",
+            "default-columns-3"
+          ],
+          "settings": {
+            "title": "Text columns with images",
+            "color_bg": "index--white",
+            "align_text": "text-left"
+          }
+        },
+        "default-logos": {
+          "type": "index-logos",
+          "blocks": {
+            "default-logos-0": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-1": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-2": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-3": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-4": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            },
+            "default-logos-5": {
+              "type": "logo_image",
+              "settings": {
+                "image": "",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-logos-0",
+            "default-logos-1",
+            "default-logos-2",
+            "default-logos-3",
+            "default-logos-4",
+            "default-logos-5"
+          ],
+          "settings": {
+            "title": "",
+            "color_bg": "index--gray"
+          }
+        },
+        "default-blog": {
+          "type": "index-blog",
+          "settings": {
+            "title": "News",
+            "index_blog": "",
+            "grid": 3,
+            "rows": 1,
+            "show_meta": true,
+            "show_excerpt": true,
+            "show_view_all": false,
+            "background": "index--white"
+          }
+        },
+        "default-product": {
+          "type": "index-product",
+          "settings": {
+            "product": "",
+            "color_bg": "index--white",
+            "show_share_buttons": false,
+            "product_show_vendor": false,
+            "enable_payment_button": true,
+            "zoom_enable": false,
+            "tabs_position": "below"
+          }
+        },
+        "default-slideshow": {
+          "type": "index-slideshow",
+          "blocks": {
+            "default-slideshow-0": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "overlay_opacity": 15,
+                "title": "Slide one",
+                "description": "Tell your brand's story through images.",
+                "text_align": "align--middle-center",
+                "text_color": "text-white",
+                "transparent": false,
+                "link_text": "View products",
+                "link": "",
+                "button_style": "btn btn--large",
+                "button_image": ""
+              }
+            },
+            "default-slideshow-1": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "overlay_opacity": 15,
+                "title": "Slide two",
+                "description": "Tell your brand's story through images.",
+                "text_align": "align--middle-center",
+                "text_color": "text-white",
+                "transparent": false,
+                "link_text": "View products",
+                "link": "",
+                "button_style": "btn btn--large",
+                "button_image": ""
+              }
+            },
+            "default-slideshow-3": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "overlay_opacity": 15,
+                "title": "Slide three",
+                "description": "Tell your brand's story through images.",
+                "text_align": "align--middle-center",
+                "text_color": "text-white",
+                "transparent": false,
+                "link_text": "View products",
+                "link": "",
+                "button_style": "btn btn--large",
+                "button_image": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-slideshow-0",
+            "default-slideshow-1",
+            "default-slideshow-3"
+          ],
+          "settings": {
+            "autoplay": true,
+            "autoplay_speed": 4,
+            "height": "use_screen_two_thirds"
+          }
+        },
+        "default-video": {
+          "type": "index-video",
+          "settings": {
+            "image": "",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "height": "use_screen_two_thirds",
+            "overlay_opacity": 15,
+            "parallax": false,
+            "title": "Featured video",
+            "description": "This area is used to describe your video’s details.",
+            "text_align": "align--middle-left",
+            "text_color": "text-white",
+            "transparent": false,
+            "button_image": ""
+          }
+        },
+        "default-text": {
+          "type": "index-richtext",
+          "settings": {
+            "title": "Rich Text",
+            "description": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "color_bg": "index--white"
+          }
+        },
+        "default-collection": {
+          "type": "index-collection",
+          "settings": {
+            "title": "Featured Products",
+            "description": "Use this area to describe the collection.",
+            "collection": "",
+            "homepage_collection_color": "index--white",
+            "show_view_all": false
+          }
+        },
+        "default-collection-grid": {
+          "type": "index-collection-grid",
+          "blocks": {
+            "default-collection-grid-0": {
+              "type": "featured_collection",
+              "settings": {
+                "collection": "",
+                "title": "Featured collection",
+                "collection_image": ""
+              }
+            },
+            "default-collection-grid-1": {
+              "type": "featured_collection",
+              "settings": {
+                "collection": "",
+                "title": "Featured collection",
+                "collection_image": ""
+              }
+            }
+          },
+          "block_order": [
+            "default-collection-grid-0",
+            "default-collection-grid-1"
+          ],
+          "settings": {
+            "title": "Collection list",
+            "description": "Use this area to describe the collection.",
+            "grid": 2,
+            "color_bg": "index--white",
+            "title_hover": true
+          }
+        }
+      },
+      "content_for_index": [
+        "default-hero",
+        "default-timeline",
+        "default-collection-grid",
+        "default-collection",
+        "default-team",
+        "default-row",
+        "default-map",
+        "default-reviews",
+        "default-logos",
+        "default-text",
+        "default-product",
+        "default-slideshow",
+        "default-columns",
+        "default-video",
+        "default-blog",
+        "default-newsletter"
+      ]
+    }
+  }
+}

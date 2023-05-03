@@ -1,0 +1,172 @@
+<!-- /sections/footer.liquid -->
+{%- assign footer_linklist = linklists[section.settings.footer_linklist] -%}
+{%- assign footer_second_linklist = linklists[section.settings.footer_second_linklist] -%}
+{%- assign footer_third_linklist = linklists[section.settings.footer_third_linklist] -%}
+{%- assign footer_bottom_linklist = linklists[section.settings.footer_bottom_linklist] -%}
+
+<footer class="footer">
+  <div class="wrapper">
+    {% if footer_linklist.links.size > 0 %}
+      <div class="footer_column">
+        {% if footer_linklist.title %}
+          <h4 class="footer_title font-desktop-subtitle">{{ footer_linklist.title }}</h4>
+        {% endif %}
+        <ul class="footer_list unstyled">
+          {% for link in footer_linklist.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if footer_second_linklist.links.size > 0 %}
+      <div class="footer_column">
+        {% if footer_second_linklist.title %}
+          <h4 class="footer_title font-desktop-subtitle">{{ footer_second_linklist.title }}</h4>
+        {% endif %}
+        <ul class="footer_list unstyled">
+          {% for link in footer_second_linklist.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if footer_third_linklist.links.size > 0 %}
+      <div class="footer_column">
+        {% if footer_third_linklist.title %}
+          <h4 class="footer_title font-desktop-subtitle">{{ footer_third_linklist.title }}</h4>
+        {% endif %}
+        <ul class="footer_list unstyled">
+          {% for link in footer_third_linklist.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    <div class="footer_column right">
+      <h3>Need Help?</h3>
+      {% if section.settings.contact_text != '' %}
+        <p>{{ section.settings.contact_text }}</p>
+      {% endif %}
+      {% if section.settings.contact_support != '' %}
+        <p>email: <a href="mailto:{{ section.settings.contact_support }}">{{ section.settings.contact_support }}</a></p>
+      {% endif %}
+      {% if section.settings.contact_inquiries != '' %}
+        <p>all other inquiries:<br><a href="mailto:{{ section.settings.contact_inquiries }}">{{ section.settings.contact_inquiries }}</a></p>
+      {% endif %}
+      {% if section.settings.footer_social_enable %}
+        {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
+        <p>Find us on:</p>
+        <ul class="social-icons unstyled">
+          {% for social in social_accounts %}
+            {%- assign social_handle = social | handleize -%}
+            {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+            {% if social_handle == 'facebook' or social_handle == 'instagram' or social_handle == 'youtube' %}
+              {% capture social_icon %}icon-footer-{{ social_handle }}{% endcapture %}
+            {% else %}
+              {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+            {% endif %}
+            {% if settings[social_link] != blank %}
+              <li>
+                <a target="_blank" href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
+                  {% include social_icon %}
+                  <span class="icon-fallback-text">{{ social }}</span>
+                </a>
+              </li>
+            {% endif %}
+
+          {% endfor %}
+        </ul>
+        <br>
+        <p><img src="https://cdn.shopify.com/s/files/1/1522/0906/files/bbbb.png?v=1626112184"></p>
+      {% endif %}
+    </div>
+    <div class="footer__copyright">
+      <span>
+          {{ 'layout.footer.copyright' | t }} &copy; {{ shop.name }} {{ 'now' | date: "%Y" }}
+      </span>
+      <ul class="footer_bottom_list unstyled">
+        {% for link in footer_bottom_linklist.links %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "footer_linklist",
+      "label": "First menu",
+      "info": "This menu won't show dropdown items"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_second_linklist",
+      "label": "Second menu",
+      "info": "This menu won't show dropdown items"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_third_linklist",
+      "label": "Third menu",
+      "info": "This menu won't show dropdown items"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_bottom_linklist",
+      "label": "Bottom menu",
+      "info": "This menu won't show dropdown items"
+    },
+    {
+      "type": "text",
+      "id": "contact_text",
+      "label": "Contact text"
+    },
+    {
+      "type": "text",
+      "id": "contact_support",
+      "label": "Support email"
+    },
+    {
+      "type": "text",
+      "id": "contact_inquiries",
+      "label": "Sales email"
+    },
+    {
+      "type": "checkbox",
+      "id": "footer_social_enable",
+      "label": "Show social icons",
+      "default": true,
+      "info": "Show icons for all links in your social media theme settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "footer_payment_enable",
+      "label": "Show payment icons",
+      "default": true,
+      "info": "Show icons for payment providers enabled in your Shopify settings"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+$('.footer_list a').click(function() {
+  trackEvent('BM FooterLink Clicked')
+})
+$('.footer .social-icons a').click(function() {
+  trackEvent('BM FooterSocialLink Clicked')
+})
+{% endjavascript %}
+
+{% stylesheet %}
+@media (max-width: 768px) {
+  .footer_column {
+    display: none;
+  }
+}
+{% endstylesheet %}

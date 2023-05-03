@@ -1,0 +1,660 @@
+<!-- snippets/product-form-pdp-scripts.liquid -->
+
+{% include 'suggest-subscription-modal' %}
+{% assign nonSubscriptionItem = false %}
+{% assign fullAttributeNames = false %}
+
+{% for tag in product.tags %}
+	{% if tag == "NonSubscriptionItem" %}
+		{% assign nonSubscriptionItem = true %}
+	{% endif  %}
+	{% if tag == "FullAttributeNames" %}
+		{% assign fullAttributeNames = true %}
+	{% endif %}
+{% endfor %}
+
+<script>
+var nonSubscriptionItem = {{nonSubscriptionItem | json}};
+var fullAttributeNames = {{fullAttributeNames | json}};
+</script>
+<script>
+  const SUB_PRODUCTS_OPTION_NAME = "products";
+  const mainProduct = {{ product | json }};
+  const BRACKET_EXTRACTOR_REGEXP = /\((.*?)\)/gm
+  const PARENTHASIS_REGEXP = /[0-9]+(-[0-9]+)+/;
+  const ONE_TIME_MARKUP = 10
+  const DEBUG_CHECKOUT = false
+  const MAX_WAIT_RETRIES = 5
+  const RETRY_INTERVAL = 100
+  const selection = {
+    subProduct: mainProduct
+  }
+  let BUTTONS_VIEW = true
+
+  const selectors = {
+    SELECTORS_CONTAINER: '.product-selectors-container',
+    PRODUCT_SELECTOR_CONTAINER: '.product-selectors',
+    SUB_PRODUCT_SELECTION_CONTAINER: '.subproduct-selectors',
+    ONETIME_PRICE: ".one-time-price",
+    SUBSCRIBE_PRICE: ".subscribe-price",
+    FORM_ADD_TO_CART: 'form[action*="/cart/add"]',
+    QUANTITY_FIELD_NAME: "quantity",
+    VARIANT_FIELD_NAME: "id",
+    PURCHASE_TYPE_FIELD : ".radio-option-inner:visible input.onetime_subscribe_radio:checked",
+    SUBSCRIBE_PURCHASE_TYPE_RADIO_OPTION: ".radio-option-inner:visible input.subscribe",
+    ONETIME_PURCHASE_TYPE_RADIO_OPTION: ".radio-option-inner:visible input.onetime",
+    PURCHASE_TYPE_PROPERTY_NAME: "properties[purchase_type]",
+    DESCRIPTION_PRODUCT_FEATURES_SRC: ".description-features",
+    DESCRIPTION_PRODUCT_FEATURES_TRG: ".product-features-list",
+    ACCORDION_ENTRIES: ".accordion-info .entry",
+    ACCORDION_ENTRY_TITLE: ".entry-title",
+    ACCORDION_ENTRY_TEXT: ".entry-text",
+    ACCORDION_CONTAINER: ".product-info-accordion",
+    QUANTITY_ADJUST_BUTTON: ".js-qty__adjust",
+    QUANTITY_INPUT_FIELD: ".quantity__input",
+    RELATED_PRODUCTS: ".related-products",
+    RELATED_PRODUCTS_CAROUSEL: ".related-products-carousel"
+  }
+  let subProducts =  null
+  let needToSuggestSubscribe = true
+
+
+
+  /**************************** helpers functions ******************************************************/
+  const printDebug = (msg) => { if (DEBUG_CHECKOUT) { console.log(msg) }}
+
+  const getQuantity = () => {
+    const $quantityField = $(`input[name=${selectors.QUANTITY_FIELD_NAME}]`)
+    return ($quantityField) ? $quantityField.val() : null
+  }
+
+  const getPurchaseType = () => $(selectors.PURCHASE_TYPE_FIELD).val() || 'subscription'
+  const setPurchaseTypeAsSubscribe = () => $(selectors.SUBSCRIBE_PURCHASE_TYPE_RADIO_OPTION).prop('checked', true)
+
+  const waitForElement = (selector, callOnReady, retries=0) => {
+    if ($(selector).length === 0) {
+      if (retries === MAX_WAIT_RETRIES) {
+        {% comment %} console.error(`failed to find ${selector} on page for ${retries} attempts, waitForElement and call ${callOnReady} failed!`) {% endcomment %}
+        return
+      }
+      return setTimeout(() => waitForElement(selector, callOnReady, ++retries), RETRY_INTERVAL)
+    }
+    callOnReady()
+  }
+
+  function insertUrlParam(key, value) {
+    if (history.pushState) {
+      let searchParams = new URLSearchParams(window.location.search);
+      searchParams.set(key, value);
+      let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + searchParams.toString();
+      window.history.replaceState({path: newurl}, '', newurl);
+    }
+  }
+  /**************************** cart submit handlers and confirm subscription ********************/
+
+  const suggestSubscriptionFirst = (e) => {
+    const purchaseType = getPurchaseType()
+    trackEvent(`BM Product ${purchaseType} AddToCart clicked`, { product:  {{  product | json }} })
+    const shouldSuggest = purchaseType !== "subscription" && needToSuggestSubscribe && !nonSubscriptionItem
+    if (shouldSuggest) {
+      e.preventDefault ? e.preventDefault() : e.returnValue = false;
+      showSuggestSubscribeModal((changeToSubscribe) => {
+        if (changeToSubscribe) {
+          setPurchaseTypeAsSubscribe()
+        }
+        needToSuggestSubscribe = false
+        manualSubmitForm(e.target)
+      })
+    } else {
+      manualSubmitForm(e.target)
+    }
+  }
+
+  const bindCartSubmitForm = () => {
+    const $submitForm = $(selectors.FORM_ADD_TO_CART);
+    if (!$submitForm.length) {
+      printDebug('could not find add to cart form, sleep and try again')
+      return setTimeout(bindCartSubmitForm, 100)
+    }
+
+    printDebug(`found {$submitForm.length} add to cart form, binding to it now`)
+    $submitForm.submit(suggestSubscriptionFirst);
+  }
+
+  const generateToken = (s) => 'ST-' + s.split('-').join('').slice(0, 28)
+
+  const manualSubmitForm = (formElement) => {
+    printDebug(`manualSubmitForm called`);
+    setCookie('product_id',selection.subProduct.id);
+
+    setAddToCartFormElement(formElement,selectors.PURCHASE_TYPE_PROPERTY_NAME, getPurchaseType())
+    setAddToCartFormElement(formElement, selectors.VARIANT_FIELD_NAME, selection.variant.id)
+    const quantity = getQuantity()
+    if (quantity) {
+      setAddToCartFormElement(formElement, selectors.QUANTITY_FIELD_NAME, quantity)
+    }
+    $(formElement).off('submit', suggestSubscriptionFirst) //remove to prevent loops, we want to submit now.
+    $(formElement).submit();
+  }
+
+  const setPropertyType = (formElement) => {
+    let $purchaseType = $(formElement).find(`input[name="${selectors.PURCHASE_TYPE_PROPERTY_NAME}"]`)
+    const purchaseTypeVal = getPurchaseType()
+    if (!$purchaseType.length) {
+      $(formElement).append(`<input type="hidden" name="${selectors.PURCHASE_TYPE_PROPERTY_NAME}" value="${purchaseTypeVal}" />`)
+    } else {
+      $purchaseType.val(purchaseTypeVal)
+    }
+  }
+
+  const setAddToCartFormElement = (formElement, elementName, value) => {
+    let $hiddenInput = $(formElement).find(`input[name="${elementName}"]`)
+    if (!$hiddenInput.length) {
+      $(formElement).append(`<input type="hidden" name="${elementName}" value="${value}" />`)
+    } else {
+      $hiddenInput.val(value)
+    }
+  }
+
+  /************************* end cart submit handlers *******************************************************/
+
+  /************************** related products **************************************************************/
+  const getRelatedProductsCollection = async (collection) => jQuery.getJSON(`/collections/${collection}/products.json`)
+
+  const layoutRelatedProducts = async () => {
+    const relatedProductsCollection = selection.subProduct.tags.reduce((prev, curTag) => {
+      const relatedProductsCollection = parseAssignmentValue(curTag, "relatedProductsCollection=")
+      return (relatedProductsCollection && relatedProductsCollection.length)  ? relatedProductsCollection : prev
+    }, null)
+
+    if (!relatedProductsCollection) {
+      console.warn(`relatedProductsCollection not found`)
+      return
+    }
+    getRelatedProductsCollection(relatedProductsCollection)
+    .then(result => {
+       if (!result.products) {
+         console.error(`${relatedProductsCollection} is missing products, or malformed server response!`)
+         return
+       }
+      createRelatedProductsContainerAndProducts(result.products)
+    })
+  }
+
+  const createRelatedProductElement = (product) => {
+    const $productContainer = $('<div class="product-grid-item-wrapper small--one-whole medium--one-third large-up--one-fifth">')
+    const $productWrapper = $('<div class="product-grid-item"></div>')
+    const $productLink = $(`<a href="/products/${product.handle}"></a>`)
+    $productWrapper.append($productLink)
+    $productContainer.append($productWrapper)
+    if (product.images && product.images.length) {
+      $productLink.append(`<div><img src="${product.images[0].src}" /></div>`)
+    }
+    $productLink.append(`<div class="product-grid-item__title">${product.title}</div>`)
+    const lowestPrice = product.variants.reduce((prev, curVar) => (prev > curVar.price) ? curVar.price : prev, 999999)
+    $productLink.append(`<div class="product-grid-item__price">from $${lowestPrice}</div>`)
+    return $productContainer
+  }
+
+  const createRelatedProductsContainerAndProducts = (products) => {
+    const $relatedProductsSection = $(selectors.RELATED_PRODUCTS)
+    $relatedProductsSection.empty()
+    const $wrapper = $('<div class="wrapper"></div>')
+    $relatedProductsSection.append($wrapper)
+    $wrapper.append('<h1 class="title--decorated dark">Customer Also Bought</div>')
+    const $relatedProductsContainer = $(`<div class="grid ${selectors.RELATED_PRODUCTS_CAROUSEL.substring(1)}"></div>`)
+    $wrapper.append($relatedProductsContainer)
+    products.forEach(product => createRelatedProductElement(product).appendTo($relatedProductsContainer))
+
+    $(document).ready(function () {
+      $(selectors.RELATED_PRODUCTS_CAROUSEL).flickity({
+        groupCells: false,
+        pageDots: false,
+        freeScroll: true,
+        //wrapAround: true,
+        //autoPlay: true,
+        contain: true,
+        imagesLoaded: true //ensures viewport takes
+        //height of tallest cell; see https://github.com/metafizzy/flickity/issues/185#issuecomment-122897319
+      });
+    })
+  }
+
+  /************************** end related products **********************************************************/
+
+  /************************** product / subProduct / buttons ************************************************/
+  const getProduct = async (handle) => jQuery.getJSON(`/products/${handle}.js`, (product) => product)
+
+
+  const getSubProducts = () => {
+    // console.log("in getSubProducts");
+    console.log("mainProduct = ",JSON.stringify(mainProduct));
+    console.log("mainProduct.options = ",JSON.stringify(mainProduct.options));
+    if (mainProduct.options.indexOf(SUB_PRODUCTS_OPTION_NAME) === -1) {
+      // initializes newOptions with the current options, e.g., something like
+      // mainProduct.options =  ["Size","Quantity (Monthly)"]
+      // and modifies it step by step somehow
+      mainProduct.options = mainProduct.variants.reduce((newOptions, curVariant) => {
+        //iterate through indices of options array
+        for (let optIdx in newOptions) {
+          if (!newOptions[optIdx].name) {
+            newOptions[optIdx] = { name: newOptions[optIdx], values: []}
+          }
+          const optionName = `option${Number(optIdx)+1}`
+          if (newOptions[optIdx].values.indexOf(curVariant[optionName]) === -1) {
+            newOptions[optIdx].values.push(curVariant[optionName])
+          }
+        }
+        return newOptions
+      }, mainProduct.options)
+      return Promise.resolve(mainProduct)
+    }
+    const selectedProduct = getUrlParameter('product')
+    return Promise.all(mainProduct.variants.map(async (item, idx) => {
+      // mainProduct is the liquid product object as a json object
+      // see https://shopify.dev/docs/admin-api/rest/reference/products/product for attributes
+      // what is item.option1? look at here: https://shopify.dev/docs/admin-api/rest/reference/products/product-variant
+      // to see Shopify allows adding up to 3 options
+      const product = await getProduct(item.option1)
+      const results = BRACKET_EXTRACTOR_REGEXP.exec(product.title)
+      BRACKET_EXTRACTOR_REGEXP.lastIndex = 0
+      product.sub_product_type = (results) ? results[results.length-1] : ''
+      if (!selectedProduct && idx === 0) {
+        setSubProduct(product)
+      } else if (selectedProduct == product.id) {
+        setSubProduct(product)
+      }
+      return product
+    }))
+  }
+
+  const setSubProduct = (product, variant) => {
+    selection.subProduct = product
+    for (const key in Object.getOwnPropertyNames(selection)) {
+      if (key === 'subProduct') {
+        continue;
+      }
+      delete selection[key]
+    }
+
+    product.options.forEach((option, idx) =>
+      selection[option.name] = (variant) ? variant[`option${Number(idx+1)}`] : option.values[0]
+    )
+  }
+
+  const updateSelectedVariantFromSelection = (e, optionValue) => {
+    printDebug('updateSelectedVariantFromSelection called')
+    const { variants, options } = selection.subProduct
+    selection.variant = variants.find((variant) => {
+      for (let optIdx in options) {
+        if (variant[`option${Number(optIdx)+1}`] !== selection[options[optIdx].name]) {
+          return false
+        }
+      }
+      return variant
+    })
+    printDebug(`selected variant changed to ${JSON.stringify(selection.variant)}`)
+    insertUrlParam('variant', selection.variant.id)
+    updatePricing()
+  }
+
+  function convertTextToButton(selectText) {
+    if(fullAttributeNames) {
+      return { title: selectText, subtitle: null };
+    }
+    const parts = selectText.split(' ');
+    let subtitle = null;
+    const title = parts[0].replace("X-Small", "XS").replace("Small/Medium", "S/M").replace("Large", "L").replace("-", "")
+    for (let part in parts) {
+      if (part == 0) {
+        if (!isNaN(Number(parts[part]))) {
+          return { title: selectText, subtitle: null}
+        }
+        continue;
+      }
+      const curPart = parts[part]
+      const matches = PARENTHASIS_REGEXP.exec(curPart)
+      if (matches) {
+        subtitle = matches[0]
+        break;
+      }
+    }
+    return { title, subtitle }
+  }
+
+
+  const createDropDowns = (items, changeHandler, selectionKey, labelKey) => {
+    // console.log("called createDropdowns with items, changeHandler, selectionKey, labelKey = ");
+    // console.dir(items);
+    // console.dir(changeHandler);
+    // console.dir(selectionKey);
+    // console.dir(labelKey);
+    const $newSelect = $("<select class='product-dropdown'></select>")
+    $newSelect.change((e) => {
+      const selectedItem = items.find(item => ((typeof items[0] !== "string") ? item[labelKey] : item ) === e.target.value)
+      selection[selectionKey] = selectedItem
+      if (changeHandler) { changeHandler(e, selectedItem) }
+    })
+    $newSelect.append(items.map(item => {
+      const labelText = (typeof item === "string") ? item : item[labelKey];
+      return $(`<option value="${labelText}" ${(selection[selectionKey] === item) ? "selected" : ""}>${labelText}</option>`)
+    }))
+    return $newSelect
+  }
+
+  const createButtons = (items, changeHandler, selectionKey, labelKey) => {
+     console.log("called createButtons with items, changeHandler, selectionKey, labelKey = ");
+     console.dir(items);
+//     console.log(selection);
+//     console.dir(changeHandler);
+    console.dir(selectionKey);
+//     console.dir(labelKey);
+    const container = $("<div class='radioSelectContainer' />"); //creates the div which holds, e.g. size or quantity selections
+    const radioGroup = `Group${createUuid()}`; //the unique identifier for the group of radio buttons
+    if (selectionKey.toLowerCase().includes('quantity')) {
+      if ( selection['Size'] ) {
+        let { variants } = mainProduct;
+        variants = variants.filter( variant => variant.option1 === selection['Size'])
+        	.map(v => v.option2);
+        items = items.filter( item => variants.includes(item ))
+        .sort(function(a, b) {
+              return parseInt(a) - parseInt(b);
+        })
+      }
+    }
+    items.forEach((item) => {
+      const labelText = (typeof item === "string") ? item : item[labelKey];
+      const label = $(`<label class=\'variant-option\ ${(selection[selectionKey] === item) ? "selected" : ""}' />`);
+      if (isNaN(Number(labelText))) {
+        label.addClass("text-radio-select")
+      }
+      container.append(label);
+
+      $("<input type='radio' name='" + radioGroup + "' />")
+        .attr("value", labelText)
+        .click(((e) => {
+          selection[selectionKey] = items.find(searchItem => searchItem === item)
+          $(e.target).parent().parent().find(".variant-option").removeClass('selected')
+          $(e.target).parent().addClass('selected')
+          if (changeHandler) {
+            setTimeout(
+              function(){ changeHandler(e, item) },
+              1
+            )
+          }
+          createProductButtons(mainProduct, false);
+//           setSubProduct(mainProduct, selection.variant);
+        }))
+        .appendTo(label);
+      const buttonInfo = convertTextToButton(labelText)
+      const buttonFace = $(`<span data-val="${labelText}"></span>`).appendTo(label)
+      $(`<div class="title">${buttonInfo.title}</div>`).appendTo(buttonFace)
+      $(`<div class="subtitles">${(buttonInfo.subtitle) ? `${buttonInfo.subtitle} Inches` : '' }</div>`).appendTo(buttonFace)
+    })
+    return container
+  }
+
+  const createSelectionWrapperWithLabel = (label) => $(`<div class="product-selector-wrapper ${label}"><label>${label}</label></div>`)
+
+  const addQuantitySelector = ($selectorContainer) => {
+    const $qunatityProductSelectorWrapper = createSelectionWrapperWithLabel('Quantity')
+    const $newQunatitySelector = $('<div class="js-qty quantity-selector">')
+    $newQunatitySelector.append('<label for="Quantity" class="label-hidden" for="js-qty-0">{{ 'products.product.quantity' | t }}</label>')
+    const $minusButton = $('<span class="qt__adjust qty__adjust--minus quantity__minus">{% include "icon-minus" %}</span>')
+    const $quantityInput = $('<input type="text" id="qty-0" class="qty__num quantity__input" value="1" min="1" aria-label="quantity" pattern="[0-9]*" name="quantity">')
+    const $plusButton = $('<span class="qt__adjust qty__adjust--plus quantity__plus">{% include "icon-plus" %}</span>')
+
+    const handleButton = (e) => {
+      e.cancelBubble = true
+      e.stopPropagation()
+      if (!$quantityInput.is(":focus")) {
+        $quantityInput.focus()
+      }
+      let qty = Number($quantityInput.val())
+      // Add or subtract from the current quantity
+      if ($(e.currentTarget).hasClass('qty__adjust--plus')) {
+        qty = qty + 1
+      } else {
+        qty = qty - 1
+        if (qty <= 1) qty = 1
+      }
+      $quantityInput.val(qty).trigger('change')
+    }
+
+    $newQunatitySelector.append($minusButton)
+    $newQunatitySelector.append($quantityInput)
+    $newQunatitySelector.append($plusButton)
+    $qunatityProductSelectorWrapper.append($newQunatitySelector)
+    $selectorContainer.append($qunatityProductSelectorWrapper)
+
+    $quantityInput.off('change').on('change', () => {
+      let qty = $quantityInput.val()
+      const newQuantity = (parseFloat(qty) == parseInt(qty) && !isNaN(qty)) ? qty : 1
+      if (qty !== newQuantity) {
+        $quantityInput.val(newQuantity)
+      }
+      selection.quantity = newQuantity
+      setTimeout(updatePricing, 50)
+    })
+    $minusButton.off('click').on('click', handleButton)
+    $plusButton.off('click').on('click', handleButton)
+  }
+
+  const parseAssignmentValue = (input, lhsString) => {
+    const result = input.split(lhsString)
+    if (result.length === 2) {
+      try {
+      return eval(result[1].replace(/;/g,','))
+      } catch (e) {
+        console.error(`invalid tag setting - failed to parse ${lhsString} - ${e}`)
+      }
+    }
+    return []
+  }
+
+  const processOptionsSettingsInTags = (product) => {
+    const optionSettings = product.tags.reduce((prev, curTag) => {
+      prev.removedOptions = prev.removedOptions.concat(parseAssignmentValue(curTag, "removedOptions="))
+      prev.defaultOptions = prev.defaultOptions.concat(parseAssignmentValue(curTag, "defaultOptions="))
+      return prev
+    }, { removedOptions : [], defaultOptions: [] })
+
+    product.options.forEach(option => {
+      option.values = option.values.filter(optionValue => !optionSettings.removedOptions.includes(optionValue))
+      if (selection.variant) {
+        return
+      }
+      const selectedValue = option.values.find(optionValue => optionSettings.defaultOptions.includes(optionValue))
+      if (selectedValue) {
+        selection[option.name] = selectedValue
+      }
+    })
+    return optionSettings
+  }
+
+  const createProductButtons = (product, withProcessTags = true) => {
+    if ( withProcessTags ) {
+      processOptionsSettingsInTags(product);
+    }
+    const $selectorsContainer = $(selectors.PRODUCT_SELECTOR_CONTAINER)
+    if ($selectorsContainer.length === 0) {
+      setTimeout(() => createProductButtons(product), 100)
+      return
+    }
+    $selectorsContainer.find(selectors.SUB_PRODUCT_SELECTION_CONTAINER).remove()
+    const $subProductContainer = $(`<div class="${selectors.SUB_PRODUCT_SELECTION_CONTAINER.substring(1)}"></div>`)
+    let hasQuantity = false
+    // see https://shopify.dev/docs/admin-api/rest/reference/products/product for product.options description
+
+    product.options.forEach((option) => {
+      console.log('option', option)
+      $subProductContainer.append(
+        createSelection(option.name, option.values, BUTTONS_VIEW, option.name,'name', updateSelectedVariantFromSelection)
+      )
+      hasQuantity = hasQuantity || option.name.indexOf("Quantity") !== -1
+    })
+
+    //certain products come in set quantities e.g., 10, 30, or 60;
+    //so we don't currently show a +/- number selector for such products.
+    if (!hasQuantity) {
+      // console.log("this product needs a quantity selector");
+      addQuantitySelector($subProductContainer)
+    } else {
+      // console.log("this product has preset quantities");
+    }
+    $subProductContainer.appendTo($selectorsContainer)
+  }
+
+  const createSubProductsButtons = (subProducts) => {
+    const $selectorsContainer = $(selectors.PRODUCT_SELECTOR_CONTAINER)
+    $selectorsContainer.empty()
+    $selectorsContainer.append(createSelection(mainProduct.variants[0].option2, subProducts, BUTTONS_VIEW, 'subProduct',
+      'sub_product_type', (e, product) => {
+        setSubProduct(product)
+        createProductButtons(product)
+        updateSelectedVariantFromSelection()
+      })
+    )
+  }
+
+  // Creates a set of selectors for a given product option
+  const createSelection = (label, items, isButtons, selectionKey, labelKey, changeHandler) => {
+    // console.log("called createSelection with label = ",label," and isButtons = ",isButtons);
+    const $container = createSelectionWrapperWithLabel(label)
+    const createSelectionFn = (isButtons) ? createDropDowns : createDropDowns
+    const toBeAppended = createSelectionFn(items,changeHandler,selectionKey,labelKey);
+    $container.append(toBeAppended);
+    return $container
+  }
+
+  /*************************************** end prodcut / sub product selection *****************************/
+
+
+  /********************************************** price / checkout controllers *********************/
+  const generatePriceString = (priceInCents, multiplier, markup = 0)  => {
+    const itemPrice = ((Number(priceInCents) / 100 * (markup + 100)) / 100)
+    const totalPrice = (itemPrice * multiplier).toFixed(2)
+    let priceText = `<span class="total-price">$${totalPrice}</span>`
+
+    $(selection.subProduct.options).each((idx, option) => {
+      if (option.name.indexOf("Quantity") !== -1 || option.name.indexOf("Count") !== -1) {
+        const quantity = selection[option.name]
+        priceText += `<span class="item-price">$${(itemPrice / quantity).toFixed(2)} Per Piece</span>`
+      }
+    })
+
+    return priceText
+  }
+
+  let updatePricingRetry = 0
+  const updatePricing = () => {
+    if (!selection.variant) {
+      console.warn('updatePricing called with selected Variant being null or undefined')
+      return
+    }
+    if ($(selectors.ONETIME_PRICE).length === 0) {
+      if (updatePricingRetry === 10) {
+        console.error('failed to up price for 10 times, could not find component on page')
+      }
+      updatePricingRetry += 1
+      setTimeout(updatePricing, 100)
+      return
+    }
+    updatePricingRetry = 0
+    const $visibleQuantitySelector = $(`${selectors.QUANTITY_INPUT_FIELD}:visible`)
+    const multiply = $visibleQuantitySelector.length ? Number($visibleQuantitySelector.val()) : 1
+    $(selectors.ONETIME_PRICE).html(generatePriceString(selection.variant.price, multiply , !nonSubscriptionItem ? ONE_TIME_MARKUP: null))
+    $(selectors.SUBSCRIBE_PRICE).html(generatePriceString(selection.variant.price, multiply))
+  }
+
+  /********************************** end pricing and checkout component ********************************/
+
+  /********************************** initializeation ***************************************************/
+
+  // Fills the bulleted list of product features on PDP
+  const layoutDescription = () => {
+    const $features = $(selectors.DESCRIPTION_PRODUCT_FEATURES_TRG) //target
+    const $desc = $(selection.subProduct.description) //grabs HTML from Shopify admin product description and creates a DOM element out of it
+    // console.log("$desc = ",selection.subProduct.description);
+    //$(selectors.DESCRIPTION_PRODUCT_FEATURES_SRC, $desc) selects within the context of
+    //$desc, in our case, getting only ".description-features" from the shopify product description
+    //(the product description contains more things than just ".description-features"))
+
+    //then $features.html() (initially empty) puts those bullet points into $features
+    $features.html($(selectors.DESCRIPTION_PRODUCT_FEATURES_SRC, $desc).html())
+  }
+
+  let prevWidth = $(window).width()
+  const toggleButtonsToDropdowns = () => {
+    $(window).resize((e) => {
+      let curWidth = $(window).width()
+      if (curWidth <= 500  && prevWidth > 500 || curWidth > 500 && prevWidth <= 500) {
+        BUTTONS_VIEW = !BUTTONS_VIEW
+        if (subProducts.length > 1) {
+          createSubProductsButtons(subProducts);
+        }
+        createProductButtons(selection.subProduct)
+        prevWidth = curWidth
+      }
+    })
+  }
+
+
+  //fills the accordion with question-answer pairs;
+  // Q: how does it get the text in the first place? A: In product.liquid, this was placed
+  // into a hidden div;  note that this is a different (possibly more fragile) approach than filling the 
+  // bullet list in layoutDescription() above
+  const layoutAccordion = () => {
+    const $accordionContainer = $(selectors.ACCORDION_CONTAINER)
+    // console.log("searching among ",$(selectors.ACCORDION_ENTRIES).length," accordion entries");
+    $(selectors.ACCORDION_ENTRIES).each((idx, entry) => {
+      // console.log("   this entry is: ",entry);
+      const entryName = `accordionEntry${idx}`
+      const entryTitle = $(entry).find(selectors.ACCORDION_ENTRY_TITLE).text()
+      const entryText = $(entry).find(selectors.ACCORDION_ENTRY_TEXT).html()
+      const $accordionEntryWrapper = $('<div class="product-accordion-entry-wrapper"></div>')
+      const $accordionEntryTitle =
+        $(`<div class="product-accordion-title" data-toggle="collapse" data-target=".${entryName}" aria-expanded="${(idx===0) ? 'true' : 'false'}" aria-controls="${entryName}">${entryTitle}</div>`)
+      const $accordionChevron = $(`<i class="fa ${(idx === 0) ? 'fa fa-minus' : 'fa fa-plus'}" aria-hidden="true"></i>`)
+      $accordionEntryTitle.append($accordionChevron)
+      const $accordionEntryText = $(`<div class="${(idx === 0) ? 'show' : ''} collapse ${entryName} product-accordion-text">${entryText}</div>`)
+      $accordionEntryText.on('show.bs.collapse', (e) => {
+        $accordionEntryTitle.find("i.fa").removeClass("fa fa-plus").addClass("fa fa-minus")
+      })
+      $accordionEntryText.on('hidden.bs.collapse', (e) => {
+        $accordionEntryTitle.find("i.fa").removeClass("fa fa-minus").addClass("fa fa-plus")
+      })
+      $accordionEntryWrapper.append($accordionEntryTitle)
+      $accordionEntryWrapper.append($accordionEntryText)
+      $accordionContainer.append($accordionEntryWrapper)
+    })
+  }
+
+  const init = () => {
+    bindCartSubmitForm()
+    toggleButtonsToDropdowns()
+
+    getSubProducts().then(subProductsResult => {
+      BUTTONS_VIEW = ($(window).width() > 500)
+      subProducts = subProductsResult;
+      if (Array.isArray(subProducts)) {
+        createSubProductsButtons(subProducts);
+      } else {
+        const variant_id = getUrlParameter('variant')
+        selection.variant = subProducts.variants.find(variant => variant.id == variant_id)
+        setSubProduct(subProducts, selection.variant)
+      }
+      createProductButtons(selection.subProduct);
+      updateSelectedVariantFromSelection()
+      updatePricing()
+      waitForElement(selectors.DESCRIPTION_PRODUCT_FEATURES_TRG, layoutDescription)
+      waitForElement(selectors.ACCORDION_CONTAINER,  layoutAccordion)
+      waitForElement(selectors.RELATED_PRODUCTS, layoutRelatedProducts)
+    })
+  }
+
+  $(() => init())
+
+  /************************************* end init ************************************************************/
+
+</script>

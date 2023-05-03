@@ -1,0 +1,20 @@
+<!-- snippets/yotpo-product-review-raiting.liquid -->
+{% if currentProduct.metafields.yotpo.hide != true %}
+  {% liquid
+    if currentProduct.metafields.yotpo.product_id
+      assign yotpoProductId = currentProduct.metafields.yotpo.product_id
+    else
+      assign yotpoProductId = currentProduct.id
+    endif
+  %}
+
+  <div class="yotpo bottomLine yotpo__reviews"
+    data-appkey="qtDmssHwWOnmJ4Rkr1A3kwYhVWX7Xw6dKZQ7J5n4"
+    data-product-id="{{ yotpoProductId }}"
+    data-product-models="{{ yotpoProductId }}"
+    data-name="{{ currentProduct.title }}"
+    data-url="/products/{{ currentProduct.handle }}"
+    data-image-url="//cdn.shopify.com/s/files/1/1522/0906/products/img src_d87e51ec-ab1a-4d89-9a04-e9a8c3e6fe55_large.png%3Fv=1535649311">
+  </div>
+{%endif %}
+<!--/ snippets/yotpo-product-review-raiting.liquid -->

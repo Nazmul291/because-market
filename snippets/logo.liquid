@@ -1,0 +1,27 @@
+{% if template.name == 'index' %}
+  <h2>
+{% else %}
+  <div class="h1">
+{% endif %}
+    <a href="/" class="site-logo{% if section.settings.logo != blank %} header__logo__link{% endif %}">
+      {% if section.settings.logo != blank %}
+        {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+        <img src="{{ 'logo.svg' | file_url }}"
+             class="logo--color"
+             alt="{{ section.settings.logo.alt | default: shop.name }}">
+      {% else %}
+        <span class="logo--text">{{ shop.name }}</span>
+      {% endif %}
+      {% if section.settings.transparent and section.settings.transparent_logo != blank and template.name == "index" %}
+        {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
+        <img src="{{ 'logo.svg' | file_url }}"
+             class="logo--transparent"
+             srcset="{{ section.settings.transparent_logo | img_url: image_size }} 1x, {{ section.settings.transparent_logo | img_url: image_size, scale: 2 }} 2x"
+             alt="{{ section.settings.transparent_logo.alt | default: shop.name }}">
+      {% endif %}
+    </a>
+{% if template.name == 'index' %}
+  </h2>
+{% else %}
+  </div>
+{% endif %}

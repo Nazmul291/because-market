@@ -1,0 +1,215 @@
+<!-- /sections/index-video.liquid -->
+
+{%- if section.settings.image -%}
+  {%- assign img_object = section.settings.image -%}
+  {%- assign img_small = section.settings.image | img_url: '18x' -%}
+  {%- assign img_api = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+{%- else -%}
+  {%- assign img_object = 'hero.svg' | asset_url -%}
+  {%- assign img_small =  'hero.svg' | asset_url -%}
+  {%- assign img_api = 'hero.svg' | asset_url -%}
+{%- endif -%}
+
+{%- assign no_text_case = '' -%}
+{%- if section.settings.title == '' and section.settings.description == '' -%}
+  {%- assign no_text_case = 'hero__content--blank' -%}
+{%- endif -%}
+
+{%- assign no_button_case = '' -%}
+{%- if section.settings.video_link == '' -%}
+  {%- assign no_button_case = 'hero__button--blank' -%}
+{%- endif -%}
+
+{%- assign transparency_class = '' -%}
+{%- if section.settings.transparent-%}
+  {%- assign transparency_class = 'hero__content--transparent' -%}
+{%- endif -%}
+
+<div class="wide-image preventOverflow index-video {{ section.settings.height }} {{ section.settings.text_color }}" data-prevent-overflow data-section-id="{{ section.id }}" data-section-type="video" id="FeaturedImage-{{ section.id }}"
+  {% if section.settings.parallax %}
+    data-parallax-src="{{ img_small }}"
+    data-src="{{ img_api }}"
+    data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2450, 2700, 3000, 3350, 3750, 4100]"
+    data-aspectratio="{{  section.settings.image.aspect_ratio }}"
+    data-sizes="auto"
+  {% endif %}>
+
+  <div class="hero__content__wrapper {{ section.settings.text_align }} {{ transparency_class }}">
+    {% if section.settings.button_image %}
+      {%- assign img_button = section.settings.button_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+      <a href="{{ section.settings.video_link }}" class="popupVideo hero__button-image">
+        <img class="lazyload"
+        alt="{{ section.settings.button_image.alt | default: section.settings.link_text }}"
+        src="{{ section.settings.button_image | img_url: '180x' }}"
+        data-src="{{ img_button }}"
+        data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2450, 2700, 3000, 3350, 3750, 4100]"
+        data-aspectratio="{{  section.settings.button_image.aspect_ratio }}"
+        data-sizes="auto"/>
+        <noscript>
+          <img src="{{ section.settings.button_image | img_url: '540x' }}" alt="{{ section.settings.button_image.alt | default: section.settings.link_text }}" class="image--flex" />
+        </noscript>
+      </a>
+    {% else %}
+      <div class="hero__content {{ no_text_case }} {{ no_button_case }}" data-prevent-overflow-content>
+        {% unless section.settings.title == '' %}<h1 class="hero__title">{{ section.settings.title | escape }}</h1>{% endunless %}
+        {% unless section.settings.description == '' %}<p class="hero__description h4--body">{{ section.settings.description }}</p>{% endunless %}
+        {% unless section.settings.video_link == '' %}
+          {%- if section.settings.video_link.type == 'youtube' -%}
+            {% capture video_link %}https://www.youtube.com/watch?v={{ section.settings.video_link.id }}{% endcapture %}
+          {%- elsif section.settings.video_link.type == 'vimeo' -%}
+            {% capture video_link %}https://vimeo.com/{{ section.settings.video_link.id }}{% endcapture %}
+          {%- endif -%}
+          <a href="{{ video_link }}" class="popupVideo icon__play--home">
+            {% include 'icon-play' %}
+            <span class="icon-fallback-text">&#9658;</span>
+          </a>
+        {% endunless %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="image-overlay image-overlay-{{ section.settings.overlay_opacity }}"></div>
+  {% if section.settings.height == 'use_image' %}
+  <div class="lazy-image" style="padding-top:{{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100}}%; background-image: url('{{ section.settings.image | img_url: '1x1' }}');">
+    <img class="lazyload fade-in" {% if section.settings.parallax %} style="opacity: 0;"{% endif %}
+      alt="{{ section.settings.image.alt | default: shop.name }}"
+      data-src="{{ img_api }}"
+      data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048, 2450, 2700, 3000, 3350, 3750, 4100]"
+      data-aspectratio="{{  section.settings.image.aspect_ratio }}"
+      data-parent-fit="cover"
+      data-sizes="auto"/>
+  </div>
+  {% endif %}
+  {% if section.settings.parallax == false and section.settings.height != 'use_image' %}
+    <div class="background-size-cover lazyload" data-bgset="{% include 'bgset', image: img_object %}"></div>
+  {% endif %}
+  {% if section.settings.height == 'use_screen_full' %}
+    <div class="scroll_icon_wrap">
+      <a href="#scroll-{{ section.id }}" class="scroll_link bloop">
+        <span class="scroll_icon">{% include 'icon-arrow-down' %}</span>
+      </a>
+    </div>
+    <div class="scroll__link" id="scroll-{{ section.id }}"></div>
+  {% endif %}
+  <noscript>
+    <img src="{{ img_object | img_url: '1440x' }}" alt="{{ img_object.alt | default: section.settings.title }}" class="responsive-wide-image"/>
+  </noscript>
+</div>
+
+{% schema %}
+{
+  "name": "Video",
+  "class": "borderless",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video_url",
+      "id": "video_link",
+      "label": "Video link",
+      "accept": ["youtube", "vimeo"],
+      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Section height",
+      "default": "use_screen_two_thirds",
+      "options": [
+        { "value": "use_screen_full", "label": "Full screen height"},
+        { "value": "use_screen_two_thirds", "label": "Tall"},
+        { "value": "use_screen_one_half", "label": "Medium"},
+        { "value": "use_screen_one_third", "label": "Short"},
+        { "value": "use_image", "label": "Image height"}
+      ]
+    },
+    {
+      "type":    "range",
+      "id":      "overlay_opacity",
+      "min":     0,
+      "max":     100,
+      "step":    5,
+      "label":   "Image overlay opacity",
+      "info":    "Increase contrast for legible text.",
+      "default": 15
+    },
+    {
+      "type": "checkbox",
+      "id": "parallax",
+      "default": false,
+      "label": "Enable parallax scroll"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured video"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Subheading",
+      "default": "This area is used to describe your video’s details."
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alignment",
+      "default": "align--middle-left",
+      "options": [
+        { "value": "align--top-left", "label": "Top left"},
+        { "value": "align--top-center", "label": "Top center"},
+        { "value": "align--top-right", "label": "Top right"},
+        { "value": "align--middle-left", "label": "Middle left"},
+        { "value": "align--middle-center", "label": "Absolute center"},
+        { "value": "align--middle-right", "label": "Middle right"},
+        { "value": "align--bottom-left", "label": "Bottom left"},
+        { "value": "align--bottom-center", "label": "Bottom center"},
+        { "value": "align--bottom-right", "label": "Bottom right"}
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "text-white",
+      "options": [
+        { "value": "text-white", "label": "White"},
+        { "value": "text-warm", "label": "Primary accent"},
+        { "value": "text-cool", "label": "Secondary accent"},
+        { "value": "text-dark", "label": "Dark"}
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent",
+      "label": "Transparent background",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Button image",
+      "info": "Replace text with a clickable image"
+    },
+    {
+      "type": "image_picker",
+      "id": "button_image",
+      "label": "Button image",
+      "info": "2000 x 2000px .png"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video",
+      "category": "Video"
+    }
+  ]
+}
+{% endschema %}

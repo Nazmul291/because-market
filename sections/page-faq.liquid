@@ -1,0 +1,1664 @@
+<!-- /sections/page.faq.liquid-->
+{%- if section.settings.gladly_config and section.settings.gladly_config.size > 0 -%}
+  <div class="wrapper page-margin">
+    <div class="grid">
+      <div id="faq-page-wrapper">
+        <section class="row py-4" id="hero">
+          <div class="container">
+            <div class="col col-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="row">
+                <div class="col col-12 col-md-6 col-lg-6 col-sm-12">
+                  <h2 class="title">Because <span>we’re here to help</span></h2>
+                  <p>Answers to some of our most frequently asked questions.</p>
+                  <div class="underline"></div>
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-6 col-sm-12 all-center">
+                  <div class="row justify-content-center m-0">
+                    <img class="mx-auto d-block main-section-image" src="//cdn.shopify.com/s/files/1/0024/5107/9257/files/faq-FAQ_illu.png?v=777666770936674383" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="gladlyHC" id="gladly-help-center"></div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" defer>
+    window.gladlyHCConfig = {{ section.settings.gladly_config }};
+    function l() {
+      let t = document,
+              e = t.createElement('script');
+      (e.type = 'text/javascript'), (e.async = !0), (e.src = 'https://cdn.gladly.com/help-center/hcl.js');
+      let a = t.getElementsByTagName('script')[0];
+      a.parentNode.insertBefore(e, a);
+    }
+
+    let w = window;
+    w.attachEvent ? w.attachEvent('onload', l) : w.addEventListener('DOMContentLoaded', l, !1);
+  </script>
+{% else %}
+  {%- assign page_nav = linklists[section.settings.page_nav] -%}
+
+  {%- assign page_nav_enable = false -%}
+  {%- if page_nav.links.size > 0 -%}
+    {%- assign page_nav_enable = true -%}
+  {%- endif -%}
+
+  {%- assign page_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+  {%- assign title_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+
+  {%- if page_nav_enable %}
+    {%- assign page_grid = 'medium-up--three-quarters' -%}
+    {%- assign title_grid = 'one-whole' -%}
+  {%- endif -%}
+  <div class="wrapper page-margin">
+    <div class="grid">
+      <div id="faq-page-wrapper">
+        <section class="row py-4" id="hero">
+          <div class="container">
+            <div class="col col-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="row">
+                <div class="col col-12 col-md-6 col-lg-6 col-sm-12">
+                  <h2 class="title">Because <span>we’re here to help</span></h2>
+                  <p>Answers to some of our most frequently asked questions.</p>
+                  <div class="underline"></div>
+                </div>
+
+                <div class="col col-12 col-md-6 col-lg-6 col-sm-12 all-center">
+                  <div class="row justify-content-center m-0">
+                    <img class="mx-auto d-block main-section-image" src="{{ 'faq-FAQ_illu.png' | file_url }}"
+                         alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section><!-- hero.row -->
+        <section class="row" id="features">
+          <div class="container">
+            <div class="faq-subsection faq-subsection-membership show">
+
+              <div class="row" id="questions">
+                {% if false %}
+                  <div class="col col-lg-4 col-md-6 col-sm-12 col-12">
+                    <div class="menu" id="questions-menu">
+                      <h3 class="title">Categories</h3>
+                      <ul class="categories">
+                        <li><a href="javascript:;" data-scroll-to="sub-category-trial">Starter Pack & Auto-Shipments</a></li>
+                        <li><a href="javascript:;" data-scroll-to="sub-category-order">Changing Your Order</a></li>
+                        <li><a href="javascript:;" data-scroll-to="sub-category-account">Your Account</a></li>
+                        <li><a href="javascript:;" data-scroll-to="sub-category-shipping">Shipping</a></li>
+                        <li><a href="javascript:;" data-scroll-to="sub-category-payment">Payment</a></li>
+                        <li><a href="javascript:;" data-scroll-to="sub-category-cancellation">Cancellations and Returns</a></li>
+                        <li><a href="javascript:;" data-scroll-to="sub-category-bladder-protection">Bladder Protection</a></li>
+                        <li><a href="javascript:;" data-scroll-to="sub-category-cbd">CBD</a></li>
+                        <!-- <li><a href="javascript:;" data-scroll-to="sub-category-gifting">Gifting</a></li> -->
+                      </ul>
+                      <span class="fold bottom left"></span>
+                    </div>
+
+                  </div>
+                {% endif %}
+                <div class="col col-lg-12 col-md-6 col-sm-12 col-12 group" id="questions-index">
+                  <div class="flex-row w-100 sub-category-trial">
+                    <h4 class="sub-category">Starter Pack & Auto-Shipments</h4>
+                    <div id="membership-accordion-1">
+                      <div class="card">
+                        <div class="card-header" id="heading-membership-1">
+                          <a class="question-link" data-target="sub-category-trial" aria-expanded="true" aria-controls="collapse-membership-1">
+                            Where do I go to sign up for a starter pack?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header" id="heading-membership-1">
+                          <a class="question-link" data-target="sub-category-trial" aria-expanded="true" aria-controls="collapse-membership-1">
+                            Do I need to sign up for a starter pack to get started?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header" id="heading-membership-2">
+                          <a class="question-link collapsed" data-target="sub-category-trial" aria-expanded="false" aria-controls="collapse-membership-2">
+                            What’s in the starter pack?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header" id="heading-membership-3">
+                          <a class="question-link collapsed" data-target="sub-category-trial" aria-expanded="false" aria-controls="collapse-membership-3">
+                            How soon will my starter pack arrive?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header" id="heading-membership-3">
+                          <a class="question-link collapsed" data-target="sub-category-trial" aria-expanded="false" aria-controls="collapse-membership-4">
+                            How long is the trial period?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header" id="heading-membership-4">
+                          <a class="question-link collapsed" data-target="sub-category-trial" aria-expanded="false" aria-controls="collapse-membership-5">
+                            Why does Because charge for shipping if the starter box is supposed to be free?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header" id="heading-membership-5">
+                          <a class="question-link collapsed" data-target="sub-category-trial" aria-expanded="false" aria-controls="collapse-membership-6">
+                            How does the Auto-Ship work?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header" id="heading-membership-6">
+                          <a class="question-link collapsed" data-target="sub-category-trial" aria-expanded="false" aria-controls="collapse-membership-7">
+                            What is the 30-day money back guarantee?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header" id="heading-membership-7">
+                          <a class="question-link collapsed" data-target="sub-category-trial" aria-expanded="false" aria-controls="collapse-membership-8">
+                            Why did you decide to start Because?
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-order">
+                    <h4 class="sub-category">Changing Your Order</h4>
+                    <div id="product-accordion-1">
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-order" aria-expanded="true" aria-controls="collapse-product-1">
+                            Can I skip a refill?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-order" aria-expanded="true" aria-controls="collapse-product-1">
+                            Can I change the quantity/size/shipment date?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-order" aria-expanded="true" aria-controls="collapse-product-1">
+                            How do I switch products?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-order" aria-expanded="true" aria-controls="collapse-product-1">
+                            Can I add items to or remove items from my order?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-order" aria-expanded="true" aria-controls="collapse-product-1">
+                            How do I change my shipping address?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-order" aria-expanded="true" aria-controls="collapse-product-1">
+                            What if I run out of something before my next Auto-Ship?
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-account">
+                    <h4 class="sub-category">Your Account</h4>
+                    <div id="membership-accordion-3">
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-account">
+                            Where are my Membership Settings?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-account">
+                            Help! I forgot my email.
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-account">
+                            How do I update my payment information?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-account">
+                            Where can I find my order history?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-account">
+                            How do I cancel my account?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-account">
+                            How can I reactivate my account?
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-shipping">
+                    <h4 class="sub-category">Shipping</h4>
+                    <div id="membership-accordion-4">
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-shipping">
+                            Is there a shipping fee?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-shipping">
+                            Where do you ship?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-shipping">
+                            How long does shipping take?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-shipping">
+                            Do you ship to P.O. boxes?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-shipping">
+                            Do you ship to Military Addresses?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-shipping">
+                            Do I have to be home to receive my order?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-shipping">
+                            Will my shipments be forwarded if I move?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-shipping">
+                            How can I track my order?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-shipping">
+                            Can I get my order shipped now?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-shipping">
+                            I think my last box was shipped to my old address. Help!
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-payment">
+                    <h4 class="sub-category">Payment</h4>
+                    <div id="membership-accordion-4">
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-payment">
+                            How can I pay?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-payment">
+                            Do you accept PayPal?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-payment">
+                            Can I pay with a check?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-payment">
+                            How do I update my payment information?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-payment">
+                            When will I be billed?
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-cancellation">
+                    <h4 class="sub-category">Cancellations and Returns</h4>
+                    <div id="membership-accordion-4">
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cancellation">
+                            How do I return a shipment?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cancellation">
+                            Can I cancel my Auto-Shipments?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cancellation">
+                            How do credits work?
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-bladder-protection">
+                    <h4 class="sub-category">Bladder Protection</h4>
+                    <div id="membership-accordion-4">
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-bladder-protection">
+                            What’s so special about Because products?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-bladder-protection">
+                            Are your bladder protection products scented?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-bladder-protection">
+                            Are your bladder protection products latex free?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-bladder-protection">
+                            Are your bladder protection products form fitting?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-bladder-protection">
+                            Does your underwear work if you empty your bladder or only for leaks?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-bladder-protection">
+                            Are your bladder protection products soft?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-bladder-protection">
+                            Do they absorb quickly?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-bladder-protection">
+                            How do I put bladder protection underwear on?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-bladder-protection">
+                            How do I use bladder protection pads or guards in my existing underwear?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-bladder-protection">
+                            I use your overnight underwear and I still need more protection, what can I do?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-bladder-protection">
+                            How do I dispose of my bladder protection underwear?
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-cbd">
+                    <h4 class="sub-category">CBD</h4>
+                    <div id="membership-accordion-4">
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cbd">
+                            What is CBD?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cbd">
+                            What makes our CBD better?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cbd">
+                            Where is the hemp used for Because CBD sourced? How is it classified?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cbd">
+                            Will I feel “high” or “out of it” if I try CBD?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cbd">
+                            Do you lab test your products?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cbd">
+                            Will I pass a drug test if I use your products?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cbd">
+                            How should I store my CBD? What is the shelf life?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cbd">
+                            Is CBD Legal?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cbd">
+                            What is your return and refund policy?
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <a class="question-link" data-target="sub-category-cbd">
+                            How long until I receive my shipment? How do you ship?
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="flex-row w-100 sub-category-gifting">
+                      <h4 class="sub-category">Gifting</h4>
+                      <div id="membership-accordion-4">
+                          <div class="card">
+                              <div class="card-header" id="heading-gifting-1">
+                                  <a class="question-link" data-target="sub-category-gifting">
+                                      How can I share Because with my friends?
+                                  </a>
+                              </div>
+                          </div>
+                      </div>
+                  </div> -->
+
+                </div>
+                <div class="col col-lg-12 col-md-12 col-sm-12 col-12 group" id="questions-detail">
+                  <div class="flex-row w-100 sub-category-trial">
+                    <h4 class="sub-category">Starter Pack & Auto-Shipments</h4>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Where do I go to sign up for a starter pack?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            You’re in the right place - take our <a href="https://try.becausemarket.com/start/startwelcome">fit quiz </a> to begin! We also have a team of dedicated product specialists who are happy to help you get started at (855) 318-5318.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Do I need to sign up for a starter pack to get started?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            No. Feel free to shop on our site and buy items for a one time shipment or subscribe and save.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            What’s in the starter pack?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Your starter pack includes a pack of the recommended product from the <a href="https://try.becausemarket.com/start/startwelcome">trial fit quiz</a> + a few surprise samples we think you may also like to try.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How soon will my starter pack arrive?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Your starter pack should arrive in 5-7 days.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How long is the trial period?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            16 days. We’ll email and text you 3 business days before your first auto-ship refill to make sure you’re happy with the products you tried. If we don’t hear from you, we’ll assume you’re all set, and your first refill order will auto-ship in 16 days. You can always adjust your refill timing, quantity, and products on Your <a href="/pages/my-account">Account</a> page.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Why does Because charge for shipping if the starter box is supposed to be free?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            The shipping fee is just for the initial starter box - after that, shipping is FREE for orders above $15. We charge this initial fee as some people have taken advantage of our free samples in the past.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How does the Auto-Ship work?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            You are in full control. You are always free to change products, quantities, shipping dates, pause or cancel auto-ship at any time. We’ll always email you 3 business days before your next refill in case you want to make any changes.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            What is the 30-day money back guarantee?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            If you’re not 100% satisfied we offer a 30-day money back guarantee. Reach out to <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> with what didn’t work and we’ll take care of it.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Why did you decide to start Because?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            We started Because to help our grandparents, but we soon realized that they weren’t the only ones who would benefit from getting affordable and good quality supplies conveniently delivered every month. We hope you love Because as much as they do!
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-order">
+                    <h4 class="sub-category">Changing Your Order</h4>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Can I skip a refill?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Of course! You can use your Because Account Portal to skip a refill and make other changes. To access, simply click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a> - we’ll send you an email with the link.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access account” button from your email</li>
+                              <li>Once your Because Account loads, click “My Subscriptions”</li>
+                              <li>When the screen loads, click “Change Date” on the left hand navigation column</li>
+                              <li>Select the date that works best for you - this is the date we’ll ship your next refill</li>
+                              <li>Click “Apply Changes”</li>
+                            </ul>
+                            You can also send us an email at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and we would be happy to help. You’ll get an email and text (if enabled) confirming any changes. We want to make your refills easy and hassle free.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Can I change the quantity/size/shipment date?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Yes! You can use your Because Account Portal to adjust your products, auto-ship dates, or make changes to your account. To access your Because Account simply click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a> - we’ll send you an email with the link.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access Account” button from your email</li>
+                              <li>Once your Because Account loads, click “My Subscriptions” on the left hand navigation column</li>
+                              <li>When the screen loads, click on a product and adjust the quantity or size</li>
+                              <li>Click “Update Item”</li>
+                            </ul>
+                            You’ll get an email and text (if enabled) confirming any changes. Changes are free of charge and you’ll always get free shipping on orders over $15.
+
+                            You can also send us an email at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and we would be happy to help. We want to make your shipments easy and hassle free.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How do I switch products?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            You can use your Because Account Portal to make product switches or other changes to your account. To access your Because Account simply click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access Account” button from your email</li>
+                              <li>Once your Because Account loads, click “My Subscriptions” on the left hand navigation column</li>
+                              <li>When the screen loads, add or remove products</li>
+                              <li>Click “Update Item”</li>
+                            </ul>
+                            You can also email us and we would be happy to help you. We have an assortment of products and sizes available and want you to be happy!
+                            You’ll get an email and text (if enabled) confirming any changes.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Can I add items to or remove items from my order?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Of course! You can use your Because Account Portal to add or remove products from your Auto-Ship or make changes to your account. To access your Because Account simply click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access Account” button from your email</li>
+                              <li>Once your Because Account loads, you can “Add” new products or “Edit” existing items to your Auto-Ship</li>
+                            </ul>
+                            You’ll get an email and text (if enabled) confirming any changes. We want to make your refills easy and hassle free.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How do I change my shipping address?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            You can use your Because Account Portal to add or remove products from your Auto-Ship or make changes to your account. To access your Because Account simply click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access account” button from your email</li>
+                              <li>Once your Because Account loads, click “My Account”</li>
+                              <li>When the screen loads, click “Edit Shipping Address”</li>
+                              <li>Click “Update Item”</li>
+                            </ul>
+
+                            You can also email us at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and we would be happy to help.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            What if I run out of something before my next Auto-Ship?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            You can use your Because Account Portal to easily pull forward a shipment and make other changes to your Auto-Ship. To access your Because Account simply click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access Account” button from your email</li>
+                              <li>Once your Because Account loads, click “My Account” on the left hand navigation menu</li>
+                              <li>When the screen loads, click “Edit Shipping Address”</li>
+                              <li>Click “Update Item”</li>
+                            </ul>
+                            You can also send us an email at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and we would be happy to help.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-account">
+                    <h4 class="sub-category">Your Account</h4>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Where are my Membership Settings?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            All your settings are available on your Because Account Portal where you can make changes such as shipment dates, address, payment details, Auto-Ship products and more. To access your Because Account simply click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a> - we’ll send you an email to directly access your account.
+
+                            You can also email us at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and we would be happy to help.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Help! I forgot my email.
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            No problem, we’re happy to help. Please send us a text or give us a call at (855) 318-5318 with your full name and address - we’ll reply with the email we have on file for you.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How do I update my payment information?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            It’s quick and easy - you can use your Because Account Portal to add or remove products from your Auto-Ship or make changes to your account. To access your Because Account click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access account” button from your email</li>
+                              <li>Once your Because Account loads, click “My Account” on the left hand navigation menu</li>
+                              <li>When the screen loads, scroll down to “Payment Details”</li>
+                              <li>Click “Apply Changes”</li>
+                            </ul>
+                            You can also email us at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> or call (855) 318-5318 and we would be happy to help.
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Where can I find my order history?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            You can view your Order History page in your Because Account Portal. To access your Because Account simply click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access Account” button from your email</li>
+                              <li>Once your Because Account loads, click “Order History” on the left hand navigation menu</li>
+                            </ul>
+                            You can also email us at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and we would be happy to help.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How do I cancel my account?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            You can pause or cancel your account at any time using your Because Account Portal. To access your Because Account click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access account” button from your email</li>
+                              <li>Once your Because Account loads, click “My Account” on the left hand navigation menu</li>
+                              <li>Scroll down to the bottom of the page and click “Cancel Plan”</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How can I reactivate my account?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Easy! Email us at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and we would be happy to help. Please be sure to include your full name and email.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-shipping">
+                    <h4 class="sub-category">Shipping</h4>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Is there a shipping fee?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            We charge $2.99 for the initial trial order. Shipping is always free on orders over $15, whether it is a one-time purchase or subscription.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Where do you ship?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            We currently only ship within the US. Want us to ship to your country? Please email us at <a href="mailto:partner@becausemarket.com">partner@becausemarket.com</a> and let us know.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How long does shipping take?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            We currently ship using FedEx SmartPost and DHL. It generally takes 3 to 7 business days depending on where you live. We provide a tracking link and send shipment updates via email and text so you’ll always know when to expect your starter pack or order.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Do you ship to P.O. boxes?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Yes, we do!
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Do you ship to Military Addresses?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            We proudly accept most armed forces addresses, although shipping times may vary. Just follow the regular checkout process and enter your appropriate APO/FPO/DPO address in the shipping section. Thank you, on behalf of Because, for serving our country!
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Do I have to be home to receive my order?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            No - you do not need to be home. Shipments don’t require a signature.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Will my shipments be forwarded if I move?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            The USPS does provide a mail forwarding service, but we can only guarantee delivery to the shipping address we have on file. Address changes can be made at any time from your Because Account Portal page.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How can I track my order?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            We provide a tracking link and send shipment updates via email and text so you’ll always know when to expect your starter pack or refill. Order tracking is now conveniently on you Because Account Portal. To access your Because Account simply click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Can I get my order shipped now?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Yes! Please send us an email at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and we would be happy to ship your order ASAP. You can also use your Because Account Portal to make this change directly. To access your Because Account simply click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access account” button from your email</li>
+                              <li>Once your Because Account loads, click “My Subscription” on the left hand navigation menu and you can change the date of your shipments.</li>
+                            </ul>
+                            We want to make your shipments easy and hassle free.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            I think my last box was shipped to my old address. Help!
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            No problem! Please email us at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and our Customer Care team will help get your order to the correct address.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-payment">
+                    <h4 class="sub-category">Payment</h4>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How can I pay?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            You can pay by credit card, debit card, or PayPal. For Auto-Ship orders we also accept checks sent by mail.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Do you accept PayPal?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Yes, we do! To pay with PayPal, select PayPal as the checkout option.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Can I pay with a check?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Yes! If you would like to pay using a check please send us an email at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> with your request. Our Customer Care team would be happy to help.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How do I update my payment information?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            It’s quick and easy - you can use your Because Account Portal to make changes to your account. To access your Because Account click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access account” button from your email</li>
+                              <li>Once your Because Account loads, click “My Account” on the left hand navigation menu</li>
+                              <li>Scroll down to the “Payment Details” section and click “Edit”</li>
+                            </ul>
+                            You can also email us at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> or call (855) 318-5318 and we would be happy to help.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            When Will I Be Billed?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            You'll be billed the day we ship your refill. Not sure when that is? You can view or change your bill date here through your Because Account Portal. To access your Because Account simply click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access account” button from your email</li>
+                              <li>Once your Because Account loads, click “My Subscription” on the left hand navigation menu and you can see the date of your shipment.</li>
+                            </ul>
+                            You’re in control of your bill date and can pick any date that works for you. You can also send us an email at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and we would be happy to help.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-cancellation">
+                    <h4 class="sub-category">Cancellations and Returns</h4>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How do I return a shipment?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Please reach out to <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> for a return authorization. Returns are accepted within 30 days of order processing. Returned items must be in new and unopened condition. You will be responsible for the cost of shipping items back to us. Refunds will be issued to the original form of payment only, after receipt and inspection of the returned product. Returns sent without prior authorization, including refused packages, will not be accepted.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Can I cancel my Auto-Shipments?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            You can pause or cancel your account at any time using your Because Account Portal. To access your Because Account click here: <a href="https://becausemarket.com/pages/my-account">https://becausemarket.com/pages/my-account</a>.
+                            <ul>
+                              <li>Open the “Access Your Account” email from us in your inbox</li>
+                              <li>Click the “Access account” button from your email</li>
+                              <li>Once your Because Account loads, click “My Account” on the left hand navigation menu</li>
+                              <li>Scroll to the bottom of the page to “Subscription Detail” and click “Cancel Plan”</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How do credits work?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Credits are issued on a case-by-case basis, and will discount against your next Because order.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-bladder-protection">
+                    <h4 class="sub-category">Bladder Protection</h4>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            What’s so special about Because products?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            We started Because to help our grandparents, but we soon realized that they weren’t the only ones that would benefit from getting affordable and good quality supplies conveniently delivered every month. We hope you love Because as much as they do! We’re proud to focus on:
+                            <ul>
+                              <li>Great quality and price: Products crafted with quality materials, manufactured with feedback from tens of thousands of older adults.</li>
+                              <li>Make your life easier: Our discreetly packaged products are delivered straight to your doorstep. Buy as needed or subscribe and save.</li>
+                              <li>Here to help: Our trained product specialists are here to help you find the best products for the weeks, months, and years ahead.</li>
+                            </ul>
+                            From Bladder Protection to CBD, we carry a variety of thoughtfully developed products.
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Are your bladder protection products scented?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            No - our underwear, pads, and guards are unscented. We build superior odor control into all of our bladder protection products so chemical scents are not needed.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Are your bladder protection products latex free?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Yes - all of our underwear, pads, and guards are 100% latex-free.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Are your bladder protection products form fitting?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            We have a variety of sizes for all body types. We offer different underwear, pad and guard designs so that you can find something that works for your body. If you don’t know what is right for you, please get in touch and we’ll help you choose the right product for you.
+
+                            You can also start with our <a href="https://try.becausemarket.com/start/startwelcome">fit quiz </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Does your underwear work if you empty your bladder or only for leaks?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Our products work for all types of incontinence!  Absorbencies range from as low as 6 ounces for our light pads to up to more than 50 ounces for Overnight underwear.
+                            <br/>
+                            Many of our customers combine lower absorbency products with higher absorbency products so that they can manage their incontinence depending on where they are, the time of day or depending on how their body is working at that moment. So, no matter the situation we have a product, or a combination of products, that is right for you.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Are your bladder protection products soft?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Yes - we've engineered them for maximum comfort, softness, and durability. We listen to what our customers say and make sure that we have soft topsheets (the part that is next to your body) and focus on making sure seams are on the outside of bladder control underwear so that the chances of rubbing are reduced.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Do they absorb quickly?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Yes, our products all absorb quickly but it's not just about rapid absorption - you also want products that protect you from leaks. Our Underwear have double leak guards around the leg openings to provide an extra layer of protection. Our Because Premium Pads feature side leak guards to make sure that even a wet pad can still stop leaks. Finally, you want products that don’t make you feel wet when you’re asleep or before you can make a change. Our products are all designed to stay dry and draw the moisture away from your body quickly, keeping you dry.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How do I put bladder protection underwear on?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            <p>Your bladder protection underwear should fit snugly but should not rub or chafe. All our underwear comes folded. Unfold the underwear. Once unfolded put your hand into the underwear top and loosen the front from the back. The easiest way to put the underwear on is to sit down and place both your right and left hand into the underwear, holding them open wide enough to slide your legs through the leg holes. Pull up until you reach your knees, then stand up and gently pull the underwear up. Make sure the elasticized top is fully extended.</p>
+                            <p>You also want to make sure that the bladder protection pad in the underwear is centered between your legs. The front and back coverage of the protective pad should be equal - adjust the underwear until it feels comfortable. All of our maximum and overnight underwear have double leak guards. Make sure these are not rubbing and are positioned comfortably. You may want to run your fingers between the underwear and your skin to make sure it's positioned comfortably and not doubled over.  If the leak guard is rubbing, try going up a size.</p>
+                            <p>Most of our underwear has the size marked on the back of the underwear, but if you need to make sure the back of the underwear should have a little bit of extra material to make sure the underwear covers you in the back.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How do I use bladder protection pads or guards in my existing underwear?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            All our bladder protection pads and guards have a sticky side. To use, remove the cover from the sticky side and position the sticky side down in your underwear. Remove and replace as needed. If you are using bladder protection pads or guard within disposable bladder protection underwear to increase absorbency, the sticky back may damage the underwear. You can try applying a little body powder to the sticky backing to reduce the stickiness.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            I use your overnight underwear and I still need more protection, what can I do?
+
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            <p>Because has boosters! Boosters are designed to increase the absorbency of your bladder protection underwear. Boosters can significantly increase the total absorbency of the bladder protection underwear. Search “booster” on your account page or reach out to us at <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> and we can suggest the right option for your needs. </p>
+                            <p>Customers often mention they use pads or guards to increase the absorbency of their disposable bladder protection underwear. This is a great option for many customers, especially during the day. Boosters work best for overnight uses as they are designed to offer an additional layer of full coverage within your bladder protection underwear.</p>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How do I dispose of my bladder protection underwear?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Our Because bladder protection underwear can be disposed of in any regular trash receptacle. To remove the underwear, tear the sides and pull the underwear off between the front of your legs. Fold the underwear over so that the core is covered by the sides and place it in the trash. Bladder control underwear is not flushable.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex-row w-100 sub-category-cbd">
+                    <h4 class="sub-category">CBD</h4>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            What is CBD?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            CBD is a naturally occuring component of the hemp plant. It is a non-intoxicating phytocannabinoid that offers a range of whole-body uses. CBD is just one of dozens of phytocannabinoids and other phytochemicals found in hemp. CBD is associated with the medicinal and healing properties of the plant that does not produce a high, unlike THC which is the psychoactive component. CBD is known to reduce anxiety, stress, inflammation and support our endocannabinoid system.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            What makes our CBD better?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Our industrial hemp-derived products are produced from 100% organic plants grown in Colorado. Our oils are full spectrum and extracted from the whole plant. Many cheaper products on the market use hemp from China which lacks the quality, and efficacy of our products.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Where is the hemp used for Because CBD sourced? How is it classified?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Because CBD is derived from 100% organic industrial hemp plants in Colorado by farmers growing in full compliance with the Colorado Department of Agriculture’s industrial hemp program. These plants contain less than 0.3% THC and are classified as industrial hemp under federal and state law.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Will I feel “high” or “out of it” if I try CBD?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            No. Our products contain zero to less than 0.3% THC so there are no psychoactive effects.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Do you lab test your products?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Yes! Each batch of our products is 3rd party lab tested and comes with a Certificate of Analysis (COA). We are proud of the purity and quality of our products and are happy to provide these documents to you.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Will I pass a drug test if I use your products?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            There is a small chance that our full spectrum tinctures could show up on a test with trace amounts of THC (less than 0.3%). This is extremely unlikely but we suggest you consult a physician if this is a concern.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How should I store my CBD? What is the shelf life?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            We suggest storing your Because CBD in a cool, dark place away from humidity. It should last for up to 1 year.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            Is CBD Legal?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Yes, our Hemp-derived CBD is legal in all 50 states.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            What is your return and refund policy?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            Please reach out to <a href="mailto:help@becausemarket.com">help@becausemarket.com</a> for a return authorization. Returns are accepted within 30 days of order processing. Returned items must be in new and unopened condition. You will be responsible for the cost of shipping items back to us. Refunds will be issued to the original form of payment only, after receipt and inspection of the returned product. Returns sent without prior authorization, including refused packages, will not be accepted.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="trial-accordion-1" class="trial-accordion">
+                      <div class="card">
+                        <div class="card-header" id="heading-trial-1">
+                          <a class="question-link">
+                            How long until I receive my shipment? How do you ship?
+                          </a>
+                        </div>
+                        <div>
+                          <div class="card-body">
+                            We ship using FedEx SmartPost and packages generally arrive within 3-8 business days depending on where you live.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Javascript ============================================================== -->
+
+  <script>
+    var $ = jQuery;
+
+    var faqSections = $('.faq-subsection');
+
+    $('#features').on('click', '#questions .menu ul.categories li a', function(e) {
+      var dataScroll = $(this).data().scrollTo;
+
+      document.querySelector('.' + dataScroll).scrollIntoView({behavior: "smooth"});
+    });
+
+    $('#features').on('click', '#questions-index .card .card-header a.question-link', function(e) {
+      var target = $(this).data().target;
+      var subIndex = $(e.target.parentNode.parentNode).index();
+      jQuery('html, body').animate({
+        scrollTop: $('#questions-detail .' + target + ' .trial-accordion').eq(subIndex).offset().top-80
+      }, 500);
+      // $('#questions-detail .' + target + ' .trial-accordion').eq(subIndex)[0].scrollIntoView({behavior: "smooth", block: "start"});
+    });
+
+    $('.faq-main-section').click(function(e) {
+      $(this).siblings().removeClass('active');
+      $(this).toggleClass('active');
+      var faqContent = $(this).data().faqContent;
+      // console.log(faqContent);
+      faqSections.removeClass('show');
+      $('.faq-subsection-' + faqContent).addClass('show');
+    });
+
+    // category sidebar should be fixed
+    var $questionsMenu = $('#questions-detail');
+    if ($questionsMenu.length > 0) {
+      $(window).scroll(function(e) {
+        stickyCategoryBarScroll();
+      });
+
+      var offsetYStart =$questionsMenu.offset().top;
+      var offsetYEnd =  $questionsMenu.offset().top - $questionsMenu[0].offsetHeight - 120;
+
+      function stickyCategoryBarScroll() {
+        var scrolled = $(window).scrollTop();
+        if (scrolled >= offsetYStart && scrolled <= offsetYEnd) {
+          $questionsMenu[0].style.position = 'fixed';
+          $questionsMenu[0].style.top = '100px';
+        } else {
+          $questionsMenu[0].style.position = 'relative';
+          $questionsMenu[0].style.top = '0px';
+        }
+      }
+    }
+  </script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Page",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "page_nav",
+        "label": "Secondary page navigation",
+        "info": "This menu won't show dropdown items"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_title",
+        "label": "Show page title",
+        "default": true
+      },
+      {
+        "id": "gladly_config",
+        "type": "textarea",
+        "label": "Gladly Config"
+      }
+    ]
+  }
+{% endschema %}

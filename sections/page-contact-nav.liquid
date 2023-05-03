@@ -1,0 +1,41 @@
+<!-- /sections/page-content-nav.liquid-->
+
+{%- assign page_nav = linklists[section.settings.page_nav] -%}
+
+{%- assign page_nav_enable = false -%}
+{%- if page_nav.links.size > 0 -%}
+  {%- assign page_nav_enable = true -%}
+{%- endif -%}
+
+{%- if page_nav_enable -%}
+  <ul class="inline-nav large-up--hide">
+    {% for link in page_nav.links %}
+      <li {% if link.active %}class="inline-nav--active"{% endif %}>
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <ul class="vertical-nav medium-down--hide">
+    {% for link in page_nav.links %}
+      <li {% if link.active %}class="vertical-nav--active"{% endif %}>
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Page navigation",
+    "class": "contact__nav",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "page_nav",
+        "label": "Secondary page navigation",
+        "info": "This menu won't show dropdown items"
+      }
+    ]
+  }
+{% endschema %}

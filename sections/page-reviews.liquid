@@ -1,0 +1,279 @@
+<!-- /sections/page.reviews.liquid-->
+
+{%- assign page_nav = linklists[section.settings.page_nav] -%}
+
+{%- assign page_nav_enable = false -%}
+{%- if page_nav.links.size > 0 -%}
+  {%- assign page_nav_enable = true -%}
+{%- endif -%}
+
+{%- assign page_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+{%- assign title_grid = 'grid__item large-up--two-thirds large-up--push-one-sixth' -%}
+
+{%- if page_nav_enable %}
+  {%- assign page_grid = 'medium-up--three-quarters' -%}
+  {%- assign title_grid = 'one-whole' -%}
+{%- endif -%}
+
+<div class="wrapper page-margin">
+  <div class="grid">
+    <div id="reviews-page-wrapper">
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body customer-video"></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="row main-section py-4">
+        <div class="container">
+          <div class="col col-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="row ">
+              <div class="col col-12 col-md-12 col-lg-12 col-sm-12 main-section-heading">
+                <h2>Over 10,000</h2>
+                <div class="reviews-section-heading">
+                  <div class="rating-full-star">
+                  ★★★★★
+                  </div>
+                </div>
+                <h2>Reviews</h2>
+              </div>
+              <div class="col col-12 col-md-12 col-lg-12 col-sm-12 main-section-heading">
+                <h4>See why our customers love us.</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="reviews-section-button">
+                <button type="button" class="btn all-reviews-btn">
+                  <span>See all Reviews</span>
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 d-flex review-note">
+                <div class="note">
+                  <p class="review-text">“Because was able to <strong>determine the shortcomings</strong> of the current marketplace.”</p>
+                  <div class="logo">
+                    <img class="logo" src="{{ 'nonwovens.png' | file_url }}" alt="">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 d-flex review-note">
+                <div class="note">
+                  <p class="review-text">“In two years, Because has <strong>sold over 50 million products</strong> to over 60,000 customers.”</p>
+                  <div class="logo">
+                    <img class="logo" src="{{ 'forbes.png' | file_url }}" alt="">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 d-flex review-note">
+                <div class="note">
+                  <p class="review-text">“<strong>No more leaks</strong> and carrying massive packages around the store.”</p>
+                  <div class="logo">
+                    <img class="logo" src="{{ 'fast.png' | file_url }}" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div id="features">
+        <section class="customer-reviews-section">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 mt-5 mb-5">
+                <h2 class="header">
+                  What Our Customers Have to Say
+                </h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 d-flex review-images">
+                {% if section.settings.image1top %}
+                  {{ section.settings.image1top | image_url: width: 1550 | image_tag: loading: 'lazy' }}
+                {% endif %}
+                {% if section.settings.image1bottom %}
+                  {{ section.settings.image1bottom | image_url: width: 1550 | image_tag: class: 'text-image', loading: 'lazy' }}
+                {% endif %}
+              </div>
+              <div class="col-lg-4 d-flex review-images">
+                {% if section.settings.image_central %}
+                  {{ section.settings.image_central | image_url: width: 1550 | image_tag: class: 'full-height', loading: 'lazy' }}
+                {% endif %}
+              </div>
+              <div class="col-lg-4 d-flex review-images">
+                {% if section.settings.image2top %}
+                  {{ section.settings.image2top | image_url: width: 1550 | image_tag: loading: 'lazy' }}
+                {% endif %}
+                {% if section.settings.image2bottom %}
+                  {{ section.settings.image2bottom | image_url: width: 1550 | image_tag: class: 'text-image', loading: 'lazy' }}
+                {% endif %}
+              </div>
+            </div>
+            <div class="py-5">
+              <div class="row">
+                <div class="col-lg-4 d-flex review-note">
+                  <div class="note">
+                    <div class="rating">
+                      <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    </div>
+                    <p class="review-text">“I love your product; it's by far one of the best & better than more expensive brands that I have tried.”</p>
+                    <p class="review-note-name">Kathy</p>
+                  </div>
+                </div>
+                <div class="col-lg-4 d-flex review-note">
+                  <div class="note">
+                    <div class="rating">
+                      <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    </div>
+                    <p class="review-text">“Nice to have your order personalized & delivered to your door. The company is wonderful. They do whatever they can for their customers.”</p>
+                    <p class="review-note-name">Patricia</p>
+                  </div>
+                </div>
+                <div class="col-lg-4 d-flex review-note">
+                  <div class="note">
+                    <div class="rating">
+                      <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    </div>
+                    <p class="review-text">“So far so good. I never run out of pads and don't have to buy them in the supermarket.”</p>
+                    <p class="review-note-name">Beverly</p>
+                  </div>
+                </div>
+                <div class="col-lg-4 d-none d-lg-block d-xl-block review-note">
+                  <div class="note">
+                    <div class="rating">
+                      <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    </div>
+                    <p class="review-text">“The company puts out quality underwater, they are extremely comfortable. There are times when you don’t feel your wearing them.”</p>
+                    <p class="review-note-name">Donald</p>
+                  </div>
+                </div>
+                <div class="col-lg-4 d-none d-lg-block d-xl-block review-note">
+                  <div class="note">
+                    <div class="rating">
+                      <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    </div>
+                    <p class="review-text">“They are soft, absorbent, and comfortable. I no longer have any excoriated skin, and don't need to worry about odors. Thank you!”</p>
+                    <p class="review-note-name">Laurie</p>
+                  </div>
+                </div>
+                <div class="col-lg-4 d-none d-lg-block d-xl-block review-note">
+                  <div class="note">
+                    <div class="rating">
+                      <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    </div>
+                    <p class="review-text">“This is a great company to work with. Love their products. They work with you until you get the right fit. Love everything about them.”</p>
+                    <p class="review-note-name">Julian</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="customer-video-reviews">
+          <div class="container">
+            <div class="row section-heading">
+              <div class="col-md-6 video-review-heading">
+                <h3>Voices in our community</h3>
+              </div>
+              <div class="col-md-6 video-review-heading">
+                <p>It starts with family - honest conversations, open minds, and a desire to make things better not just for ourselves, but for everyone who may have the same issues. Whether it’s Nana, Nonna, or Nani, we thank you, we love you, and we can’t wait to serve you. Because our members are our family.</p>
+              </div>
+            </div>
+
+            {% include 'reviews-video-reviews' %}
+            {% comment %}
+            {% include 'reviews-video-carousel' %}
+            {% endcomment %}
+
+          </div>
+        </section>
+
+        <section class="py-5" id="yotpo-product-reviews">
+          <div class="container">
+            <div class="row">
+              <script type="text/javascript"> (function e(){var e=document.createElement("script");e.type="text/javascript",e.async=!0, e.src="//staticw2.yotpo.com/qtDmssHwWOnmJ4Rkr1A3kwYhVWX7Xw6dKZQ7J5n4/widget.js";var t=document.getElementsByTagName("script")[0]; t.parentNode.insertBefore(e,t)})(); </script>
+              <div id='yotpo-testimonials-custom-tab'></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div><!-- #page-wrapper -->
+    {% include 'home-help-section' %}
+  </div>
+</div>
+
+<!-- Theme Javascript ============================================================== -->
+{{ 'bootstrap.js' | asset_url | script_tag }}
+
+<script>
+  var $ = jQuery;
+
+  var $ = jQuery;
+  var videoModal = $('.customer-video');
+
+  $('.video-thumb').on('click', function(e) {
+    var videoId = $(this).data().video || '';
+    videoModal.append(
+      "\n      <iframe width=\"100%\" height=\"405\" src=\"https://www.youtube.com/embed/".concat(videoId, "?rel=0&amp;controls=1&autoplay=1\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>\n    ")
+    );
+    $('#exampleModal').modal('show');
+  });
+
+  $('#exampleModal').on('hidden.bs.modal', function (e) {
+    videoModal.empty();
+  });
+
+  $('.all-reviews-btn').on('click', function(e) {
+    document.getElementById("yotpo-product-reviews").scrollIntoView({behavior: "smooth"});
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Page",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "page_nav",
+        "label": "Secondary page navigation",
+        "info": "This menu won't show dropdown items"
+      },
+      {
+        "label": "Image 1 top",
+        "type": "image_picker",
+        "id": "image1top"
+      },
+      {
+        "label": "Image 1 bottom",
+        "type": "image_picker",
+        "id": "image1bottom"
+      },
+      {
+        "label": "Central Image",
+        "type": "image_picker",
+        "id": "image_central"
+      },
+      {
+        "label": "Image 2 top",
+        "type": "image_picker",
+        "id": "image2top"
+      },
+      {
+        "label": "Image 2 bottom",
+        "type": "image_picker",
+        "id": "image2bottom"
+      }
+    ]
+  }
+{% endschema %}

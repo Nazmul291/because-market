@@ -1,0 +1,38 @@
+<!-- /snippets/product-differences -->
+
+{%- assign showDifferences = false -%}
+{% for tag in currentProduct.tags %}
+  {% if tag == "Because Difference" %}
+    {%- assign showDifferences = true -%}
+  {% endif  %}
+{% endfor %}
+
+{% if showDifferences %}
+  <div class="differences">
+    <h2>The Because Difference</h2>
+    <h3>Here's what makes us better.</h3>
+    <img src = "{{'difference-hires.png' | asset_url}}">
+  </div>
+
+  <div class="take_quiz">
+    <div class="free_trial">
+      <h2>Take our Bladder Protection Quiz & get a FREE Starter Pack.</h2>
+      <h3>50% of leaks are caused by incorrect fit. Let's fix that.</h3>
+      <a href="#">Take the Quiz</a>
+    </div>
+    <div class="quiz_image">
+      <img src="{{'take_quiz.png' | asset_url}}">
+    </div>
+  </div>
+
+  <div class = "featured_in_imgs">
+    <h3>Featured in</h3>
+    <img class="usa_today" src="{{'usa_today.png' | asset_url}}">
+    <img src="{{'fast_company.png' | asset_url}}">
+    <img src="{{'forbes.png' | asset_url}}">
+    <img src="{{'medium.png' | asset_url}}">
+    <img class="yahoo" src="{{'yahoo.png' | asset_url}}">
+  </div>
+{% endif %}
+
+<!-- end /snippets/product-differences -->

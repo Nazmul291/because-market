@@ -1,0 +1,5 @@
+<div class="col-7 col-lg-4 d-flex flex-column align-items-center ingredient-container">
+    {{ ingredientImageFile | file_img_url: '80x' | img_tag: 'cranberry icon'}}
+    <h5 class="ingredient-title">{{ ingredientName }}</h5>
+    <p class="ingredient-description">{{ ingredientDescription}}</p>
+</div>

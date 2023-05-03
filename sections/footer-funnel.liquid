@@ -1,0 +1,94 @@
+<!-- /sections/footer.liquid -->
+
+<style>
+  .site-footer {
+    background-color: #667799;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.2em;
+    padding: 2.5em 0;
+    height: 150px;
+  }
+  .footer-wrapper,
+  .footer-wrapper p {
+    font-size: 14px;
+  }
+  .row li {
+    list-style: none;
+  }
+  .footer-link a {
+    color: white;
+    text-decoration: none;
+    background: transparent;
+  }
+  .footer-link a:hover,
+  .footer-link a:active {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  .footer-wrapper h3 {
+    font-size: 1em;
+    font-weight: 400;
+    color: #949599;
+  }
+
+  @media screen and (min-width: 769px) {
+    .footer-wrapper h3 {
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .row {
+      display: flex;
+      align-items: center;
+      margin: 0;
+    }
+    .footer-link-list {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px;
+    }
+  }
+</style>
+<footer class="site-footer small--text-center" role="contentinfo">
+  <div class="footer-wrapper">
+    <div class="row">
+      <div class="col-lg-4 col-md-12">
+        <ul class="footer-link-list text-center">
+          <li class="footer-link">
+            <a id="footerLink1" href="https://becausemarket.com/pages/privacy" target="_blank" rel="noopener noreferrer">
+              Privacy Policy
+            </a>
+          </li>
+          <li class="footer-link">
+            <a id="footerLink2" href="https://becausemarket.com/pages/terms-and-conditions" target="_blank" rel="noopener noreferrer">
+              Terms of Service
+            </a>
+          </li>
+          <li class="footer-link">
+            <a id="footerLink3" href="https://becausemarket.com/pages/faq" target="_blank" rel="noopener noreferrer">
+              FAQ
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-4 col-md-12">
+        <div class="text-center" role="contentinfo">
+          <img src={{ 'because-logo-sld-wht.png' | file_url }} style="height:40px;" />
+          <br>
+          <div class="text-center">
+            <p>©
+              <script>
+                document.write(new Date().getFullYear())
+              </script>
+              Because Market. All rights reserved
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</footer>

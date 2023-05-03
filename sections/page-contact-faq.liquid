@@ -1,0 +1,56 @@
+<!-- /sections/page-contact-faq.liquid-->
+<div data-section-id="{{ section.id }}" data-section-type="accordion">
+  {% if section.settings.title != blank %}
+    <h2 class="h4--body">{{ section.settings.title}}</h2>
+  {% endif %}
+
+  <div class="page-accordion">
+    <div class="accordion">
+      {%- for block in section.blocks -%}
+        <p class="accordion-toggle accordion-js accordion-toggle--{{ block.id }}" {{ block.shopify_attributes }}>
+          <span class="accordion__title">{{ block.settings.title }}</span>
+          <i class="icon-plus">{% include 'icon-plus' %}</i>
+        </p>
+        <div class="rte accordion-content accordion-content--{{ block.id }}">
+          {{ block.settings.raw_content }}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "FAQ",
+    "class": "contact__faq",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Frequently asked questions"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "tab_richtext",
+        "name": "FAQ",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Our warranty policy",
+            "info": "Example: Warranty policy"
+          },
+          {
+            "type": "richtext",
+            "id": "raw_content",
+            "label": "Tab content",
+            "default": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,241 @@
+<!-- /snippets/product-urinary.liquid-->
+
+<script>
+    //   $('.review-carousel').carousel()
+    </script>
+    
+    {% include 'product-new-urinary-pdp-scripts.liquid' %}
+    {% assign description_position = '' %}
+    {%- assign product_description_content = product.description -%}
+    {%- assign has_tabs = false -%}
+    {%- for block in section.blocks -%}
+    {%- if block.type == "tab_description" -%}
+    {%- assign has_tabs = true -%}
+    {%- endif -%}
+    {%- endfor -%}
+    {%-if has_tabs -%}
+    {%- assign product_description_content = product_description_content | split: '<h6>' | first -%}
+    {%- endif -%}
+    {% if product_description_content contains '[split]' %}
+    {% assign description_position = 'both' %}
+    {% endif  %}
+    
+    {% assign yotpoProductID = product.product_id %}
+    {% for tag in product.tags %}
+    {% assign yotpoParts = tag | split: 'yotpoProductID='  %}
+    {% if yotpoParts.size == 2 %}
+    {% assign yotpoProductID = yotpoParts[1] %}
+    {% endif %}
+    {% endfor %}
+    
+    <div class="wrapper page-margin--product product-wrapper" id="urinary-wrapper">
+      {%- assign current_variant = product.selected_or_first_available_variant -%}
+      <div class="container-fluid">
+        <!-- row containing product slider, title, short description, price, and add to cart -->
+        <div class="row justify-content-center">
+          <div class="col-10 col-sm-8 col-md-7 col-lg-5 col-xl-4" data-product-wrapper>
+            {%- include 'product-slideshow' -%}
+          </div>
+          <div class="col-11 col-sm-10 col-lg-5 col-xl-4 product__form__wrapper">
+            <div class="container">
+              <div class="row">
+                <div class="product-title-features col-12">
+                  <div class="product-title-features-wrapper">
+                    {% include 'product-title-and-features.liquid' %}
+                  </div>
+                </div>
+                <div class="product-selectors-container col-12 d-lg-block d-flex justify-content-center">
+                  <div class="{% unless current_variant.available %}variant--soldout{% endunless %}" data-form-wrapper>
+                    <div class="product__form">
+                      <div class="product-selectors">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="onetime-subscribe-wrapper col-12 d-lg-block d-flex justify-content-center">
+                  {% include 'onetime-or-subscribe.liquid' %}
+                </div>
+              </div>
+            </div>
+            <div class="product__description rte d-none">
+              {{ product_description_content | replace: '<p>[split]</p>', '[split]' | split: '[split]' | first }}
+            </div>
+    
+            {% if section.settings.show_share_buttons %}
+            {%- assign share_image = current_variant.featured_media.preview_image | default: product.featured_media.preview_image -%}
+            {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: share_image %}
+            {% endif %}
+          </div>
+        </div>
+    
+        <!-- row containing the here for you banner + multicolor background -->
+        <div class="row" id="urinary-banner">
+          <div class="col-12 d-flex justify-content-center" id="banner-background">
+            <div class="container-fluid here-with-you-container">
+            {{ 'urinary-here-for-you.png' | file_img_url: "1200x" | img_tag: 'smiling woman with contact info', 'd-none d-md-flex' }}
+            {{ 'urinary-here-for-you-mobile.png' | file_img_url: "320x" | img_tag: 'smiling woman with contact info', 'd-flex d-md-none' }}
+              </div>
+          </div>
+        </div>
+    
+        <!-- row containing links to the 3 sections -->
+        <div class="row d-none d-lg-flex">
+          <div class="col-12" id="urinary-nav">
+            <ul>
+              <li>
+                <a href="#right-for-me">
+                  <h4>Is This Right For Me?</h4>
+                </a>
+              </li>
+              <li>
+                <a href="#how-it-works">
+                  <h4>How It Works</h4>
+                </a>
+              </li>
+              <li>
+                <a href="#reviews">
+                  <h4>Reviews</h4>
+                </a>
+              </li>
+              <li>
+                <a href="#shipping-returns">
+                  <h4>Shipping & Returns</h4>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    
+        <!-- row containing all the 4 info sections -->
+        <div class="justify-content-center row">
+          <article class="col-12 col-sm-11 col-md-10 col-lg-9 col-xl-7">
+            <!-- container containing this is for you checkmarks -->
+            <div class="container-fluid info-container" id="right-for-me">
+              <h3 class="info-heading">This is for you if:</h3>
+              <div class="d-flex justify-content-around">
+                <div class="d-flex align-items-center flex-column check-content">
+                  {{ 'check-icon.png' | file_img_url: '80x' | img_tag: 'check icon' }}
+                  <h5>
+                    You want to flush your urinary tract regularly
+                  </h5>
+                </div>
+                <div class="d-flex align-items-center flex-column check-content">
+                  {{ 'check-icon.png' | file_img_url: '80x' | img_tag: 'check icon' }}
+                  <h5>
+                    You're looking to balance the vaginal microbiome
+                  </h5>
+                </div>
+              </div>
+            </div>
+            <!--ingredients  -->
+            <div class="container" id="ingredients">
+    
+    
+              <div class="row justify-content-center">
+                {% for ingredientObject in product.metafields.urinaryIngredients["ingredients"] %}
+                  {% render 'urinary-ingredient',
+                    ingredientName: ingredientObject["ingredientName"],
+                    ingredientImageFile: ingredientObject["ingredientImageFile"],
+                    ingredientDescription: ingredientObject["ingredientDescription"]
+                  %}
+                {% endfor %}                   
+              </div>
+            </div>
+            <!-- container for info and questions -->
+            <hr>
+            <div class="container-fluid info-container" id="how-it-works">
+              <div class="row justify-content-center">
+                <div class="col-12 accordion-intro">
+                  <h3 class="info-heading">Title Text Here</h3>
+                </div>
+                <div class="col-11 col-xl-10 product-info-accordion">
+                  <!-- an introductory paragraph goes here -->
+                  <!-- Then 3 detail/summary elements to go here -->
+                </div>
+              </div>
+            </div>
+    
+            <!-- reviews section -->
+            {% comment %}
+            review cards are stored as an array in the urinary-health collection's metafields:
+            Each review card is a json object of the form:
+            {
+            "reviewName": String,
+            "reviewDate": String,
+            "reviewerLocation": String,
+            "reviewText": String
+            }
+            {% endcomment %}
+            <hr>
+            <div class="container-fluid info-container" id="reviews">
+              <div class="row justify-content-center reviews-wrapper">
+                <div class="col-12">
+                  <h3 class="info-heading">Reviews</h3>
+                </div>
+    
+    
+                {% for reviewObject in collections.urinary-health.metafields.reviews["reviewObjects"] %}
+                <div class="col-6 col-md-4 d-flex">
+                  {% render 'urinary-review-card', 
+                    reviewerName: reviewObject["reviewerName"],
+                    reviewDate: reviewObject["reviewDate"],
+                    reviewerLocation: reviewObject["reviewerLocation"],
+                    itemName: reviewObject["itemName"],
+                    rating: reviewObject["rating"],
+                    reviewText: reviewObject["reviewText"]
+                     %}
+                </div>
+                {% endfor %}
+    
+    
+              </div>
+            </div>
+            <hr>
+            <!-- Returns and shipping info -->
+            <div class="container-fluid info-container" id="shipping-returns">
+              <div class="row justify-content-center">
+                <div class="col-12">
+                  <h3 class="info-heading"> Shipping & Returns</h3>
+                  <p>Standard delivery is 7 days on average through FedEx SmartPost. Shorter for metropolitan areas, longer
+                    for more rural areas. You will receive a shipping confirmation email with tracking information once your
+                    order ships.
+                  </p>
+                  <p>For returns or exchanges please reach out to <a href="mailto:help@becausemarket.com">help@becausemarket.com</a>. Returned items must be in new and
+                    unopened condition and you will be responsible for the cost of shipping the items back to us. Refunds
+                    will be issued to the original form of payment only, within 10 business days after receipt and
+                    inspection of the returned product. Returns sent without prior authorization may not be accepted.
+                  </p>
+                </div>
+              </div>
+            </div>
+    
+          </article>
+        </div>
+    
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    <style>
+      model-viewer {
+        --progress-bar-color: {
+            {
+            settings.color_body_text
+          }
+        }
+    
+        ;
+      }
+    </style>
+    {% unless product == empty %}
+    <script type="application/json" data-product-json>
+        {{ product | json }}
+      </script>
+    <script type="application/json" id="ModelJson-{{ section.id }}">
+        {{ product.media | where: 'media_type', 'model' | json }}
+      </script>
+    {% endunless %}

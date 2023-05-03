@@ -1,0 +1,134 @@
+<script>
+  let changeToSubscribe = false
+  let closeCallback = () => {}
+  const showSuggestSubscribeModal = (cb) => {
+    closeCallback = cb
+    $("#productSubscribeModal").modal('show')
+    $(".onetimeprice").text($(".one-time-price:visible .total-price").text())
+    $(".subscriptionprice").text($(".subscribe-price:visible .total-price").text())
+
+  }
+
+  const closeDialog = (setAsSubscribe) => {
+    trackEvent(`BM Product ${(setAsSubscribe) ? '' : 'No'} Subscribed Popup`)
+    changeToSubscribe = setAsSubscribe
+    $("#productSubscribeModal").modal('hide')
+  }
+  $().ready(() => {
+    $("#productSubscribeModal").on('hidden.bs.modal', (aEvent) => {
+      closeCallback(changeToSubscribe)
+    })
+  })
+
+</script>
+
+
+<style>
+    #productSubscribeModal {
+        z-index: 5000;
+        text-align: center;
+    }
+    #productSubscribeModal .modal-body .info-container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+    #productSubscribeModal .modal-body .info-container .row {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        justify-content: center;
+    }
+
+    .onetimeprice {
+        text-decoration: line-through;
+        margin-right: 2vw;
+        color: gray;
+    }
+    .subscriptionprice {
+        color: red
+    }
+
+    .btn-subscribe {
+        background-color: rgba(10, 229, 234, 1);
+        color: #000;
+        border-radius: 25px;
+        padding: 1rem 3rem;
+        font-weight: bold
+    }
+
+    a.cancel, a.cancel:hover, a.cancel:visited, a.cancel:link {
+        color: gray;
+    }
+
+    .main-body {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .small-hr {
+        width: 20%;
+        margin: 1rem auto ;
+    }
+
+    .logo-image {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        height: 3rem;
+    }
+
+    h1, h2, h3, h4, h5 {
+        font-family: "Cooper Lt BT W05 Regular";
+        color: #333;
+    }
+
+</style>
+
+<div class="modal fade"
+     id="productSubscribeModal"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="subscribeModalLabel"
+     aria-hidden="true"
+     data-backdrop="static"
+     data-keyboard="false"
+>
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img class="logo-image" src="{{ 'Logo_Image_only.png' | asset_url }}" />
+                <h5>SPECIAL OFFER</h5>
+                <hr class="small-hr">
+                <h2>Subscribe and Save</h2>
+                <h5><u>81%</u> of our customers enjoy the convenience of monthly deliveries.  <br class="d-block d-sm-none"/>Cancel anytime.</h5>
+                <div class="container-fluid justify-content-center main-body" >
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            {% comment %} Below so that no side of the image is larger than 400px {% endcomment %}
+                            <img src="{{ product | img_url: '400x400' }}" />
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="info-container">
+                                <div class="row">
+                                    <span class="title">{{ product.title }}</span>
+                                </div>
+                                <div class="row">
+                                    <span class="onetimeprice"></span>
+                                    <span class="subscriptionprice"></span>
+                                </div>
+                                <div class="row">
+                                    <button class="btn btn-lg btn-subscribe" onclick="closeDialog(true)">Subscribe and Save</button>
+                                </div>
+                                <div class="row">
+                                    <a class="cancel" href="javascript:closeDialog(false)">No thanks, continue to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

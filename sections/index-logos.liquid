@@ -1,0 +1,120 @@
+<!-- /sections/index-logos.liquid -->
+
+<div class="index-logos {{ section.settings.color_bg }}{% if section.settings.title != blank %} index-logos--tall{% endif %}">
+  <div class="wrapper">
+
+  {% if section.settings.title != blank %}
+      {% include 'dots', direction: 'down' %}
+      <div class="title-decoration"></div>
+      <h1 class="title--decorated">{{ section.settings.title | escape }}</h1>
+  {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="logo-bar">
+        {% for block in section.blocks %}
+          <div class="logo-bar__item" {{ block.shopify_attributes }}>
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="logo-bar__link" target="_blank">
+            {% endif %}
+            {% if block.settings.image != blank %}
+              {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+              <div class="lazy-image logo-bar__image" style="padding-top:{{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100}}%; background-image:  url('{{ block.settings.image | img_url: '1x1' }}');">
+                <img class="lazyload fade-in"
+                  alt="{{ block.settings.image.alt | default: section.settings.title }}"
+                  data-src="{{ img_url }}"
+                  data-widths="[110, 160, 220, 320, 480, 540, 720, 900, 1080]"
+                  data-aspectratio="{{  block.settings.image.aspect_ratio }}"
+                  data-parent-fit="cover"
+                  data-sizes="auto"/>
+              </div>
+              <noscript>
+                <img src="{{ block.settings.image | img_url: '160x' }}" alt="{{ block.settings.image.alt | default: section.settings.title }}"/>
+              </noscript>
+            {% else %}
+              {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size == 0 %}
+      {% include 'no-blocks' %}
+    {% endif %}
+
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Logo list",
+    "class": "index-section",
+    "max_blocks": 20,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Logo list"
+      },
+      {
+        "type": "select",
+        "id": "color_bg",
+        "label": "Background color",
+        "default": "index--white",
+        "options": [
+          { "value": "index--white", "label": "White"},
+          { "value": "index--gray", "label": "Secondary"}
+        ]
+      }
+    ],
+    "blocks": [
+      {
+        "type": "logo_image",
+        "name": "Logo",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "640 x 640px .png recommended"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Logo list",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

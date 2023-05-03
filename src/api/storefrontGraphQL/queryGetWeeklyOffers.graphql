@@ -1,0 +1,71 @@
+query getWeeklyOffers {
+  collection(handle: "weekly-offers") {
+    id
+    title
+    handle
+    products(first: 100) {
+      edges {
+        node {
+          id
+          title
+          handle
+          tags
+          description
+          descriptionHtml
+          images(first: 1) {
+            edges {
+              node {
+                src
+                width
+              }
+            }
+          }
+          startDate: metafield(namespace: "weekly_offer", key: "start_date") {
+            value
+          }
+          expiryDate: metafield(namespace: "weekly_offer", key: "expiry_date") {
+            value
+          }
+          monthlySubscriptions: metafield(
+            namespace: "subscription"
+            key: "monthly"
+          ) {
+            value
+          }
+          weeklyOfferDiscount: metafield(
+            namespace: "weekly_offer"
+            key: "discount"
+          ) {
+            value
+          }
+          weeklyOfferDescription: metafield(
+            namespace: "weekly_offer"
+            key: "description"
+          ) {
+            value
+          }
+          variants(first: 250) {
+            edges {
+              node {
+                priceV2 {
+                  currencyCode
+                  amount
+                }
+                id
+                selectedOptions {
+                  name
+                  value
+                }
+              }
+            }
+          }
+          options(first: 999) {
+            id
+            name
+            values
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+<!-- /snippets/product-slideshow.liquid -->
+
+<script>
+  $(() => {
+    $(".thumbs-button").click((e) => {
+      let yScroll = 80
+      if ($(e.currentTarget).hasClass('thumbs-up-button')) {
+        yScroll *= -1
+      }
+      $(".slick-dots")[0].scrollBy(0, yScroll)
+    })
+  })
+</script>
+
+{% for tag in product.tags %}
+  {% if tag contains 'sustainable-product-icons' %}     
+     {% assign sustainableImages = true %}     
+  {% endif %}
+{% endfor %}
+<!--sticky-top is not supported in IE and becomes "position:relative"; in our case sticky-top has no effect -->
+<div class="container product-slideshow-container sticky-top">
+  <div class="row slideshow-row">
+    <div class="col-xl-2 col-md-12 thumbs-container">
+      {% if product.media.size > 1 %}
+          <div class="thumbs-up-button thumbs-button"><i class="fa fa-2x fa-angle-up" aria-hidden="true"></i></div>
+          <div class="product__thumbs"></div>
+          <div class="thumbs-down-button thumbs-button"><i class="fa fa-2x fa-angle-down" aria-hidden="true"></i></div>
+      {%- endif -%}
+    </div>
+    <div class="col-xl-10 col-md-12">
+      {% for tag in product.tags %}
+        {% assign splittedTag = tag | split: "=" %}
+        {% assign tagName = splittedTag[0] %}
+        {% assign tagValue = splittedTag[1] %}
+        {% if tagName == "badge" %}
+          <div class="product-slideshow-badge">
+            {{ tagValue }}
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <div class="product__slides product-single__photos" data-product-slideshow data-product-single-media-group>
+        {% for media in product.media %}
+          {% include 'media', media: media, featured_media: product.featured_media %}
+        {% endfor %}
+      </div>
+
+      {% assign first_3d_model = product.media | where: "media_type", "model" | first %}
+      {% if first_3d_model %}
+        <button
+                class="btn btn--secondary btn--neutral btn--ar product-single__view-in-space"
+                data-shopify-xr
+                data-shopify-model3d-id="{{ first_3d_model.id }}"
+                data-shopify-title="{{ product.title }}"
+                data-shopify-xr-hidden>
+          {% include 'icon-media-model' %}
+          <span class="product-single__view-in-space-text">{{ 'products.product.view_in_space' | t }}</span>
+        </button>
+      {% endif %}
+
+      <noscript>
+        {% for image in product.media %}
+          <img src="{{ image.preview_image | image_url: width: 900 }}" alt="{{ image.alt | default: product.title }}">
+        {% endfor %}
+      </noscript>
+      <div class="featured-on">
+        <div class="logos">
+          <div class="image-container">
+            {% if sustainableImages %}
+              {{ "sustainable-icons.png" | file_img_url: '500x' | img_tag: 'sustainable icons' }}            
+            {% else %}
+              {{ "featured-news.png" | file_img_url: '720x' | img_tag: 'featured news companies' }}            
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

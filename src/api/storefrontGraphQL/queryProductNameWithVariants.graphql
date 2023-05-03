@@ -1,0 +1,19 @@
+query ProductNameWithVariants($productId: ID) {
+  product(id: $productId) {
+    id
+    title
+    onlineStoreUrl
+    tags
+    variants(first: 20) {
+      edges {
+        node {
+          id
+          selectedOptions {
+            name
+            value
+          }
+        }
+      }
+    }
+  }
+}

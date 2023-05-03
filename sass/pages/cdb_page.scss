@@ -1,0 +1,610 @@
+@import '../theme/theme_variables';
+// @import '../custom/fonts';
+@import '../custom/shared_elements';
+@import '../custom/why-because-section';
+@import '../custom/here-to-help-section';
+@import '../custom/member-offers-section';
+@import '../../src/sass/bootstrap4/mixins/breakpoints';
+
+
+.two-columns {
+
+  @include media-breakpoint-down(sm) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  & > .row {
+    .two-column-header {
+      margin-bottom: 1rem;
+      text-align: left;
+      padding-right: 5.5vw;
+      font-size: $title-header-size-desktop;
+      color: $mainColor;
+      letter-spacing: -2.64px;
+      font-family: $mainFontMedium;;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.15;
+      @include media-breakpoint-down(sm) {
+        font-size: $title-header-size-mobile;
+        line-height: 1;
+        letter-spacing: -2.4px;
+        padding-right: 0;
+      }
+    }
+
+    .two-column-subheader {
+      margin-bottom: 3rem;
+      font-family: $secondaryFontItalic;
+      height: 1.25rem;
+      font-size: $subtitle-header-size-desktop;
+      font-weight: 300;
+      font-stretch: normal;
+      line-height: 2;
+      letter-spacing: normal;
+      text-align: left;
+      @include media-breakpoint-down(sm) {
+        font-size: $subtitle-header-size-mobile ;
+        line-height: 1;
+      }
+    }
+
+    & * {
+      color: $mainColor;
+    }
+    padding-left: 6vw;
+
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    @include media-breakpoint-down(sm) {
+      margin-right: 0;
+      margin-left: 0;
+      padding-left: 4vw;
+      // padding-right: 4vw;
+    }
+
+    &.cbd-title-row {
+      background: no-repeat right/cover url('/wp-content/themes/understrap/images/cbd/cbd-main-image.png');
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+      .two-column-header {
+        padding-right: 13.5vw;
+      }
+      @include media-breakpoint-down(sm) {
+        background: $cream-background;
+        height: auto;
+        padding: 2rem 0 0 1vw;
+        .two-column-header {
+          padding-right: 0;
+          margin-bottom: 2rem;
+        }
+        .two-column-subheader {
+          padding-bottom: 2rem;
+        }
+      }
+      .col-md-6 {
+        margin-left: 9vw;
+        @include media-breakpoint-down(sm) {
+          margin-left: auto;
+        }
+      }
+
+      .col-sm-12 {
+        .two-column-right-image {
+          width: 100vw;
+        }
+      }
+    }
+
+    &.white-bg {
+      background-color: #fff;
+    }
+
+    &.what-is-cdb {
+      @include media-breakpoint-down(sm) {
+        padding-bottom: 0;
+        margin-bottom: 4rem;
+      }
+
+      .col-md-4 {
+        text-align: left;
+        padding-left: 1vw;
+        padding-right: 1vw;
+      }
+
+      p {
+        margin-bottom: 2rem;
+      }
+
+      p.graphik {
+        font-size: 1.131vw;
+        line-height: 1.25;
+        letter-spacing: -0.48px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+
+        @include media-breakpoint-down(sm) {
+          font-size: 5.775vw;
+        }
+      }
+      p.cooper {
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.43;
+        letter-spacing: normal;
+        font-size: 1.131vw;
+        @include media-breakpoint-down(sm) {
+          font-size: 5.775vw;
+        }
+      }
+    }
+
+
+    .two-column-subheader {
+      margin-bottom: 3rem;
+      font-family: $secondaryFont;
+      height: 1.25rem;
+      font-size: $subtitle-header-size-desktop;
+      font-weight: 300;
+      font-style: italic;
+      font-stretch: normal;
+      line-height: 2;
+      letter-spacing: normal;
+      text-align: left;
+      @include media-breakpoint-down(sm) {
+        font-size: $subtitle-header-size-mobile;
+        line-height: 1;
+      }
+    }
+
+    .two-column-right-image {
+      width: 90%;
+    }
+
+    &.three-cols {
+      padding-top: 10vh;
+      padding-left: 0vw;
+
+      &.cdb-help-row {
+        background-color: $cream-background;
+        padding-left: 10vw;
+        padding-right: 10vw;
+        margin-left: 30px;
+        margin-right: 30px;
+        padding-bottom: 0!important;
+        margin-bottom: 0!important;
+        .col-content {
+          padding: 0 21%!important;
+          @include media-breakpoint-down(md) {
+            padding: 0 19%!important;
+          }
+        }
+
+        @include media-breakpoint-down(sm) {
+          margin: 2rem 0;
+          padding: 0 1vw;
+        }
+        .section-header {
+          margin-top: 2rem;
+          margin-bottom: 6rem;
+        }
+
+        .col-content {
+          padding: 0 16%;
+        }
+      }
+
+      &.white-bg {
+        text-align: left;
+        margin-left: 10vw;
+        margin-right: 10vw;
+        @include media-breakpoint-down(sm) {
+          margin-left :2vw;
+          margin-right: 2vw;
+        }
+      }
+
+
+      h4 {
+        font-size: 1.075vw;
+        font-family: $secondaryFont;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.33;
+        letter-spacing: -0.42px;
+        @include media-breakpoint-down(sm) {
+          font-size: 4.5vw;
+        }
+        padding-bottom: 2.5rem;
+      }
+
+      .col-md-4,
+      .col-sm-12 {
+        .easepain {
+          width: 44.1%;
+          @include media-breakpoint-down(sm) {
+            width: 55%;
+          }
+        }
+
+        .reduceinflammation {
+          width: 36.7%;
+          @include media-breakpoint-down(sm) {
+            width: 46%
+          }
+        }
+
+        .sleepwell {
+          width: 45%;
+          @include media-breakpoint-down(sm) {
+            width: 56%;
+          }
+        }
+
+        hr {
+          width: 2.5vw;
+          background-color: $mainColor;
+          color: $mainColor;
+          border-color: $mainColor;
+          margin-top: 4rem;
+          margin-bottom: 2rem;
+          @include media-breakpoint-down(sm) {
+            width: 10vw;
+            margin-top: 5.8rem;
+            margin-bottom: 7.5rem;
+          }
+        }
+
+        .col-content {
+          text-align: center;
+          padding: 0 21%;
+          @include media-breakpoint-down(sm) {
+            padding: 0 5%;
+          }
+          &.left {
+            text-align: left;
+            padding: 1rem 10% 3rem 10%;
+            @include media-breakpoint-down(md) {
+              padding: 1rem 10% 2rem 10%;
+            }
+            @include media-breakpoint-down(sm) {
+              padding: 0 0 2rem 2vw;
+            }
+          }
+
+          h3 {
+            font-size: 1.292vw;
+            font-weight: 600;
+            font-style: normal;
+            font-stretch: normal;
+            font-family: $mainFontSemibold;
+            line-height: 2.75;
+            letter-spacing: -0.96px;
+
+            &.illustration-header {
+             margin-top: 2rem;
+            }
+
+            &.product-header {
+              font-size: 1.399vw;
+              @include media-breakpoint-down(sm) {
+                font-size: 6.934vw;
+                margin-bottom: 0;
+              }
+            }
+            @include media-breakpoint-down(sm) {
+              font-size: 6.5vw;
+            }
+          }
+
+          .help-text {
+            font-size: 1.023vw;
+            font-weight: 300;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.47;
+            letter-spacing:normal;
+            @include media-breakpoint-down(sm) {
+              font-size: 5.066vw;
+            }
+          }
+
+          .col-button {
+            position: absolute;
+            bottom: 0;
+            @include media-breakpoint-down(sm) {
+              position: static;
+              margin-top: 3rem;
+              margin-bottom: 3rem;
+            }
+          }
+        }
+      }
+    }
+
+    &.holistic-row,
+    &.targeted-row {
+      .cbd-img-container {
+        width: 100%;
+        text-align: center;
+        background-color: $navColor;
+        padding-top: 25px;
+        img {
+          height: 200px;
+          width: 200px;
+          object-fit: contain;
+        }
+      }
+
+      @include media-breakpoint-down(sm) {
+        padding-top: 3rem;
+
+        .section-header {
+          margin-bottom: 0.5rem;
+        }
+        h4 {
+          font-size: 5.19vw;
+        }
+      }
+    }
+
+    &.holistic-row {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    &.targeted-row {
+      padding-top: 0;
+      .section-header {
+        margin-top: 8rem;
+        @include media-breakpoint-down(sm) {
+          margin-top: 3rem;
+        }
+      }
+    }
+
+    &.testimonials {
+      background-color: $light-blue-background;
+      text-align: center;
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 10vw;
+      padding-right: 10vw;
+      @include media-breakpoint-down(md) {
+        margin-bottom: 0;
+        padding-bottom: 2rem;
+      }
+      @include media-breakpoint-down(sm) {
+        margin-left :2vw;
+        margin-right: 2vw;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .section-header {
+        margin-top: 6rem;
+        margin-bottom: 6rem;
+      }
+
+      .col-content {
+        text-align: center;
+        min-height: 12rem;
+        padding-left: 1vw;
+        padding-right: 0vw;
+
+        .logo {
+          display: flex;
+          flex-flow: column;
+          align-items: center;
+          justify-content: center;
+          height: 1rem;
+          @include media-breakpoint-down(sm) {
+            height: 3rem;
+          }
+        }
+        p {
+          padding: 0 2vw;
+          @include media-breakpoint-down(sm) {
+            padding: 0;
+            font-size: 5.344vw;
+          }
+          margin: 1.7vh 0;
+          height: 7rem;
+          @include media-breakpoint-down(md) {
+            height: 3rem;
+          }
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          letter-spacing: -0.4px;
+          line-height: 1.25;
+          font-family: $mainFont;
+          font-size: 1.076vw;
+        }
+
+      }
+
+      hr {
+        width: 2rem;
+        margin-top: 6rem;
+        margin-bottom: 6rem;
+        background-color: $mainColor;
+        @include media-breakpoint-down(md) {
+          margin-top: 3rem;
+          margin-bottom: 1rem;
+        }
+        @include media-breakpoint-down(ms) {
+          margin-top: 6rem;
+          margin-bottom: 3rem;
+        }
+      }
+      .show-more {
+        margin-top: 2vh;
+        text-align: center;
+        a {
+          color: $mainColor;
+          text-decoration: underline;
+          &:hover,
+          &:visited,
+          &:active {
+            font-weight: 600;
+            color: $mainColor;
+            font-family: $mainFontSemibold;
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .slider {
+        @include media-breakpoint-down(sm) {
+          width: 100vw;
+          min-height: 55vw;
+          display: flex;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scroll-snap-type: x mandatory;
+          overflow-y: hidden;
+
+          .slides::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+          }
+          .slides::-webkit-scrollbar-thumb {
+            background: transparent;
+            border-radius: 0px;
+          }
+          .slides::-webkit-scrollbar-track {
+            background: transparent;
+          }
+        }
+        .slides {
+          display: flex;
+          @include media-breakpoint-down(sm) {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+
+            .slide {
+              flex-shrink: 0;
+              height: 100%
+
+            }
+
+            & > div {
+              scroll-snap-align: start;
+              transform-origin: center center;
+              transform: scale(1);
+              transition: transform 0.5s;
+            }
+          }
+        }
+      }
+      .slider-controls {
+          & > a {
+            display: inline-flex;
+            width: 1rem;
+            height: 1rem;
+            background: gray;
+            text-decoration: none;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 0 0.5rem 0;
+            position: relative;
+
+            @include media-breakpoint-down(sm) {
+              margin-top: 1rem;
+            }
+            &.active {
+              border: 1px solid gray;
+              background: white;
+            }
+          }
+        }
+    }
+
+
+    &.difference {
+      padding-left: 0;
+      padding-right: 0;
+      text-align: left;
+      @include media-breakpoint-down(sm) {
+        .content-container {
+          padding-left: 10vw;
+        }
+      }
+
+      .content-container {
+        padding-left: 4vw;
+      }
+      .section-header {
+        width: 15vw;
+        margin-bottom: 2rem;
+        margin-top: 3rem;
+        text-align: left;
+        @include media-breakpoint-down(sm) {
+          width: 45vw;
+        }
+      }
+
+      .hemp-pic {
+        width: 90%;
+        @include media-breakpoint-down(sm) {
+          width: 100%
+        }
+      }
+
+      .diff-item {
+        margin-top: 0;
+        margin-bottom: 0;
+        .diff-icon {
+          min-width: 2.8vw;
+          margin-top: 0.5rem;
+          @include media-breakpoint-down(sm) {
+            min-width: 12vw;
+          }
+        }
+
+        .diff-text {
+          width: 15vw;
+          @include media-breakpoint-down(sm) {
+            width: 68vw;
+          }
+          h3 {
+            font-size: 1.13vw;
+            font-weight: 600;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 2.19;
+            letter-spacing: -0.84px;
+            font-family: $mainFontSemibold;
+            margin-bottom: 0;
+            @include media-breakpoint-down(sm) {
+              font-size: 5.5vw;
+            }
+          }
+
+          p.cooper {
+            font-weight: 300;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.47;
+            letter-spacing: normal;
+            font-size: $fontsize-19px-cooper-light-desktop;
+            @include media-breakpoint-down(sm) {
+              font-size: $fontsize-19px-cooper-light-mobile;
+            }
+          }
+
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+

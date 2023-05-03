@@ -1,0 +1,72 @@
+<!-- /sections/page-contact-policies.liquid-->
+
+<hr class="hr--tall" />
+
+{% if section.settings.title != blank %}
+  <h2 class="h4--body">{{ section.settings.title}}</h2>
+{% endif %}
+
+
+<div class="page--policy grid grid--uniform">
+  {%- for block in section.blocks -%}
+  <div class="grid__item medium-up--one-half" {{ block.shopify_attributes }}>
+    {%- if block.settings.link -%}
+      <a href="{{ block.settings.link }}" class="policy__block">
+    {%- else -%}
+      <div class="policy__block">
+    {%- endif -%}
+      <div class="policy__title h6--body">{{ block.settings.title }}</div>
+      <hr class="hr--no-margin">
+      <div class="rte policy__content">
+        {{ block.settings.text }}
+      </div>
+    {%- if block.settings.link -%}
+      </a>
+    {%- else -%}
+      </div>
+    {%- endif -%}
+  </div>
+  {%- endfor -%}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Helpful links",
+    "class": "contact__policy",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Helpful links"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Policy",
+        "type": "policy",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Privacy policy",
+            "info": "Example: Privacy policy"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>This tab content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

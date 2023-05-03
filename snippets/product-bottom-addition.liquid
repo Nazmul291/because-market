@@ -1,0 +1,24 @@
+
+{% if section.blocks.size > 0 %}
+  <div data-section-id="{{ section.id }}">
+    {% for blurb in section.blocks %}
+      {% if blurb.settings.product != product.handle %}
+        {% continue %}
+      {% endif %}
+
+      <section id="{{ blurb.id }}" class="products-bottom-addition_section">
+        <div class="products-bottom-addition_section_img">
+          <img src="{{ blurb.settings.product_bottom_img | img_url :'master' }}">
+        </div>
+        <div class="products-bottom-addition_container">
+          <div class="products-bottom-addition_title">
+            {{ blurb.settings.title }}
+          </div>
+          <div class="products-bottom-addition_description">
+            {{ blurb.settings.description }}
+          </div>
+        </div>
+      </section>
+    {% endfor %}
+  </div>
+{% endif %}

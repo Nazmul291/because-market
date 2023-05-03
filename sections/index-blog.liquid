@@ -1,0 +1,135 @@
+<!-- /sections/index-blog.liquid -->
+{%- assign blog = blogs[section.settings.index_blog] -%}
+
+{% liquid
+  case section.settings.grid
+    when 1
+      assign grid_width_large = 'large-up--one-half large-up--push-one-quarter clear'
+      assign grid_width_medium = 'medium--one-half medium--push-one-quarter clear'
+      assign grid_width_small = 'small--one-whole'
+    when 2
+      assign grid_width_large = 'large-up--one-half'
+      assign grid_width_medium = 'medium--one-half'
+      assign grid_width_small = 'small--one-whole'
+    else
+      assign grid_width_large = 'large-up--one-third'
+      assign grid_width_medium = 'medium--one-third'
+      assign grid_width_small = 'small--one-whole'
+  endcase
+%}
+
+{%- assign article_limit = section.settings.grid | times: section.settings.rows -%}
+
+<div class="index-blog {{ section.settings.background }}" data-section-id="{{ section.id }}" data-section-type="index-blog">
+  <div class="wrapper">
+    {% if section.settings.title != blank %}
+      {% include 'dots', direction: 'down' %}
+      <div class="title-decoration"></div>
+      <h2 class="title--decorated">{{ section.settings.title | escape }}</h2>
+    {% endif %}
+    <div class="grid grid--uniform">
+      {% for article in blog.articles offset:1  limit: article_limit %}
+        {% include 'article-grid-item', show_excerpt: section.settings.show_excerpt, show_meta: section.settings.show_meta %}
+      {% else %}
+        {% comment %}    Onboarding content    {% endcomment %}
+        {% for i in (1..15) limit: article_limit %}
+          <div class="grid__item {{ grid_width_small }} {{ grid_width_medium }} {{ grid_width_large }}">
+            <div class="article__card article__card--image">
+              <p class="lazy-image article__card__image__wrapper">
+                <span>
+                  {% capture imgCount %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                  {% capture svg_name %}collection-{{ imgCount }}{% endcapture %}
+                  {{ svg_name | placeholder_svg_tag: 'placeholder-svg' }}
+                </span>
+              </p>
+              <div class="article__card__content">
+                <p class="h3 article__card__title">{{ 'homepage.onboarding.blog_title' | t }}</p>
+                <div class="article__card__text">
+                  <p>{{ 'homepage.onboarding.blog_excerpt' | t }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        {% comment %}    End onboarding content    {% endcomment %}
+      {% endfor %}
+    </div>
+    {% if section.settings.show_view_all %}
+      <div class="text-center">
+        <a href="{{ blog.url }}" class="btn">
+          {{ 'blogs.general.view_all' | t }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Blog posts",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "News"
+    },
+    {
+      "type": "blog",
+      "id": "index_blog",
+      "label": "Blog"
+    },
+    {
+      "type":    "range",
+      "id":      "grid",
+      "min":     1,
+      "max":     3,
+      "step":    1,
+      "label":   "Articles per row",
+      "default": 3
+    },
+    {
+      "type":    "range",
+      "id":      "rows",
+      "min":     1,
+      "max":     5,
+      "step":    1,
+      "label":   "Number of rows",
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "show_meta",
+      "label": "Show date and author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "default": false,
+      "label": "Show article excerpt"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View all' button",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background color",
+      "options": [
+        { "value": "index--white", "label": "White"},
+        { "value": "index--gray", "label": "Secondary"}
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog posts",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %}

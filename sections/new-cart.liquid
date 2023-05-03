@@ -1,0 +1,88 @@
+<!-- new cart section -->
+{% schema %}
+{
+  "name": "New cart",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "buy_url",
+      "label": "Backend buy url",
+      "default": "adasd"
+    }
+  ],
+  "presets": [
+    {
+      "name": "New cart",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}
+
+<div id="new-cart"
+  data-cart="null"
+  data-settings="{{ settings | json | escape }}"
+  data-t="{}"
+>
+<script>
+  (function() {
+    const cartEl = document.querySelector("#new-cart")
+    const cart = {{ cart | json }}
+    const t = {
+      "layout.cart.items_count.other": "{{ 'layout.cart.items_count.other' | t | capitalize }}",
+
+      "cart.general.title": "{{ 'cart.general.title' | t }}",
+      "cart.general.empty": "{{ 'cart.general.empty' | t }}",
+      "cart.general.continue_browsing_html": "{{ 'cart.general.continue_browsing_html' | t }}",
+      "cart.general.cookies_required": "{{ 'cart.general.cookies_required' | t }}",
+      "cart.general.continue_browsing_html": "{{ 'cart.general.continue_browsing_html' | t }}",
+      "cart.general.item_quantity": "{{ 'cart.general.item_quantity' | t }}",
+      "cart.general.savings": "{{ 'cart.general.savings' | t }}",
+      "cart.general.with": "{{ 'cart.general.with' | t }}",
+      "cart.general.remove": "{{ 'cart.general.remove' | t }}",
+      "cart.general.note": "{{ 'cart.general.note' | t }}",
+      "cart.general.subtotal": "{{ 'cart.general.subtotal' | t }}",
+      "cart.general.shipping_at_checkout": "{{ 'cart.general.shipping_at_checkout' | t }}",
+      "cart.general.checkout": "{{ 'cart.general.checkout' | t }}",
+
+      "cart.label.price": "{{ 'cart.label.price' | t }}",
+      "cart.label.quantity": "{{ 'cart.label.quantity' | t }}",
+      "cart.label.total": "{{ 'cart.label.total' | t }}",
+
+      "products.product.quantity": "{{ 'products.product.quantity' | t }}"
+    }
+
+    const customer = {
+      email: "{{ customer.email }}",
+      first_name: "{{ customer.first_name }}",
+      last_name: "{{ customer.last_name }}",
+      phone: "{{ customer.phone }}",
+      default_address: {{ customer.default_address | json }}
+    }
+
+    const products = {}
+
+    {% for cartItem in cart.items %}
+      products[{{ cartItem.product_id }}] = {{ cartItem.product | json }};
+
+      products[{{ cartItem.product_id }}].metafields = {
+        subscription: {
+          {% for subscription in cartItem.product.metafields.subscription %}
+            "{{ subscription[0] }}": {{ subscription[1] }},
+          {% endfor %}
+        }
+      }
+    {% endfor %}
+
+    cartEl.dataset.t = JSON.stringify(t)
+    cartEl.dataset.cart = JSON.stringify(cart)
+    cartEl.dataset.products = JSON.stringify(products)
+    cartEl.dataset.customer = JSON.stringify(customer)
+  })()
+
+</script>
+</div>
+
+<script src="{{ 'cart.bundle.js' | asset_url }}" defer></script>
+{{ 'cart.bundle.css' | asset_url | stylesheet_tag }}
